@@ -20,9 +20,11 @@ class CalculatorScreen extends StatefulWidget {
 }
 
 enum Gender { male, female }
+enum ProteinGoal { maintenance, muscleGain, fatLoss }
 
 class _MyHomePageState extends State<CalculatorScreen> {
   Gender _gender = Gender.male;
+  ProteinGoal _goal = ProteinGoal.maintenance;
 
   String dropdownValue = 'sedentary';
   int proteinIntake = 20;
@@ -31,14 +33,18 @@ class _MyHomePageState extends State<CalculatorScreen> {
   static const TextStyle optionStyle =
       TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
 
-  Widget _radioButton(Gender value, String label) {
+  Widget _radioButton(
+    String label,
+    groupValue,
+    value,
+  ) {
     return Row(
       children: <Widget>[
         Radio(
           activeColor: PrimaryColor,
           value: value,
-          groupValue: _gender,
-          onChanged: (Gender value) {
+          groupValue: groupValue,
+          onChanged: (value) {
             setState(() {
               _gender = value;
             });
@@ -77,10 +83,10 @@ class _MyHomePageState extends State<CalculatorScreen> {
         // horizontal).
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
-          Text(
-            'Protein calculator',
-            style: Theme.of(context).textTheme.display1,
-          ),
+          // Text(
+          //   'Protein calculator',
+          //   style: Theme.of(context).textTheme.display1,
+          // ),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
@@ -172,10 +178,27 @@ class _MyHomePageState extends State<CalculatorScreen> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
                         Text('Gender'),
-                        _radioButton(Gender.male, 'male'),
-                        _radioButton(Gender.female, 'female')
+                        _radioButton(
+                          'male',
+                          _gender,
+                          Gender.male,
+                        ),
+                        _radioButton(
+                          'female',
+                          _gender,
+                          Gender.female,
+                        )
                       ],
                     ),
+                  ],
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Text('Goal'),
+                    _radioButton('maintenance', _goal, ProteinGoal.maintenance),
+                    _radioButton('maintenance', _goal, ProteinGoal.muscleGain),
+                    _radioButton('maintenance', _goal, ProteinGoal.fatLoss),
                   ],
                 ),
                 RaisedButton(
