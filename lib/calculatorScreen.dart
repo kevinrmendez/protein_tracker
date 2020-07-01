@@ -27,9 +27,13 @@ class _MyHomePageState extends State<CalculatorScreen> {
   ProteinGoal _goal = ProteinGoal.maintenance;
 
   String dropdownValue = 'sedentary';
+  String dropdownValueGoal = 'maintenance';
   int proteinIntake = 20;
   int _counter = 0;
   int _selectedIndex = 0;
+  double _weight;
+  int _weightRounded;
+
   static const TextStyle optionStyle =
       TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
 
@@ -62,156 +66,175 @@ class _MyHomePageState extends State<CalculatorScreen> {
   }
 
   @override
+  void initState() {
+    super.initState();
+    _weight = 65;
+    _weightRounded = _weight.round();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Center(
       // Center is a layout widget. It takes a single child and positions it
       // in the middle of the parent.
-      child: Column(
-        // Column is also a layout widget. It takes a list of children and
-        // arranges them vertically. By default, it sizes itself to fit its
-        // children horizontally, and tries to be as tall as its parent.
-        //
-        // Invoke "debug painting" (press "p" in the console, choose the
-        // "Toggle Debug Paint" action from the Flutter Inspector in Android
-        // Studio, or the "Toggle Debug Paint" command in Visual Studio Code)
-        // to see the wireframe for each widget.
-        //
-        // Column has various properties to control how it sizes itself and
-        // how it positions its children. Here we use mainAxisAlignment to
-        // center the children vertically; the main axis here is the vertical
-        // axis because Columns are vertical (the cross axis would be
-        // horizontal).
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          // Text(
-          //   'Protein calculator',
-          //   style: Theme.of(context).textTheme.display1,
-          // ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              Container(
-                padding: EdgeInsets.symmetric(vertical: 20),
-                child: Text(
-                  " $proteinIntake",
-                  style: TextStyle(fontSize: 70),
-                ),
-              ),
-              Text(
-                'gr',
-                style: TextStyle(fontSize: 25),
-              )
-            ],
-          ),
-          Container(
-            padding: EdgeInsets.symmetric(horizontal: 40),
-            child: Form(
-                child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      child: ListView(children: <Widget>[
+        Column(
+          // Column is also a layout widget. It takes a list of children and
+          // arranges them vertically. By default, it sizes itself to fit its
+          // children horizontally, and tries to be as tall as its parent.
+          //
+          // Invoke "debug painting" (press "p" in the console, choose the
+          // "Toggle Debug Paint" action from the Flutter Inspector in Android
+          // Studio, or the "Toggle Debug Paint" command in Visual Studio Code)
+          // to see the wireframe for each widget.
+          //
+          // Column has various properties to control how it sizes itself and
+          // how it positions its children. Here we use mainAxisAlignment to
+          // center the children vertically; the main axis here is the vertical
+          // axis because Columns are vertical (the cross axis would be
+          // horizontal).
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                TextField(
-                  obscureText: true,
-                  decoration: InputDecoration(
-                    border: OutlineInputBorder(),
-                    labelText: 'age',
+                Container(
+                  padding: EdgeInsets.symmetric(vertical: 20),
+                  child: Text(
+                    " $proteinIntake",
+                    style: TextStyle(fontSize: 70),
                   ),
                 ),
-                SizedBox(
-                  height: 20,
-                ),
-                TextField(
-                  obscureText: true,
-                  decoration: InputDecoration(
-                    border: OutlineInputBorder(),
-                    labelText: 'height',
-                  ),
-                ),
-                SizedBox(
-                  height: 20,
-                ),
-                TextField(
-                  obscureText: true,
-                  decoration: InputDecoration(
-                    border: OutlineInputBorder(),
-                    labelText: 'weight',
-                  ),
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    Text('activity'),
-                    SizedBox(
-                      width: 20,
-                    ),
-                    DropdownButton<String>(
-                      value: dropdownValue,
-                      icon: Icon(Icons.arrow_downward),
-                      iconSize: 24,
-                      elevation: 16,
-                      style: TextStyle(color: PrimaryColor),
-                      underline: Container(
-                        height: 2,
-                        color: Colors.grey,
-                      ),
-                      onChanged: (String newValue) {
-                        setState(() {
-                          dropdownValue = newValue;
-                        });
-                      },
-                      items: <String>[
-                        'sedentary',
-                        'moderate',
-                        'active',
-                        'very active'
-                      ].map<DropdownMenuItem<String>>((String value) {
-                        return DropdownMenuItem<String>(
-                          value: value,
-                          child: Text(value),
-                        );
-                      }).toList(),
-                    )
-                  ],
-                ),
-                Column(
-                  children: <Widget>[
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        Text('Gender'),
-                        _radioButton(
-                          'male',
-                          _gender,
-                          Gender.male,
-                        ),
-                        _radioButton(
-                          'female',
-                          _gender,
-                          Gender.female,
-                        )
-                      ],
-                    ),
-                  ],
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    Text('Goal'),
-                    _radioButton('maintenance', _goal, ProteinGoal.maintenance),
-                    _radioButton('maintenance', _goal, ProteinGoal.muscleGain),
-                    _radioButton('maintenance', _goal, ProteinGoal.fatLoss),
-                  ],
-                ),
-                RaisedButton(
-                  child: Text('calculate'),
-                  onPressed: () {
-                    calculateProteinIntake();
-                  },
+                Text(
+                  'gr',
+                  style: TextStyle(fontSize: 25),
                 )
               ],
-            )),
-          )
-        ],
-      ),
+            ),
+            Container(
+              padding: EdgeInsets.symmetric(horizontal: 40),
+              child: Form(
+                  child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  Text('Weight'),
+                  Text(" $_weightRounded"),
+                  Slider(
+                    activeColor: PrimaryColor,
+                    label: 'weight',
+                    value: _weight,
+                    onChanged: (weight) {
+                      setState(() {
+                        _weight = weight;
+                        _weightRounded = weight.round();
+                      });
+                    },
+                    min: 0,
+                    max: 500,
+                  ),
+                  Column(
+                    children: <Widget>[
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          Text('Gender'),
+                          _radioButton(
+                            'male',
+                            _gender,
+                            Gender.male,
+                          ),
+                          _radioButton(
+                            'female',
+                            _gender,
+                            Gender.female,
+                          )
+                        ],
+                      ),
+                    ],
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Text('activity'),
+                      SizedBox(
+                        width: 20,
+                      ),
+                      DropdownButton<String>(
+                        value: dropdownValue,
+                        icon: Icon(Icons.arrow_downward),
+                        iconSize: 24,
+                        elevation: 16,
+                        style: TextStyle(color: PrimaryColor),
+                        underline: Container(
+                          height: 2,
+                          color: Colors.grey,
+                        ),
+                        onChanged: (String newValue) {
+                          setState(() {
+                            dropdownValue = newValue;
+                          });
+                        },
+                        items: <String>[
+                          'sedentary',
+                          'moderate',
+                          'active',
+                          'very active'
+                        ].map<DropdownMenuItem<String>>((String value) {
+                          return DropdownMenuItem<String>(
+                            value: value,
+                            child: Text(value),
+                          );
+                        }).toList(),
+                      )
+                    ],
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Text('goal'),
+                      SizedBox(
+                        width: 20,
+                      ),
+                      DropdownButton<String>(
+                        value: dropdownValueGoal,
+                        icon: Icon(Icons.arrow_downward),
+                        iconSize: 24,
+                        elevation: 16,
+                        style: TextStyle(color: PrimaryColor),
+                        underline: Container(
+                          height: 2,
+                          color: Colors.grey,
+                        ),
+                        onChanged: (String newValue) {
+                          setState(() {
+                            dropdownValueGoal = newValue;
+                          });
+                        },
+                        items: <String>[
+                          'maintenance',
+                          'muscle gain',
+                          'fat loss'
+                        ].map<DropdownMenuItem<String>>((String value) {
+                          return DropdownMenuItem<String>(
+                            value: value,
+                            child: Text(value),
+                          );
+                        }).toList(),
+                      )
+                    ],
+                  ),
+                  RaisedButton(
+                    child: Text('calculate'),
+                    onPressed: () {
+                      calculateProteinIntake();
+                    },
+                  )
+                ],
+              )),
+            )
+          ],
+        ),
+      ]),
     );
   }
 }
