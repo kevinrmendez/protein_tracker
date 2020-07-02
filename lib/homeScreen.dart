@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:protein_tracker/main.dart';
+import 'package:protein_tracker/model/proteinGoal.dart';
+import 'package:step_progress_indicator/step_progress_indicator.dart';
 
 class HomeScreen extends StatefulWidget {
   HomeScreen({Key key, this.title}) : super(key: key);
@@ -41,10 +44,64 @@ class _MyHomePageState extends State<HomeScreen> {
         // horizontal).
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
-          Text(
-            'Home',
-            style: Theme.of(context).textTheme.display1,
+          CircularStepProgressIndicator(
+            totalSteps: 100,
+            currentStep: 74,
+            stepSize: 10,
+            selectedColor: PrimaryColor,
+            unselectedColor: Colors.grey[200],
+            padding: 0,
+            width: 200,
+            height: 200,
+            selectedStepSize: 15,
+            child: Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Text(
+                        '40',
+                        style: TextStyle(fontSize: 80),
+                      ),
+                      Text(
+                        'gr',
+                        style: TextStyle(fontSize: 30),
+                      )
+                    ],
+                  ),
+                  Text('consumed'),
+                ],
+              ),
+            ),
           ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Icon(Icons.star),
+              StreamBuilder(
+                stream: proteinGoalServices.stream,
+                builder: (BuildContext context, AsyncSnapshot snapshot) {
+                  return Text("goal: ${snapshot.data} gr");
+                },
+              )
+            ],
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[Icon(Icons.timelapse), Text('remaining : 40gr')],
+          ),
+          RaisedButton(
+            color: PrimaryColor,
+            child: Text(
+              'track protein',
+              style: TextStyle(color: Colors.white, fontSize: 20),
+            ),
+            onPressed: () {
+              print('track food');
+            },
+          )
         ],
       ),
     );

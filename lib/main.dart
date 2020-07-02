@@ -14,8 +14,10 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       theme: ThemeData(
+        fontFamily: "OpenSans",
         primaryColor: PrimaryColor,
         primarySwatch: Colors.grey,
       ),
@@ -109,6 +111,7 @@ class _AppState extends State<App> {
         selectedItemColor: PrimaryColor,
         onTap: _onItemTapped,
       ),
+
       // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
