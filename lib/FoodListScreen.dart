@@ -37,22 +37,27 @@ class _FoodListScreenState extends State<FoodListScreen> {
           style: TextStyle(color: Colors.white),
         ),
       ),
-      body: Container(
-        padding: EdgeInsets.symmetric(vertical: 20),
-        child: ListView(
-          children: <Widget>[
-            Text('List here'),
-            StreamBuilder(
-              stream: foodListServices.stream,
-              builder: (BuildContext context, AsyncSnapshot snapshot) {
-                ListView.builder(itemBuilder: null);
-              },
-            )
-          ],
-        ),
+      body: StreamBuilder<List<Food>>(
+        stream: foodListServices.stream,
+        builder: (BuildContext context, AsyncSnapshot snapshot) {
+          print(snapshot.data);
+          if (snapshot.data.length == 0) {
+            return Text('list empty');
+          } else {
+            return ListView.builder(
+                itemCount: foodListServices.currentList.length,
+                itemBuilder: (BuildContext ctxt, int index) {
+                  return Text(snapshot.data[index].name);
+                });
+          }
+        },
       ),
       floatingActionButton: FloatingActionButton(
-        child: Icon(Icons.add),
+        backgroundColor: PrimaryColor,
+        child: Icon(
+          Icons.add,
+          color: Colors.white,
+        ),
         onPressed: () {
           print('add food');
           showDialog(context: context, builder: (_) => AddProteinDialog());
@@ -104,6 +109,7 @@ class _AddProteinDialogState extends State<AddProteinDialog> {
                     height: 20,
                   ),
                   TextField(
+                    keyboardType: TextInputType.number,
                     controller: _proteinAmountController,
                     decoration:
                         InputDecoration(hintText: 'Protein amount in gr'),

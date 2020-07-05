@@ -2,5 +2,5 @@ class Food {
   String name;
   int proteinAmount;
 
-  Food(name, proteinAmount);
+  Food(this.name, this.proteinAmount);
 }
