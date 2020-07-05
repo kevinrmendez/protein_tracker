@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:protein_tracker/main.dart';
 import 'package:protein_tracker/model/proteinGoal.dart';
+import 'package:protein_tracker/trackerScreen.dart';
 import 'package:step_progress_indicator/step_progress_indicator.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -99,6 +100,9 @@ class _MyHomePageState extends State<HomeScreen> {
               style: TextStyle(color: Colors.white, fontSize: 20),
             ),
             onPressed: () {
+              Navigator.of(context).push(MaterialPageRoute(
+                  builder: (BuildContext context) => TrackerScreen()));
+
               print('track food');
             },
           )

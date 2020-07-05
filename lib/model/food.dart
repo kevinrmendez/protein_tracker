@@ -1,4 +1,6 @@
 class Food {
-  String drescription;
+  String name;
   int proteinAmount;
+
+  Food(name, proteinAmount);
 }

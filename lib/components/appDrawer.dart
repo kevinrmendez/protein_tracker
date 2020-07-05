@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:protein_tracker/FoodListScreen.dart';
 import 'package:protein_tracker/goalScreen.dart';
 import 'package:protein_tracker/homeScreen.dart';
+import 'package:protein_tracker/settingsScreen.dart';
 
 import '../main.dart';
 
@@ -55,7 +57,6 @@ class AppDrawer extends StatelessWidget {
                       builder: (BuildContext context) => App()));
                 },
               ),
-
               ListTile(
                 title: Text(
                   "Goal",
@@ -69,6 +70,21 @@ class AppDrawer extends StatelessWidget {
                   Navigator.of(context).pop();
                   Navigator.of(context).push(MaterialPageRoute(
                       builder: (BuildContext context) => GoalScreen()));
+                },
+              ),
+              ListTile(
+                title: Text(
+                  "Food List",
+                  // style: TextStyle(color: Theme.of(context).primaryColor),
+                ),
+                trailing: Icon(
+                  Icons.room_service,
+                  color: Theme.of(context).accentColor,
+                ),
+                onTap: () {
+                  Navigator.of(context).pop();
+                  Navigator.of(context).push(MaterialPageRoute(
+                      builder: (BuildContext context) => FoodListScreen()));
                 },
               ),
             ],
