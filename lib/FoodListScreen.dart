@@ -1,20 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:protein_tracker/main.dart';
-import 'package:protein_tracker/model/FoodService.dart';
+import 'package:protein_tracker/FoodService.dart';
 import 'package:protein_tracker/model/food.dart';
 import 'package:protein_tracker/widgetUtils.dart';
 
 class FoodListScreen extends StatefulWidget {
   FoodListScreen({Key key, this.title}) : super(key: key);
-
-  // This widget is the home page of your application. It is stateful, meaning
-  // that it has a State object (defined below) that contains fields that affect
-  // how it looks.
-
-  // This class is the configuration for the state. It holds the values (in this
-  // case the title) provided by the parent (in this case the App widget) and
-  // used by the build method of the State. Fields in a Widget subclass are
-  // always marked "final".
 
   final String title;
 
@@ -42,12 +33,27 @@ class _FoodListScreenState extends State<FoodListScreen> {
         builder: (BuildContext context, AsyncSnapshot snapshot) {
           print(snapshot.data);
           if (snapshot.data.length == 0) {
-            return Text('list empty');
+            return Center(
+                child: Container(
+              width: MediaQuery.of(context).size.width * .5,
+              child: Text(
+                'your food list is empty',
+                textAlign: TextAlign.center,
+                style: TextStyle(fontSize: 20),
+              ),
+            ));
           } else {
             return ListView.builder(
                 itemCount: foodListServices.currentList.length,
                 itemBuilder: (BuildContext ctxt, int index) {
-                  return Text(snapshot.data[index].name);
+                  Food foodItem = snapshot.data[index];
+                  return ListTile(
+                      title: Text(foodItem.name),
+                      subtitle: Text("${foodItem.proteinAmount.toString()} gr"),
+                      trailing: IconButton(
+                        icon: Icon(Icons.delete),
+                        onPressed: () {},
+                      ));
                 });
           }
         },
@@ -73,6 +79,7 @@ class AddProteinDialog extends StatefulWidget {
 }
 
 class _AddProteinDialogState extends State<AddProteinDialog> {
+  final _formKey = GlobalKey<FormState>();
   String dropdownValueGoal = "";
   String foodName;
   int proteinAmount;
@@ -87,7 +94,7 @@ class _AddProteinDialogState extends State<AddProteinDialog> {
   Widget build(BuildContext context) {
     return WidgetUtils.dialog(
         context: context,
-        height: MediaQuery.of(context).size.height * .5,
+        height: MediaQuery.of(context).size.height * .52,
         title: 'Add food',
         showAd: false,
         child: Container(
@@ -95,28 +102,45 @@ class _AddProteinDialogState extends State<AddProteinDialog> {
           child: Column(
             children: <Widget>[
               Form(
+                key: _formKey,
                 child: Column(children: [
-                  TextField(
+                  TextFormField(
                     controller: _foodNameController,
-                    decoration: InputDecoration(hintText: 'Food name'),
+                    decoration: InputDecoration(
+                        // hintText: 'chicken',
+                        labelText: 'Food name'),
                     onChanged: (value) {
                       setState(() {
                         foodName = value;
                       });
                     },
+                    validator: (value) {
+                      if (value.isEmpty) {
+                        return 'food is empty';
+                      }
+                      return null;
+                    },
                   ),
                   SizedBox(
                     height: 20,
                   ),
-                  TextField(
+                  TextFormField(
                     keyboardType: TextInputType.number,
                     controller: _proteinAmountController,
-                    decoration:
-                        InputDecoration(hintText: 'Protein amount in gr'),
+                    decoration: InputDecoration(
+                        // hintText: 'Protein amount in gr',
+                        labelText: 'Protein amount in gr',
+                        errorStyle: TextStyle(color: RedColor)),
                     onChanged: (value) {
                       setState(() {
                         proteinAmount = int.parse(value);
                       });
+                    },
+                    validator: (value) {
+                      if (value.isEmpty) {
+                        return "protein amount is empty";
+                      }
+                      return null;
                     },
                   ),
                   SizedBox(
@@ -125,12 +149,14 @@ class _AddProteinDialogState extends State<AddProteinDialog> {
                   WidgetUtils.button(
                       text: "Add",
                       onPressed: () {
-                        print('add food');
-                        print(foodName);
-                        print(proteinAmount);
-                        Food food = Food(foodName, proteinAmount);
-                        foodListServices.add(food);
-                        Navigator.pop(context);
+                        if (_formKey.currentState.validate()) {
+                          print('add food');
+                          print(foodName);
+                          print(proteinAmount);
+                          Food food = Food(foodName, proteinAmount);
+                          foodListServices.add(food);
+                          Navigator.pop(context);
+                        } else {}
                       })
                 ]),
               ),

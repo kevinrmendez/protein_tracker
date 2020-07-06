@@ -1,6 +1,5 @@
+import 'package:protein_tracker/model/food.dart';
 import 'package:rxdart/rxdart.dart';
-
-import 'food.dart';
 
 class FoodService {
   BehaviorSubject<List<Food>> _foodList = BehaviorSubject.seeded(<Food>[]);

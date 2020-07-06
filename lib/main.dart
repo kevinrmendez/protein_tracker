@@ -7,7 +7,9 @@ import 'package:protein_tracker/settingsScreen.dart';
 void main() => runApp(MyApp());
 
 const PrimaryColor = const Color(0xFF00BCD4);
+const BaseColor = const Color(0xFF31DDC2);
 const GreyColor = const Color(0xFFEEEEEE);
+const RedColor = const Color(0xFFDD314B);
 
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
