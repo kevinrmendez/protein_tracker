@@ -4,7 +4,7 @@ import 'package:rxdart/rxdart.dart';
 class FoodService {
   BehaviorSubject<List<Food>> _foodList = BehaviorSubject.seeded(<Food>[]);
   BehaviorSubject<List<String>> _foodNameList =
-      BehaviorSubject.seeded(<String>[""]);
+      BehaviorSubject.seeded(<String>[]);
 
   Stream get stream => _foodList.stream;
   Stream get streamFoodName => _foodNameList.stream;

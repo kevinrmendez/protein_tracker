@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:protein_tracker/FoodService.dart';
+import 'package:protein_tracker/ProteinService.dart';
 import 'package:protein_tracker/main.dart';
 import 'package:protein_tracker/model/food.dart';
+import 'package:protein_tracker/model/protein.dart';
 import 'package:protein_tracker/widgetUtils.dart';
 
 class TrackerScreen extends StatefulWidget {
@@ -39,28 +41,38 @@ class _TrackerScreenState extends State<TrackerScreen> {
           style: TextStyle(color: Colors.white),
         ),
       ),
-      body: Container(
-        padding: EdgeInsets.symmetric(vertical: 20),
-        child: Column(
-          // Column is also a layout widget. It takes a list of children and
-          // arranges them vertically. By default, it sizes itself to fit its
-          // children horizontally, and tries to be as tall as its parent.
-          //
-          // Invoke "debug painting" (press "p" in the console, choose the
-          // "Toggle Debug Paint" action from the Flutter Inspector in Android
-          // Studio, or the "Toggle Debug Paint" command in Visual Studio Code)
-          // to see the wireframe for each widget.
-          //
-          // Column has various properties to control how it sizes itself and
-          // how it positions its children. Here we use mainAxisAlignment to
-          // center the children vertically; the main axis here is the vertical
-          // axis because Columns are vertical (the cross axis would be
-          // horizontal).
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: <Widget>[
-            Text('List here'),
-          ],
-        ),
+      body: StreamBuilder<List<Protein>>(
+        stream: proteinListServices.stream,
+        builder: (BuildContext context, AsyncSnapshot snapshot) {
+          print(snapshot.data);
+          if (snapshot.data.length == 0) {
+            return Center(
+                child: Container(
+              width: MediaQuery.of(context).size.width * .5,
+              child: Text(
+                'your protein list is empty',
+                textAlign: TextAlign.center,
+                style: TextStyle(fontSize: 20),
+              ),
+            ));
+          } else {
+            return ListView.builder(
+                itemCount: proteinListServices.currentList.length,
+                itemBuilder: (BuildContext ctxt, int index) {
+                  Protein proteinItem = snapshot.data[index];
+                  return ListTile(
+                      title: Text(proteinItem.name),
+                      subtitle: Text(
+                          "${proteinItem.amount.toString()} gr and date: ${proteinItem.date}"),
+                      trailing: IconButton(
+                        icon: Icon(Icons.delete),
+                        onPressed: () {
+                          proteinListServices.remove(index);
+                        },
+                      ));
+                });
+          }
+        },
       ),
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.add),
@@ -79,7 +91,9 @@ class AddProteinDialog extends StatefulWidget {
 }
 
 class _AddProteinDialogState extends State<AddProteinDialog> {
-  String dropdownValueGoal = "";
+  final _formKey = GlobalKey<FormState>();
+
+  String dropdownValueGoal;
   String foodName;
   int proteinAmount;
   final _foodNameController = TextEditingController();
@@ -101,8 +115,9 @@ class _AddProteinDialogState extends State<AddProteinDialog> {
           child: Column(
             children: <Widget>[
               Form(
+                key: _formKey,
                 child: Column(children: [
-                  TextField(
+                  TextFormField(
                     controller: _foodNameController,
                     decoration: InputDecoration(hintText: 'Food name'),
                     onChanged: (value) {
@@ -110,8 +125,14 @@ class _AddProteinDialogState extends State<AddProteinDialog> {
                         foodName = value;
                       });
                     },
+                    validator: (value) {
+                      if (value.isEmpty) {
+                        return 'food is empty';
+                      }
+                      return null;
+                    },
                   ),
-                  TextField(
+                  TextFormField(
                     controller: _proteinAmountController,
                     decoration:
                         InputDecoration(hintText: 'Protein amount in gr'),
@@ -119,6 +140,12 @@ class _AddProteinDialogState extends State<AddProteinDialog> {
                       setState(() {
                         proteinAmount = int.parse(value);
                       });
+                    },
+                    validator: (value) {
+                      if (value.isEmpty) {
+                        return 'protein amount is empty';
+                      }
+                      return null;
                     },
                   ),
                   Container(
@@ -159,10 +186,15 @@ class _AddProteinDialogState extends State<AddProteinDialog> {
                   WidgetUtils.button(
                       text: "Add",
                       onPressed: () {
-                        print('add food');
-                        print(foodName);
-                        print(proteinAmount);
-                        Navigator.pop(context);
+                        if (_formKey.currentState.validate()) {
+                          print('add food');
+                          print(foodName);
+                          print(proteinAmount);
+                          Protein protein =
+                              Protein(foodName, proteinAmount, '123');
+                          proteinListServices.add(protein);
+                          Navigator.pop(context);
+                        } else {}
                       })
                 ]),
               ),
