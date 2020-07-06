@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:protein_tracker/FoodService.dart';
 import 'package:protein_tracker/main.dart';
+import 'package:protein_tracker/model/food.dart';
 import 'package:protein_tracker/widgetUtils.dart';
 
 class TrackerScreen extends StatefulWidget {
@@ -133,16 +135,20 @@ class _AddProteinDialogState extends State<AddProteinDialog> {
                       color: Colors.grey,
                     ),
                     onChanged: (String newValue) {
+                      Food food = foodListServices.currentList
+                          .firstWhere((food) => food.name == newValue);
                       setState(() {
                         dropdownValueGoal = newValue;
-                        _foodNameController.text = newValue;
-                        _proteinAmountController.text = "40";
+                        _foodNameController.text = food.name;
+                        _proteinAmountController.text =
+                            food.proteinAmount.toString();
                         foodName = _foodNameController.text;
                         proteinAmount =
                             int.parse(_proteinAmountController.text);
                       });
                     },
-                    items: <String>['', 'banana', 'pear', 'nuts']
+                    items: foodListServices.currentListFoodName
+                        // items: <String>['', 'banana', 'pear', 'nuts']
                         .map<DropdownMenuItem<String>>((String value) {
                       return DropdownMenuItem<String>(
                         value: value,

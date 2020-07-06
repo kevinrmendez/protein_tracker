@@ -52,7 +52,9 @@ class _FoodListScreenState extends State<FoodListScreen> {
                       subtitle: Text("${foodItem.proteinAmount.toString()} gr"),
                       trailing: IconButton(
                         icon: Icon(Icons.delete),
-                        onPressed: () {},
+                        onPressed: () {
+                          foodListServices.remove(index);
+                        },
                       ));
                 });
           }

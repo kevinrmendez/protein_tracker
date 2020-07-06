@@ -93,6 +93,13 @@ class _MyHomePageState extends State<HomeScreen> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[Icon(Icons.timelapse), Text('remaining : 40gr')],
           ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Icon(Icons.timelapse),
+              Text('avarage daily protein intake : 40gr')
+            ],
+          ),
           RaisedButton(
             color: PrimaryColor,
             child: Text(
