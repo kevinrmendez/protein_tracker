@@ -1,7 +1,7 @@
 import 'package:rxdart/rxdart.dart';
 
 class ProteinGoal {
-  BehaviorSubject _proteinGoal = BehaviorSubject.seeded(0);
+  BehaviorSubject _proteinGoal = BehaviorSubject.seeded(1);
   BehaviorSubject _consumedProtein = BehaviorSubject.seeded(0);
 
   Stream get stream => _proteinGoal.stream;

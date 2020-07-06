@@ -30,12 +30,12 @@ class _MyHomePageState extends State<HomeScreen> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           CircularStepProgressIndicator(
-            totalSteps: 100,
-            currentStep: 74,
-            stepSize: 10,
+            totalSteps: proteinGoalServices.current,
+            currentStep: proteinGoalServices.currentConsumedProtein,
+            // stepSize: 6,
             selectedColor: PrimaryColor,
             unselectedColor: Colors.grey[200],
-            padding: 0,
+            padding: 8,
             width: 200,
             height: 200,
             selectedStepSize: 15,
@@ -75,7 +75,11 @@ class _MyHomePageState extends State<HomeScreen> {
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[Icon(Icons.timelapse), Text('remaining : 40gr')],
+            children: <Widget>[
+              Icon(Icons.timelapse),
+              Text(
+                  'remaining : ${proteinGoalServices.current - proteinGoalServices.currentConsumedProtein}')
+            ],
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
