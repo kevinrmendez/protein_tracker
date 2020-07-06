@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+
 import 'package:protein_tracker/FoodService.dart';
 import 'package:protein_tracker/ProteinService.dart';
 import 'package:protein_tracker/main.dart';
 import 'package:protein_tracker/model/food.dart';
 import 'package:protein_tracker/model/protein.dart';
+import 'package:protein_tracker/model/proteinGoal.dart';
 import 'package:protein_tracker/widgetUtils.dart';
 
 class TrackerScreen extends StatefulWidget {
@@ -60,22 +63,39 @@ class _TrackerScreenState extends State<TrackerScreen> {
                 itemCount: proteinListServices.currentList.length,
                 itemBuilder: (BuildContext ctxt, int index) {
                   Protein proteinItem = snapshot.data[index];
-                  return ListTile(
-                      title: Text(proteinItem.name),
-                      subtitle: Text(
-                          "${proteinItem.amount.toString()} gr and date: ${proteinItem.date}"),
-                      trailing: IconButton(
-                        icon: Icon(Icons.delete),
-                        onPressed: () {
-                          proteinListServices.remove(index);
-                        },
-                      ));
+                  return Card(
+                    child: ListTile(
+                        title: Text(proteinItem.name),
+                        subtitle: Container(
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisSize: MainAxisSize.min,
+                            children: <Widget>[
+                              Text("${proteinItem.amount.toString()} gr"),
+                              Text(proteinItem.date)
+                            ],
+                          ),
+                        ),
+                        trailing: IconButton(
+                          icon: Icon(Icons.delete),
+                          onPressed: () {
+                            proteinListServices.remove(index);
+                            proteinGoalServices
+                                .removeConsumedProtein(proteinItem.amount);
+                          },
+                        )),
+                  );
                 });
           }
         },
       ),
       floatingActionButton: FloatingActionButton(
-        child: Icon(Icons.add),
+        backgroundColor: PrimaryColor,
+        child: Icon(
+          Icons.add,
+          color: Colors.white,
+        ),
         onPressed: () {
           print('add food');
           showDialog(context: context, builder: (_) => AddProteinDialog());
@@ -133,6 +153,7 @@ class _AddProteinDialogState extends State<AddProteinDialog> {
                     },
                   ),
                   TextFormField(
+                    keyboardType: TextInputType.number,
                     controller: _proteinAmountController,
                     decoration:
                         InputDecoration(hintText: 'Protein amount in gr'),
@@ -190,9 +211,13 @@ class _AddProteinDialogState extends State<AddProteinDialog> {
                           print('add food');
                           print(foodName);
                           print(proteinAmount);
-                          Protein protein =
-                              Protein(foodName, proteinAmount, '123');
+                          DateTime now = DateTime.now();
+                          final DateFormat formatter = DateFormat('dd-MM-yyyy');
+                          final String formattedDateNow = formatter.format(now);
+                          Protein protein = Protein(
+                              foodName, proteinAmount, formattedDateNow);
                           proteinListServices.add(protein);
+                          proteinGoalServices.addConsumedProtein(proteinAmount);
                           Navigator.pop(context);
                         } else {}
                       })
