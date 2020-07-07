@@ -7,7 +7,7 @@ class WidgetUtils {
       color: PrimaryColor,
       child: Text(
         text,
-        style: TextStyle(color: Colors.white, fontSize: 20),
+        style: TextStyle(color: Colors.white, fontSize: 22),
       ),
       onPressed: onPressed,
     );

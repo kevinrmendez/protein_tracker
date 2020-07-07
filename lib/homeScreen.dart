@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:protein_tracker/main.dart';
 import 'package:protein_tracker/model/proteinGoal.dart';
 import 'package:protein_tracker/trackerScreen.dart';
+import 'package:protein_tracker/widgetUtils.dart';
 import 'package:step_progress_indicator/step_progress_indicator.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -21,12 +22,9 @@ class _MyHomePageState extends State<HomeScreen> {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
           Container(
-            padding: EdgeInsets.symmetric(vertical: 20),
-            margin: EdgeInsets.symmetric(horizontal: 20),
-            child: Container(
-                padding: EdgeInsets.symmetric(vertical: 20),
-                child: MotivationalText()),
-          ),
+              padding: EdgeInsets.symmetric(vertical: 20),
+              margin: EdgeInsets.symmetric(horizontal: 20),
+              child: MotivationalText()),
           CircularStepProgressIndicator(
             totalSteps: proteinGoalServices.current,
             currentStep: proteinGoalServices.currentConsumedProtein,
@@ -64,64 +62,12 @@ class _MyHomePageState extends State<HomeScreen> {
           SizedBox(
             height: 20,
           ),
-
-          Card(
-            child: Column(
-              children: <Widget>[
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    Icon(Icons.star),
-                    SizedBox(
-                      width: 10,
-                    ),
-                    StreamBuilder(
-                      stream: proteinGoalServices.stream,
-                      builder: (BuildContext context, AsyncSnapshot snapshot) {
-                        return Text(
-                          "goal: ${snapshot.data} gr",
-                          style: TextStyle(fontSize: 25),
-                        );
-                      },
-                    )
-                  ],
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    Icon(Icons.timelapse),
-                    SizedBox(
-                      width: 10,
-                    ),
-                    Text(
-                      'remaining : ${proteinGoalServices.currentConsumedProtein > proteinGoalServices.current ? 0 : proteinGoalServices.current - proteinGoalServices.currentConsumedProtein} gr',
-                      style: TextStyle(fontSize: 25),
-                    )
-                  ],
-                ),
-              ],
-            ),
-          ),
-          // Row(
-          //   mainAxisAlignment: MainAxisAlignment.center,
-          //   children: <Widget>[
-          //     Icon(Icons.timelapse),
-          //     Text(
-          //       'avarage daily protein intake : 40gr',
-          //       style: TextStyle(fontSize: 18),
-          //     )
-          //   ],
-          // ),
-          RaisedButton(
-            color: PrimaryColor,
-            child: Text(
-              'track protein',
-              style: TextStyle(color: Colors.white, fontSize: 20),
-            ),
+          DailyStatus(),
+          WidgetUtils.button(
+            text: 'track protein',
             onPressed: () {
               Navigator.of(context).push(MaterialPageRoute(
                   builder: (BuildContext context) => TrackerScreen()));
-
               print('track food');
             },
           ),
@@ -159,6 +105,80 @@ class MotivationalText extends StatelessWidget {
               // color: DarkGreyColor,
               ),
         ),
+      ),
+    );
+  }
+}
+
+class DailyStatus extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: EdgeInsets.symmetric(horizontal: 20),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          Container(
+            margin: EdgeInsets.only(bottom: 5),
+            child: Text(
+              'Goal Status',
+              textAlign: TextAlign.right,
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
+            ),
+          ),
+          Card(
+            margin: EdgeInsets.symmetric(horizontal: 0),
+            child: Container(
+              padding: EdgeInsets.symmetric(vertical: 10),
+              child: Column(
+                children: <Widget>[
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: <Widget>[
+                      Icon(Icons.star),
+                      SizedBox(
+                        width: 10,
+                      ),
+                      StreamBuilder(
+                        stream: proteinGoalServices.stream,
+                        builder:
+                            (BuildContext context, AsyncSnapshot snapshot) {
+                          return Text(
+                            "goal: ${snapshot.data} gr",
+                            style: TextStyle(fontSize: 20),
+                          );
+                        },
+                      )
+                    ],
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: <Widget>[
+                      Icon(Icons.timelapse),
+                      SizedBox(
+                        width: 10,
+                      ),
+                      Text(
+                        'remaining : ${proteinGoalServices.currentConsumedProtein > proteinGoalServices.current ? 0 : proteinGoalServices.current - proteinGoalServices.currentConsumedProtein} gr',
+                        style: TextStyle(fontSize: 20),
+                      )
+                    ],
+                  ),
+                  // Row(
+                  //   mainAxisAlignment: MainAxisAlignment.center,
+                  //   children: <Widget>[
+                  //     Icon(Icons.timelapse),
+                  //     Text(
+                  //       'avarage daily protein intake : 40gr',
+                  //       style: TextStyle(fontSize: 18),
+                  //     )
+                  //   ],
+                  // ),
+                ],
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }
