@@ -41,15 +41,18 @@ class _FoodListScreenState extends State<FoodListScreen> {
                 itemCount: foodListServices.currentList.length,
                 itemBuilder: (BuildContext ctxt, int index) {
                   Food foodItem = snapshot.data[index];
-                  return ListTile(
-                      title: Text(foodItem.name),
-                      subtitle: Text("${foodItem.proteinAmount.toString()} gr"),
-                      trailing: IconButton(
-                        icon: Icon(Icons.delete),
-                        onPressed: () {
-                          foodListServices.remove(index);
-                        },
-                      ));
+                  return Card(
+                    child: ListTile(
+                        title: Text(foodItem.name),
+                        subtitle:
+                            Text("${foodItem.proteinAmount.toString()} gr"),
+                        trailing: IconButton(
+                          icon: Icon(Icons.delete),
+                          onPressed: () {
+                            foodListServices.remove(index);
+                          },
+                        )),
+                  );
                 });
           }
         },

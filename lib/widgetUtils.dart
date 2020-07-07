@@ -67,4 +67,30 @@ class WidgetUtils {
       ),
     );
   }
+
+  static Widget card(
+      {String title = "", Widget child, Color color = Colors.white}) {
+    return Container(
+      margin: EdgeInsets.symmetric(horizontal: 20),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          Container(
+            // margin: EdgeInsets.only(bottom: 5),
+            child: Text(
+              title,
+              textAlign: TextAlign.right,
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
+            ),
+          ),
+          Card(
+            color: color,
+            margin: EdgeInsets.symmetric(horizontal: 0),
+            child: Container(
+                padding: EdgeInsets.symmetric(vertical: 8), child: child),
+          ),
+        ],
+      ),
+    );
+  }
 }
