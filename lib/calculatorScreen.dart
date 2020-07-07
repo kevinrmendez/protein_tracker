@@ -107,21 +107,29 @@ class _MyHomePageState extends State<CalculatorScreen> {
           // horizontal).
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                Container(
-                  padding: EdgeInsets.symmetric(vertical: 20),
-                  child: Text(
-                    " $proteinIntake",
-                    style: TextStyle(fontSize: 70),
-                  ),
+            Container(
+              margin: EdgeInsets.fromLTRB(40, 20, 40, 20),
+              decoration: BoxDecoration(
+                border: Border.all(
+                  width: 4.0,
                 ),
-                Text(
-                  'gr',
-                  style: TextStyle(fontSize: 25),
-                )
-              ],
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Container(
+                    padding: EdgeInsets.symmetric(vertical: 10),
+                    child: Text(
+                      " $proteinIntake",
+                      style: TextStyle(fontSize: 70),
+                    ),
+                  ),
+                  Text(
+                    'gr',
+                    style: TextStyle(fontSize: 25),
+                  )
+                ],
+              ),
             ),
             Container(
               padding: EdgeInsets.symmetric(horizontal: 40),

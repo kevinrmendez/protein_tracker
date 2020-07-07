@@ -34,14 +34,8 @@ class _FoodListScreenState extends State<FoodListScreen> {
           print(snapshot.data);
           if (snapshot.data.length == 0) {
             return Center(
-                child: Container(
-              width: MediaQuery.of(context).size.width * .5,
-              child: Text(
-                'your food list is empty',
-                textAlign: TextAlign.center,
-                style: TextStyle(fontSize: 20),
-              ),
-            ));
+                child: WidgetUtils.iconText(context,
+                    icon: Icons.room_service, text: 'your food list is empty'));
           } else {
             return ListView.builder(
                 itemCount: foodListServices.currentList.length,
@@ -107,9 +101,11 @@ class _AddProteinDialogState extends State<AddProteinDialog> {
                 key: _formKey,
                 child: Column(children: [
                   TextFormField(
+                    keyboardType: TextInputType.text,
                     controller: _foodNameController,
                     decoration: InputDecoration(
                         // hintText: 'chicken',
+                        border: OutlineInputBorder(),
                         labelText: 'Food name'),
                     onChanged: (value) {
                       setState(() {
@@ -130,6 +126,7 @@ class _AddProteinDialogState extends State<AddProteinDialog> {
                     keyboardType: TextInputType.number,
                     controller: _proteinAmountController,
                     decoration: InputDecoration(
+                        border: OutlineInputBorder(),
                         // hintText: 'Protein amount in gr',
                         labelText: 'Protein amount in gr',
                         errorStyle: TextStyle(color: RedColor)),

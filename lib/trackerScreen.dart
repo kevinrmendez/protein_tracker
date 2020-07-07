@@ -40,7 +40,7 @@ class _TrackerScreenState extends State<TrackerScreen> {
         // Here we take the value from theApp object that was created by
         // the App.build method, and use it to set our appbar title.
         title: Text(
-          'About protein tracker',
+          "Today's protein",
           style: TextStyle(color: Colors.white),
         ),
       ),
@@ -50,14 +50,9 @@ class _TrackerScreenState extends State<TrackerScreen> {
           print(snapshot.data);
           if (snapshot.data.length == 0) {
             return Center(
-                child: Container(
-              width: MediaQuery.of(context).size.width * .5,
-              child: Text(
-                'your protein list is empty',
-                textAlign: TextAlign.center,
-                style: TextStyle(fontSize: 20),
-              ),
-            ));
+                child: WidgetUtils.iconText(context,
+                    icon: Icons.list,
+                    text: 'your todays protein list is empty'));
           } else {
             return ListView.builder(
                 itemCount: proteinListServices.currentList.length,
@@ -138,8 +133,12 @@ class _AddProteinDialogState extends State<AddProteinDialog> {
                 key: _formKey,
                 child: Column(children: [
                   TextFormField(
+                    keyboardType: TextInputType.text,
                     controller: _foodNameController,
-                    decoration: InputDecoration(hintText: 'Food name'),
+                    decoration: InputDecoration(
+                      hintText: 'Food name',
+                      border: OutlineInputBorder(),
+                    ),
                     onChanged: (value) {
                       setState(() {
                         foodName = value;
@@ -155,8 +154,10 @@ class _AddProteinDialogState extends State<AddProteinDialog> {
                   TextFormField(
                     keyboardType: TextInputType.number,
                     controller: _proteinAmountController,
-                    decoration:
-                        InputDecoration(hintText: 'Protein amount in gr'),
+                    decoration: InputDecoration(
+                      hintText: 'Protein amount in gr',
+                      border: OutlineInputBorder(),
+                    ),
                     onChanged: (value) {
                       setState(() {
                         proteinAmount = int.parse(value);

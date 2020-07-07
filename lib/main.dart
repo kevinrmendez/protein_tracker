@@ -9,6 +9,7 @@ void main() => runApp(MyApp());
 const PrimaryColor = const Color(0xFF00BCD4);
 const BaseColor = const Color(0xFF31DDC2);
 const GreyColor = const Color(0xFFEEEEEE);
+const DarkGreyColor = const Color(0xFF878787);
 const RedColor = const Color(0xFFDD314B);
 
 class MyApp extends StatelessWidget {
@@ -51,7 +52,7 @@ class _AppState extends State<App> {
     // StatisticsActivity(),
     HomeScreen(),
     CalculatorScreen(),
-    SettingsScreen()
+    CalculatorScreen(),
   ];
 
   static const TextStyle optionStyle =
@@ -105,8 +106,8 @@ class _AppState extends State<App> {
             title: Text('Calculator'),
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.settings),
-            title: Text('Settings'),
+            icon: Icon(Icons.poll),
+            title: Text('Statistics'),
           ),
         ],
         currentIndex: _selectedIndex,

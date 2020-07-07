@@ -7,15 +7,6 @@ import 'package:step_progress_indicator/step_progress_indicator.dart';
 class HomeScreen extends StatefulWidget {
   HomeScreen({Key key, this.title}) : super(key: key);
 
-  // This widget is the home page of your application. It is stateful, meaning
-  // that it has a State object (defined below) that contains fields that affect
-  // how it looks.
-
-  // This class is the configuration for the state. It holds the values (in this
-  // case the title) provided by the parent (in this case the App widget) and
-  // used by the build method of the State. Fields in a Widget subclass are
-  // always marked "final".
-
   final String title;
 
   @override
@@ -27,15 +18,22 @@ class _MyHomePageState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Center(
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
+          Container(
+            padding: EdgeInsets.symmetric(vertical: 20),
+            margin: EdgeInsets.symmetric(horizontal: 20),
+            child: Container(
+                padding: EdgeInsets.symmetric(vertical: 20),
+                child: MotivationalText()),
+          ),
           CircularStepProgressIndicator(
             totalSteps: proteinGoalServices.current,
             currentStep: proteinGoalServices.currentConsumedProtein,
-            // stepSize: 6,
+            // stepSize: 0,
             selectedColor: PrimaryColor,
             unselectedColor: Colors.grey[200],
-            padding: 8,
+            // padding: 8,
             width: 200,
             height: 200,
             selectedStepSize: 15,
@@ -48,11 +46,13 @@ class _MyHomePageState extends State<HomeScreen> {
                     children: <Widget>[
                       Text(
                         "${proteinGoalServices.currentConsumedProtein}",
-                        style: TextStyle(fontSize: 80),
+                        style: TextStyle(
+                          fontSize: 70,
+                        ),
                       ),
                       Text(
                         'gr',
-                        style: TextStyle(fontSize: 30),
+                        style: TextStyle(fontSize: 27),
                       )
                     ],
                   ),
@@ -61,33 +61,57 @@ class _MyHomePageState extends State<HomeScreen> {
               ),
             ),
           ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              Icon(Icons.star),
-              StreamBuilder(
-                stream: proteinGoalServices.stream,
-                builder: (BuildContext context, AsyncSnapshot snapshot) {
-                  return Text("goal: ${snapshot.data} gr");
-                },
-              )
-            ],
+          SizedBox(
+            height: 20,
           ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              Icon(Icons.timelapse),
-              Text(
-                  'remaining : ${proteinGoalServices.current - proteinGoalServices.currentConsumedProtein}')
-            ],
+
+          Card(
+            child: Column(
+              children: <Widget>[
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Icon(Icons.star),
+                    SizedBox(
+                      width: 10,
+                    ),
+                    StreamBuilder(
+                      stream: proteinGoalServices.stream,
+                      builder: (BuildContext context, AsyncSnapshot snapshot) {
+                        return Text(
+                          "goal: ${snapshot.data} gr",
+                          style: TextStyle(fontSize: 25),
+                        );
+                      },
+                    )
+                  ],
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Icon(Icons.timelapse),
+                    SizedBox(
+                      width: 10,
+                    ),
+                    Text(
+                      'remaining : ${proteinGoalServices.currentConsumedProtein > proteinGoalServices.current ? 0 : proteinGoalServices.current - proteinGoalServices.currentConsumedProtein} gr',
+                      style: TextStyle(fontSize: 25),
+                    )
+                  ],
+                ),
+              ],
+            ),
           ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              Icon(Icons.timelapse),
-              Text('avarage daily protein intake : 40gr')
-            ],
-          ),
+          // Row(
+          //   mainAxisAlignment: MainAxisAlignment.center,
+          //   children: <Widget>[
+          //     Icon(Icons.timelapse),
+          //     Text(
+          //       'avarage daily protein intake : 40gr',
+          //       style: TextStyle(fontSize: 18),
+          //     )
+          //   ],
+          // ),
           RaisedButton(
             color: PrimaryColor,
             child: Text(
@@ -100,8 +124,41 @@ class _MyHomePageState extends State<HomeScreen> {
 
               print('track food');
             },
-          )
+          ),
+          // SizedBox(
+          //   height: 10,
+          // )
         ],
+      ),
+    );
+  }
+}
+
+class MotivationalText extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      child: Container(
+        padding: EdgeInsets.symmetric(vertical: 10),
+        child: Text(
+          proteinGoalServices.currentConsumedProtein >=
+                  proteinGoalServices.current
+              ? 'You have reached your daily goal, well done!'
+              : proteinGoalServices.currentConsumedProtein >=
+                      proteinGoalServices.current / 4 * 3
+                  ? 'You almost reach your goal, keep it up'
+                  : proteinGoalServices.currentConsumedProtein >=
+                          proteinGoalServices.current / 2
+                      ? 'You are half way of your goal'
+                      : proteinGoalServices.currentConsumedProtein >=
+                              proteinGoalServices.current / 4
+                          ? 'You are starting to eat protein'
+                          : 'start tracking your protein intake',
+          textAlign: TextAlign.center,
+          style: TextStyle(fontSize: 27, fontWeight: FontWeight.bold
+              // color: DarkGreyColor,
+              ),
+        ),
       ),
     );
   }

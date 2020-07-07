@@ -41,7 +41,7 @@ class _GoalScreenState extends State<GoalScreen> {
                 child: Text(
                   'Current protein goal',
                   textAlign: TextAlign.center,
-                  style: TextStyle(fontSize: 24),
+                  style: TextStyle(fontSize: 28),
                 ),
               ),
               StreamBuilder(

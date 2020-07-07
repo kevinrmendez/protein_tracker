@@ -17,22 +17,6 @@ class AppDrawer extends StatelessWidget {
           color: GreyColor,
           child: ListView(
             children: <Widget>[
-              // UserAccountsDrawerHeader(
-              //   accountName: Text('Bad Jokes'),
-              //   currentAccountPicture: CircleAvatar(
-              //     backgroundImage: AssetImage('assets/smile.png'),
-              //   ),
-              // ),
-              // Container(
-              //   height: 110,
-              //   color: Colors.yellow[600],
-              //   child: Column(
-              //     mainAxisAlignment: MainAxisAlignment.center,
-              //     children: <Widget>[
-              //       Container(height: 70, child: Image.asset('assets/smile.png')),
-              //     ],
-              //   ),
-              // ),
               DrawerHeader(
                 child: SizedBox(),
                 decoration: BoxDecoration(
@@ -85,6 +69,21 @@ class AppDrawer extends StatelessWidget {
                   Navigator.of(context).pop();
                   Navigator.of(context).push(MaterialPageRoute(
                       builder: (BuildContext context) => FoodListScreen()));
+                },
+              ),
+              ListTile(
+                title: Text(
+                  "Settings",
+                  // style: TextStyle(color: Theme.of(context).primaryColor),
+                ),
+                trailing: Icon(
+                  Icons.settings,
+                  color: Theme.of(context).accentColor,
+                ),
+                onTap: () {
+                  Navigator.of(context).pop();
+                  Navigator.of(context).push(MaterialPageRoute(
+                      builder: (BuildContext context) => SettingsScreen()));
                 },
               ),
             ],

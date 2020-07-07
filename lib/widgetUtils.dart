@@ -47,4 +47,24 @@ class WidgetUtils {
       ),
     );
   }
+
+  static Widget iconText(BuildContext context, {IconData icon, String text}) {
+    return Container(
+      width: MediaQuery.of(context).size.width * .5,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          Icon(
+            icon,
+            size: 60,
+          ),
+          Text(
+            text,
+            textAlign: TextAlign.center,
+            style: TextStyle(fontSize: 20),
+          ),
+        ],
+      ),
+    );
+  }
 }
