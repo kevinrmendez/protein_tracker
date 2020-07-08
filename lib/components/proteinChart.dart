@@ -38,10 +38,6 @@ class ProteinChart extends StatelessWidget {
   /// Create one series with sample hard coded data.
   static List<charts.Series<TimeSeriesSales, DateTime>> _createSampleData() {
     final data = [
-      new TimeSeriesSales(new DateTime(2017, 9, 1), 5),
-      new TimeSeriesSales(new DateTime(2017, 9, 2), 5),
-      new TimeSeriesSales(new DateTime(2017, 9, 3), 25),
-      new TimeSeriesSales(new DateTime(2017, 9, 4), 100),
       new TimeSeriesSales(new DateTime(2017, 9, 5), 75),
       new TimeSeriesSales(new DateTime(2017, 9, 6), 88),
       new TimeSeriesSales(new DateTime(2017, 9, 7), 65),
@@ -59,6 +55,10 @@ class ProteinChart extends StatelessWidget {
       new TimeSeriesSales(new DateTime(2017, 9, 19), 40),
       new TimeSeriesSales(new DateTime(2017, 9, 20), 32),
       new TimeSeriesSales(new DateTime(2017, 9, 21), 31),
+      new TimeSeriesSales(new DateTime(2017, 10, 1), 5),
+      new TimeSeriesSales(new DateTime(2017, 10, 2), 5),
+      new TimeSeriesSales(new DateTime(2017, 10, 3), 25),
+      new TimeSeriesSales(new DateTime(2017, 10, 4), 100),
     ];
 
     return [

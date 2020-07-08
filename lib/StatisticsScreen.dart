@@ -12,32 +12,12 @@ class StatisticsScreen extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Align(
-              alignment: Alignment.topCenter,
-              child: Container(
-                width: MediaQuery.of(context).size.width * .7,
-                margin: EdgeInsets.only(bottom: 20),
-                child: _title(context),
-              ),
-            ),
             Container(
                 height: MediaQuery.of(context).size.height * .4,
                 child: ProteinChart.withSampleData())
           ],
         ),
       ),
-    );
-  }
-
-  Widget _title(BuildContext context) {
-    return Column(
-      children: <Widget>[
-        Text(
-          'Statistics',
-          textAlign: TextAlign.center,
-          style: Theme.of(context).textTheme.display1,
-        ),
-      ],
     );
   }
 
