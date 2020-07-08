@@ -76,7 +76,7 @@ class WidgetUtils {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           Container(
-            // margin: EdgeInsets.only(bottom: 5),
+            margin: EdgeInsets.only(bottom: 5),
             child: Text(
               title,
               textAlign: TextAlign.right,

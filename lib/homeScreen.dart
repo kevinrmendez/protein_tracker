@@ -47,25 +47,28 @@ class MotivationalText extends StatelessWidget {
     return WidgetUtils.card(
       color: PrimaryColor,
       title: 'Status',
-      child: Text(
-        proteinGoalServices.currentConsumedProtein >=
-                proteinGoalServices.current
-            ? 'You have reached your daily goal, well done!'
-            : proteinGoalServices.currentConsumedProtein >=
-                    proteinGoalServices.current / 4 * 3
-                ? 'You almost reach your goal, keep it up'
-                : proteinGoalServices.currentConsumedProtein >=
-                        proteinGoalServices.current / 2
-                    ? 'You are half way of your goal'
-                    : proteinGoalServices.currentConsumedProtein >=
-                            proteinGoalServices.current / 4
-                        ? 'You are starting to eat protein'
-                        : 'start tracking your protein intake',
-        textAlign: TextAlign.center,
-        style: TextStyle(
-            fontSize: 27, fontWeight: FontWeight.bold, color: Colors.white
-            // color: DarkGreyColor,
-            ),
+      child: Container(
+        padding: EdgeInsets.symmetric(vertical: 10),
+        child: Text(
+          proteinGoalServices.currentConsumedProtein >=
+                  proteinGoalServices.current
+              ? 'You have reached your daily goal, well done!'
+              : proteinGoalServices.currentConsumedProtein >=
+                      proteinGoalServices.current / 4 * 3
+                  ? 'You almost reach your goal, keep it up'
+                  : proteinGoalServices.currentConsumedProtein >=
+                          proteinGoalServices.current / 2
+                      ? 'You are half way of your goal'
+                      : proteinGoalServices.currentConsumedProtein >=
+                              proteinGoalServices.current / 4
+                          ? 'You are starting to eat protein'
+                          : 'start tracking your protein intake',
+          textAlign: TextAlign.center,
+          style: TextStyle(
+              fontSize: 24, fontWeight: FontWeight.bold, color: Colors.white
+              // color: DarkGreyColor,
+              ),
+        ),
       ),
     );
   }
@@ -174,49 +177,6 @@ class ProgressIndicator extends StatelessWidget {
                 ),
                 // Text('consumed'),
               ],
-            ),
-          ),
-        ),
-      ),
-    );
-    return Container(
-      margin: EdgeInsets.symmetric(horizontal: 20),
-      child: Card(
-        child: Container(
-          child: Center(
-            child: CircularStepProgressIndicator(
-              totalSteps: proteinGoalServices.current,
-              currentStep: proteinGoalServices.currentConsumedProtein,
-              // stepSize: 0,
-              selectedColor: PrimaryColor,
-              unselectedColor: Colors.grey[200],
-              // padding: 8,
-              width: 200,
-              height: 200,
-              selectedStepSize: 15,
-              child: Center(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        Text(
-                          "${proteinGoalServices.currentConsumedProtein}",
-                          style: TextStyle(
-                            fontSize: 70,
-                          ),
-                        ),
-                        Text(
-                          'gr',
-                          style: TextStyle(fontSize: 27),
-                        )
-                      ],
-                    ),
-                    Text('consumed'),
-                  ],
-                ),
-              ),
             ),
           ),
         ),

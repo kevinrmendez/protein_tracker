@@ -91,6 +91,7 @@ class _AppState extends State<App> {
         iconTheme: new IconThemeData(color: Colors.white),
         title: Text(
           'Protein Tracker',
+          textAlign: TextAlign.center,
           style: TextStyle(color: Colors.white),
         ),
       ),
