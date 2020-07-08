@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:protein_tracker/StatisticsScreen.dart';
 import 'package:protein_tracker/calculatorScreen.dart';
 import 'package:protein_tracker/components/appDrawer.dart';
 import 'package:protein_tracker/homeScreen.dart';
@@ -52,7 +53,7 @@ class _AppState extends State<App> {
     // StatisticsActivity(),
     HomeScreen(),
     CalculatorScreen(),
-    CalculatorScreen(),
+    StatisticsScreen(),
   ];
 
   static const TextStyle optionStyle =
@@ -61,17 +62,6 @@ class _AppState extends State<App> {
   void _onItemTapped(int index) {
     setState(() {
       _selectedIndex = index;
-    });
-  }
-
-  void _incrementCounter() {
-    setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
-      _counter++;
     });
   }
 
