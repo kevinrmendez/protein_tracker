@@ -1,8 +1,10 @@
+import 'package:protein_tracker/main.dart';
 import 'package:protein_tracker/model/food.dart';
 import 'package:rxdart/rxdart.dart';
 
 class FoodService {
-  BehaviorSubject<List<Food>> _foodList = BehaviorSubject.seeded(<Food>[]);
+  BehaviorSubject<List<Food>> _foodList =
+      BehaviorSubject.seeded([foodFromDb] == null ? [] : foodFromDb);
   BehaviorSubject<List<String>> _foodNameList =
       BehaviorSubject.seeded(<String>[]);
 

@@ -3,6 +3,7 @@ import 'package:intl/intl.dart';
 
 import 'package:protein_tracker/FoodService.dart';
 import 'package:protein_tracker/ProteinService.dart';
+import 'package:protein_tracker/colors.dart';
 import 'package:protein_tracker/main.dart';
 import 'package:protein_tracker/model/food.dart';
 import 'package:protein_tracker/model/protein.dart';
@@ -122,7 +123,7 @@ class _AddProteinDialogState extends State<AddProteinDialog> {
   Widget build(BuildContext context) {
     return WidgetUtils.dialog(
         context: context,
-        height: MediaQuery.of(context).size.height * .5,
+        height: MediaQuery.of(context).size.height * .6,
         title: 'Add protein',
         showAd: false,
         child: Container(
@@ -151,6 +152,7 @@ class _AddProteinDialogState extends State<AddProteinDialog> {
                       return null;
                     },
                   ),
+                  SizedBox(height: 20),
                   TextFormField(
                     keyboardType: TextInputType.number,
                     controller: _proteinAmountController,

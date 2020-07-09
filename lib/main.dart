@@ -1,17 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:protein_tracker/StatisticsScreen.dart';
 import 'package:protein_tracker/calculatorScreen.dart';
+import 'package:protein_tracker/colors.dart';
 import 'package:protein_tracker/components/appDrawer.dart';
+import 'package:protein_tracker/dao/food_dao.dart';
 import 'package:protein_tracker/homeScreen.dart';
+import 'package:protein_tracker/model/food.dart';
 import 'package:protein_tracker/settingsScreen.dart';
 
-void main() => runApp(MyApp());
+import 'package:flutter/services.dart';
 
-const PrimaryColor = const Color(0xFF00BCD4);
-const BaseColor = const Color(0xFF31DDC2);
-const GreyColor = const Color(0xFFEEEEEE);
-const DarkGreyColor = const Color(0xFF878787);
-const RedColor = const Color(0xFFDD314B);
+final FoodDao foodDao = FoodDao();
+List<Food> foodFromDb;
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  foodFromDb = await foodDao.getfood();
+  runApp(MyApp());
+}
 
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
@@ -32,15 +38,6 @@ class MyApp extends StatelessWidget {
 
 class App extends StatefulWidget {
   App({Key key}) : super(key: key);
-
-  // This widget is the home page of your application. It is stateful, meaning
-  // that it has a State object (defined below) that contains fields that affect
-  // how it looks.
-
-  // This class is the configuration for the state. It holds the values (in this
-  // case the title) provided by the parent (in this case the App widget) and
-  // used by the build method of the State. Fields in a Widget subclass are
-  // always marked "final".
 
   @override
   _AppState createState() => _AppState();
@@ -67,12 +64,10 @@ class _AppState extends State<App> {
 
   @override
   Widget build(BuildContext context) {
-    // This method is rerun every time setState is called, for instance as done
-    // by the _incrementCounter method above.
-    //
-    // The Flutter framework has been optimized to make rerunning build methods
-    // fast, so that you can just rebuild anything that needs updating rather
-    // than having to individually change instances of widgets.
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+      DeviceOrientation.portraitDown,
+    ]);
     return Scaffold(
       drawer: AppDrawer(),
       appBar: AppBar(
