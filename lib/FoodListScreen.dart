@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:protein_tracker/colors.dart';
 import 'package:protein_tracker/main.dart';
-import 'package:protein_tracker/FoodService.dart';
+import 'package:protein_tracker/bloc/FoodService.dart';
 import 'package:protein_tracker/model/food.dart';
 import 'package:protein_tracker/widgetUtils.dart';
 
@@ -51,7 +51,6 @@ class _FoodListScreenState extends State<FoodListScreen> {
                           icon: Icon(Icons.delete),
                           onPressed: () {
                             foodListServices.remove(index);
-                            foodDao.deleteFood(index);
                           },
                         )),
                   );
@@ -160,9 +159,7 @@ class _AddProteinDialogState extends State<AddProteinDialog> {
                           Food food = Food(
                               name: foodName, proteinAmount: proteinAmount);
                           foodListServices.add(food);
-                          foodDao.createFood(food);
-                          var foods = await foodDao.getfood();
-                          print(foods);
+
                           Navigator.pop(context);
                         } else {}
                       })

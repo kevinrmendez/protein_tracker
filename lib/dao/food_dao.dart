@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:protein_tracker/db/foodDatabase.dart';
+import 'package:protein_tracker/db/database.dart';
 import 'package:protein_tracker/model/food.dart';
 
 class FoodDao {
@@ -12,7 +12,7 @@ class FoodDao {
     return result;
   }
 
-  Future<List<Food>> getfood({List<String> columns, String query}) async {
+  Future<List<Food>> getfoods({List<String> columns, String query}) async {
     final db = await dbProvider.database;
 
     List<Map<String, dynamic>> result;

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:protein_tracker/main.dart';
-import 'package:protein_tracker/model/proteinGoal.dart';
+import 'package:protein_tracker/bloc/proteinGoal.dart';
 import 'package:protein_tracker/widgetUtils.dart';
 
 class GoalScreen extends StatefulWidget {

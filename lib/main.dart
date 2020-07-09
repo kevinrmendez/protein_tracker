@@ -4,23 +4,24 @@ import 'package:protein_tracker/calculatorScreen.dart';
 import 'package:protein_tracker/colors.dart';
 import 'package:protein_tracker/components/appDrawer.dart';
 import 'package:protein_tracker/dao/food_dao.dart';
+import 'package:protein_tracker/dao/protein_dao.dart';
 import 'package:protein_tracker/homeScreen.dart';
 import 'package:protein_tracker/model/food.dart';
+import 'package:protein_tracker/model/protein.dart';
 import 'package:protein_tracker/settingsScreen.dart';
 
 import 'package:flutter/services.dart';
 
-final FoodDao foodDao = FoodDao();
-List<Food> foodFromDb;
+final ProteinDao proteinDao = ProteinDao();
+List<Protein> proteinFromDb;
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  foodFromDb = await foodDao.getfood();
+  proteinFromDb = await proteinDao.getprotein();
   runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(

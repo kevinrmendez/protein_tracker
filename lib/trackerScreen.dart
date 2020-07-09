@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
-import 'package:protein_tracker/FoodService.dart';
+import 'package:protein_tracker/bloc/FoodService.dart';
 import 'package:protein_tracker/ProteinService.dart';
 import 'package:protein_tracker/colors.dart';
+import 'package:protein_tracker/dao/protein_dao.dart';
 import 'package:protein_tracker/main.dart';
 import 'package:protein_tracker/model/food.dart';
 import 'package:protein_tracker/model/protein.dart';
-import 'package:protein_tracker/model/proteinGoal.dart';
+import 'package:protein_tracker/bloc/proteinGoal.dart';
 import 'package:protein_tracker/widgetUtils.dart';
 
 class TrackerScreen extends StatefulWidget {
@@ -209,7 +210,7 @@ class _AddProteinDialogState extends State<AddProteinDialog> {
                   ),
                   WidgetUtils.button(
                       text: "Add",
-                      onPressed: () {
+                      onPressed: () async {
                         if (_formKey.currentState.validate()) {
                           print('add food');
                           print(foodName);
@@ -218,9 +219,16 @@ class _AddProteinDialogState extends State<AddProteinDialog> {
                           final DateFormat formatter = DateFormat('dd-MM-yyyy');
                           final String formattedDateNow = formatter.format(now);
                           Protein protein = Protein(
-                              foodName, proteinAmount, formattedDateNow);
+                              name: foodName,
+                              amount: proteinAmount,
+                              date: formattedDateNow);
+
                           proteinListServices.add(protein);
+                          List proteins = await proteinDao.getprotein();
+                          proteins.forEach((f) => print(f));
+
                           proteinGoalServices.addConsumedProtein(proteinAmount);
+
                           Navigator.pop(context);
                         } else {}
                       })

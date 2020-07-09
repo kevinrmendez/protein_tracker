@@ -5,6 +5,7 @@ import 'package:path_provider/path_provider.dart';
 import 'package:sqflite/sqflite.dart';
 
 final foodTable = 'Food';
+final proteinTable = 'Protein';
 
 class FoodDatabase {
   static final FoodDatabase dbProvider = FoodDatabase();
@@ -34,6 +35,13 @@ class FoodDatabase {
         "id INTEGER PRIMARY KEY, "
         "name TEXT, "
         "proteinAmount INTEGER "
+        ")");
+
+    await database.execute("CREATE TABLE $proteinTable("
+        "id INTEGER PRIMARY KEY, "
+        "name TEXT, "
+        "amountINTEGER, "
+        "date TEXT"
         ")");
   }
 }
