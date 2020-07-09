@@ -45,7 +45,7 @@ class _GoalScreenState extends State<GoalScreen> {
                 ),
               ),
               StreamBuilder(
-                stream: proteinGoalServices.stream,
+                stream: proteinService.stream,
                 builder: (BuildContext context, AsyncSnapshot snapshot) {
                   return Row(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -89,7 +89,7 @@ class _GoalScreenState extends State<GoalScreen> {
                         text: 'set goal',
                         onPressed: () {
                           _proteinGoal = int.parse(proteinGoalController.text);
-                          proteinGoalServices.setGoal(_proteinGoal);
+                          proteinService.setGoal(_proteinGoal);
                           print('goal set: $_proteinGoal');
                         },
                       ),

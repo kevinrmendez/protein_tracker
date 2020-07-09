@@ -78,7 +78,7 @@ class _TrackerScreenState extends State<TrackerScreen> {
                           icon: Icon(Icons.delete),
                           onPressed: () {
                             proteinListServices.remove(index);
-                            proteinGoalServices
+                            proteinService
                                 .removeConsumedProtein(proteinItem.amount);
                           },
                         )),
@@ -227,7 +227,7 @@ class _AddProteinDialogState extends State<AddProteinDialog> {
                           List proteins = await proteinDao.getprotein();
                           proteins.forEach((f) => print(f));
 
-                          proteinGoalServices.addConsumedProtein(proteinAmount);
+                          proteinService.addConsumedProtein(proteinAmount);
 
                           Navigator.pop(context);
                         } else {}

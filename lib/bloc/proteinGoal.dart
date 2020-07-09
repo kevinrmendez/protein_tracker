@@ -1,6 +1,6 @@
 import 'package:rxdart/rxdart.dart';
 
-class ProteinGoal {
+class ProteinService {
   BehaviorSubject _proteinGoal = BehaviorSubject.seeded(1);
   BehaviorSubject _consumedProtein = BehaviorSubject.seeded(0);
 
@@ -23,4 +23,4 @@ class ProteinGoal {
   }
 }
 
-ProteinGoal proteinGoalServices = ProteinGoal();
+ProteinService proteinService = ProteinService();

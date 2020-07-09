@@ -51,17 +51,16 @@ class MotivationalText extends StatelessWidget {
       child: Container(
         padding: EdgeInsets.symmetric(vertical: 10),
         child: Text(
-          proteinGoalServices.currentConsumedProtein >=
-                  proteinGoalServices.current
+          proteinService.currentConsumedProtein >= proteinService.current
               ? 'You have reached your daily goal, well done!'
-              : proteinGoalServices.currentConsumedProtein >=
-                      proteinGoalServices.current / 4 * 3
+              : proteinService.currentConsumedProtein >=
+                      proteinService.current / 4 * 3
                   ? 'You almost reach your goal, keep it up'
-                  : proteinGoalServices.currentConsumedProtein >=
-                          proteinGoalServices.current / 2
+                  : proteinService.currentConsumedProtein >=
+                          proteinService.current / 2
                       ? 'You are half way of your goal'
-                      : proteinGoalServices.currentConsumedProtein >=
-                              proteinGoalServices.current / 4
+                      : proteinService.currentConsumedProtein >=
+                              proteinService.current / 4
                           ? 'You are starting to eat protein'
                           : 'start tracking your protein intake',
           textAlign: TextAlign.center,
@@ -96,7 +95,7 @@ class DailyStatus extends StatelessWidget {
                 width: 10,
               ),
               StreamBuilder(
-                stream: proteinGoalServices.stream,
+                stream: proteinService.stream,
                 builder: (BuildContext context, AsyncSnapshot snapshot) {
                   return Text(
                     "goal: ${snapshot.data} gr",
@@ -120,7 +119,7 @@ class DailyStatus extends StatelessWidget {
                 width: 10,
               ),
               Text(
-                'remaining : ${proteinGoalServices.currentConsumedProtein > proteinGoalServices.current ? 0 : proteinGoalServices.current - proteinGoalServices.currentConsumedProtein} gr',
+                'remaining : ${proteinService.currentConsumedProtein > proteinService.current ? 0 : proteinService.current - proteinService.currentConsumedProtein} gr',
                 style: TextStyle(fontSize: 16),
               )
             ],
@@ -148,8 +147,8 @@ class ProgressIndicator extends StatelessWidget {
       title: 'Consumed protein',
       child: Center(
         child: CircularStepProgressIndicator(
-          totalSteps: proteinGoalServices.current,
-          currentStep: proteinGoalServices.currentConsumedProtein,
+          totalSteps: proteinService.current,
+          currentStep: proteinService.currentConsumedProtein,
           // stepSize: 0,
           selectedColor: PrimaryColor,
           unselectedColor: Colors.grey[200],
@@ -165,7 +164,7 @@ class ProgressIndicator extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
                     Text(
-                      "${proteinGoalServices.currentConsumedProtein}",
+                      "${proteinService.currentConsumedProtein}",
                       style: TextStyle(
                         fontSize: 80,
                       ),

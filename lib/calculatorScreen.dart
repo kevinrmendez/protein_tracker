@@ -254,7 +254,7 @@ class _MyHomePageState extends State<CalculatorScreen> {
                 ? WidgetUtils.button(
                     text: 'set as protein goal',
                     onPressed: () {
-                      proteinGoalServices.setGoal(proteinIntake);
+                      proteinService.setGoal(proteinIntake);
                     })
                 : SizedBox()
           ],
