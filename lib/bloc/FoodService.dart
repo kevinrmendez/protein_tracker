@@ -8,7 +8,7 @@ class FoodService {
   static List<Food> dbFoods = [];
 
   FoodService() {
-    // _getFoods();
+    _getFoods();
   }
 
   void _getFoods() async {
@@ -29,9 +29,10 @@ class FoodService {
   List<String> get currentListFoodName => _foodNameList.value;
 
   add(Food food) async {
+    _foodRepository.insertFood(food);
     _foodList.value.add(food);
     _foodList.add(List<Food>.from(currentList));
-    _foodRepository.insertFood(food);
+
     var allFoods = await _foodRepository.getAllFoods();
     allFoods.forEach((f) => print(f));
 
