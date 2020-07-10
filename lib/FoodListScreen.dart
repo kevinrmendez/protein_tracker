@@ -94,12 +94,13 @@ class _AddProteinDialogState extends State<AddProteinDialog> {
   Widget build(BuildContext context) {
     return WidgetUtils.dialog(
         context: context,
-        height: MediaQuery.of(context).size.height * .52,
+        height: MediaQuery.of(context).size.height * .55,
         title: 'Add food',
         showAd: false,
         child: Container(
           margin: EdgeInsets.symmetric(horizontal: 40),
           child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               Form(
                 key: _formKey,

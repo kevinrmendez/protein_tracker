@@ -23,25 +23,27 @@ class WidgetUtils {
     return Dialog(
       child: Container(
         height: height,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        child: ListView(
           children: <Widget>[
             Container(
-                padding: EdgeInsets.symmetric(vertical: 14),
+                padding: EdgeInsets.symmetric(vertical: 12),
                 width: MediaQuery.of(context).size.width,
                 color: Theme.of(context).primaryColor,
                 child: Text(
                   title,
                   textAlign: TextAlign.center,
-                  style: TextStyle(color: Colors.white, fontSize: 22),
+                  style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold),
                 )),
             SizedBox(
-              height: 10,
+              height: 30,
             ),
             child,
-            SizedBox(
-              height: 10,
-            ),
+            // SizedBox(
+            //   height: 5,
+            // ),
             // showAd ? AdmobUtils.admobBanner() : SizedBox()
           ],
         ),

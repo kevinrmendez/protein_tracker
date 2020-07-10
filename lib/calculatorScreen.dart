@@ -102,7 +102,7 @@ class _MyHomePageState extends State<CalculatorScreen> {
                       // padding: EdgeInsets.symmetric(vertical: 10),
                       child: Text(
                         " $proteinIntake",
-                        style: TextStyle(fontSize: 60, color: Colors.white),
+                        style: TextStyle(fontSize: 50, color: Colors.white),
                       ),
                     ),
                     Text(
@@ -255,11 +255,46 @@ class _MyHomePageState extends State<CalculatorScreen> {
                     text: 'set as protein goal',
                     onPressed: () {
                       proteinService.setGoal(proteinIntake);
+                      showDialog(
+                          context: context, builder: (_) => GoalChangeDialog());
                     })
                 : SizedBox()
           ],
         ),
       ]),
     );
+  }
+}
+
+class GoalChangeDialog extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return WidgetUtils.dialog(
+        context: context,
+        height: MediaQuery.of(context).size.height * .34,
+        title: 'Protein Goal',
+        showAd: false,
+        child: Container(
+          margin: EdgeInsets.symmetric(horizontal: 40),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: <Widget>[
+              Container(
+                padding: EdgeInsets.symmetric(vertical: 10),
+                child: Text(
+                  'your daily protein intake goal has been changed',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(fontSize: 18),
+                ),
+              ),
+              WidgetUtils.button(
+                  text: 'close',
+                  onPressed: () {
+                    Navigator.pop(context);
+                  })
+            ],
+          ),
+        ));
+    ;
   }
 }
