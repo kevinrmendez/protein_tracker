@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:protein_tracker/StatisticsScreen.dart';
 import 'package:protein_tracker/calculatorScreen.dart';
 import 'package:protein_tracker/colors.dart';
@@ -12,12 +13,17 @@ import 'package:protein_tracker/settingsScreen.dart';
 
 import 'package:flutter/services.dart';
 
-final ProteinDao proteinDao = ProteinDao();
-List<Protein> proteinFromDb;
+DateTime currentDate;
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  proteinFromDb = await proteinDao.getprotein();
+
+  currentDate = DateTime.now();
+  print("CURRENT TIME: $currentDate");
+  final DateFormat formatter = DateFormat('dd-MM-yyyy');
+  final String formattedDateNow = formatter.format(currentDate);
+  print(formattedDateNow);
+
   runApp(MyApp());
 }
 

@@ -224,8 +224,6 @@ class _AddProteinDialogState extends State<AddProteinDialog> {
                               date: formattedDateNow);
 
                           proteinListServices.add(protein);
-                          List proteins = await proteinDao.getprotein();
-                          proteins.forEach((f) => print(f));
 
                           proteinService.addConsumedProtein(proteinAmount);
 
