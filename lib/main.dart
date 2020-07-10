@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:protein_tracker/StatisticsScreen.dart';
 import 'package:protein_tracker/calculatorScreen.dart';
-import 'package:protein_tracker/colors.dart';
+import 'package:protein_tracker/utils/colors.dart';
 import 'package:protein_tracker/components/appDrawer.dart';
 import 'package:protein_tracker/dao/food_dao.dart';
 import 'package:protein_tracker/dao/protein_dao.dart';
@@ -12,8 +12,10 @@ import 'package:protein_tracker/model/protein.dart';
 import 'package:protein_tracker/settingsScreen.dart';
 
 import 'package:flutter/services.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 DateTime currentDate;
+var preferences;
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -22,6 +24,7 @@ void main() async {
   print("CURRENT TIME: $currentDate");
   final DateFormat formatter = DateFormat('dd-MM-yyyy');
   final String formattedDateNow = formatter.format(currentDate);
+  preferences = await SharedPreferences.getInstance();
   print(formattedDateNow);
 
   runApp(MyApp());
