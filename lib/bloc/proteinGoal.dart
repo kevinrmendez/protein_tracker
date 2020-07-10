@@ -1,3 +1,4 @@
+import 'package:protein_tracker/repository/protein_repository.dart';
 import 'package:rxdart/rxdart.dart';
 
 class ProteinService {

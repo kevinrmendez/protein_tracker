@@ -40,7 +40,7 @@ class FoodDatabase {
     await database.execute("CREATE TABLE $proteinTable("
         "id INTEGER PRIMARY KEY, "
         "name TEXT, "
-        "amountINTEGER, "
+        "amount INTEGER, "
         "date TEXT"
         ")");
   }

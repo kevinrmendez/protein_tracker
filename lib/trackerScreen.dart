@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 import 'package:protein_tracker/bloc/FoodService.dart';
-import 'package:protein_tracker/ProteinService.dart';
+import 'package:protein_tracker/bloc/ProteinService.dart';
 import 'package:protein_tracker/colors.dart';
 import 'package:protein_tracker/dao/protein_dao.dart';
 import 'package:protein_tracker/main.dart';
