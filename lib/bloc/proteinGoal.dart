@@ -1,3 +1,4 @@
+import 'package:protein_tracker/bloc/ProteinService.dart';
 import 'package:protein_tracker/main.dart';
 import 'package:rxdart/rxdart.dart';
 
@@ -45,6 +46,13 @@ class ProteinService {
   addConsumedProtein(int proteinAmount) {
     _consumedProtein.add(currentConsumedProtein + proteinAmount);
     preferences.setInt("protein_consumed", proteinAmount);
+  }
+
+  resetConsumedProtein() {
+    _consumedProtein.add(0);
+    preferences.setInt("protein_consumed", 0);
+    print(preferences.getInt("protein_consumed"));
+    print("${proteinService.currentConsumedProtein}");
   }
 
   removeConsumedProtein(int proteinAmount) {

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:protein_tracker/StatisticsScreen.dart';
+import 'package:protein_tracker/bloc/proteinGoal.dart';
 import 'package:protein_tracker/calculatorScreen.dart';
 import 'package:protein_tracker/utils/colors.dart';
 import 'package:protein_tracker/components/appDrawer.dart';
@@ -16,6 +17,11 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 DateTime currentDate;
 var preferences;
+
+void resetState() {
+  proteinService.resetConsumedProtein();
+  print('state reseted');
+}
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

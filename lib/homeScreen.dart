@@ -29,7 +29,14 @@ class _MyHomePageState extends State<HomeScreen> {
               style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
             ),
           ),
-          MotivationalText(),
+          RaisedButton(
+            child: Text("reset"),
+            onPressed: () {
+              print('reset');
+              resetState();
+            },
+          ),
+          // MotivationalText(),
           DailyStatus(),
           ProgressIndicator(),
           ConsumedCalories(),
@@ -159,11 +166,11 @@ class ConsumedCalories extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               StreamBuilder(
-                stream: proteinService.stream,
+                stream: proteinService.streamConsumedProtein,
                 builder: (BuildContext context, AsyncSnapshot snapshot) {
                   return Text(
                     "${snapshot.data * 4} cal",
-                    style: TextStyle(fontSize: 30),
+                    style: TextStyle(fontSize: 28),
                   );
                 },
               )
@@ -188,8 +195,8 @@ class ProgressIndicator extends StatelessWidget {
           selectedColor: PrimaryColor,
           unselectedColor: Colors.grey[200],
           // padding: 8,
-          width: 140,
-          height: 140,
+          width: 180,
+          height: 180,
           selectedStepSize: 15,
           child: Center(
             child: Column(
@@ -201,7 +208,7 @@ class ProgressIndicator extends StatelessWidget {
                     Text(
                       "${proteinService.currentConsumedProtein}",
                       style: TextStyle(
-                        fontSize: 80,
+                        fontSize: 60,
                       ),
                     ),
                     Text(
