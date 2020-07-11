@@ -3,7 +3,7 @@ import 'package:protein_tracker/utils/colors.dart';
 import 'package:protein_tracker/main.dart';
 import 'package:protein_tracker/bloc/proteinGoal.dart';
 import 'package:protein_tracker/trackerScreen.dart';
-import 'package:protein_tracker/widgetUtils.dart';
+import 'package:protein_tracker/utils/widgetUtils.dart';
 import 'package:step_progress_indicator/step_progress_indicator.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -22,9 +22,17 @@ class _MyHomePageState extends State<HomeScreen> {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: <Widget>[
+          Padding(
+            padding: const EdgeInsets.only(top: 10),
+            child: Text(
+              "Today",
+              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+            ),
+          ),
           MotivationalText(),
-          ProgressIndicator(),
           DailyStatus(),
+          ProgressIndicator(),
+          ConsumedCalories(),
           WidgetUtils.button(
             text: 'track protein',
             onPressed: () {
@@ -49,7 +57,7 @@ class MotivationalText extends StatelessWidget {
       color: PrimaryColor,
       title: 'Status',
       child: Container(
-        padding: EdgeInsets.symmetric(vertical: 10),
+        padding: EdgeInsets.fromLTRB(40, 10, 40, 10),
         child: Text(
           proteinService.currentConsumedProtein >= proteinService.current
               ? 'You have reached your daily goal, well done!'
@@ -65,7 +73,7 @@ class MotivationalText extends StatelessWidget {
                           : 'start tracking your protein intake',
           textAlign: TextAlign.center,
           style: TextStyle(
-              fontSize: 24, fontWeight: FontWeight.bold, color: Colors.white
+              fontSize: 20, fontWeight: FontWeight.bold, color: Colors.white
               // color: DarkGreyColor,
               ),
         ),
@@ -140,11 +148,38 @@ class DailyStatus extends StatelessWidget {
   }
 }
 
+class ConsumedCalories extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return WidgetUtils.card(
+      title: 'Calories consumed from protein',
+      child: Column(
+        children: <Widget>[
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              StreamBuilder(
+                stream: proteinService.stream,
+                builder: (BuildContext context, AsyncSnapshot snapshot) {
+                  return Text(
+                    "${snapshot.data * 4} cal",
+                    style: TextStyle(fontSize: 30),
+                  );
+                },
+              )
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+}
+
 class ProgressIndicator extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return WidgetUtils.card(
-      title: 'Consumed protein',
+      title: 'Protein consumed',
       child: Center(
         child: CircularStepProgressIndicator(
           totalSteps: proteinService.current,
@@ -153,8 +188,8 @@ class ProgressIndicator extends StatelessWidget {
           selectedColor: PrimaryColor,
           unselectedColor: Colors.grey[200],
           // padding: 8,
-          width: 200,
-          height: 200,
+          width: 140,
+          height: 140,
           selectedStepSize: 15,
           child: Center(
             child: Column(

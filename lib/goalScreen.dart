@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:protein_tracker/colors.dart';
+import 'package:protein_tracker/utils/colors.dart';
 import 'package:protein_tracker/main.dart';
 import 'package:protein_tracker/bloc/proteinGoal.dart';
-import 'package:protein_tracker/widgetUtils.dart';
+import 'package:protein_tracker/utils/widgetUtils.dart';
 
 class GoalScreen extends StatefulWidget {
   GoalScreen({Key key, this.title}) : super(key: key);
