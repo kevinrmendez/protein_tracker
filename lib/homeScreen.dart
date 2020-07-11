@@ -187,42 +187,46 @@ class ProgressIndicator extends StatelessWidget {
   Widget build(BuildContext context) {
     return WidgetUtils.card(
       title: 'Protein consumed',
-      child: Center(
-        child: CircularStepProgressIndicator(
-          totalSteps: proteinService.current,
-          currentStep: proteinService.currentConsumedProtein,
-          // stepSize: 0,
-          selectedColor: PrimaryColor,
-          unselectedColor: Colors.grey[200],
-          // padding: 8,
-          width: 180,
-          height: 180,
-          selectedStepSize: 15,
-          child: Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    Text(
-                      "${proteinService.currentConsumedProtein}",
-                      style: TextStyle(
-                        fontSize: 60,
+      child: StreamBuilder(
+          stream: proteinService.streamConsumedProtein,
+          builder: (context, snapshot) {
+            return Center(
+              child: CircularStepProgressIndicator(
+                totalSteps: proteinService.current,
+                currentStep: proteinService.currentConsumedProtein,
+                // stepSize: 0,
+                selectedColor: PrimaryColor,
+                unselectedColor: Colors.grey[200],
+                // padding: 8,
+                width: 180,
+                height: 180,
+                selectedStepSize: 15,
+                child: Center(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          Text(
+                            "${snapshot.data}",
+                            style: TextStyle(
+                              fontSize: 60,
+                            ),
+                          ),
+                          Text(
+                            'gr',
+                            style: TextStyle(fontSize: 30),
+                          )
+                        ],
                       ),
-                    ),
-                    Text(
-                      'gr',
-                      style: TextStyle(fontSize: 30),
-                    )
-                  ],
+                      // Text('consumed'),
+                    ],
+                  ),
                 ),
-                // Text('consumed'),
-              ],
-            ),
-          ),
-        ),
-      ),
+              ),
+            );
+          }),
     );
   }
 }
