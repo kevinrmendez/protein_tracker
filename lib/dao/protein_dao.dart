@@ -20,9 +20,7 @@ class ProteinDao {
     if (query != null) {
       if (query.isNotEmpty)
         result = await db.query(proteinTable,
-            columns: columns,
-            where: 'description LIKE ?',
-            whereArgs: ["%$query%"]);
+            columns: columns, where: 'date = ?', whereArgs: ["%$query%"]);
     } else {
       result = await db.query(proteinTable, columns: columns);
     }

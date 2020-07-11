@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 import 'package:protein_tracker/bloc/FoodService.dart';
-import 'package:protein_tracker/bloc/ProteinService.dart';
+import 'package:protein_tracker/bloc/ProteinListService.dart';
 import 'package:protein_tracker/utils/colors.dart';
 import 'package:protein_tracker/dao/protein_dao.dart';
 import 'package:protein_tracker/main.dart';
 import 'package:protein_tracker/model/food.dart';
 import 'package:protein_tracker/model/protein.dart';
-import 'package:protein_tracker/bloc/proteinGoal.dart';
+import 'package:protein_tracker/bloc/ProteinService.dart';
 import 'package:protein_tracker/utils/widgetUtils.dart';
 
 class TrackerScreen extends StatefulWidget {

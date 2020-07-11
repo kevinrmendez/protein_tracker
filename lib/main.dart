@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:protein_tracker/StatisticsScreen.dart';
-import 'package:protein_tracker/bloc/proteinGoal.dart';
+import 'package:protein_tracker/bloc/ProteinService.dart';
 import 'package:protein_tracker/calculatorScreen.dart';
 import 'package:protein_tracker/utils/colors.dart';
 import 'package:protein_tracker/components/appDrawer.dart';
@@ -22,6 +22,8 @@ void resetState() {
   proteinService.resetConsumedProtein();
   print('state reseted');
 }
+
+void getDailyproteinListfromDb() {}
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

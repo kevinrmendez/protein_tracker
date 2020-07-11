@@ -1,39 +1,65 @@
-import 'package:protein_tracker/model/protein.dart';
-import 'package:protein_tracker/repository/protein_repository.dart';
+import 'package:protein_tracker/bloc/ProteinListService.dart';
+import 'package:protein_tracker/main.dart';
 import 'package:rxdart/rxdart.dart';
 
 class ProteinService {
-  static List<Protein> dbProteins = [];
-  final ProteinRepository _proteinRepository = ProteinRepository();
+  BehaviorSubject _proteinGoal = BehaviorSubject.seeded(1);
+  BehaviorSubject _consumedProtein = BehaviorSubject.seeded(0);
+
+  Stream get stream => _proteinGoal.stream;
+  Stream get streamConsumedProtein => _consumedProtein.stream;
+
+  int get current => _proteinGoal.value;
+  int get currentConsumedProtein => _consumedProtein.value;
 
   ProteinService() {
-    _getProtein();
+    initPreferences();
+    getProteinGoalFromPreferences();
   }
-  void _getProtein() async {
-    dbProteins = await _proteinRepository.getAllProteins();
-    _proteinList.add(dbProteins);
-  }
-
-  BehaviorSubject<List<Protein>> _proteinList =
-      BehaviorSubject.seeded(<Protein>[]);
-
-  Stream get stream => _proteinList.stream;
-
-  List<Protein> get currentList => _proteinList.value;
-
-  add(Protein protein) async {
-    _proteinList.value.add(protein);
-    _proteinList.add(List<Protein>.from(currentList));
-
-    _proteinRepository.insertProtein(protein);
-    var proteins = await _proteinRepository.getAllProteins();
-    proteins.forEach((f) => print(f.name));
+  void getProteinGoalFromPreferences() async {
+    int sharedPrefenrencesProteinGoal = preferences.getInt("protein_goal");
+    print("SHARED PREFERENCES $sharedPrefenrencesProteinGoal");
+    _proteinGoal.add(sharedPrefenrencesProteinGoal);
   }
 
-  remove(int index) {
-    _proteinList.value.removeAt(index);
-    _proteinList.add(List<Protein>.from(currentList));
+  void getConsumedProteinFromPreferences() async {
+    int sharedPrefenrencesConsumedProtein =
+        preferences.getInt("protein_consumed");
+    print("SHARED PREFERENCES $sharedPrefenrencesConsumedProtein");
+    _proteinGoal.add(sharedPrefenrencesConsumedProtein);
+  }
+
+  void initPreferences() {
+    if (!preferences.containsKey("protein_goal")) {
+      preferences.setInt("protein_goal", 1);
+    }
+    if (!preferences.containsKey("protein_consumed")) {
+      preferences.setInt("protein_consumed", 0);
+    }
+  }
+
+  setGoal(int goal) {
+    _proteinGoal.add(goal);
+    preferences.setInt("protein_goal", goal);
+  }
+
+  addConsumedProtein(int proteinAmount) {
+    _consumedProtein.add(currentConsumedProtein + proteinAmount);
+    preferences.setInt("protein_consumed", proteinAmount);
+  }
+
+  resetConsumedProtein() {
+    _consumedProtein.add(0);
+    preferences.setInt("protein_consumed", 0);
+    print(preferences.getInt("protein_consumed"));
+    print("${proteinService.currentConsumedProtein}");
+  }
+
+  removeConsumedProtein(int proteinAmount) {
+    var updatedConsumedProtein = currentConsumedProtein - proteinAmount;
+    _consumedProtein.add(updatedConsumedProtein);
+    preferences.setInt("protein_consumed", updatedConsumedProtein);
   }
 }
 
-ProteinService proteinListServices = ProteinService();
+ProteinService proteinService = ProteinService();
