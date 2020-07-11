@@ -168,8 +168,9 @@ class ConsumedCalories extends StatelessWidget {
               StreamBuilder(
                 stream: proteinService.streamConsumedProtein,
                 builder: (BuildContext context, AsyncSnapshot snapshot) {
+                  var consumedproteins = snapshot.data ?? 0;
                   return Text(
-                    "${snapshot.data * 4} cal",
+                    "${consumedproteins * 4} cal",
                     style: TextStyle(fontSize: 28),
                   );
                 },
@@ -190,6 +191,7 @@ class ProgressIndicator extends StatelessWidget {
       child: StreamBuilder(
           stream: proteinService.streamConsumedProtein,
           builder: (context, snapshot) {
+            var consumedproteins = snapshot.data ?? 0;
             return Center(
               child: CircularStepProgressIndicator(
                 totalSteps: proteinService.current,
@@ -209,7 +211,7 @@ class ProgressIndicator extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: <Widget>[
                           Text(
-                            "${snapshot.data}",
+                            "$consumedproteins",
                             style: TextStyle(
                               fontSize: 60,
                             ),
