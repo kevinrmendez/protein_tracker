@@ -13,16 +13,16 @@ class ProteinDao {
     return result;
   }
 
-  Future<List<Protein>> getprotein({List<String> columns, String query}) async {
+  Future<List<Protein>> getprotein({String query}) async {
     final db = await dbProvider.database;
 
     List<Map<String, dynamic>> result;
     if (query != null) {
       if (query.isNotEmpty)
-        result = await db.query(proteinTable,
-            columns: columns, where: 'date = ?', whereArgs: ["%$query%"]);
+        result = await db
+            .query(proteinTable, where: 'date = ?', whereArgs: ["$query"]);
     } else {
-      result = await db.query(proteinTable, columns: columns);
+      result = await db.query(proteinTable);
     }
 
     List<Protein> proteins = result.isNotEmpty

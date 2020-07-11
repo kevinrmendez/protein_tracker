@@ -1,3 +1,4 @@
+import 'package:protein_tracker/main.dart';
 import 'package:protein_tracker/model/protein.dart';
 import 'package:protein_tracker/repository/protein_repository.dart';
 import 'package:rxdart/rxdart.dart';
@@ -10,8 +11,15 @@ class ProteinListService {
     _getProtein();
   }
   void _getProtein() async {
-    dbProteins = await _proteinRepository.getAllProteins();
-    _proteinList.add(dbProteins);
+    var date = formattedDateNow;
+    dbProteins = await _proteinRepository.getAllProteins(
+      query: date,
+    );
+    print("DBPROTEIN $dbProteins");
+    var dbProtein2 = await _proteinRepository.getAllProteins();
+    print("DBPROTEIN2: $dbProtein2");
+    dbProteins.forEach((p) => print(p.name));
+    _proteinList.add(dbProteins ?? []);
   }
 
   BehaviorSubject<List<Protein>> _proteinList =

@@ -17,6 +17,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 DateTime currentDate;
 var preferences;
+String formattedDateNow;
 
 void resetState() {
   proteinService.resetConsumedProtein();
@@ -31,7 +32,7 @@ void main() async {
   currentDate = DateTime.now();
   print("CURRENT TIME: $currentDate");
   final DateFormat formatter = DateFormat('dd-MM-yyyy');
-  final String formattedDateNow = formatter.format(currentDate);
+  formattedDateNow = formatter.format(currentDate);
   preferences = await SharedPreferences.getInstance();
   print(formattedDateNow);
 
