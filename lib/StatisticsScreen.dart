@@ -12,7 +12,10 @@ class StatisticsScreen extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
+            Text('Monthly protein intake'),
+            Text('July'),
             Container(
+                margin: EdgeInsets.symmetric(horizontal: 10),
                 height: MediaQuery.of(context).size.height * .4,
                 child: ProteinChart.withSampleData())
           ],
