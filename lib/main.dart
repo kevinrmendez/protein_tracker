@@ -14,6 +14,7 @@ import 'package:protein_tracker/model/protein.dart';
 import 'package:protein_tracker/settingsScreen.dart';
 
 import 'package:flutter/services.dart';
+import 'package:protein_tracker/utils/widgetUtils.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 DateTime currentDate;
@@ -89,14 +90,7 @@ class _AppState extends State<App> {
     ]);
     return Scaffold(
       drawer: AppDrawer(),
-      appBar: AppBar(
-        iconTheme: new IconThemeData(color: Colors.white),
-        title: Text(
-          'Protein Tracker',
-          textAlign: TextAlign.center,
-          style: TextStyle(color: Colors.white),
-        ),
-      ),
+      appBar: WidgetUtils.appBar('Protein Tracker'),
       body: _activities[_selectedIndex],
       floatingActionButton: new FloatingActionButton(
         backgroundColor: PrimaryColor,

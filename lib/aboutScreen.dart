@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:protein_tracker/main.dart';
+import 'package:protein_tracker/utils/widgetUtils.dart';
 
 class AboutScreen extends StatelessWidget {
   AboutScreen({Key key}) : super(key: key);
@@ -7,12 +8,7 @@ class AboutScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          'About protein tracker',
-          style: TextStyle(color: Colors.white),
-        ),
-      ),
+      appBar: WidgetUtils.appBarBackArrow('About protein tracker', context),
       body: Container(
         padding: EdgeInsets.symmetric(vertical: 40),
         child: Column(

@@ -88,12 +88,7 @@ class _MyHomePageState extends State<CalculatorScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          'Protein intake calculator',
-          style: TextStyle(color: Colors.white),
-        ),
-      ),
+      appBar: WidgetUtils.appBarBackArrow('Protein intake calculator', context),
       body: Center(
         child: ListView(children: <Widget>[
           Column(

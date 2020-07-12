@@ -38,14 +38,7 @@ class _TrackerScreenState extends State<TrackerScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        // Here we take the value from theApp object that was created by
-        // the App.build method, and use it to set our appbar title.
-        title: Text(
-          "Today's protein",
-          style: TextStyle(color: Colors.white),
-        ),
-      ),
+      appBar: WidgetUtils.appBarBackArrow("Today's protein", context),
       body: StreamBuilder<List<Protein>>(
         stream: proteinListServices.stream,
         builder: (BuildContext context, AsyncSnapshot snapshot) {

@@ -23,12 +23,7 @@ class _FoodListScreenState extends State<FoodListScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          'Food List',
-          style: TextStyle(color: Colors.white),
-        ),
-      ),
+      appBar: WidgetUtils.appBarBackArrow('Food List', context),
       body: StreamBuilder<List<Food>>(
         stream: foodListServices.stream,
         builder: (BuildContext context, AsyncSnapshot snapshot) {

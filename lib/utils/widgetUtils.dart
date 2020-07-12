@@ -96,4 +96,43 @@ class WidgetUtils {
       ),
     );
   }
+
+  static AppBar appBar(String title, {Widget leading}) {
+    return AppBar(
+      centerTitle: true,
+      backgroundColor: LightGreyColor,
+      iconTheme: new IconThemeData(color: PrimaryColor),
+      elevation: 0.0,
+      leading: leading,
+      title:
+          // Icon(Icons.delete),
+          Text(
+        title,
+        textAlign: TextAlign.center,
+        style: TextStyle(color: PrimaryColor, fontWeight: FontWeight.bold),
+      ),
+    );
+  }
+
+  static AppBar appBarBackArrow(String title, BuildContext context) {
+    return AppBar(
+      centerTitle: true,
+      backgroundColor: LightGreyColor,
+      iconTheme: new IconThemeData(color: PrimaryColor),
+      elevation: 0.0,
+      leading: IconButton(
+        icon: Icon(
+          Icons.arrow_back_ios,
+        ),
+        onPressed: () => Navigator.of(context).pop(),
+      ),
+      title:
+          // Icon(Icons.delete),
+          Text(
+        title,
+        textAlign: TextAlign.center,
+        style: TextStyle(color: PrimaryColor, fontWeight: FontWeight.bold),
+      ),
+    );
+  }
 }

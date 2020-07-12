@@ -27,12 +27,7 @@ class _GoalScreenState extends State<GoalScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          'Protein Goal',
-          style: TextStyle(color: Colors.white),
-        ),
-      ),
+      appBar: WidgetUtils.appBarBackArrow('Protein Goal', context),
       body: ListView(children: <Widget>[
         Center(
           child: Column(

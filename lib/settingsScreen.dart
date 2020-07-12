@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:protein_tracker/aboutScreen.dart';
 import 'package:protein_tracker/main.dart';
+import 'package:protein_tracker/utils/widgetUtils.dart';
 
 class SettingsScreen extends StatefulWidget {
   SettingsScreen({Key key}) : super(key: key);
@@ -27,14 +28,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        // Here we take the value from theApp object that was created by
-        // the App.build method, and use it to set our appbar title.
-        title: Text(
-          'Settings',
-          style: TextStyle(color: Colors.white),
-        ),
-      ),
+      appBar: WidgetUtils.appBarBackArrow('Settings', context),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         children: <Widget>[
