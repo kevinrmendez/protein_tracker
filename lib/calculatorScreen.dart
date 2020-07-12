@@ -87,181 +87,190 @@ class _MyHomePageState extends State<CalculatorScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: ListView(children: <Widget>[
-        Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: <Widget>[
-            Container(
-              child: WidgetUtils.card(
-                color: PrimaryColor,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    Container(
-                      // padding: EdgeInsets.symmetric(vertical: 10),
-                      child: Text(
-                        " $proteinIntake",
-                        style: TextStyle(fontSize: 50, color: Colors.white),
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(
+          'Protein intake calculator',
+          style: TextStyle(color: Colors.white),
+        ),
+      ),
+      body: Center(
+        child: ListView(children: <Widget>[
+          Column(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: <Widget>[
+              Container(
+                child: WidgetUtils.card(
+                  color: PrimaryColor,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Container(
+                        // padding: EdgeInsets.symmetric(vertical: 10),
+                        child: Text(
+                          " $proteinIntake",
+                          style: TextStyle(fontSize: 50, color: Colors.white),
+                        ),
                       ),
-                    ),
-                    Text(
-                      'gr',
-                      style: TextStyle(fontSize: 25, color: Colors.white),
-                    )
-                  ],
+                      Text(
+                        'gr',
+                        style: TextStyle(fontSize: 25, color: Colors.white),
+                      )
+                    ],
+                  ),
                 ),
               ),
-            ),
-            Container(
-              // padding: EdgeInsets.symmetric(horizontal: 40),
-              child: WidgetUtils.card(
-                child: Form(
-                    child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: <Widget>[
-                    Column(
-                      children: <Widget>[],
-                    ),
-                    _subtitle('Weight'),
-                    Text("$_weightRounded kg"),
-                    Slider(
-                      activeColor: PrimaryColor,
-                      label: 'weight',
-                      value: _weight,
-                      onChanged: (weight) {
-                        setState(() {
-                          _weight = weight;
-                          _weightRounded = weight.round();
-                        });
-                      },
-                      min: 0,
-                      max: 500,
-                    ),
-                    Column(
-                      children: <Widget>[
-                        _subtitle('Gender'),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: <Widget>[
-                            _radioButton(
-                              'male',
-                              _gender,
-                              Gender.male,
-                            ),
-                            _radioButton(
-                              'female',
-                              _gender,
-                              Gender.female,
-                            )
-                          ],
-                        ),
-                      ],
-                    ),
-                    Column(
-                      children: <Widget>[
-                        _subtitle('Activity'),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: <Widget>[
-                            SizedBox(
-                              width: 20,
-                            ),
-                            DropdownButton<String>(
-                              value: dropdownValue,
-                              icon: Icon(Icons.arrow_downward),
-                              iconSize: 24,
-                              elevation: 16,
-                              style: TextStyle(color: PrimaryColor),
-                              underline: Container(
-                                height: 2,
-                                color: Colors.grey,
+              Container(
+                // padding: EdgeInsets.symmetric(horizontal: 40),
+                child: WidgetUtils.card(
+                  child: Form(
+                      child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: <Widget>[
+                      Column(
+                        children: <Widget>[],
+                      ),
+                      _subtitle('Weight'),
+                      Text("$_weightRounded kg"),
+                      Slider(
+                        activeColor: PrimaryColor,
+                        label: 'weight',
+                        value: _weight,
+                        onChanged: (weight) {
+                          setState(() {
+                            _weight = weight;
+                            _weightRounded = weight.round();
+                          });
+                        },
+                        min: 0,
+                        max: 500,
+                      ),
+                      Column(
+                        children: <Widget>[
+                          _subtitle('Gender'),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: <Widget>[
+                              _radioButton(
+                                'male',
+                                _gender,
+                                Gender.male,
                               ),
-                              onChanged: (String newValue) {
-                                setState(() {
-                                  dropdownValue = newValue;
-                                });
-                              },
-                              items: <String>[
-                                'sedentary',
-                                'moderate',
-                                'active',
-                                'very active'
-                              ].map<DropdownMenuItem<String>>((String value) {
-                                return DropdownMenuItem<String>(
-                                  value: value,
-                                  child: Text(value),
-                                );
-                              }).toList(),
-                            )
-                          ],
-                        ),
-                      ],
-                    ),
-                    Column(
-                      children: <Widget>[
-                        _subtitle('Goal'),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: <Widget>[
-                            SizedBox(
-                              width: 20,
-                            ),
-                            DropdownButton<String>(
-                              value: dropdownValueGoal,
-                              icon: Icon(Icons.arrow_downward),
-                              iconSize: 24,
-                              elevation: 16,
-                              style: TextStyle(color: PrimaryColor),
-                              underline: Container(
-                                height: 2,
-                                color: Colors.grey,
+                              _radioButton(
+                                'female',
+                                _gender,
+                                Gender.female,
+                              )
+                            ],
+                          ),
+                        ],
+                      ),
+                      Column(
+                        children: <Widget>[
+                          _subtitle('Activity'),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: <Widget>[
+                              SizedBox(
+                                width: 20,
                               ),
-                              onChanged: (String newValue) {
-                                setState(() {
-                                  dropdownValueGoal = newValue;
-                                });
-                              },
-                              items: <String>[
-                                'maintenance',
-                                'muscle gain',
-                                'fat loss'
-                              ].map<DropdownMenuItem<String>>((String value) {
-                                return DropdownMenuItem<String>(
-                                  value: value,
-                                  child: Text(value),
-                                );
-                              }).toList(),
-                            )
-                          ],
-                        ),
-                      ],
-                    ),
-                  ],
-                )),
+                              DropdownButton<String>(
+                                value: dropdownValue,
+                                icon: Icon(Icons.arrow_downward),
+                                iconSize: 24,
+                                elevation: 16,
+                                style: TextStyle(color: PrimaryColor),
+                                underline: Container(
+                                  height: 2,
+                                  color: Colors.grey,
+                                ),
+                                onChanged: (String newValue) {
+                                  setState(() {
+                                    dropdownValue = newValue;
+                                  });
+                                },
+                                items: <String>[
+                                  'sedentary',
+                                  'moderate',
+                                  'active',
+                                  'very active'
+                                ].map<DropdownMenuItem<String>>((String value) {
+                                  return DropdownMenuItem<String>(
+                                    value: value,
+                                    child: Text(value),
+                                  );
+                                }).toList(),
+                              )
+                            ],
+                          ),
+                        ],
+                      ),
+                      Column(
+                        children: <Widget>[
+                          _subtitle('Goal'),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: <Widget>[
+                              SizedBox(
+                                width: 20,
+                              ),
+                              DropdownButton<String>(
+                                value: dropdownValueGoal,
+                                icon: Icon(Icons.arrow_downward),
+                                iconSize: 24,
+                                elevation: 16,
+                                style: TextStyle(color: PrimaryColor),
+                                underline: Container(
+                                  height: 2,
+                                  color: Colors.grey,
+                                ),
+                                onChanged: (String newValue) {
+                                  setState(() {
+                                    dropdownValueGoal = newValue;
+                                  });
+                                },
+                                items: <String>[
+                                  'maintenance',
+                                  'muscle gain',
+                                  'fat loss'
+                                ].map<DropdownMenuItem<String>>((String value) {
+                                  return DropdownMenuItem<String>(
+                                    value: value,
+                                    child: Text(value),
+                                  );
+                                }).toList(),
+                              )
+                            ],
+                          ),
+                        ],
+                      ),
+                    ],
+                  )),
+                ),
               ),
-            ),
-            SizedBox(
-              height: 5,
-            ),
-            WidgetUtils.button(
-              text: 'calculate',
-              onPressed: () {
-                calculateProteinIntake();
-              },
-            ),
-            _isCalculated
-                ? WidgetUtils.button(
-                    text: 'set as protein goal',
-                    onPressed: () {
-                      proteinService.setGoal(proteinIntake);
-                      showDialog(
-                          context: context, builder: (_) => GoalChangeDialog());
-                    })
-                : SizedBox()
-          ],
-        ),
-      ]),
+              Container(
+                padding: EdgeInsets.symmetric(vertical: 10),
+                child: WidgetUtils.button(
+                  text: 'calculate',
+                  onPressed: () {
+                    calculateProteinIntake();
+                  },
+                ),
+              ),
+              _isCalculated
+                  ? WidgetUtils.button(
+                      text: 'set as protein goal',
+                      onPressed: () {
+                        proteinService.setGoal(proteinIntake);
+                        showDialog(
+                            context: context,
+                            builder: (_) => GoalChangeDialog());
+                      })
+                  : SizedBox()
+            ],
+          ),
+        ]),
+      ),
     );
   }
 }

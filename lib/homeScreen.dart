@@ -19,38 +19,39 @@ class _MyHomePageState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
+      child: ListView(
+        // mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: <Widget>[
           Padding(
             padding: const EdgeInsets.only(top: 10),
             child: Text(
               "Today",
-              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+              textAlign: TextAlign.center,
+              style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
             ),
           ),
-          RaisedButton(
-            child: Text("reset"),
-            onPressed: () {
-              print('reset');
-              resetState();
-            },
-          ),
-          // MotivationalText(),
+          // RaisedButton(
+          //   child: Text("reset"),
+          //   onPressed: () {
+          //     print('reset');
+          //     resetState();
+          //   },
+          // ),
+          MotivationalText(),
           DailyStatus(),
           ProgressIndicator(),
           ConsumedCalories(),
-          WidgetUtils.button(
-            text: 'track protein',
-            onPressed: () {
-              Navigator.of(context).push(MaterialPageRoute(
-                  builder: (BuildContext context) => TrackerScreen()));
-              print('track food');
-            },
-          ),
-          // SizedBox(
-          //   height: 10,
-          // )
+          // WidgetUtils.button(
+          //   text: 'track protein',
+          //   onPressed: () {
+          //     Navigator.of(context).push(MaterialPageRoute(
+          //         builder: (BuildContext context) => TrackerScreen()));
+          //     print('track food');
+          //   },
+          // ),
+          SizedBox(
+            height: 40,
+          )
         ],
       ),
     );

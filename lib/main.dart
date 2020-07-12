@@ -3,6 +3,7 @@ import 'package:intl/intl.dart';
 import 'package:protein_tracker/StatisticsScreen.dart';
 import 'package:protein_tracker/bloc/ProteinService.dart';
 import 'package:protein_tracker/calculatorScreen.dart';
+import 'package:protein_tracker/trackerScreen.dart';
 import 'package:protein_tracker/utils/colors.dart';
 import 'package:protein_tracker/components/appDrawer.dart';
 import 'package:protein_tracker/dao/food_dao.dart';
@@ -100,16 +101,29 @@ class _AppState extends State<App> {
         ),
       ),
       body: _activities[_selectedIndex],
+      floatingActionButton: new FloatingActionButton(
+        backgroundColor: PrimaryColor,
+        child: const Icon(
+          Icons.add,
+          color: Colors.white,
+        ),
+        onPressed: () {
+          Navigator.of(context).push(MaterialPageRoute(
+              builder: (BuildContext context) => TrackerScreen()));
+          print('track food');
+        },
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             icon: Icon(Icons.home),
             title: Text('Home'),
           ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.phone_android),
-            title: Text('Calculator'),
-          ),
+          // BottomNavigationBarItem(
+          //   icon: Icon(Icons.phone_android),
+          //   title: Text('Calculator'),
+          // ),
           BottomNavigationBarItem(
             icon: Icon(Icons.poll),
             title: Text('Statistics'),

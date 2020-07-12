@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:protein_tracker/FoodListScreen.dart';
+import 'package:protein_tracker/calculatorScreen.dart';
 import 'package:protein_tracker/utils/colors.dart';
 import 'package:protein_tracker/goalScreen.dart';
 import 'package:protein_tracker/homeScreen.dart';
@@ -70,6 +71,21 @@ class AppDrawer extends StatelessWidget {
                   Navigator.of(context).pop();
                   Navigator.of(context).push(MaterialPageRoute(
                       builder: (BuildContext context) => FoodListScreen()));
+                },
+              ),
+              ListTile(
+                title: Text(
+                  "Calculator",
+                  // style: TextStyle(color: Theme.of(context).primaryColor),
+                ),
+                trailing: Icon(
+                  Icons.phone_android,
+                  color: Theme.of(context).accentColor,
+                ),
+                onTap: () {
+                  Navigator.of(context).pop();
+                  Navigator.of(context).push(MaterialPageRoute(
+                      builder: (BuildContext context) => CalculatorScreen()));
                 },
               ),
               ListTile(
