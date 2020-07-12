@@ -41,14 +41,6 @@ class _MyHomePageState extends State<HomeScreen> {
           DailyStatus(),
           ProgressIndicator(),
           ConsumedCalories(),
-          // WidgetUtils.button(
-          //   text: 'track protein',
-          //   onPressed: () {
-          //     Navigator.of(context).push(MaterialPageRoute(
-          //         builder: (BuildContext context) => TrackerScreen()));
-          //     print('track food');
-          //   },
-          // ),
           SizedBox(
             height: 40,
           )

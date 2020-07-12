@@ -69,7 +69,6 @@ class _AppState extends State<App> {
   final List<Widget> _activities = [
     // StatisticsActivity(),
     HomeScreen(),
-    CalculatorScreen(),
     StatisticsScreen(),
   ];
 
@@ -91,8 +90,6 @@ class _AppState extends State<App> {
     return Scaffold(
       drawer: AppDrawer(),
       appBar: AppBar(
-        // Here we take the value from theApp object that was created by
-        // the App.build method, and use it to set our appbar title.
         iconTheme: new IconThemeData(color: Colors.white),
         title: Text(
           'Protein Tracker',
@@ -120,10 +117,6 @@ class _AppState extends State<App> {
             icon: Icon(Icons.home),
             title: Text('Home'),
           ),
-          // BottomNavigationBarItem(
-          //   icon: Icon(Icons.phone_android),
-          //   title: Text('Calculator'),
-          // ),
           BottomNavigationBarItem(
             icon: Icon(Icons.poll),
             title: Text('Statistics'),
@@ -133,8 +126,6 @@ class _AppState extends State<App> {
         selectedItemColor: PrimaryColor,
         onTap: _onItemTapped,
       ),
-
-      // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
 }
