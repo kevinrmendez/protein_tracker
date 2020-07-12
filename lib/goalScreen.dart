@@ -95,22 +95,21 @@ class _GoalScreenState extends State<GoalScreen> {
                             return null;
                           },
                         ),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 20),
-                          child: WidgetUtils.button(
-                            text: 'set goal',
-                            onPressed: () {
-                              if (_formKey.currentState.validate()) {
-                                _proteinGoal =
-                                    int.parse(proteinGoalController.text);
-                                proteinService.setGoal(_proteinGoal);
-                                print('goal set: $_proteinGoal');
-                              }
-                            },
-                          ),
-                        )
                       ],
                     )),
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 20),
+                child: WidgetUtils.button(
+                  text: 'set goal',
+                  onPressed: () {
+                    if (_formKey.currentState.validate()) {
+                      _proteinGoal = int.parse(proteinGoalController.text);
+                      proteinService.setGoal(_proteinGoal);
+                      print('goal set: $_proteinGoal');
+                    }
+                  },
+                ),
               )
             ],
           ),

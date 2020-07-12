@@ -3,6 +3,7 @@ import 'package:protein_tracker/utils/colors.dart';
 import 'package:protein_tracker/main.dart';
 import 'package:protein_tracker/bloc/ProteinService.dart';
 import 'package:protein_tracker/trackerScreen.dart';
+import 'package:protein_tracker/utils/fontStyle.dart';
 import 'package:protein_tracker/utils/widgetUtils.dart';
 import 'package:step_progress_indicator/step_progress_indicator.dart';
 
@@ -20,16 +21,13 @@ class _MyHomePageState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Center(
       child: ListView(
-        // mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: <Widget>[
-          Padding(
-            padding: const EdgeInsets.only(top: 10),
-            child: Text(
-              "Today",
-              textAlign: TextAlign.center,
-              style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
-            ),
+          Text(
+            "Today",
+            textAlign: TextAlign.center,
+            style: AppFontStyle.title,
           ),
+
           // RaisedButton(
           //   child: Text("reset"),
           //   onPressed: () {
@@ -41,9 +39,6 @@ class _MyHomePageState extends State<HomeScreen> {
           DailyStatus(),
           ProgressIndicator(),
           ConsumedCalories(),
-          SizedBox(
-            height: 40,
-          )
         ],
       ),
     );
