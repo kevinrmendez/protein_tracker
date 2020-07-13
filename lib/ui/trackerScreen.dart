@@ -3,6 +3,7 @@ import 'package:intl/intl.dart';
 
 import 'package:protein_tracker/bloc/FoodService.dart';
 import 'package:protein_tracker/bloc/ProteinListService.dart';
+import 'package:protein_tracker/utils/appAssets.dart';
 import 'package:protein_tracker/utils/colors.dart';
 import 'package:protein_tracker/dao/protein_dao.dart';
 import 'package:protein_tracker/main.dart';
@@ -47,7 +48,7 @@ class _TrackerScreenState extends State<TrackerScreen> {
             return Center(
                 child: WidgetUtils.imageText(context,
                     text: 'your protein list is empty',
-                    asset: 'assets/protein-icon-gray-150.png'));
+                    asset: AppAssets.protein_icon_gray));
           } else {
             return ListView.builder(
                 itemCount: proteinListServices.currentList.length,

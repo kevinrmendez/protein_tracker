@@ -55,6 +55,7 @@ flutter:
     - assets/protein-tracker-icon-an-30.png
     - assets/protein-icon-black-150.png
     - assets/protein-icon-gray-150.png
+    - assets/protein-icon-white-150.png
   #  - images/a_dot_ham.jpeg
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

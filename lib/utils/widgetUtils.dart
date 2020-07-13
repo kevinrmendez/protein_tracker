@@ -4,12 +4,14 @@ import 'package:protein_tracker/utils/colors.dart';
 import 'package:protein_tracker/main.dart';
 
 class WidgetUtils {
-  static Widget button({String text, Function onPressed}) {
+  static Widget button(
+      {String text, Function onPressed, Color color, Color textColor}) {
     return RaisedButton(
-      color: PrimaryColor,
+      color: color == null ? PrimaryColor : color,
       child: Text(
         text,
-        style: TextStyle(color: Colors.white, fontSize: 22),
+        style: TextStyle(
+            color: textColor == null ? Colors.white : textColor, fontSize: 22),
       ),
       onPressed: onPressed,
     );
@@ -120,20 +122,6 @@ class WidgetUtils {
                 padding: EdgeInsets.symmetric(vertical: 8), child: child),
           ),
         ],
-      ),
-    );
-  }
-
-  static AppBar appBar() {
-    return AppBar(
-      centerTitle: true,
-      backgroundColor: LightGreyColor,
-      iconTheme: new IconThemeData(color: PrimaryColor),
-      elevation: 0.0,
-      title: Image.asset(
-        AppAssets.app_icon,
-        width: 40,
-        height: 40,
       ),
     );
   }

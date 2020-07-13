@@ -91,24 +91,20 @@ class _AppState extends State<App> {
     super.initState();
     appIcon = Image.asset(
       AppAssets.app_icon,
-      // width: 40,
-      // height: 40,
-      gaplessPlayback: true,
     );
   }
 
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-
-    precacheImage(
-      appIcon.image,
-      context,
-    );
   }
 
   @override
   Widget build(BuildContext context) {
+    precacheImage(
+      appIcon.image,
+      context,
+    );
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.portraitUp,
       DeviceOrientation.portraitDown,
@@ -120,7 +116,7 @@ class _AppState extends State<App> {
         backgroundColor: LightGreyColor,
         iconTheme: new IconThemeData(color: PrimaryColor),
         elevation: 0.0,
-        title: appIcon,
+        title: SizedBox(child: appIcon),
       ),
       body: _activities[_selectedIndex],
       floatingActionButton: new FloatingActionButton(
