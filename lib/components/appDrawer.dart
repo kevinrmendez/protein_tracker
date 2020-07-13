@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:protein_tracker/FoodListScreen.dart';
-import 'package:protein_tracker/calculatorScreen.dart';
+import 'package:protein_tracker/ui/FoodListScreen.dart';
+import 'package:protein_tracker/ui/calculatorScreen.dart';
 import 'package:protein_tracker/utils/colors.dart';
-import 'package:protein_tracker/goalScreen.dart';
-import 'package:protein_tracker/homeScreen.dart';
-import 'package:protein_tracker/settingsScreen.dart';
+import 'package:protein_tracker/ui/goalScreen.dart';
+import 'package:protein_tracker/ui/homeScreen.dart';
+import 'package:protein_tracker/ui/settingsScreen.dart';
 
 import '../main.dart';
 

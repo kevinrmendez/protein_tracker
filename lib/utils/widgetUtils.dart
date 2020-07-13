@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:protein_tracker/utils/appAssets.dart';
 import 'package:protein_tracker/utils/colors.dart';
 import 'package:protein_tracker/main.dart';
 
@@ -130,7 +131,7 @@ class WidgetUtils {
       iconTheme: new IconThemeData(color: PrimaryColor),
       elevation: 0.0,
       title: Image.asset(
-        'assets/protein-tracker-icon-an-150.png',
+        AppAssets.app_icon,
         width: 40,
         height: 40,
       ),

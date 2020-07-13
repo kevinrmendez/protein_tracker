@@ -1,18 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:protein_tracker/StatisticsScreen.dart';
+import 'package:protein_tracker/ui/StatisticsScreen.dart';
 import 'package:protein_tracker/bloc/DateService.dart';
 import 'package:protein_tracker/bloc/ProteinService.dart';
-import 'package:protein_tracker/calculatorScreen.dart';
-import 'package:protein_tracker/trackerScreen.dart';
+import 'package:protein_tracker/ui/calculatorScreen.dart';
+import 'package:protein_tracker/ui/trackerScreen.dart';
+import 'package:protein_tracker/utils/appAssets.dart';
 import 'package:protein_tracker/utils/colors.dart';
 import 'package:protein_tracker/components/appDrawer.dart';
 import 'package:protein_tracker/dao/food_dao.dart';
 import 'package:protein_tracker/dao/protein_dao.dart';
-import 'package:protein_tracker/homeScreen.dart';
+import 'package:protein_tracker/ui/homeScreen.dart';
 import 'package:protein_tracker/model/food.dart';
 import 'package:protein_tracker/model/protein.dart';
-import 'package:protein_tracker/settingsScreen.dart';
+import 'package:protein_tracker/ui/settingsScreen.dart';
 
 import 'package:flutter/services.dart';
 import 'package:protein_tracker/utils/widgetUtils.dart';
@@ -67,6 +68,7 @@ class App extends StatefulWidget {
 }
 
 class _AppState extends State<App> {
+  Image appIcon;
   int _counter = 0;
   int _selectedIndex = 0;
   final List<Widget> _activities = [
@@ -85,6 +87,27 @@ class _AppState extends State<App> {
   }
 
   @override
+  void initState() {
+    super.initState();
+    appIcon = Image.asset(
+      AppAssets.app_icon,
+      // width: 40,
+      // height: 40,
+      gaplessPlayback: true,
+    );
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+
+    precacheImage(
+      appIcon.image,
+      context,
+    );
+  }
+
+  @override
   Widget build(BuildContext context) {
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.portraitUp,
@@ -92,7 +115,13 @@ class _AppState extends State<App> {
     ]);
     return Scaffold(
       drawer: AppDrawer(),
-      appBar: WidgetUtils.appBar(),
+      appBar: AppBar(
+        centerTitle: true,
+        backgroundColor: LightGreyColor,
+        iconTheme: new IconThemeData(color: PrimaryColor),
+        elevation: 0.0,
+        title: appIcon,
+      ),
       body: _activities[_selectedIndex],
       floatingActionButton: new FloatingActionButton(
         backgroundColor: PrimaryColor,

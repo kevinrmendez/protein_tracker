@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:protein_tracker/aboutScreen.dart';
+import 'package:protein_tracker/ui/aboutScreen.dart';
 import 'package:protein_tracker/main.dart';
 import 'package:protein_tracker/utils/widgetUtils.dart';
 

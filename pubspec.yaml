@@ -50,6 +50,9 @@ flutter:
     - assets/drawer-header.jpg
     - assets/protein-tracker-icon-150.png
     - assets/protein-tracker-icon-an-150.png
+    - assets/protein-tracker-icon-an-50.png
+    - assets/protein-tracker-icon-an-40.png
+    - assets/protein-tracker-icon-an-30.png
     - assets/protein-icon-black-150.png
     - assets/protein-icon-gray-150.png
   #  - images/a_dot_ham.jpeg
