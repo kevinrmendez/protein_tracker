@@ -88,7 +88,7 @@ class _AppState extends State<App> {
     ]);
     return Scaffold(
       drawer: AppDrawer(),
-      appBar: WidgetUtils.appBar('Protein Tracker'),
+      appBar: WidgetUtils.appBar(),
       body: _activities[_selectedIndex],
       floatingActionButton: new FloatingActionButton(
         backgroundColor: PrimaryColor,

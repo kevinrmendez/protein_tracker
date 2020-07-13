@@ -97,19 +97,16 @@ class WidgetUtils {
     );
   }
 
-  static AppBar appBar(String title, {Widget leading}) {
+  static AppBar appBar() {
     return AppBar(
       centerTitle: true,
       backgroundColor: LightGreyColor,
       iconTheme: new IconThemeData(color: PrimaryColor),
       elevation: 0.0,
-      leading: leading,
-      title:
-          // Icon(Icons.delete),
-          Text(
-        title,
-        textAlign: TextAlign.center,
-        style: TextStyle(color: PrimaryColor, fontWeight: FontWeight.bold),
+      title: Image.asset(
+        'assets/protein-tracker-icon-150.png',
+        width: 40,
+        height: 40,
       ),
     );
   }

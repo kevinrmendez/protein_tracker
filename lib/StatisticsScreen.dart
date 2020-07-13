@@ -37,6 +37,9 @@ class StatisticsScreen extends StatelessWidget {
               "$data",
               style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
             ),
+            SizedBox(
+              width: 5,
+            ),
             Text(
               measurement,
               style: TextStyle(color: DarkGreyColor, fontSize: 12),

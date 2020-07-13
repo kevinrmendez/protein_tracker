@@ -28,14 +28,15 @@ class _MyHomePageState extends State<HomeScreen> {
             style: AppFontStyle.title,
           ),
 
-          RaisedButton(
-            child: Text("reset"),
-            onPressed: () {
-              print('reset');
-              resetState();
-            },
-          ),
-          // MotivationalText(),
+          // RaisedButton(
+          //   child: Text("reset"),
+          //   onPressed: () {
+          //     print('reset');
+          //     resetState();
+          //   },
+          // ),
+
+          MotivationalText(),
           DailyStatus(),
           ProgressIndicator(),
           ConsumedCalories(),
