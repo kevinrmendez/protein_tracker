@@ -104,7 +104,7 @@ class WidgetUtils {
       iconTheme: new IconThemeData(color: PrimaryColor),
       elevation: 0.0,
       title: Image.asset(
-        'assets/protein-tracker-icon-150.png',
+        'assets/protein-tracker-icon-an-150.png',
         width: 40,
         height: 40,
       ),

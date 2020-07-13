@@ -27,7 +27,6 @@ class _MyHomePageState extends State<HomeScreen> {
             textAlign: TextAlign.center,
             style: AppFontStyle.title,
           ),
-
           // RaisedButton(
           //   child: Text("reset"),
           //   onPressed: () {
@@ -35,7 +34,6 @@ class _MyHomePageState extends State<HomeScreen> {
           //     resetState();
           //   },
           // ),
-
           MotivationalText(),
           DailyStatus(),
           ProgressIndicator(),
@@ -101,8 +99,9 @@ class DailyStatus extends StatelessWidget {
               StreamBuilder(
                 stream: proteinService.stream,
                 builder: (BuildContext context, AsyncSnapshot snapshot) {
+                  var goal = snapshot.data ?? 0;
                   return Text(
-                    "goal: ${snapshot.data} gr",
+                    "goal: $goal gr",
                     style: TextStyle(fontSize: 16),
                   );
                 },

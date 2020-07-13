@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:protein_tracker/StatisticsScreen.dart';
+import 'package:protein_tracker/bloc/DateService.dart';
 import 'package:protein_tracker/bloc/ProteinService.dart';
 import 'package:protein_tracker/calculatorScreen.dart';
 import 'package:protein_tracker/trackerScreen.dart';
@@ -35,6 +36,9 @@ void main() async {
   formattedDateNow = formatter.format(currentDate);
   preferences = await SharedPreferences.getInstance();
   print(formattedDateNow);
+
+  // dateService.updateDate(currentDate);
+  dateService.updateDateMonth(currentDate);
 
   runApp(MyApp());
 }

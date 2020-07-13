@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:protein_tracker/bloc/DateService.dart';
 import 'package:protein_tracker/components/proteinChart.dart';
 import 'package:protein_tracker/main.dart';
 import 'package:protein_tracker/utils/colors.dart';
@@ -67,7 +68,7 @@ class StatisticsScreen extends StatelessWidget {
                 height: 10,
               ),
               Text(
-                'July',
+                dateService.currentMonthDate,
                 style: AppFontStyle.subtitle,
               ),
               Container(

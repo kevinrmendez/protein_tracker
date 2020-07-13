@@ -92,7 +92,11 @@ class _GoalScreenState extends State<GoalScreen> {
                             if (value.isEmpty) {
                               return 'add your daily protein goal';
                             }
-                            return null;
+                            if (value == "0") {
+                              return 'your protein goal must be greater than 0';
+                            }
+                            if (int.parse(value) > 2000)
+                              return 'your daily protein goal is too high';
                           },
                         ),
                       ],
