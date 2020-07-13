@@ -32,7 +32,7 @@ class FoodDatabase {
 
   void initDB(Database database, int version) async {
     await database.execute("CREATE TABLE $foodTable("
-        "id INTEGER PRIMARY KEY, "
+        "id INTEGER  PRIMARY KEY AUTOINCREMENT , "
         "name TEXT, "
         "proteinAmount INTEGER "
         ")");

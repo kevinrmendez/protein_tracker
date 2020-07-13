@@ -38,6 +38,13 @@ class ProteinListService {
     proteins.forEach((f) => print(f.name));
   }
 
+  update(Protein protein) async {
+    //TODO: FIX PROTEIN UPDATE
+    print("PROTEIN ID:${protein.id}");
+    _proteinRepository.updateProtein(protein);
+    _getProtein();
+  }
+
   remove(int index) {
     _proteinList.value.removeAt(index);
     _proteinList.add(List<Protein>.from(currentList));

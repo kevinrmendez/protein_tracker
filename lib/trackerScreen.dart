@@ -67,13 +67,27 @@ class _TrackerScreenState extends State<TrackerScreen> {
                             ],
                           ),
                         ),
-                        trailing: IconButton(
-                          icon: Icon(Icons.delete),
-                          onPressed: () {
-                            proteinListServices.remove(index);
-                            proteinService
-                                .removeConsumedProtein(proteinItem.amount);
-                          },
+                        trailing: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: <Widget>[
+                            IconButton(
+                              icon: Icon(Icons.edit),
+                              onPressed: () {
+                                showDialog(
+                                    context: context,
+                                    builder: (_) =>
+                                        EditProteinDialog(proteinItem));
+                              },
+                            ),
+                            IconButton(
+                              icon: Icon(Icons.delete),
+                              onPressed: () {
+                                proteinListServices.remove(index);
+                                proteinService
+                                    .removeConsumedProtein(proteinItem.amount);
+                              },
+                            ),
+                          ],
                         )),
                   );
                 });
@@ -219,6 +233,140 @@ class _AddProteinDialogState extends State<AddProteinDialog> {
                           proteinListServices.add(protein);
 
                           proteinService.addConsumedProtein(proteinAmount);
+
+                          Navigator.pop(context);
+                        } else {}
+                      })
+                ]),
+              ),
+            ],
+          ),
+        ));
+  }
+}
+
+class EditProteinDialog extends StatefulWidget {
+  final Protein protein;
+  EditProteinDialog(this.protein);
+
+  @override
+  _EditProteinDialogState createState() => _EditProteinDialogState();
+}
+
+class _EditProteinDialogState extends State<EditProteinDialog> {
+  final _formKey = GlobalKey<FormState>();
+
+  String dropdownValueGoal;
+  String foodName;
+  int proteinAmount;
+  final _foodNameController = TextEditingController();
+  final _proteinAmountController = TextEditingController();
+  @override
+  void initState() {
+    _foodNameController.text = widget.protein.name;
+    _proteinAmountController.text = widget.protein.amount.toString();
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return WidgetUtils.dialog(
+        context: context,
+        height: MediaQuery.of(context).size.height * .6,
+        title: 'Edit protein',
+        showAd: false,
+        child: Container(
+          margin: EdgeInsets.symmetric(horizontal: 40),
+          child: Column(
+            children: <Widget>[
+              Form(
+                key: _formKey,
+                child: Column(children: [
+                  TextFormField(
+                    keyboardType: TextInputType.text,
+                    controller: _foodNameController,
+                    decoration: InputDecoration(
+                      hintText: 'Food name',
+                      border: OutlineInputBorder(),
+                    ),
+                    onChanged: (value) {
+                      setState(() {
+                        foodName = value;
+                      });
+                    },
+                    validator: (value) {
+                      if (value.isEmpty) {
+                        return 'food is empty';
+                      }
+                      return null;
+                    },
+                  ),
+                  SizedBox(height: 20),
+                  TextFormField(
+                    keyboardType: TextInputType.number,
+                    controller: _proteinAmountController,
+                    decoration: InputDecoration(
+                      hintText: 'Protein amount in gr',
+                      border: OutlineInputBorder(),
+                    ),
+                    onChanged: (value) {
+                      setState(() {
+                        proteinAmount = int.parse(value);
+                      });
+                    },
+                    validator: (value) {
+                      if (value.isEmpty) {
+                        return 'protein amount is empty';
+                      }
+                      return null;
+                    },
+                  ),
+                  Container(
+                      margin: EdgeInsets.only(top: 20),
+                      child: Text('From food list')),
+                  DropdownButton<String>(
+                    value: dropdownValueGoal,
+                    icon: Icon(Icons.arrow_downward),
+                    iconSize: 24,
+                    elevation: 16,
+                    style: TextStyle(color: PrimaryColor),
+                    underline: Container(
+                      height: 2,
+                      color: Colors.grey,
+                    ),
+                    onChanged: (String newValue) {
+                      Food food = foodListServices.currentList
+                          .firstWhere((food) => food.name == newValue);
+                      setState(() {
+                        dropdownValueGoal = newValue;
+                        _foodNameController.text = food.name;
+                        _proteinAmountController.text =
+                            food.proteinAmount.toString();
+                        foodName = _foodNameController.text;
+                        proteinAmount =
+                            int.parse(_proteinAmountController.text);
+                      });
+                    },
+                    items: foodListServices.currentListFoodName
+                        // items: <String>['', 'banana', 'pear', 'nuts']
+                        .map<DropdownMenuItem<String>>((String value) {
+                      return DropdownMenuItem<String>(
+                        value: value,
+                        child: Text(value),
+                      );
+                    }).toList(),
+                  ),
+                  WidgetUtils.button(
+                      text: "Edit",
+                      onPressed: () async {
+                        if (_formKey.currentState.validate()) {
+                          Protein protein = Protein(
+                              name: foodName,
+                              amount: proteinAmount,
+                              date: widget.protein.date);
+                          proteinListServices.update(protein);
+
+                          // proteinService.addConsumedProtein(proteinAmount);
 
                           Navigator.pop(context);
                         } else {}
