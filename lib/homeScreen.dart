@@ -28,14 +28,14 @@ class _MyHomePageState extends State<HomeScreen> {
             style: AppFontStyle.title,
           ),
 
-          // RaisedButton(
-          //   child: Text("reset"),
-          //   onPressed: () {
-          //     print('reset');
-          //     resetState();
-          //   },
-          // ),
-          MotivationalText(),
+          RaisedButton(
+            child: Text("reset"),
+            onPressed: () {
+              print('reset');
+              resetState();
+            },
+          ),
+          // MotivationalText(),
           DailyStatus(),
           ProgressIndicator(),
           ConsumedCalories(),
@@ -183,7 +183,7 @@ class ProgressIndicator extends StatelessWidget {
             return Center(
               child: CircularStepProgressIndicator(
                 totalSteps: proteinService.current,
-                currentStep: proteinService.currentConsumedProtein,
+                currentStep: consumedproteins,
                 // stepSize: 0,
                 selectedColor: PrimaryColor,
                 unselectedColor: Colors.grey[200],

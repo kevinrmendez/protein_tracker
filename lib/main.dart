@@ -26,8 +26,6 @@ void resetState() {
   print('state reseted');
 }
 
-void getDailyproteinListfromDb() {}
-
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 

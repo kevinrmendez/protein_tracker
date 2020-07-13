@@ -14,28 +14,32 @@ class ProteinService {
 
   ProteinService() {
     initPreferences();
-    getProteinGoalFromPreferences();
   }
+  void initPreferences() {
+    if (!preferences.containsKey("protein_goal")) {
+      preferences.setInt("protein_goal", 1);
+      _proteinGoal.add(1);
+    } else {
+      getProteinGoalFromPreferences();
+    }
+    if (!preferences.containsKey("protein_consumed")) {
+      preferences.setInt("protein_consumed", 0);
+    } else {
+      getConsumedProteinFromPreferences();
+    }
+  }
+
   void getProteinGoalFromPreferences() async {
     int sharedPrefenrencesProteinGoal = preferences.getInt("protein_goal");
-    print("SHARED PREFERENCES $sharedPrefenrencesProteinGoal");
+    print("SHARED PREFERENCES GOAL  $sharedPrefenrencesProteinGoal");
     _proteinGoal.add(sharedPrefenrencesProteinGoal);
   }
 
   void getConsumedProteinFromPreferences() async {
     int sharedPrefenrencesConsumedProtein =
         preferences.getInt("protein_consumed");
-    print("SHARED PREFERENCES $sharedPrefenrencesConsumedProtein");
+    print("SHARED PREFERENCES PROTEIN $sharedPrefenrencesConsumedProtein");
     _proteinGoal.add(sharedPrefenrencesConsumedProtein);
-  }
-
-  void initPreferences() {
-    if (!preferences.containsKey("protein_goal")) {
-      preferences.setInt("protein_goal", 1);
-    }
-    if (!preferences.containsKey("protein_consumed")) {
-      preferences.setInt("protein_consumed", 0);
-    }
   }
 
   setGoal(int goal) {
@@ -44,8 +48,10 @@ class ProteinService {
   }
 
   addConsumedProtein(int proteinAmount) {
-    _consumedProtein.add(currentConsumedProtein + proteinAmount);
-    preferences.setInt("protein_consumed", proteinAmount);
+    var proteinConsumed = currentConsumedProtein + proteinAmount;
+
+    _consumedProtein.add(proteinConsumed);
+    preferences.setInt("protein_consumed", proteinConsumed);
   }
 
   resetConsumedProtein() {
