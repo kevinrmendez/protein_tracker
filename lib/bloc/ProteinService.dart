@@ -65,6 +65,10 @@ class ProteinService {
 
   removeConsumedProtein(int proteinAmount) {
     var updatedConsumedProtein = currentConsumedProtein - proteinAmount;
+
+    if (updatedConsumedProtein < 0) {
+      updatedConsumedProtein = 0;
+    }
     _consumedProtein.add(updatedConsumedProtein);
     preferences.setInt("protein_consumed", updatedConsumedProtein);
   }

@@ -60,11 +60,37 @@ class WidgetUtils {
           Icon(
             icon,
             size: 60,
+            color: DarkMediumGreyColor,
           ),
           Text(
             text,
             textAlign: TextAlign.center,
-            style: TextStyle(fontSize: 20),
+            style: TextStyle(fontSize: 20, color: DarkMediumGreyColor),
+          ),
+        ],
+      ),
+    );
+  }
+
+  static Widget imageText(BuildContext context,
+      {IconData icon, String text, String asset}) {
+    return Container(
+      width: MediaQuery.of(context).size.width * .5,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          Container(
+            margin: EdgeInsetsDirectional.only(bottom: 5),
+            child: Image.asset(
+              asset,
+              width: 50,
+              height: 50,
+            ),
+          ),
+          Text(
+            text,
+            textAlign: TextAlign.center,
+            style: TextStyle(fontSize: 20, color: DarkMediumGreyColor),
           ),
         ],
       ),

@@ -45,9 +45,9 @@ class _TrackerScreenState extends State<TrackerScreen> {
           print(snapshot.data);
           if (snapshot.data.length == 0) {
             return Center(
-                child: WidgetUtils.iconText(context,
-                    icon: Icons.list,
-                    text: 'your todays protein list is empty'));
+                child: WidgetUtils.imageText(context,
+                    text: 'your protein list is empty',
+                    asset: 'assets/protein-icon-gray-150.png'));
           } else {
             return ListView.builder(
                 itemCount: proteinListServices.currentList.length,
