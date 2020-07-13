@@ -18,12 +18,14 @@ class ProteinService {
   void initPreferences() {
     if (!preferences.containsKey("protein_goal")) {
       preferences.setInt("protein_goal", 1);
+      print(preferences.getInt("protein_goal").toString());
       _proteinGoal.add(1);
     } else {
       getProteinGoalFromPreferences();
     }
     if (!preferences.containsKey("protein_consumed")) {
       preferences.setInt("protein_consumed", 0);
+      print(preferences.getInt("protein_consumed").toString());
     } else {
       getConsumedProteinFromPreferences();
     }
@@ -39,7 +41,7 @@ class ProteinService {
     int sharedPrefenrencesConsumedProtein =
         preferences.getInt("protein_consumed");
     print("SHARED PREFERENCES PROTEIN $sharedPrefenrencesConsumedProtein");
-    _proteinGoal.add(sharedPrefenrencesConsumedProtein);
+    _consumedProtein.add(sharedPrefenrencesConsumedProtein);
   }
 
   setGoal(int goal) {
