@@ -3,7 +3,7 @@ import 'package:charts_flutter/flutter.dart' as charts;
 import 'package:flutter/material.dart';
 
 class ProteinChart extends StatelessWidget {
-  final List<charts.Series<TimeSeriesSales, DateTime>> seriesList;
+  final List<charts.Series<TimeSeriesProtein, DateTime>> seriesList;
   final bool animate;
 
   ProteinChart(this.seriesList, {this.animate});
@@ -36,37 +36,37 @@ class ProteinChart extends StatelessWidget {
   }
 
   /// Create one series with sample hard coded data.
-  static List<charts.Series<TimeSeriesSales, DateTime>> _createSampleData() {
+  static List<charts.Series<TimeSeriesProtein, DateTime>> _createSampleData() {
     final data = [
-      new TimeSeriesSales(new DateTime(2017, 9, 5), 75),
-      new TimeSeriesSales(new DateTime(2017, 9, 6), 88),
-      new TimeSeriesSales(new DateTime(2017, 9, 7), 65),
-      new TimeSeriesSales(new DateTime(2017, 9, 8), 91),
-      new TimeSeriesSales(new DateTime(2017, 9, 9), 100),
-      new TimeSeriesSales(new DateTime(2017, 9, 10), 111),
-      new TimeSeriesSales(new DateTime(2017, 9, 11), 90),
-      new TimeSeriesSales(new DateTime(2017, 9, 12), 50),
-      new TimeSeriesSales(new DateTime(2017, 9, 13), 40),
-      new TimeSeriesSales(new DateTime(2017, 9, 14), 30),
-      new TimeSeriesSales(new DateTime(2017, 9, 15), 40),
-      new TimeSeriesSales(new DateTime(2017, 9, 16), 50),
-      new TimeSeriesSales(new DateTime(2017, 9, 17), 30),
-      new TimeSeriesSales(new DateTime(2017, 9, 18), 35),
-      new TimeSeriesSales(new DateTime(2017, 9, 19), 40),
-      new TimeSeriesSales(new DateTime(2017, 9, 20), 32),
-      new TimeSeriesSales(new DateTime(2017, 9, 21), 31),
-      new TimeSeriesSales(new DateTime(2017, 10, 1), 5),
-      new TimeSeriesSales(new DateTime(2017, 10, 2), 5),
-      new TimeSeriesSales(new DateTime(2017, 10, 3), 25),
-      new TimeSeriesSales(new DateTime(2017, 10, 4), 100),
+      new TimeSeriesProtein(new DateTime(2017, 9, 5), 75),
+      new TimeSeriesProtein(new DateTime(2017, 9, 6), 88),
+      new TimeSeriesProtein(new DateTime(2017, 9, 7), 65),
+      new TimeSeriesProtein(new DateTime(2017, 9, 8), 91),
+      new TimeSeriesProtein(new DateTime(2017, 9, 9), 100),
+      new TimeSeriesProtein(new DateTime(2017, 9, 10), 111),
+      new TimeSeriesProtein(new DateTime(2017, 9, 11), 90),
+      new TimeSeriesProtein(new DateTime(2017, 9, 12), 50),
+      new TimeSeriesProtein(new DateTime(2017, 9, 13), 40),
+      new TimeSeriesProtein(new DateTime(2017, 9, 14), 30),
+      new TimeSeriesProtein(new DateTime(2017, 9, 15), 40),
+      new TimeSeriesProtein(new DateTime(2017, 9, 16), 50),
+      new TimeSeriesProtein(new DateTime(2017, 9, 17), 30),
+      new TimeSeriesProtein(new DateTime(2017, 9, 18), 35),
+      new TimeSeriesProtein(new DateTime(2017, 9, 19), 40),
+      new TimeSeriesProtein(new DateTime(2017, 9, 20), 32),
+      new TimeSeriesProtein(new DateTime(2017, 9, 21), 31),
+      new TimeSeriesProtein(new DateTime(2017, 10, 1), 5),
+      new TimeSeriesProtein(new DateTime(2017, 10, 2), 5),
+      new TimeSeriesProtein(new DateTime(2017, 10, 3), 25),
+      new TimeSeriesProtein(new DateTime(2017, 10, 4), 100),
     ];
 
     return [
-      new charts.Series<TimeSeriesSales, DateTime>(
+      new charts.Series<TimeSeriesProtein, DateTime>(
         id: 'Sales',
         colorFn: (_, __) => charts.MaterialPalette.cyan.shadeDefault,
-        domainFn: (TimeSeriesSales sales, _) => sales.time,
-        measureFn: (TimeSeriesSales sales, _) => sales.sales,
+        domainFn: (TimeSeriesProtein sales, _) => sales.time,
+        measureFn: (TimeSeriesProtein sales, _) => sales.proteinAmount,
         data: data,
       )
     ];
@@ -74,9 +74,9 @@ class ProteinChart extends StatelessWidget {
 }
 
 /// Sample time series data type.
-class TimeSeriesSales {
+class TimeSeriesProtein {
   final DateTime time;
-  final int sales;
+  final int proteinAmount;
 
-  TimeSeriesSales(this.time, this.sales);
+  TimeSeriesProtein(this.time, this.proteinAmount);
 }

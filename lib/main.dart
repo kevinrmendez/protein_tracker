@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:protein_tracker/bloc/ProteinListService.dart';
 import 'package:protein_tracker/ui/StatisticsScreen.dart';
 import 'package:protein_tracker/bloc/DateService.dart';
 import 'package:protein_tracker/bloc/ProteinService.dart';
@@ -33,13 +34,14 @@ void main() async {
 
   currentDate = DateTime.now();
   print("CURRENT TIME: $currentDate");
-  final DateFormat formatter = DateFormat('dd-MM-yyyy');
+  final DateFormat formatter = DateFormat('dd-MMMM-yyyy');
   formattedDateNow = formatter.format(currentDate);
   preferences = await SharedPreferences.getInstance();
   print(formattedDateNow);
 
   // dateService.updateDate(currentDate);
   dateService.updateDateMonth(currentDate);
+  proteinListServices.getMonthlyProtein(currentDate);
 
   runApp(MyApp());
 }

@@ -1,3 +1,4 @@
+import 'package:intl/intl.dart';
 import 'package:protein_tracker/main.dart';
 import 'package:protein_tracker/model/protein.dart';
 import 'package:protein_tracker/repository/protein_repository.dart';
@@ -20,6 +21,20 @@ class ProteinListService {
     print("DBPROTEIN2: $dbProtein2");
     dbProteins.forEach((p) => print(p.name));
     _proteinList.add(dbProteins ?? []);
+  }
+
+  getMonthlyProtein(DateTime date) async {
+    // var month = currentDate.month;
+    final DateFormat formatter = DateFormat('MMMM');
+    var monthName = formatter.format(currentDate);
+    print("MONTH NAME: $monthName");
+    formattedDateNow = formatter.format(date);
+
+    List monthlyProteins =
+        await _proteinRepository.getAllProteins(query: monthName);
+    print("proteins from db from $monthName");
+    monthlyProteins.forEach((p) => p.name);
+    return monthlyProteins;
   }
 
   BehaviorSubject<List<Protein>> _proteinList =

@@ -1,13 +1,53 @@
 import 'package:flutter/material.dart';
 import 'package:protein_tracker/bloc/DateService.dart';
+import 'package:protein_tracker/bloc/ProteinListService.dart';
 import 'package:protein_tracker/components/proteinChart.dart';
 import 'package:protein_tracker/main.dart';
 import 'package:protein_tracker/utils/colors.dart';
+import 'package:protein_tracker/utils/dateUtils.dart';
 import 'package:protein_tracker/utils/fontStyle.dart';
 import 'package:protein_tracker/utils/widgetUtils.dart';
 
 class StatisticsScreen extends StatelessWidget {
-  StatisticsScreen({Key key}) : super(key: key);
+  List monthlyProteins;
+  List<TimeSeriesProtein> chartData;
+  StatisticsScreen({Key key}) : super(key: key) {
+    getMonthProteinFromDb();
+  }
+
+  getMonthProteinFromDb() async {
+    monthlyProteins = await proteinListServices.getMonthlyProtein(currentDate);
+    chartData = getDailyTotalProtein(monthlyProteins);
+    print("monthly protein ${chartData.length}");
+    chartData.forEach((d) => print("${d.proteinAmount}"));
+  }
+
+  List<TimeSeriesProtein> getDailyTotalProtein(List monthlyProtein) {
+    List<TimeSeriesProtein> dailyTotalProteinList = [];
+    int dailyTotalProtein = 0;
+    String proteinDateCache = "";
+
+    monthlyProteins.forEach((protein) {
+      TimeSeriesProtein dailyProtein;
+      String formattedDate = DateUtils.parseDate(protein.date);
+      DateTime proteinDay = DateTime.parse(formattedDate);
+
+      if (proteinDateCache == "") {
+        proteinDateCache = protein.date;
+      } else {
+        if (proteinDateCache == protein.date) {
+          dailyTotalProtein = dailyTotalProtein + protein.amount;
+          dailyProtein = TimeSeriesProtein(proteinDay, dailyTotalProtein);
+        } else {
+          dailyProtein = TimeSeriesProtein(proteinDay, dailyTotalProtein);
+          dailyTotalProteinList.add(dailyProtein);
+          dailyTotalProtein = 0;
+          proteinDateCache == protein.date;
+        }
+      }
+    });
+    return dailyTotalProteinList;
+  }
 
   _statsDataRow({List<Widget> children}) {
     return Container(

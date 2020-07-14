@@ -224,7 +224,8 @@ class _AddProteinDialogState extends State<AddProteinDialog> {
                           print(foodName);
                           print(proteinAmount);
                           DateTime now = DateTime.now();
-                          final DateFormat formatter = DateFormat('dd-MM-yyyy');
+                          final DateFormat formatter =
+                              DateFormat('dd-MMMM-yyyy');
                           final String formattedDateNow = formatter.format(now);
                           Protein protein = Protein(
                               name: foodName,
