@@ -54,6 +54,7 @@ class _TrackerScreenState extends State<TrackerScreen> {
                 itemCount: proteinListServices.currentList.length,
                 itemBuilder: (BuildContext ctxt, int index) {
                   Protein proteinItem = snapshot.data[index];
+                  print("PROTEIN ITEM ID: ${proteinItem.id}");
                   return Card(
                     child: ListTile(
                         title: Text(proteinItem.name),
@@ -267,6 +268,8 @@ class _EditProteinDialogState extends State<EditProteinDialog> {
   void initState() {
     _foodNameController.text = widget.protein.name;
     _proteinAmountController.text = widget.protein.amount.toString();
+    foodName = widget.protein.name;
+    proteinAmount = widget.protein.amount;
     super.initState();
   }
 
@@ -362,11 +365,26 @@ class _EditProteinDialogState extends State<EditProteinDialog> {
                       text: "Edit",
                       onPressed: () async {
                         if (_formKey.currentState.validate()) {
-                          Protein protein = Protein(
-                              name: foodName,
-                              amount: proteinAmount,
-                              date: widget.protein.date);
-                          proteinListServices.update(protein);
+                          var proteinId = await proteinListServices
+                              .getProteinId(widget.protein);
+                          print("PROTEIN ID FROM DB: $proteinId ");
+                          widget.protein.id = proteinId;
+                          widget.protein.name = foodName;
+                          widget.protein.amount = proteinAmount;
+                          proteinListServices.update(widget.protein);
+
+                          //adjust consumed
+                          if (widget.protein.amount > proteinAmount) {
+                            var proteinDifference =
+                                proteinAmount - widget.protein.amount;
+                            proteinService
+                                .addConsumedProtein(proteinDifference);
+                          } else {
+                            var proteinDifference =
+                                widget.protein.amount - proteinAmount;
+                            proteinService
+                                .removeConsumedProtein(proteinDifference);
+                          }
 
                           // proteinService.addConsumedProtein(proteinAmount);
 

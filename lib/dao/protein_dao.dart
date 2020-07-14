@@ -40,6 +40,20 @@ class ProteinDao {
     return result;
   }
 
+  Future<int> getProteinId(Protein protein) async {
+    final db = await dbProvider.database;
+
+    List<Map<String, dynamic>> result;
+    if (protein != null) {
+      result = await db.query(proteinTable,
+          where: 'name = ?', whereArgs: ["${protein.name}"]);
+    } else {
+      result = await db.query(proteinTable);
+    }
+    Protein proteinfromDb = Protein.fromJson(result[0]);
+    return proteinfromDb.id;
+  }
+
   Future<int> deleteProtein(int id) async {
     final db = await dbProvider.database;
     var result =

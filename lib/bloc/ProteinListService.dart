@@ -56,13 +56,21 @@ class ProteinListService {
   update(Protein protein) async {
     //TODO: FIX PROTEIN UPDATE
     print("PROTEIN ID:${protein.id}");
-    _proteinRepository.updateProtein(protein);
+    print("PROTEIN AMOUNT:${protein.amount}");
+
+    await _proteinRepository.updateProtein(protein);
     _getProtein();
   }
 
-  remove(int index) {
+  remove(int index) async {
     _proteinList.value.removeAt(index);
     _proteinList.add(List<Protein>.from(currentList));
+    await _proteinRepository.deleteProteinById(index);
+  }
+
+  getProteinId(Protein protein) async {
+    int id = await _proteinRepository.getProteinId(protein);
+    return id;
   }
 }
 

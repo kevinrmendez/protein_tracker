@@ -13,7 +13,7 @@ class Protein {
       date: data['date']);
 
   Map<String, dynamic> toJson() => {
-        "id": this.id,
+        // "id": this.id,
         "name": this.name,
         "amount": this.amount,
         "date": this.date,

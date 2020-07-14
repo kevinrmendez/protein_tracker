@@ -20,9 +20,12 @@ import 'package:flutter/services.dart';
 import 'package:protein_tracker/utils/widgetUtils.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import 'package:uuid/uuid.dart';
+
 DateTime currentDate;
 var preferences;
 String formattedDateNow;
+var uuid;
 
 void resetState() {
   proteinService.resetConsumedProtein();
@@ -38,6 +41,8 @@ void main() async {
   formattedDateNow = formatter.format(currentDate);
   preferences = await SharedPreferences.getInstance();
   print(formattedDateNow);
+
+  uuid = Uuid();
 
   // dateService.updateDate(currentDate);
   dateService.updateDateMonth(currentDate);
