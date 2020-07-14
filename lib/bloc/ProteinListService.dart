@@ -62,10 +62,12 @@ class ProteinListService {
     _getProtein();
   }
 
-  remove(int index) async {
-    _proteinList.value.removeAt(index);
+  remove(int id) async {
+    _proteinList.value.removeWhere((protein) => protein.id == id);
+    // _proteinList.value.removeAt(id);
     _proteinList.add(List<Protein>.from(currentList));
-    await _proteinRepository.deleteProteinById(index);
+    await _proteinRepository.deleteProteinById(id);
+    _getProtein();
   }
 
   getProteinId(Protein protein) async {
