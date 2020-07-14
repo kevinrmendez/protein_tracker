@@ -32,6 +32,20 @@ class FoodDao {
     return foods;
   }
 
+  Future<int> getFoodId(Food food) async {
+    final db = await dbProvider.database;
+
+    List<Map<String, dynamic>> result;
+    if (food != null) {
+      result = await db
+          .query(foodTable, where: 'name = ?', whereArgs: ["${food.name}"]);
+    } else {
+      result = await db.query(foodTable);
+    }
+    Food foodfromDb = Food.fromJson(result[0]);
+    return foodfromDb.id;
+  }
+
   Future<int> updateFood(Food food) async {
     final db = await dbProvider.database;
 

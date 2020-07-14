@@ -40,13 +40,20 @@ class FoodService {
     _foodNameList.add(List<String>.from(currentListFoodName));
   }
 
-  remove(int index) {
-    _foodList.value.removeAt(index);
+  remove(int id) async {
+    _foodList.value.removeWhere((food) => food.id == id);
     _foodList.add(List<Food>.from(currentList));
-    _foodRepository.deleteFoodById(index);
+    _foodRepository.deleteFoodById(id);
 
-    _foodNameList.value.removeAt(index);
+    _foodNameList.value.removeAt(id);
     _foodNameList.add(List<String>.from(currentListFoodName));
+
+    _getFoods();
+  }
+
+  getFoodId(Food food) async {
+    int id = await _foodRepository.getFoodId(food);
+    return id;
   }
 }
 

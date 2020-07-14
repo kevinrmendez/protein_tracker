@@ -6,6 +6,8 @@ class FoodRepository {
 
   Future getAllFoods({String query}) => foodDao.getfoods(query: query);
 
+  Future getFoodId(Food food) => foodDao.getFoodId(food);
+
   Future insertFood(Food food) => foodDao.createFood(food);
 
   Future updateFood(Food food) => foodDao.updateFood(food);

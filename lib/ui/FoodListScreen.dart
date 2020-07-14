@@ -44,8 +44,11 @@ class _FoodListScreenState extends State<FoodListScreen> {
                             Text("${foodItem.proteinAmount.toString()} gr"),
                         trailing: IconButton(
                           icon: Icon(Icons.delete),
-                          onPressed: () {
-                            foodListServices.remove(index);
+                          onPressed: () async {
+                            var foodId =
+                                await foodListServices.getFoodId(foodItem);
+
+                            foodListServices.remove(foodId);
                           },
                         )),
                   );
