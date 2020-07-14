@@ -35,10 +35,10 @@ class StatisticsScreen extends StatelessWidget {
 
       if (proteinDateCache == "") {
         proteinDateCache = protein.date;
+        dailyTotalProtein = protein.amount;
       } else {
         if (proteinDateCache == protein.date) {
           dailyTotalProtein = dailyTotalProtein + protein.amount;
-          dailyProtein = TimeSeriesProtein(proteinDay, dailyTotalProtein);
         } else {
           dailyProtein = TimeSeriesProtein(proteinDay, dailyTotalProtein);
           dailyTotalProteinList.add(dailyProtein);
@@ -46,6 +46,7 @@ class StatisticsScreen extends StatelessWidget {
           proteinDateCache == protein.date;
         }
         if (dailyTotalProteinList.length == 0) {
+          dailyProtein = TimeSeriesProtein(proteinDay, dailyTotalProtein);
           dailyTotalProteinList.add(dailyProtein);
         }
       }
