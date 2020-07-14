@@ -5,7 +5,7 @@ import 'package:rxdart/rxdart.dart';
 
 class FoodService {
   final FoodRepository _foodRepository = FoodRepository();
-  static List<Food> dbFoods = [];
+  static List<Food> dbFoods;
 
   FoodService() {
     _getFoods();
@@ -14,6 +14,12 @@ class FoodService {
   void _getFoods() async {
     dbFoods = await _foodRepository.getAllFoods();
     _foodList.add(dbFoods);
+
+    List<String> foodNamesFromDb;
+    dbFoods.forEach((food) {
+      foodNamesFromDb.add(food.name);
+    });
+    _foodNameList.add(foodNamesFromDb);
   }
 
   BehaviorSubject<List<Food>> _foodList = BehaviorSubject.seeded([]);
@@ -45,8 +51,8 @@ class FoodService {
     _foodList.add(List<Food>.from(currentList));
     _foodRepository.deleteFoodById(id);
 
-    _foodNameList.value.removeAt(id);
-    _foodNameList.add(List<String>.from(currentListFoodName));
+    // _foodNameList.value.removeAt(id);
+    // _foodNameList.add(List<String>.from(currentListFoodName));
 
     _getFoods();
   }
@@ -54,6 +60,14 @@ class FoodService {
   getFoodId(Food food) async {
     int id = await _foodRepository.getFoodId(food);
     return id;
+  }
+
+  update(Food food) async {
+    print("PROTEIN ID:${food.id}");
+    print("PROTEIN AMOUNT:${food..proteinAmount}");
+
+    await _foodRepository.updateFood(food);
+    _getFoods();
   }
 }
 

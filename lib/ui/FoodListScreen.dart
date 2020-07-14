@@ -42,14 +42,27 @@ class _FoodListScreenState extends State<FoodListScreen> {
                         title: Text(foodItem.name),
                         subtitle:
                             Text("${foodItem.proteinAmount.toString()} gr"),
-                        trailing: IconButton(
-                          icon: Icon(Icons.delete),
-                          onPressed: () async {
-                            var foodId =
-                                await foodListServices.getFoodId(foodItem);
+                        trailing: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: <Widget>[
+                            IconButton(
+                              icon: Icon(Icons.edit),
+                              onPressed: () {
+                                showDialog(
+                                    context: context,
+                                    builder: (_) => EditFoodDialog(foodItem));
+                              },
+                            ),
+                            IconButton(
+                              icon: Icon(Icons.delete),
+                              onPressed: () async {
+                                var foodId =
+                                    await foodListServices.getFoodId(foodItem);
 
-                            foodListServices.remove(foodId);
-                          },
+                                foodListServices.remove(foodId);
+                              },
+                            ),
+                          ],
                         )),
                   );
                 });
@@ -158,6 +171,113 @@ class _AddProteinDialogState extends State<AddProteinDialog> {
                           Food food = Food(
                               name: foodName, proteinAmount: proteinAmount);
                           foodListServices.add(food);
+
+                          Navigator.pop(context);
+                        } else {}
+                      })
+                ]),
+              ),
+            ],
+          ),
+        ));
+  }
+}
+
+class EditFoodDialog extends StatefulWidget {
+  final Food food;
+
+  EditFoodDialog(this.food);
+
+  @override
+  _EditFoodDialogState createState() => _EditFoodDialogState();
+}
+
+class _EditFoodDialogState extends State<EditFoodDialog> {
+  final _formKey = GlobalKey<FormState>();
+  String dropdownValueGoal = "";
+  String foodName;
+  int proteinAmount;
+  final _foodNameController = TextEditingController();
+  final _proteinAmountController = TextEditingController();
+  @override
+  void initState() {
+    _foodNameController.text = widget.food.name;
+    _proteinAmountController.text = widget.food.proteinAmount.toString();
+    foodName = widget.food.name;
+    proteinAmount = widget.food.proteinAmount;
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return WidgetUtils.dialog(
+        context: context,
+        height: MediaQuery.of(context).size.height * .55,
+        title: 'Edit food',
+        showAd: false,
+        child: Container(
+          margin: EdgeInsets.symmetric(horizontal: 40),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Form(
+                key: _formKey,
+                child: Column(children: [
+                  TextFormField(
+                    keyboardType: TextInputType.text,
+                    controller: _foodNameController,
+                    decoration: InputDecoration(
+                        // hintText: 'chicken',
+                        border: OutlineInputBorder(),
+                        labelText: 'Food name'),
+                    onChanged: (value) {
+                      setState(() {
+                        foodName = value;
+                      });
+                    },
+                    validator: (value) {
+                      if (value.isEmpty) {
+                        return 'food is empty';
+                      }
+                      return null;
+                    },
+                  ),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  TextFormField(
+                    keyboardType: TextInputType.number,
+                    controller: _proteinAmountController,
+                    decoration: InputDecoration(
+                        border: OutlineInputBorder(),
+                        // hintText: 'Protein amount in gr',
+                        labelText: 'Protein amount in gr',
+                        errorStyle: TextStyle(color: RedColor)),
+                    onChanged: (value) {
+                      setState(() {
+                        proteinAmount = int.parse(value);
+                      });
+                    },
+                    validator: (value) {
+                      if (value.isEmpty) {
+                        return "protein amount is empty";
+                      }
+                      return null;
+                    },
+                  ),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  WidgetUtils.button(
+                      text: "Edit",
+                      onPressed: () async {
+                        if (_formKey.currentState.validate()) {
+                          var foodId =
+                              await foodListServices.getFoodId(widget.food);
+                          widget.food.id = foodId;
+                          widget.food.name = foodName;
+                          widget.food.proteinAmount = proteinAmount;
+                          foodListServices.update(widget.food);
 
                           Navigator.pop(context);
                         } else {}
