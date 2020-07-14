@@ -87,8 +87,7 @@ class _TrackerScreenState extends State<TrackerScreen> {
                                 var proteinId = await proteinListServices
                                     .getProteinId(proteinItem);
                                 proteinListServices.remove(proteinId);
-                                proteinService
-                                    .removeConsumedProtein(proteinItem.amount);
+                                proteinService.updateConsumedProtein();
                               },
                             ),
                           ],
@@ -236,8 +235,7 @@ class _AddProteinDialogState extends State<AddProteinDialog> {
                               date: formattedDateNow);
 
                           proteinListServices.add(protein);
-
-                          proteinService.addConsumedProtein(proteinAmount);
+                          proteinService.updateConsumedProtein();
 
                           Navigator.pop(context);
                         } else {}
@@ -375,20 +373,7 @@ class _EditProteinDialogState extends State<EditProteinDialog> {
                           widget.protein.amount = proteinAmount;
                           proteinListServices.update(widget.protein);
 
-                          //adjust consumed
-                          if (widget.protein.amount > proteinAmount) {
-                            var proteinDifference =
-                                proteinAmount - widget.protein.amount;
-                            proteinService
-                                .addConsumedProtein(proteinDifference);
-                          } else {
-                            var proteinDifference =
-                                widget.protein.amount - proteinAmount;
-                            proteinService
-                                .removeConsumedProtein(proteinDifference);
-                          }
-
-                          // proteinService.addConsumedProtein(proteinAmount);
+                          proteinService.updateConsumedProtein();
 
                           Navigator.pop(context);
                         } else {}

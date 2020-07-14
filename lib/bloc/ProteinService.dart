@@ -56,6 +56,18 @@ class ProteinService {
     preferences.setInt("protein_consumed", proteinConsumed);
   }
 
+  updateConsumedProtein() {
+    var proteinConsumed = 0;
+    List proteinList = proteinListServices.currentList;
+    proteinList.forEach((p) {
+      proteinConsumed = proteinConsumed + p.amount;
+    });
+
+    // var proteinConsumed = currentConsumedProtein + proteinAmount;
+    _consumedProtein.add(proteinConsumed);
+    preferences.setInt("protein_consumed", proteinConsumed);
+  }
+
   resetConsumedProtein() {
     _consumedProtein.add(0);
     preferences.setInt("protein_consumed", 0);

@@ -56,8 +56,6 @@ class FoodService {
 
     _foodNameList.value.removeAt(index);
     _foodNameList.add(List<String>.from(currentListFoodName));
-
-    _getFoods();
   }
 
   getFoodId(Food food) async {
@@ -66,11 +64,7 @@ class FoodService {
   }
 
   update(Food food) async {
-    print("PROTEIN ID:${food.id}");
-    print("PROTEIN AMOUNT:${food..proteinAmount}");
-
     await _foodRepository.updateFood(food);
-    _getFoods();
   }
 }
 
