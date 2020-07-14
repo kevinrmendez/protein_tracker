@@ -59,7 +59,7 @@ class _FoodListScreenState extends State<FoodListScreen> {
                                 var foodId =
                                     await foodListServices.getFoodId(foodItem);
 
-                                foodListServices.remove(foodId);
+                                foodListServices.remove(foodId, index);
                               },
                             ),
                           ],

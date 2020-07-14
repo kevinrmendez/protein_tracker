@@ -15,11 +15,14 @@ class FoodService {
     dbFoods = await _foodRepository.getAllFoods();
     _foodList.add(dbFoods);
 
-    List<String> foodNamesFromDb;
+    //TODO: FIX SHOW DROPDOWN FOOD LIST VALUE ON DIALOG OPEN FOR FIRST TIME
+
+    List<String> foodNamesFromDb = [];
     dbFoods.forEach((food) {
       foodNamesFromDb.add(food.name);
     });
     _foodNameList.add(foodNamesFromDb);
+    print("foodNames added");
   }
 
   BehaviorSubject<List<Food>> _foodList = BehaviorSubject.seeded([]);
@@ -46,13 +49,13 @@ class FoodService {
     _foodNameList.add(List<String>.from(currentListFoodName));
   }
 
-  remove(int id) async {
+  remove(int id, int index) async {
     _foodList.value.removeWhere((food) => food.id == id);
     _foodList.add(List<Food>.from(currentList));
     _foodRepository.deleteFoodById(id);
 
-    // _foodNameList.value.removeAt(id);
-    // _foodNameList.add(List<String>.from(currentListFoodName));
+    _foodNameList.value.removeAt(index);
+    _foodNameList.add(List<String>.from(currentListFoodName));
 
     _getFoods();
   }
