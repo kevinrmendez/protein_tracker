@@ -18,11 +18,12 @@ class StatisticsScreen extends StatelessWidget {
   getMonthProteinFromDb() async {
     monthlyProteins = await proteinListServices.getMonthlyProtein(currentDate);
     chartData = getDailyTotalProtein(monthlyProteins);
-    print("monthly protein ${chartData.length}");
+    print("monthly protein ${chartData[0].proteinAmount}");
     chartData.forEach((d) => print("${d.proteinAmount}"));
   }
 
   List<TimeSeriesProtein> getDailyTotalProtein(List monthlyProtein) {
+    //TODO: FIX MONTHLY PROTEIN CALCULATION
     List<TimeSeriesProtein> dailyTotalProteinList = [];
     int dailyTotalProtein = 0;
     String proteinDateCache = "";
@@ -43,6 +44,9 @@ class StatisticsScreen extends StatelessWidget {
           dailyTotalProteinList.add(dailyProtein);
           dailyTotalProtein = 0;
           proteinDateCache == protein.date;
+        }
+        if (dailyTotalProteinList.length == 0) {
+          dailyTotalProteinList.add(dailyProtein);
         }
       }
     });
@@ -113,7 +117,8 @@ class StatisticsScreen extends StatelessWidget {
               ),
               Container(
                   height: MediaQuery.of(context).size.height * .4,
-                  child: ProteinChart.withSampleData()),
+                  // child: ProteinChart.withSampleData()),
+                  child: ProteinChart.withData(chartData)),
               Container(
                 padding: EdgeInsets.symmetric(horizontal: 10),
                 child: Column(

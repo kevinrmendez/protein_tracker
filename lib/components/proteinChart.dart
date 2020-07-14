@@ -6,12 +6,19 @@ class ProteinChart extends StatelessWidget {
   final List<charts.Series<TimeSeriesProtein, DateTime>> seriesList;
   final bool animate;
 
-  ProteinChart(this.seriesList, {this.animate});
+  ProteinChart(this.seriesList, {this.animate}) {}
 
   /// Creates a [TimeSeriesChart] with sample data and no transition.
   factory ProteinChart.withSampleData() {
     return new ProteinChart(
       _createSampleData(),
+      // Disable animations for image tests.
+      animate: false,
+    );
+  }
+  factory ProteinChart.withData(List<TimeSeriesProtein> data) {
+    return new ProteinChart(
+      _createChartFromData(data),
       // Disable animations for image tests.
       animate: false,
     );
@@ -61,6 +68,19 @@ class ProteinChart extends StatelessWidget {
       new TimeSeriesProtein(new DateTime(2017, 10, 4), 100),
     ];
 
+    return [
+      new charts.Series<TimeSeriesProtein, DateTime>(
+        id: 'Sales',
+        colorFn: (_, __) => charts.MaterialPalette.cyan.shadeDefault,
+        domainFn: (TimeSeriesProtein sales, _) => sales.time,
+        measureFn: (TimeSeriesProtein sales, _) => sales.proteinAmount,
+        data: data,
+      )
+    ];
+  }
+
+  static List<charts.Series<TimeSeriesProtein, DateTime>> _createChartFromData(
+      List<TimeSeriesProtein> data) {
     return [
       new charts.Series<TimeSeriesProtein, DateTime>(
         id: 'Sales',
