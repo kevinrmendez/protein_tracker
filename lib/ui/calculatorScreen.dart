@@ -21,10 +21,11 @@ class _MyHomePageState extends State<CalculatorScreen> {
   Gender _gender = Gender.male;
   FemaleStatus _femaleStatus = FemaleStatus.none;
   ProteinGoal _goal = ProteinGoal.maintenance;
+  final weightController = TextEditingController();
 
   String dropdownValueActivity = 'sedentary';
   String dropdownValueGoal = 'maintenance';
-  int proteinIntake = 20;
+  int proteinIntake = 0;
   int _counter = 0;
   int _selectedIndex = 0;
   bool _isCalculated;
@@ -68,7 +69,7 @@ class _MyHomePageState extends State<CalculatorScreen> {
     );
   }
 
-  int calculateProteinIntake() {
+  calculateProteinIntake() {
     double proteinAmount = 0;
     int result;
 
@@ -92,6 +93,23 @@ class _MyHomePageState extends State<CalculatorScreen> {
         break;
       default:
     }
+    if (_femaleStatus != FemaleStatus.none) {
+      switch (_femaleStatus) {
+        case FemaleStatus.pregnant:
+          {
+            proteinAmount = 1.8;
+          }
+          break;
+        case FemaleStatus.lactanting:
+          {
+            proteinAmount = 1.5;
+          }
+          break;
+
+          break;
+        default:
+      }
+    }
     result = (proteinAmount * _weight).round();
     setState(() {
       proteinIntake = result;
@@ -102,7 +120,7 @@ class _MyHomePageState extends State<CalculatorScreen> {
   @override
   void initState() {
     super.initState();
-    _weight = 65;
+    _weight = 0;
     _weightRounded = _weight.round();
     _isCalculated = false;
   }
@@ -138,7 +156,7 @@ class _MyHomePageState extends State<CalculatorScreen> {
                 ),
               ),
               Container(
-                padding: EdgeInsets.symmetric(vertical: 30),
+                padding: EdgeInsets.fromLTRB(20, 30, 20, 30),
                 child: Form(
                     child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -147,20 +165,48 @@ class _MyHomePageState extends State<CalculatorScreen> {
                       children: <Widget>[],
                     ),
                     _subtitle('Weight'),
-                    Text("$_weightRounded kg"),
-                    Slider(
-                      activeColor: PrimaryColor,
-                      label: 'weight',
-                      value: _weight,
-                      onChanged: (weight) {
-                        setState(() {
-                          _weight = weight;
-                          _weightRounded = weight.round();
-                        });
-                      },
-                      min: 0,
-                      max: 500,
+                    Text("kg"),
+                    Container(
+                      margin: EdgeInsets.symmetric(vertical: 10),
+                      padding: EdgeInsets.symmetric(horizontal: 40),
+                      child: TextFormField(
+                        controller: weightController,
+                        keyboardType: TextInputType.number,
+                        decoration: InputDecoration(
+                          border: OutlineInputBorder(),
+                          labelText: 'weight',
+                        ),
+                        validator: (value) {
+                          if (value.isEmpty) {
+                            return 'add your weight';
+                          }
+                          if (value == "0") {
+                            return 'your weight must be greater than 0';
+                          }
+                          if (int.parse(value) > 500)
+                            return 'your weight is too high';
+                        },
+                        onChanged: (weight) {
+                          setState(() {
+                            _weight = double.parse(weight);
+                            _weightRounded = _weight.round();
+                          });
+                        },
+                      ),
                     ),
+                    // Slider(
+                    //   activeColor: PrimaryColor,
+                    //   label: 'weight',
+                    //   value: _weight,
+                    //   onChanged: (weight) {
+                    //     setState(() {
+                    //       _weight = weight;
+                    //       _weightRounded = weight.round();
+                    //     });
+                    //   },
+                    //   min: 0,
+                    //   max: 500,
+                    // ),
                     Column(
                       children: <Widget>[
                         _subtitle('Gender'),
@@ -285,7 +331,7 @@ class _MyHomePageState extends State<CalculatorScreen> {
                 )),
               ),
               Container(
-                padding: EdgeInsets.symmetric(vertical: 10),
+                padding: EdgeInsets.symmetric(vertical: 0),
                 child: WidgetUtils.button(
                   text: 'calculate',
                   onPressed: () {
