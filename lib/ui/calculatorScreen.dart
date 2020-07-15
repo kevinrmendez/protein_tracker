@@ -7,15 +7,6 @@ import 'package:protein_tracker/utils/widgetUtils.dart';
 class CalculatorScreen extends StatefulWidget {
   CalculatorScreen({Key key, this.title}) : super(key: key);
 
-  // This widget is the home page of your application. It is stateful, meaning
-  // that it has a State object (defined below) that contains fields that affect
-  // how it looks.
-
-  // This class is the configuration for the state. It holds the values (in this
-  // case the title) provided by the parent (in this case the App widget) and
-  // used by the build method of the State. Fields in a Widget subclass are
-  // always marked "final".
-
   final String title;
 
   @override
@@ -23,13 +14,15 @@ class CalculatorScreen extends StatefulWidget {
 }
 
 enum Gender { male, female }
+enum FemaleStatus { none, pregnant, lactanting }
 enum ProteinGoal { maintenance, muscleGain, fatLoss }
 
 class _MyHomePageState extends State<CalculatorScreen> {
   Gender _gender = Gender.male;
+  FemaleStatus _femaleStatus = FemaleStatus.none;
   ProteinGoal _goal = ProteinGoal.maintenance;
 
-  String dropdownValue = 'sedentary';
+  String dropdownValueActivity = 'sedentary';
   String dropdownValueGoal = 'maintenance';
   int proteinIntake = 20;
   int _counter = 0;
@@ -54,7 +47,12 @@ class _MyHomePageState extends State<CalculatorScreen> {
           groupValue: groupValue,
           onChanged: (value) {
             setState(() {
-              _gender = value;
+              if (value is Gender) {
+                _gender = value;
+              }
+              if (value is FemaleStatus) {
+                _femaleStatus = value;
+              }
             });
           },
         ),
@@ -71,8 +69,32 @@ class _MyHomePageState extends State<CalculatorScreen> {
   }
 
   int calculateProteinIntake() {
+    double proteinAmount = 0;
+    int result;
+
+    switch (dropdownValueActivity) {
+      case "sedentary":
+        {
+          proteinAmount = 1.2;
+        }
+        break;
+      case "moderate":
+        {
+          proteinAmount = 1.8;
+        }
+        break;
+      case "active":
+        {
+          proteinAmount = 2;
+        }
+        break;
+
+        break;
+      default:
+    }
+    result = (proteinAmount * _weight).round();
     setState(() {
-      proteinIntake = 40;
+      proteinIntake = result;
       _isCalculated = true;
     });
   }
@@ -159,6 +181,28 @@ class _MyHomePageState extends State<CalculatorScreen> {
                         ),
                       ],
                     ),
+                    _gender == Gender.female
+                        ? Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: <Widget>[
+                              _radioButton(
+                                'none',
+                                _femaleStatus,
+                                FemaleStatus.none,
+                              ),
+                              _radioButton(
+                                'pregnant',
+                                _femaleStatus,
+                                FemaleStatus.pregnant,
+                              ),
+                              _radioButton(
+                                'lactanting',
+                                _femaleStatus,
+                                FemaleStatus.lactanting,
+                              )
+                            ],
+                          )
+                        : SizedBox(),
                     Column(
                       children: <Widget>[
                         _subtitle('Activity'),
@@ -169,7 +213,7 @@ class _MyHomePageState extends State<CalculatorScreen> {
                               width: 20,
                             ),
                             DropdownButton<String>(
-                              value: dropdownValue,
+                              value: dropdownValueActivity,
                               icon: Icon(Icons.arrow_downward),
                               iconSize: 24,
                               elevation: 16,
@@ -180,14 +224,13 @@ class _MyHomePageState extends State<CalculatorScreen> {
                               ),
                               onChanged: (String newValue) {
                                 setState(() {
-                                  dropdownValue = newValue;
+                                  dropdownValueActivity = newValue;
                                 });
                               },
                               items: <String>[
                                 'sedentary',
                                 'moderate',
                                 'active',
-                                'very active'
                               ].map<DropdownMenuItem<String>>((String value) {
                                 return DropdownMenuItem<String>(
                                   value: value,
