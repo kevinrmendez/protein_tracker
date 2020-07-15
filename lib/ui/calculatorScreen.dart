@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:protein_tracker/bloc/SettingsService.dart';
 import 'package:protein_tracker/utils/colors.dart';
 import 'package:protein_tracker/main.dart';
 import 'package:protein_tracker/bloc/ProteinService.dart';
 import 'package:protein_tracker/utils/widgetUtils.dart';
+import 'package:scidart/numdart.dart';
 
 class CalculatorScreen extends StatefulWidget {
   CalculatorScreen({Key key, this.title}) : super(key: key);
@@ -22,6 +24,7 @@ class _MyHomePageState extends State<CalculatorScreen> {
   FemaleStatus _femaleStatus = FemaleStatus.none;
   ProteinGoal _goal = ProteinGoal.maintenance;
   final weightController = TextEditingController();
+  final _formKey = GlobalKey<FormState>();
 
   String dropdownValueActivity = 'sedentary';
   String dropdownValueGoal = 'maintenance';
@@ -76,20 +79,72 @@ class _MyHomePageState extends State<CalculatorScreen> {
     switch (dropdownValueActivity) {
       case "sedentary":
         {
-          proteinAmount = 1.2;
+          switch (dropdownValueGoal) {
+            case "maintenance":
+              {
+                proteinAmount = 1.2;
+              }
+              break;
+            case "muscle gain":
+              {
+                proteinAmount = 1.4;
+              }
+              break;
+            case "fat loss":
+              {
+                proteinAmount = 1.2;
+              }
+              break;
+
+              break;
+            default:
+          }
         }
         break;
       case "moderate":
         {
-          proteinAmount = 1.8;
+          switch (dropdownValueGoal) {
+            case "maintenance":
+              {
+                proteinAmount = 1.4;
+              }
+              break;
+            case "muscle gain":
+              {
+                proteinAmount = 2;
+              }
+              break;
+            case "fat loss":
+              {
+                proteinAmount = 1.3;
+              }
+              break;
+
+            default:
+          }
         }
         break;
       case "active":
         {
-          proteinAmount = 2;
+          switch (dropdownValueGoal) {
+            case "maintenance":
+              {
+                proteinAmount = 1.6;
+              }
+              break;
+            case "muscle gain":
+              {
+                proteinAmount = 2.7;
+              }
+              break;
+            case "fat loss":
+              {
+                proteinAmount = 1.4;
+              }
+              break;
+            default:
+          }
         }
-        break;
-
         break;
       default:
     }
@@ -110,7 +165,14 @@ class _MyHomePageState extends State<CalculatorScreen> {
         default:
       }
     }
+    //calculate protein intake
     result = (proteinAmount * _weight).round();
+
+    //convert lbs to kgs
+    if (settingsService.currentWeightSettings == 0) {
+      result = (result / .45359237).round();
+    }
+
     setState(() {
       proteinIntake = result;
       _isCalculated = true;
@@ -132,7 +194,6 @@ class _MyHomePageState extends State<CalculatorScreen> {
       body: Center(
         child: ListView(children: <Widget>[
           Column(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: <Widget>[
               Container(
                 child: WidgetUtils.card(
@@ -141,7 +202,6 @@ class _MyHomePageState extends State<CalculatorScreen> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
                       Container(
-                        // padding: EdgeInsets.symmetric(vertical: 10),
                         child: Text(
                           " $proteinIntake",
                           style: TextStyle(fontSize: 50, color: Colors.white),
@@ -158,184 +218,180 @@ class _MyHomePageState extends State<CalculatorScreen> {
               Container(
                 padding: EdgeInsets.fromLTRB(20, 30, 20, 30),
                 child: Form(
+                    key: _formKey,
                     child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: <Widget>[
-                    Column(
-                      children: <Widget>[],
-                    ),
-                    _subtitle('Weight'),
-                    Text("kg"),
-                    Container(
-                      margin: EdgeInsets.symmetric(vertical: 10),
-                      padding: EdgeInsets.symmetric(horizontal: 40),
-                      child: TextFormField(
-                        controller: weightController,
-                        keyboardType: TextInputType.number,
-                        decoration: InputDecoration(
-                          border: OutlineInputBorder(),
-                          labelText: 'weight',
-                        ),
-                        validator: (value) {
-                          if (value.isEmpty) {
-                            return 'add your weight';
-                          }
-                          if (value == "0") {
-                            return 'your weight must be greater than 0';
-                          }
-                          if (int.parse(value) > 500)
-                            return 'your weight is too high';
-                        },
-                        onChanged: (weight) {
-                          setState(() {
-                            _weight = double.parse(weight);
-                            _weightRounded = _weight.round();
-                          });
-                        },
-                      ),
-                    ),
-                    // Slider(
-                    //   activeColor: PrimaryColor,
-                    //   label: 'weight',
-                    //   value: _weight,
-                    //   onChanged: (weight) {
-                    //     setState(() {
-                    //       _weight = weight;
-                    //       _weightRounded = weight.round();
-                    //     });
-                    //   },
-                    //   min: 0,
-                    //   max: 500,
-                    // ),
-                    Column(
+                      // mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
-                        _subtitle('Gender'),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: <Widget>[
-                            _radioButton(
-                              'male',
-                              _gender,
-                              Gender.male,
+                        _subtitle('Weight'),
+                        Text(settingsService.currentWeightSettings == 0
+                            ? 'lb'
+                            : 'kg'),
+                        Container(
+                          margin: EdgeInsets.symmetric(vertical: 10),
+                          padding: EdgeInsets.symmetric(horizontal: 40),
+                          child: TextFormField(
+                            controller: weightController,
+                            keyboardType: TextInputType.number,
+                            decoration: InputDecoration(
+                              border: OutlineInputBorder(),
+                              labelText: 'weight',
                             ),
-                            _radioButton(
-                              'female',
-                              _gender,
-                              Gender.female,
-                            )
+                            validator: (value) {
+                              int weightLimit = intToBool(
+                                      settingsService.currentWeightSettings)
+                                  ? 600
+                                  : 1300;
+
+                              if (value.isEmpty) {
+                                return 'add your weight';
+                              }
+                              if (value == "0") {
+                                return 'your weight must be greater than 0';
+                              }
+                              if (int.parse(value) > weightLimit)
+                                return 'your weight is too high';
+                            },
+                            onChanged: (weight) {
+                              setState(() {
+                                _weight = double.parse(weight);
+                                _weightRounded = _weight.round();
+                              });
+                            },
+                          ),
+                        ),
+                        Column(
+                          children: <Widget>[
+                            _subtitle('Gender'),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: <Widget>[
+                                _radioButton(
+                                  'male',
+                                  _gender,
+                                  Gender.male,
+                                ),
+                                _radioButton(
+                                  'female',
+                                  _gender,
+                                  Gender.female,
+                                )
+                              ],
+                            ),
                           ],
                         ),
-                      ],
-                    ),
-                    _gender == Gender.female
-                        ? Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: <Widget>[
-                              _radioButton(
-                                'none',
-                                _femaleStatus,
-                                FemaleStatus.none,
-                              ),
-                              _radioButton(
-                                'pregnant',
-                                _femaleStatus,
-                                FemaleStatus.pregnant,
-                              ),
-                              _radioButton(
-                                'lactanting',
-                                _femaleStatus,
-                                FemaleStatus.lactanting,
+                        _gender == Gender.female
+                            ? Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: <Widget>[
+                                  _radioButton(
+                                    'none',
+                                    _femaleStatus,
+                                    FemaleStatus.none,
+                                  ),
+                                  _radioButton(
+                                    'pregnant',
+                                    _femaleStatus,
+                                    FemaleStatus.pregnant,
+                                  ),
+                                  _radioButton(
+                                    'lactanting',
+                                    _femaleStatus,
+                                    FemaleStatus.lactanting,
+                                  )
+                                ],
                               )
-                            ],
-                          )
-                        : SizedBox(),
-                    Column(
-                      children: <Widget>[
-                        _subtitle('Activity'),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
+                            : SizedBox(),
+                        Column(
                           children: <Widget>[
-                            SizedBox(
-                              width: 20,
+                            _subtitle('Activity'),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: <Widget>[
+                                SizedBox(
+                                  width: 20,
+                                ),
+                                DropdownButton<String>(
+                                  value: dropdownValueActivity,
+                                  icon: Icon(Icons.arrow_downward),
+                                  iconSize: 24,
+                                  elevation: 16,
+                                  style: TextStyle(color: PrimaryColor),
+                                  underline: Container(
+                                    height: 2,
+                                    color: Colors.grey,
+                                  ),
+                                  onChanged: (String newValue) {
+                                    setState(() {
+                                      dropdownValueActivity = newValue;
+                                    });
+                                  },
+                                  items: <String>[
+                                    'sedentary',
+                                    'moderate',
+                                    'active',
+                                  ].map<DropdownMenuItem<String>>(
+                                      (String value) {
+                                    return DropdownMenuItem<String>(
+                                      value: value,
+                                      child: Text(value),
+                                    );
+                                  }).toList(),
+                                )
+                              ],
                             ),
-                            DropdownButton<String>(
-                              value: dropdownValueActivity,
-                              icon: Icon(Icons.arrow_downward),
-                              iconSize: 24,
-                              elevation: 16,
-                              style: TextStyle(color: PrimaryColor),
-                              underline: Container(
-                                height: 2,
-                                color: Colors.grey,
-                              ),
-                              onChanged: (String newValue) {
-                                setState(() {
-                                  dropdownValueActivity = newValue;
-                                });
-                              },
-                              items: <String>[
-                                'sedentary',
-                                'moderate',
-                                'active',
-                              ].map<DropdownMenuItem<String>>((String value) {
-                                return DropdownMenuItem<String>(
-                                  value: value,
-                                  child: Text(value),
-                                );
-                              }).toList(),
-                            )
+                          ],
+                        ),
+                        Column(
+                          children: <Widget>[
+                            _subtitle('Goal'),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: <Widget>[
+                                SizedBox(
+                                  width: 20,
+                                ),
+                                DropdownButton<String>(
+                                  value: dropdownValueGoal,
+                                  icon: Icon(Icons.arrow_downward),
+                                  iconSize: 24,
+                                  elevation: 16,
+                                  style: TextStyle(color: PrimaryColor),
+                                  underline: Container(
+                                    height: 2,
+                                    color: Colors.grey,
+                                  ),
+                                  onChanged: (String newValue) {
+                                    setState(() {
+                                      dropdownValueGoal = newValue;
+                                    });
+                                  },
+                                  items: <String>[
+                                    'maintenance',
+                                    'muscle gain',
+                                    'fat loss'
+                                  ].map<DropdownMenuItem<String>>(
+                                      (String value) {
+                                    return DropdownMenuItem<String>(
+                                      value: value,
+                                      child: Text(value),
+                                    );
+                                  }).toList(),
+                                )
+                              ],
+                            ),
                           ],
                         ),
                       ],
-                    ),
-                    Column(
-                      children: <Widget>[
-                        _subtitle('Goal'),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: <Widget>[
-                            SizedBox(
-                              width: 20,
-                            ),
-                            DropdownButton<String>(
-                              value: dropdownValueGoal,
-                              icon: Icon(Icons.arrow_downward),
-                              iconSize: 24,
-                              elevation: 16,
-                              style: TextStyle(color: PrimaryColor),
-                              underline: Container(
-                                height: 2,
-                                color: Colors.grey,
-                              ),
-                              onChanged: (String newValue) {
-                                setState(() {
-                                  dropdownValueGoal = newValue;
-                                });
-                              },
-                              items: <String>[
-                                'maintenance',
-                                'muscle gain',
-                                'fat loss'
-                              ].map<DropdownMenuItem<String>>((String value) {
-                                return DropdownMenuItem<String>(
-                                  value: value,
-                                  child: Text(value),
-                                );
-                              }).toList(),
-                            )
-                          ],
-                        ),
-                      ],
-                    ),
-                  ],
-                )),
+                    )),
               ),
               Container(
                 padding: EdgeInsets.symmetric(vertical: 0),
                 child: WidgetUtils.button(
                   text: 'calculate',
                   onPressed: () {
-                    calculateProteinIntake();
+                    if (_formKey.currentState.validate()) {
+                      calculateProteinIntake();
+                    }
                   },
                 ),
               ),

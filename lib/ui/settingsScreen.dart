@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:protein_tracker/bloc/SettingsService.dart';
 import 'package:protein_tracker/ui/aboutScreen.dart';
 import 'package:protein_tracker/main.dart';
 import 'package:protein_tracker/utils/widgetUtils.dart';
+import 'package:scidart/numdart.dart';
 
 class SettingsScreen extends StatefulWidget {
   SettingsScreen({Key key}) : super(key: key);
@@ -35,6 +37,26 @@ class _SettingsScreenState extends State<SettingsScreen> {
           ListTile(
             title: Text('About the app'),
             trailing: Icon(Icons.info),
+            onTap: () {
+              Navigator.of(context).push(MaterialPageRoute(
+                  builder: (BuildContext context) => AboutScreen()));
+            },
+          ),
+          ListTile(
+            title: Text('Weight Unit'),
+            trailing: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: <Widget>[
+                Text('lb'),
+                Switch(
+                    value: intToBool(settingsService.currentWeightSettings),
+                    onChanged: (value) {
+                      int weightSettings = value ? 1 : 0;
+                      settingsService.updateWeightSettings(weightSettings);
+                    }),
+                Text('kg')
+              ],
+            ),
             onTap: () {
               Navigator.of(context).push(MaterialPageRoute(
                   builder: (BuildContext context) => AboutScreen()));
