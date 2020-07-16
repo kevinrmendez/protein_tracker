@@ -134,43 +134,35 @@ class _AddProteinDialogState extends State<AddProteinDialog> {
   Widget build(BuildContext context) {
     return WidgetUtils.dialog(
         context: context,
-        height: MediaQuery.of(context).size.height * .6,
+        height: MediaQuery.of(context).size.height * .48,
         title: 'Add protein',
         showAd: false,
         child: Container(
           margin: EdgeInsets.symmetric(horizontal: 40),
           child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               Form(
                 key: _formKey,
                 child: Column(children: [
-                  TextFormField(
-                    keyboardType: TextInputType.text,
-                    controller: _foodNameController,
-                    decoration: InputDecoration(
-                      hintText: 'Food name',
-                      border: OutlineInputBorder(),
-                    ),
-                    onChanged: (value) {
-                      setState(() {
-                        foodName = value;
-                      });
-                    },
-                    validator: (value) {
-                      if (value.isEmpty) {
-                        return 'food is empty';
-                      }
-                      return null;
-                    },
-                  ),
-                  SizedBox(height: 20),
-                  TextFormField(
+                  WidgetUtils.inputField(
+                      controller: _foodNameController,
+                      labelText: 'Food name',
+                      onChanged: (value) {
+                        setState(() {
+                          foodName = value;
+                        });
+                      },
+                      validator: (value) {
+                        if (value.isEmpty) {
+                          return 'food is empty';
+                        }
+                        return null;
+                      }),
+                  WidgetUtils.inputField(
                     keyboardType: TextInputType.number,
                     controller: _proteinAmountController,
-                    decoration: InputDecoration(
-                      hintText: 'Protein amount in gr',
-                      border: OutlineInputBorder(),
-                    ),
+                    labelText: 'Protein amount in gr',
                     onChanged: (value) {
                       setState(() {
                         proteinAmount = int.parse(value);
@@ -186,9 +178,7 @@ class _AddProteinDialogState extends State<AddProteinDialog> {
                       return null;
                     },
                   ),
-                  Container(
-                      margin: EdgeInsets.only(top: 20),
-                      child: Text('From food list')),
+                  Container(child: Text('From food list')),
                   DropdownButton<String>(
                     value: dropdownValueGoal,
                     icon: Icon(Icons.arrow_downward),
@@ -280,43 +270,36 @@ class _EditProteinDialogState extends State<EditProteinDialog> {
   Widget build(BuildContext context) {
     return WidgetUtils.dialog(
         context: context,
-        height: MediaQuery.of(context).size.height * .6,
+        height: MediaQuery.of(context).size.height * .48,
         title: 'Edit protein',
         showAd: false,
         child: Container(
+          height: 300,
           margin: EdgeInsets.symmetric(horizontal: 40),
           child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               Form(
                 key: _formKey,
                 child: Column(children: [
-                  TextFormField(
-                    keyboardType: TextInputType.text,
-                    controller: _foodNameController,
-                    decoration: InputDecoration(
-                      hintText: 'Food name',
-                      border: OutlineInputBorder(),
-                    ),
-                    onChanged: (value) {
-                      setState(() {
-                        foodName = value;
-                      });
-                    },
-                    validator: (value) {
-                      if (value.isEmpty) {
-                        return 'food is empty';
-                      }
-                      return null;
-                    },
-                  ),
-                  SizedBox(height: 20),
-                  TextFormField(
+                  WidgetUtils.inputField(
+                      controller: _foodNameController,
+                      labelText: 'Food name',
+                      onChanged: (value) {
+                        setState(() {
+                          foodName = value;
+                        });
+                      },
+                      validator: (value) {
+                        if (value.isEmpty) {
+                          return 'food is empty';
+                        }
+                        return null;
+                      }),
+                  WidgetUtils.inputField(
                     keyboardType: TextInputType.number,
                     controller: _proteinAmountController,
-                    decoration: InputDecoration(
-                      hintText: 'Protein amount in gr',
-                      border: OutlineInputBorder(),
-                    ),
+                    labelText: 'Protein amount in gr',
                     onChanged: (value) {
                       setState(() {
                         proteinAmount = int.parse(value);
@@ -332,9 +315,7 @@ class _EditProteinDialogState extends State<EditProteinDialog> {
                       return null;
                     },
                   ),
-                  Container(
-                      margin: EdgeInsets.only(top: 20),
-                      child: Text('From food list')),
+                  Container(child: Text('From food list')),
                   DropdownButton<String>(
                     value: dropdownValueGoal,
                     icon: Icon(Icons.arrow_downward),

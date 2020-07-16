@@ -105,7 +105,7 @@ class _AddProteinDialogState extends State<AddProteinDialog> {
   Widget build(BuildContext context) {
     return WidgetUtils.dialog(
         context: context,
-        height: MediaQuery.of(context).size.height * .55,
+        height: MediaQuery.of(context).size.height * .39,
         title: 'Add food',
         showAd: false,
         child: Container(
@@ -116,13 +116,9 @@ class _AddProteinDialogState extends State<AddProteinDialog> {
               Form(
                 key: _formKey,
                 child: Column(children: [
-                  TextFormField(
-                    keyboardType: TextInputType.text,
+                  WidgetUtils.inputField(
                     controller: _foodNameController,
-                    decoration: InputDecoration(
-                        // hintText: 'chicken',
-                        border: OutlineInputBorder(),
-                        labelText: 'Food name'),
+                    labelText: 'Food name',
                     onChanged: (value) {
                       setState(() {
                         foodName = value;
@@ -140,17 +136,10 @@ class _AddProteinDialogState extends State<AddProteinDialog> {
                       return null;
                     },
                   ),
-                  SizedBox(
-                    height: 20,
-                  ),
-                  TextFormField(
+                  WidgetUtils.inputField(
                     keyboardType: TextInputType.number,
                     controller: _proteinAmountController,
-                    decoration: InputDecoration(
-                        border: OutlineInputBorder(),
-                        // hintText: 'Protein amount in gr',
-                        labelText: 'Protein amount in gr',
-                        errorStyle: TextStyle(color: RedColor)),
+                    labelText: 'Protein amount in gr',
                     onChanged: (value) {
                       setState(() {
                         proteinAmount = int.parse(value);
@@ -158,16 +147,13 @@ class _AddProteinDialogState extends State<AddProteinDialog> {
                     },
                     validator: (value) {
                       if (value.isEmpty) {
-                        return "protein amount is empty";
+                        return 'protein amount is empty';
                       }
                       if (value == "0") {
                         return 'protein amount must be greater than 0';
                       }
                       return null;
                     },
-                  ),
-                  SizedBox(
-                    height: 20,
                   ),
                   WidgetUtils.button(
                       text: "Add",
@@ -220,7 +206,7 @@ class _EditFoodDialogState extends State<EditFoodDialog> {
   Widget build(BuildContext context) {
     return WidgetUtils.dialog(
         context: context,
-        height: MediaQuery.of(context).size.height * .55,
+        height: MediaQuery.of(context).size.height * .39,
         title: 'Edit food',
         showAd: false,
         child: Container(
@@ -231,41 +217,25 @@ class _EditFoodDialogState extends State<EditFoodDialog> {
               Form(
                 key: _formKey,
                 child: Column(children: [
-                  TextFormField(
-                    keyboardType: TextInputType.text,
+                  WidgetUtils.inputField(
                     controller: _foodNameController,
-                    decoration: InputDecoration(
-                        // hintText: 'chicken',
-                        border: OutlineInputBorder(),
-                        labelText: 'Food name'),
+                    labelText: 'Food name',
                     onChanged: (value) {
                       setState(() {
                         foodName = value;
                       });
                     },
                     validator: (value) {
-                      List<String> currentFoods =
-                          foodListServices.currentListFoodName;
                       if (value.isEmpty) {
                         return 'food is empty';
-                      }
-                      if (currentFoods.contains(value)) {
-                        return "food already added";
                       }
                       return null;
                     },
                   ),
-                  SizedBox(
-                    height: 20,
-                  ),
-                  TextFormField(
+                  WidgetUtils.inputField(
                     keyboardType: TextInputType.number,
                     controller: _proteinAmountController,
-                    decoration: InputDecoration(
-                        border: OutlineInputBorder(),
-                        // hintText: 'Protein amount in gr',
-                        labelText: 'Protein amount in gr',
-                        errorStyle: TextStyle(color: RedColor)),
+                    labelText: 'Protein amount in gr',
                     onChanged: (value) {
                       setState(() {
                         proteinAmount = int.parse(value);
@@ -273,16 +243,13 @@ class _EditFoodDialogState extends State<EditFoodDialog> {
                     },
                     validator: (value) {
                       if (value.isEmpty) {
-                        return "protein amount is empty";
+                        return 'protein amount is empty';
                       }
                       if (value == "0") {
                         return 'protein amount must be greater than 0';
                       }
                       return null;
                     },
-                  ),
-                  SizedBox(
-                    height: 20,
                   ),
                   WidgetUtils.button(
                       text: "Edit",

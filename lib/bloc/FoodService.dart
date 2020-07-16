@@ -47,6 +47,9 @@ class FoodService {
 
     _foodNameList.value.add(food.name);
     _foodNameList.add(List<String>.from(currentListFoodName));
+    //TODO:FIX ADD REMOVE, UPDATE FOOD LIST WHEN 2 DIFFERENT DAYS ARE SHOWNED
+
+    _getFoods();
   }
 
   remove(int id, int index) async {
@@ -56,7 +59,8 @@ class FoodService {
 
     _foodNameList.value.removeAt(index);
     _foodNameList.add(List<String>.from(currentListFoodName));
-    // _getFoods();
+
+    _getFoods();
   }
 
   getFoodId(Food food) async {
@@ -66,6 +70,7 @@ class FoodService {
 
   update(Food food) async {
     await _foodRepository.updateFood(food);
+    _getFoods();
   }
 }
 

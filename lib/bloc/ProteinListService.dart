@@ -49,19 +49,21 @@ class ProteinListService {
     _proteinList.add(List<Protein>.from(currentList));
 
     _proteinRepository.insertProtein(protein);
-    var proteins = await _proteinRepository.getAllProteins();
-    proteins.forEach((f) => print(f.name));
+//TODO:FIX ADD REMOVE, UPDATE PROTEIN LIST WHEN 2 DIFFERENT DAYS ARE SHOWNED
+
+    _getProtein();
   }
 
   update(Protein protein) async {
     await _proteinRepository.updateProtein(protein);
+    _getProtein();
   }
 
   remove(int id) async {
     _proteinList.value.removeWhere((protein) => protein.id == id);
     _proteinList.add(List<Protein>.from(currentList));
     await _proteinRepository.deleteProteinById(id);
-    // _getProtein();
+    _getProtein();
   }
 
   getProteinId(Protein protein) async {

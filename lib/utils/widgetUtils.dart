@@ -6,14 +6,43 @@ import 'package:protein_tracker/main.dart';
 class WidgetUtils {
   static Widget button(
       {String text, Function onPressed, Color color, Color textColor}) {
-    return RaisedButton(
-      color: color == null ? PrimaryColor : color,
-      child: Text(
-        text,
-        style: TextStyle(
-            color: textColor == null ? Colors.white : textColor, fontSize: 22),
+    return Container(
+      margin: EdgeInsets.symmetric(vertical: 6),
+      width: 250,
+      height: 50,
+      child: RaisedButton(
+        color: color == null ? PrimaryColor : color,
+        child: Text(
+          text,
+          textAlign: TextAlign.center,
+          style: TextStyle(
+              color: textColor == null ? Colors.white : textColor,
+              fontSize: 22),
+        ),
+        onPressed: onPressed,
       ),
-      onPressed: onPressed,
+    );
+  }
+
+  static Widget inputField(
+      {TextInputType keyboardType = TextInputType.text,
+      TextEditingController controller,
+      String labelText,
+      Function(String) onChanged,
+      Function(String) validator}) {
+    return Container(
+      margin: EdgeInsets.symmetric(vertical: 5),
+      height: 68,
+      child: TextFormField(
+        keyboardType: keyboardType,
+        controller: controller,
+        decoration: InputDecoration(
+          labelText: labelText,
+          border: OutlineInputBorder(),
+        ),
+        onChanged: onChanged,
+        validator: validator,
+      ),
     );
   }
 
@@ -29,7 +58,7 @@ class WidgetUtils {
         child: ListView(
           children: <Widget>[
             Container(
-                padding: EdgeInsets.symmetric(vertical: 12),
+                padding: EdgeInsets.symmetric(vertical: 10),
                 width: MediaQuery.of(context).size.width,
                 color: Theme.of(context).primaryColor,
                 child: Text(
@@ -37,11 +66,11 @@ class WidgetUtils {
                   textAlign: TextAlign.center,
                   style: TextStyle(
                       color: Colors.white,
-                      fontSize: 20,
+                      fontSize: 19,
                       fontWeight: FontWeight.bold),
                 )),
             SizedBox(
-              height: 30,
+              height: 7,
             ),
             child,
             // SizedBox(
