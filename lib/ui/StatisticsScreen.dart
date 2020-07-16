@@ -21,7 +21,6 @@ class StatisticsScreen extends StatelessWidget {
   }
 
   List<TimeSeriesProtein> getDailyTotalProtein(List monthlyProtein) {
-    //TODO: FIX MONTHLY PROTEIN CALCULATION
     List<TimeSeriesProtein> dailyTotalProteinList = [];
     int dailyTotalProtein = 0;
     String proteinDateCache = "";
