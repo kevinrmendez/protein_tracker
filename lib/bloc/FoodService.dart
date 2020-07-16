@@ -56,7 +56,7 @@ class FoodService {
 
     _foodNameList.value.removeAt(index);
     _foodNameList.add(List<String>.from(currentListFoodName));
-    _getFoods();
+    // _getFoods();
   }
 
   getFoodId(Food food) async {

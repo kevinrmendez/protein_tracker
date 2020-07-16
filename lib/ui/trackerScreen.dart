@@ -180,6 +180,9 @@ class _AddProteinDialogState extends State<AddProteinDialog> {
                       if (value.isEmpty) {
                         return 'protein amount is empty';
                       }
+                      if (value == "0") {
+                        return 'protein amount must be greater than 0';
+                      }
                       return null;
                     },
                   ),
@@ -322,6 +325,9 @@ class _EditProteinDialogState extends State<EditProteinDialog> {
                     validator: (value) {
                       if (value.isEmpty) {
                         return 'protein amount is empty';
+                      }
+                      if (value == "0") {
+                        return 'protein amount must be greater than 0';
                       }
                       return null;
                     },

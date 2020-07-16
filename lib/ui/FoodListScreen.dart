@@ -129,8 +129,13 @@ class _AddProteinDialogState extends State<AddProteinDialog> {
                       });
                     },
                     validator: (value) {
+                      List<String> currentFoods =
+                          foodListServices.currentListFoodName;
                       if (value.isEmpty) {
                         return 'food is empty';
+                      }
+                      if (currentFoods.contains(value)) {
+                        return "food already added";
                       }
                       return null;
                     },
@@ -154,6 +159,9 @@ class _AddProteinDialogState extends State<AddProteinDialog> {
                     validator: (value) {
                       if (value.isEmpty) {
                         return "protein amount is empty";
+                      }
+                      if (value == "0") {
+                        return 'protein amount must be greater than 0';
                       }
                       return null;
                     },
@@ -236,8 +244,13 @@ class _EditFoodDialogState extends State<EditFoodDialog> {
                       });
                     },
                     validator: (value) {
+                      List<String> currentFoods =
+                          foodListServices.currentListFoodName;
                       if (value.isEmpty) {
                         return 'food is empty';
+                      }
+                      if (currentFoods.contains(value)) {
+                        return "food already added";
                       }
                       return null;
                     },
@@ -261,6 +274,9 @@ class _EditFoodDialogState extends State<EditFoodDialog> {
                     validator: (value) {
                       if (value.isEmpty) {
                         return "protein amount is empty";
+                      }
+                      if (value == "0") {
+                        return 'protein amount must be greater than 0';
                       }
                       return null;
                     },
