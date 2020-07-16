@@ -12,7 +12,10 @@ class ProteinListService {
     _getProtein();
   }
   void _getProtein() async {
-    var date = formattedDateNow;
+    var dateNow = DateTime.now();
+    final DateFormat formatter = DateFormat('dd-MMMM-yyyy');
+    var formattedDate = formatter.format(dateNow);
+    var date = formattedDate;
     dbProteins = await _proteinRepository.getAllProteins(
       query: date,
     );
