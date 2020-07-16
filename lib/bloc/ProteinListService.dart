@@ -33,7 +33,7 @@ class ProteinListService {
     List monthlyProteins =
         await _proteinRepository.getAllProteins(query: monthName);
     print("proteins from db from $monthName");
-    monthlyProteins.forEach((p) => p.name);
+    monthlyProteins.forEach((p) => print("${p.name}"));
     return monthlyProteins;
   }
 
