@@ -23,7 +23,6 @@ class _MyHomePageState extends State<HomeScreen> {
     return Center(
       child: ListView(
         children: <Widget>[
-          AdMobUtils.admobBanner(),
           Text(
             "Today",
             textAlign: TextAlign.center,
@@ -40,6 +39,9 @@ class _MyHomePageState extends State<HomeScreen> {
           DailyStatus(),
           ProgressIndicator(),
           ConsumedCalories(),
+          SizedBox(
+            height: 40,
+          )
         ],
       ),
     );

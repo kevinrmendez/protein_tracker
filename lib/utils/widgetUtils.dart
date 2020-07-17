@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:protein_tracker/utils/AdMobUtils.dart';
 import 'package:protein_tracker/utils/appAssets.dart';
 import 'package:protein_tracker/utils/colors.dart';
 import 'package:protein_tracker/main.dart';
@@ -53,31 +54,33 @@ class WidgetUtils {
       double height,
       bool showAd = true}) {
     return Dialog(
+      shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(Radius.circular(20))),
       child: Container(
         height: height,
-        child: ListView(
-          children: <Widget>[
-            Container(
-                padding: EdgeInsets.symmetric(vertical: 10),
-                width: MediaQuery.of(context).size.width,
-                color: Theme.of(context).primaryColor,
-                child: Text(
-                  title,
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 19,
-                      fontWeight: FontWeight.bold),
-                )),
-            SizedBox(
-              height: 7,
-            ),
-            child,
-            // SizedBox(
-            //   height: 5,
-            // ),
-            // showAd ? AdmobUtils.admobBanner() : SizedBox()
-          ],
+        child: Center(
+          child: ListView(
+            shrinkWrap: true,
+            children: <Widget>[
+              Container(
+                  padding: EdgeInsets.symmetric(vertical: 4),
+                  width: MediaQuery.of(context).size.width,
+                  // color: Theme.of(context).primaryColor,
+                  child: Text(
+                    title,
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                        color: PrimaryColor,
+                        fontSize: 19,
+                        fontWeight: FontWeight.bold),
+                  )),
+              SizedBox(
+                height: 7,
+              ),
+              Center(child: child),
+              showAd ? AdMobUtils.admobBanner() : SizedBox(),
+            ],
+          ),
         ),
       ),
     );
@@ -167,9 +170,7 @@ class WidgetUtils {
         ),
         onPressed: () => Navigator.of(context).pop(),
       ),
-      title:
-          // Icon(Icons.delete),
-          Text(
+      title: Text(
         title,
         textAlign: TextAlign.center,
         style: TextStyle(color: PrimaryColor, fontWeight: FontWeight.bold),
