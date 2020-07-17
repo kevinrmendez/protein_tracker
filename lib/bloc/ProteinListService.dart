@@ -73,6 +73,19 @@ class ProteinListService {
     int id = await _proteinRepository.getProteinId(protein);
     return id;
   }
+
+  void orderFoodsAscending() {
+    List<Protein> orderList = currentList;
+    orderList.sort((a, b) => a.name.compareTo(b.name));
+    _proteinList.add(orderList);
+  }
+
+  void orderFoodsDescending() {
+    List<Protein> orderList = currentList;
+    orderList.sort((a, b) => a.name.compareTo(b.name));
+    List<Protein> reversedList = orderList.reversed.toList();
+    _proteinList.add(reversedList);
+  }
 }
 
 ProteinListService proteinListServices = ProteinListService();

@@ -27,6 +27,7 @@ DateTime currentDate;
 var preferences;
 String formattedDateNow;
 var uuid;
+enum Order { ascending, descending }
 
 void resetState() {
   proteinService.resetConsumedProtein();

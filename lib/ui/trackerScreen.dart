@@ -30,7 +30,40 @@ class _TrackerScreenState extends State<TrackerScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: WidgetUtils.appBarBackArrow("Today's protein", context),
+      appBar: WidgetUtils.appBarBackArrow("Today's protein", context, actions: [
+        PopupMenuButton<Order>(
+          onSelected: (order) {
+            switch (order) {
+              case Order.ascending:
+                {
+                  proteinListServices.orderFoodsAscending();
+                }
+                break;
+              case Order.descending:
+                {
+                  proteinListServices.orderFoodsDescending();
+                }
+                break;
+              default:
+            }
+          },
+          icon: Icon(Icons.more_vert, color: SecondaryColor),
+          itemBuilder: (
+            BuildContext context,
+          ) {
+            return [
+              const PopupMenuItem<Order>(
+                child: Text('Ascending Order'),
+                value: Order.ascending,
+              ),
+              const PopupMenuItem<Order>(
+                child: Text('Descending Order'),
+                value: Order.descending,
+              ),
+            ];
+          },
+        )
+      ]),
       body: StreamBuilder<List<Protein>>(
         stream: proteinListServices.stream,
         builder: (BuildContext context, AsyncSnapshot snapshot) {

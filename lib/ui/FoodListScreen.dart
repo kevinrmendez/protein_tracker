@@ -5,8 +5,6 @@ import 'package:protein_tracker/bloc/FoodService.dart';
 import 'package:protein_tracker/model/food.dart';
 import 'package:protein_tracker/utils/widgetUtils.dart';
 
-enum Order { ascending, descending }
-
 class FoodListScreen extends StatefulWidget {
   FoodListScreen({Key key, this.title}) : super(key: key);
 
