@@ -74,12 +74,12 @@ class StatisticsScreen extends StatelessWidget {
     return dailyTotalProteinList;
   }
 
-  _statsDataRow({List<Widget> children}) {
+  _statsDataRow({List<Widget> children, Color color = MediumLightGreyColor}) {
     return Container(
       decoration: BoxDecoration(
           border: Border(
               bottom: BorderSide(
-        color: MediumGreyColor,
+        color: color,
         width: 1.0,
       ))),
       child: Row(
@@ -161,7 +161,7 @@ class StatisticsScreen extends StatelessWidget {
                           data: avgProtein,
                           measurement: "gr"),
                     ]),
-                    _statsDataRow(children: [
+                    _statsDataRow(color: Colors.transparent, children: [
                       _statsData(
                           label: 'CALORIES CONSUMED',
                           data: totalProtein * 4,
