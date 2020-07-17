@@ -98,12 +98,12 @@ class WidgetUtils {
           Icon(
             icon,
             size: 60,
-            color: DarkMediumGreyColor,
+            color: MediumGreyColor,
           ),
           Text(
             text,
             textAlign: TextAlign.center,
-            style: TextStyle(fontSize: 20, color: DarkMediumGreyColor),
+            style: TextStyle(fontSize: 20, color: MediumGreyColor),
           ),
         ],
       ),
@@ -128,7 +128,7 @@ class WidgetUtils {
           Text(
             text,
             textAlign: TextAlign.center,
-            style: TextStyle(fontSize: 20, color: DarkMediumGreyColor),
+            style: TextStyle(fontSize: 20, color: MediumGreyColor),
           ),
         ],
       ),

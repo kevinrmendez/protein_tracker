@@ -158,7 +158,7 @@ class _AddProteinDialogState extends State<AddProteinDialog> {
   Widget build(BuildContext context) {
     return WidgetUtils.dialog(
         context: context,
-        height: MediaQuery.of(context).size.height * .48,
+        height: MediaQuery.of(context).size.height * .56,
         title: 'Add protein',
         showAd: false,
         child: Container(
@@ -301,7 +301,7 @@ class _EditProteinDialogState extends State<EditProteinDialog> {
   Widget build(BuildContext context) {
     return WidgetUtils.dialog(
         context: context,
-        height: MediaQuery.of(context).size.height * .48,
+        height: MediaQuery.of(context).size.height * .56,
         title: 'Edit protein',
         showAd: false,
         child: Container(

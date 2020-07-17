@@ -138,7 +138,7 @@ class _AddProteinDialogState extends State<AddProteinDialog> {
   Widget build(BuildContext context) {
     return WidgetUtils.dialog(
         context: context,
-        height: MediaQuery.of(context).size.height * .39,
+        height: MediaQuery.of(context).size.height * .47,
         title: 'Add food',
         showAd: false,
         child: Container(
@@ -237,7 +237,7 @@ class _EditFoodDialogState extends State<EditFoodDialog> {
   Widget build(BuildContext context) {
     return WidgetUtils.dialog(
         context: context,
-        height: MediaQuery.of(context).size.height * .39,
+        height: MediaQuery.of(context).size.height * .47,
         title: 'Edit food',
         showAd: false,
         child: Container(
