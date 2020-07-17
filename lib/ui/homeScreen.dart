@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:protein_tracker/utils/AdMobUtils.dart';
 import 'package:protein_tracker/utils/colors.dart';
 import 'package:protein_tracker/main.dart';
 import 'package:protein_tracker/bloc/ProteinService.dart';
@@ -22,6 +23,7 @@ class _MyHomePageState extends State<HomeScreen> {
     return Center(
       child: ListView(
         children: <Widget>[
+          AdMobUtils.admobBanner(),
           Text(
             "Today",
             textAlign: TextAlign.center,

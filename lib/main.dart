@@ -1,3 +1,4 @@
+import 'package:admob_flutter/admob_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:protein_tracker/bloc/FoodService.dart';
@@ -7,6 +8,7 @@ import 'package:protein_tracker/bloc/DateService.dart';
 import 'package:protein_tracker/bloc/ProteinService.dart';
 import 'package:protein_tracker/ui/calculatorScreen.dart';
 import 'package:protein_tracker/ui/trackerScreen.dart';
+import 'package:protein_tracker/utils/AdMobUtils.dart';
 import 'package:protein_tracker/utils/appAssets.dart';
 import 'package:protein_tracker/utils/colors.dart';
 import 'package:protein_tracker/components/appDrawer.dart';
@@ -21,8 +23,6 @@ import 'package:flutter/services.dart';
 import 'package:protein_tracker/utils/widgetUtils.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import 'package:uuid/uuid.dart';
-
 DateTime currentDate;
 var preferences;
 String formattedDateNow;
@@ -35,6 +35,7 @@ void resetState() {
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  Admob.initialize(AdMobUtils.getAppId());
 
   currentDate = DateTime.now();
   print("CURRENT TIME: $currentDate");
@@ -42,8 +43,6 @@ void main() async {
   formattedDateNow = formatter.format(currentDate);
   preferences = await SharedPreferences.getInstance();
   print(formattedDateNow);
-
-  uuid = Uuid();
 
   // dateService.updateDate(currentDate);
   dateService.updateDateMonth(currentDate);
