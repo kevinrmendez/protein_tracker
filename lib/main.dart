@@ -139,32 +139,34 @@ class _AppState extends State<App> {
         },
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      bottomNavigationBar: Container(
-        height: 110,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.end,
-          children: <Widget>[
-            BottomNavigationBar(
-              items: const <BottomNavigationBarItem>[
-                BottomNavigationBarItem(
-                  icon: Icon(Icons.home),
-                  title: Text('Home'),
-                ),
-                BottomNavigationBarItem(
-                  icon: Icon(Icons.poll),
-                  title: Text('Statistics'),
-                ),
-              ],
-              currentIndex: _selectedIndex,
-              selectedItemColor: PrimaryColor,
-              onTap: _onItemTapped,
-            ),
-            // Container(
-            //     width: MediaQuery.of(context).size.width,
-            //     child: AdMobUtils.admobBanner()),
-          ],
-        ),
+      bottomNavigationBar:
+          // Container(
+          // // height: 110,
+          // child:
+          //   Column(
+          // mainAxisAlignment: MainAxisAlignment.end,
+          // children: <Widget>[
+          BottomNavigationBar(
+        items: const <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            title: Text('Home'),
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.poll),
+            title: Text('Statistics'),
+          ),
+        ],
+        currentIndex: _selectedIndex,
+        selectedItemColor: PrimaryColor,
+        onTap: _onItemTapped,
       ),
+      // Container(
+      //     width: MediaQuery.of(context).size.width,
+      //     child: AdMobUtils.admobBanner()),
+      // ],
+      // ),
+      // ),
     );
   }
 }
