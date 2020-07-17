@@ -12,6 +12,9 @@ class WidgetUtils {
       width: MediaQuery.of(context).size.width,
       height: 45,
       child: RaisedButton(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(8.0),
+        ),
         color: color == null ? SecondaryColor : color,
         child: Text(
           text,
