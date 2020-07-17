@@ -10,14 +10,33 @@ import 'package:protein_tracker/utils/widgetUtils.dart';
 
 class StatisticsScreen extends StatelessWidget {
   List monthlyProteins;
-  List<TimeSeriesProtein> chartData;
+  List<TimeSeriesProtein> chartData = [];
+  int totalProtein = 0;
+  int avgProtein = 0;
   StatisticsScreen({Key key}) : super(key: key) {
-    getMonthProteinFromDb();
+    initStatistics();
+  }
+
+  initStatistics() async {
+    await getMonthProteinFromDb();
+    await getTotalProtein();
+    getAvgProtein();
   }
 
   getMonthProteinFromDb() async {
     monthlyProteins = await proteinListServices.getMonthlyProtein(currentDate);
     chartData = getDailyTotalProtein(monthlyProteins);
+  }
+
+  getTotalProtein() {
+    chartData.forEach((p) {
+      totalProtein = totalProtein + p.proteinAmount;
+    });
+  }
+
+  getAvgProtein() {
+    var numberOfDays = chartData.length;
+    avgProtein = (totalProtein / numberOfDays).round();
   }
 
   List<TimeSeriesProtein> getDailyTotalProtein(List monthlyProtein) {
@@ -135,21 +154,21 @@ class StatisticsScreen extends StatelessWidget {
                     _statsDataRow(children: [
                       _statsData(
                           label: 'PROTEIN CONSUMED',
-                          data: 111140,
+                          data: totalProtein,
                           measurement: "gr"),
                       _statsData(
                           label: 'AVG PROTEIN CONSUMED',
-                          data: 111140,
+                          data: avgProtein,
                           measurement: "gr"),
                     ]),
                     _statsDataRow(children: [
                       _statsData(
                           label: 'CALORIES CONSUMED',
-                          data: 11380,
+                          data: totalProtein * 4,
                           measurement: "cal"),
                       _statsData(
                           label: 'AVG CALORIES CONSUMED',
-                          data: 11380,
+                          data: avgProtein * 4,
                           measurement: "cal"),
                     ])
                   ],
@@ -161,13 +180,4 @@ class StatisticsScreen extends StatelessWidget {
       )
     ]);
   }
-
-  Widget _text(text) => Container(
-      margin: EdgeInsets.symmetric(vertical: 20),
-      padding: EdgeInsets.symmetric(horizontal: 20),
-      child: Text(
-        text,
-        textAlign: TextAlign.center,
-        style: TextStyle(fontSize: 18),
-      ));
 }
