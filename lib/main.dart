@@ -127,7 +127,7 @@ class _AppState extends State<App> {
       ),
       body: _activities[_selectedIndex],
       floatingActionButton: new FloatingActionButton(
-        backgroundColor: PrimaryColor,
+        backgroundColor: SecondaryColor,
         child: const Icon(
           Icons.add,
           color: Colors.white,
@@ -135,7 +135,6 @@ class _AppState extends State<App> {
         onPressed: () {
           Navigator.of(context).push(MaterialPageRoute(
               builder: (BuildContext context) => TrackerScreen()));
-          print('track food');
         },
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,

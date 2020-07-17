@@ -105,6 +105,7 @@ class _GoalScreenState extends State<GoalScreen> {
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 20),
                 child: WidgetUtils.button(
+                  context,
                   text: 'set goal',
                   onPressed: () {
                     if (_formKey.currentState.validate()) {

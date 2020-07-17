@@ -155,20 +155,18 @@ class _AddProteinDialogState extends State<AddProteinDialog> {
                       return null;
                     },
                   ),
-                  WidgetUtils.button(
-                      text: "Add",
-                      onPressed: () async {
-                        if (_formKey.currentState.validate()) {
-                          print('add food');
-                          print(foodName);
-                          print(proteinAmount);
-                          Food food = Food(
-                              name: foodName, proteinAmount: proteinAmount);
-                          foodListServices.add(food);
+                  WidgetUtils.button(context, text: "Add", onPressed: () async {
+                    if (_formKey.currentState.validate()) {
+                      print('add food');
+                      print(foodName);
+                      print(proteinAmount);
+                      Food food =
+                          Food(name: foodName, proteinAmount: proteinAmount);
+                      foodListServices.add(food);
 
-                          Navigator.pop(context);
-                        } else {}
-                      })
+                      Navigator.pop(context);
+                    } else {}
+                  })
                 ]),
               ),
             ],
@@ -251,20 +249,19 @@ class _EditFoodDialogState extends State<EditFoodDialog> {
                       return null;
                     },
                   ),
-                  WidgetUtils.button(
-                      text: "Edit",
+                  WidgetUtils.button(context, text: "Edit",
                       onPressed: () async {
-                        if (_formKey.currentState.validate()) {
-                          var foodId =
-                              await foodListServices.getFoodId(widget.food);
-                          widget.food.id = foodId;
-                          widget.food.name = foodName;
-                          widget.food.proteinAmount = proteinAmount;
-                          foodListServices.update(widget.food);
+                    if (_formKey.currentState.validate()) {
+                      var foodId =
+                          await foodListServices.getFoodId(widget.food);
+                      widget.food.id = foodId;
+                      widget.food.name = foodName;
+                      widget.food.proteinAmount = proteinAmount;
+                      foodListServices.update(widget.food);
 
-                          Navigator.pop(context);
-                        } else {}
-                      })
+                      Navigator.pop(context);
+                    } else {}
+                  })
                 ]),
               ),
             ],

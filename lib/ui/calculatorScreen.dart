@@ -387,6 +387,7 @@ class _MyHomePageState extends State<CalculatorScreen> {
               Container(
                 padding: EdgeInsets.symmetric(vertical: 0),
                 child: WidgetUtils.button(
+                  context,
                   text: 'calculate',
                   onPressed: () {
                     if (_formKey.currentState.validate()) {
@@ -396,14 +397,12 @@ class _MyHomePageState extends State<CalculatorScreen> {
                 ),
               ),
               _isCalculated
-                  ? WidgetUtils.button(
-                      text: 'set as protein goal',
+                  ? WidgetUtils.button(context, text: 'set as protein goal',
                       onPressed: () {
-                        proteinService.setGoal(proteinIntake);
-                        showDialog(
-                            context: context,
-                            builder: (_) => GoalChangeDialog());
-                      })
+                      proteinService.setGoal(proteinIntake);
+                      showDialog(
+                          context: context, builder: (_) => GoalChangeDialog());
+                    })
                   : SizedBox()
             ],
           ),
@@ -434,11 +433,9 @@ class GoalChangeDialog extends StatelessWidget {
                   style: TextStyle(fontSize: 18),
                 ),
               ),
-              WidgetUtils.button(
-                  text: 'close',
-                  onPressed: () {
-                    Navigator.pop(context);
-                  })
+              WidgetUtils.button(context, text: 'close', onPressed: () {
+                Navigator.pop(context);
+              })
             ],
           ),
         ));

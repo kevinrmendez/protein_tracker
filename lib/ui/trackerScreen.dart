@@ -15,15 +15,6 @@ import 'package:protein_tracker/utils/widgetUtils.dart';
 class TrackerScreen extends StatefulWidget {
   TrackerScreen({Key key, this.title}) : super(key: key);
 
-  // This widget is the home page of your application. It is stateful, meaning
-  // that it has a State object (defined below) that contains fields that affect
-  // how it looks.
-
-  // This class is the configuration for the state. It holds the values (in this
-  // case the title) provided by the parent (in this case the App widget) and
-  // used by the build method of the State. Fields in a Widget subclass are
-  // always marked "final".
-
   final String title;
 
   @override
@@ -98,7 +89,7 @@ class _TrackerScreenState extends State<TrackerScreen> {
         },
       ),
       floatingActionButton: FloatingActionButton(
-        backgroundColor: PrimaryColor,
+        backgroundColor: SecondaryColor,
         child: Icon(
           Icons.add,
           color: Colors.white,
@@ -178,61 +169,68 @@ class _AddProteinDialogState extends State<AddProteinDialog> {
                       return null;
                     },
                   ),
-                  Container(child: Text('From food list')),
-                  DropdownButton<String>(
-                    value: dropdownValueGoal,
-                    icon: Icon(Icons.arrow_downward),
-                    iconSize: 24,
-                    elevation: 16,
-                    style: TextStyle(color: PrimaryColor),
-                    underline: Container(
-                      height: 2,
-                      color: Colors.grey,
-                    ),
-                    onChanged: (String newValue) {
-                      Food food = foodListServices.currentList
-                          .firstWhere((food) => food.name == newValue);
-                      setState(() {
-                        dropdownValueGoal = newValue;
-                        _foodNameController.text = food.name;
-                        _proteinAmountController.text =
-                            food.proteinAmount.toString();
-                        foodName = _foodNameController.text;
-                        proteinAmount =
-                            int.parse(_proteinAmountController.text);
-                      });
-                    },
-                    items: foodListServices.currentListFoodName
-                        // items: <String>['', 'banana', 'pear', 'nuts']
-                        .map<DropdownMenuItem<String>>((String value) {
-                      return DropdownMenuItem<String>(
-                        value: value,
-                        child: Text(value),
-                      );
-                    }).toList(),
-                  ),
-                  WidgetUtils.button(
-                      text: "Add",
-                      onPressed: () async {
-                        if (_formKey.currentState.validate()) {
-                          print('add food');
-                          print(foodName);
-                          print(proteinAmount);
-                          DateTime now = DateTime.now();
-                          final DateFormat formatter =
-                              DateFormat('dd-MMMM-yyyy');
-                          final String formattedDateNow = formatter.format(now);
-                          Protein protein = Protein(
-                              name: foodName,
-                              amount: proteinAmount,
-                              date: formattedDateNow);
+                  foodListServices.currentListFoodName.length > 0
+                      ? Column(
+                          children: <Widget>[
+                            Container(child: Text('From food list')),
+                            DropdownButton<String>(
+                              value: dropdownValueGoal,
+                              icon: Icon(Icons.arrow_downward),
+                              iconSize: 24,
+                              elevation: 16,
+                              style: TextStyle(color: PrimaryColor),
+                              underline: Container(
+                                height: 2,
+                                color: Colors.grey,
+                              ),
+                              onChanged: (String newValue) {
+                                Food food = foodListServices.currentList
+                                    .firstWhere(
+                                        (food) => food.name == newValue);
+                                setState(() {
+                                  dropdownValueGoal = newValue;
+                                  _foodNameController.text = food.name;
+                                  _proteinAmountController.text =
+                                      food.proteinAmount.toString();
+                                  foodName = _foodNameController.text;
+                                  proteinAmount =
+                                      int.parse(_proteinAmountController.text);
+                                });
+                              },
+                              items: foodListServices.currentListFoodName
+                                  // items: <String>['', 'banana', 'pear', 'nuts']
+                                  .map<DropdownMenuItem<String>>(
+                                      (String value) {
+                                return DropdownMenuItem<String>(
+                                  value: value,
+                                  child: Text(value),
+                                );
+                              }).toList(),
+                            ),
+                          ],
+                        )
+                      : SizedBox(
+                          height: 15,
+                        ),
+                  WidgetUtils.button(context, text: "Add", onPressed: () async {
+                    if (_formKey.currentState.validate()) {
+                      print('add food');
+                      print(foodName);
+                      print(proteinAmount);
+                      DateTime now = DateTime.now();
+                      final DateFormat formatter = DateFormat('dd-MMMM-yyyy');
+                      final String formattedDateNow = formatter.format(now);
+                      Protein protein = Protein(
+                          name: foodName,
+                          amount: proteinAmount,
+                          date: formattedDateNow);
 
-                          proteinListServices.add(protein);
-                          proteinService.updateConsumedProtein();
+                      proteinListServices.add(protein);
+                      proteinService.updateConsumedProtein();
 
-                          Navigator.pop(context);
-                        } else {}
-                      })
+                      Navigator.pop(context);
+                    } else {}
+                  })
                 ]),
               ),
             ],
@@ -315,56 +313,65 @@ class _EditProteinDialogState extends State<EditProteinDialog> {
                       return null;
                     },
                   ),
-                  Container(child: Text('From food list')),
-                  DropdownButton<String>(
-                    value: dropdownValueGoal,
-                    icon: Icon(Icons.arrow_downward),
-                    iconSize: 24,
-                    elevation: 16,
-                    style: TextStyle(color: PrimaryColor),
-                    underline: Container(
-                      height: 2,
-                      color: Colors.grey,
-                    ),
-                    onChanged: (String newValue) {
-                      Food food = foodListServices.currentList
-                          .firstWhere((food) => food.name == newValue);
-                      setState(() {
-                        dropdownValueGoal = newValue;
-                        _foodNameController.text = food.name;
-                        _proteinAmountController.text =
-                            food.proteinAmount.toString();
-                        foodName = _foodNameController.text;
-                        proteinAmount =
-                            int.parse(_proteinAmountController.text);
-                      });
-                    },
-                    items: foodListServices.currentListFoodName
-                        // items: <String>['', 'banana', 'pear', 'nuts']
-                        .map<DropdownMenuItem<String>>((String value) {
-                      return DropdownMenuItem<String>(
-                        value: value,
-                        child: Text(value),
-                      );
-                    }).toList(),
-                  ),
-                  WidgetUtils.button(
-                      text: "Edit",
+                  foodListServices.currentListFoodName.length > 0
+                      ? Column(
+                          children: <Widget>[
+                            Container(child: Text('From food list')),
+                            DropdownButton<String>(
+                              value: dropdownValueGoal,
+                              icon: Icon(Icons.arrow_downward),
+                              iconSize: 24,
+                              elevation: 16,
+                              style: TextStyle(color: PrimaryColor),
+                              underline: Container(
+                                height: 2,
+                                color: Colors.grey,
+                              ),
+                              onChanged: (String newValue) {
+                                Food food = foodListServices.currentList
+                                    .firstWhere(
+                                        (food) => food.name == newValue);
+                                setState(() {
+                                  dropdownValueGoal = newValue;
+                                  _foodNameController.text = food.name;
+                                  _proteinAmountController.text =
+                                      food.proteinAmount.toString();
+                                  foodName = _foodNameController.text;
+                                  proteinAmount =
+                                      int.parse(_proteinAmountController.text);
+                                });
+                              },
+                              items: foodListServices.currentListFoodName
+                                  // items: <String>['', 'banana', 'pear', 'nuts']
+                                  .map<DropdownMenuItem<String>>(
+                                      (String value) {
+                                return DropdownMenuItem<String>(
+                                  value: value,
+                                  child: Text(value),
+                                );
+                              }).toList(),
+                            ),
+                          ],
+                        )
+                      : SizedBox(
+                          height: 15,
+                        ),
+                  WidgetUtils.button(context, text: "Edit",
                       onPressed: () async {
-                        if (_formKey.currentState.validate()) {
-                          var proteinId = await proteinListServices
-                              .getProteinId(widget.protein);
-                          print("PROTEIN ID FROM DB: $proteinId ");
-                          widget.protein.id = proteinId;
-                          widget.protein.name = foodName;
-                          widget.protein.amount = proteinAmount;
-                          proteinListServices.update(widget.protein);
+                    if (_formKey.currentState.validate()) {
+                      var proteinId = await proteinListServices
+                          .getProteinId(widget.protein);
+                      print("PROTEIN ID FROM DB: $proteinId ");
+                      widget.protein.id = proteinId;
+                      widget.protein.name = foodName;
+                      widget.protein.amount = proteinAmount;
+                      proteinListServices.update(widget.protein);
 
-                          proteinService.updateConsumedProtein();
+                      proteinService.updateConsumedProtein();
 
-                          Navigator.pop(context);
-                        } else {}
-                      })
+                      Navigator.pop(context);
+                    } else {}
+                  })
                 ]),
               ),
             ],

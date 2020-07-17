@@ -5,14 +5,14 @@ import 'package:protein_tracker/utils/colors.dart';
 import 'package:protein_tracker/main.dart';
 
 class WidgetUtils {
-  static Widget button(
+  static Widget button(BuildContext context,
       {String text, Function onPressed, Color color, Color textColor}) {
     return Container(
-      margin: EdgeInsets.symmetric(vertical: 6),
-      width: 240,
+      margin: EdgeInsets.fromLTRB(20, 6, 20, 6),
+      width: MediaQuery.of(context).size.width,
       height: 45,
       child: RaisedButton(
-        color: color == null ? PrimaryColor : color,
+        color: color == null ? SecondaryColor : color,
         child: Text(
           text,
           textAlign: TextAlign.center,
@@ -173,7 +173,9 @@ class WidgetUtils {
       title: Text(
         title,
         textAlign: TextAlign.center,
-        style: TextStyle(color: PrimaryColor, fontWeight: FontWeight.bold),
+        style: TextStyle(
+            // color: PrimaryColor,
+            fontWeight: FontWeight.bold),
       ),
     );
   }

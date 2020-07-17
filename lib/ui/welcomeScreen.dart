@@ -36,12 +36,12 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
             ),
             _text(
                 'we recommend you to set your daily protein goal before using the app'),
-            WidgetUtils.button(
+            WidgetUtils.button(context,
                 text: 'set protein goal',
                 onPressed: () {},
                 color: Colors.white,
                 textColor: PrimaryColor),
-            WidgetUtils.button(
+            WidgetUtils.button(context,
                 text: 'skip',
                 onPressed: () {},
                 color: Colors.white,
