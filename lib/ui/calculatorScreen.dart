@@ -170,7 +170,7 @@ class _MyHomePageState extends State<CalculatorScreen> {
 
     //convert lbs to kgs
     if (settingsService.currentWeightSettings == 0) {
-      result = (result / .45359237).round();
+      result = (result * .45359237).round();
     }
 
     setState(() {

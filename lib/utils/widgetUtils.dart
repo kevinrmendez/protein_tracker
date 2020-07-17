@@ -8,8 +8,8 @@ class WidgetUtils {
       {String text, Function onPressed, Color color, Color textColor}) {
     return Container(
       margin: EdgeInsets.symmetric(vertical: 6),
-      width: 250,
-      height: 50,
+      width: 240,
+      height: 45,
       child: RaisedButton(
         color: color == null ? PrimaryColor : color,
         child: Text(
