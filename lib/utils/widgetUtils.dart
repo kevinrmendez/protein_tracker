@@ -161,12 +161,14 @@ class WidgetUtils {
     );
   }
 
-  static AppBar appBarBackArrow(String title, BuildContext context) {
+  static AppBar appBarBackArrow(String title, BuildContext context,
+      {List<Widget> actions}) {
     return AppBar(
       centerTitle: true,
       backgroundColor: LightGreyColor,
       iconTheme: new IconThemeData(color: PrimaryColor),
       elevation: 0.0,
+      actions: actions,
       leading: IconButton(
         icon: Icon(
           Icons.arrow_back_ios,

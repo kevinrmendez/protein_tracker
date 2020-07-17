@@ -5,6 +5,8 @@ import 'package:protein_tracker/bloc/FoodService.dart';
 import 'package:protein_tracker/model/food.dart';
 import 'package:protein_tracker/utils/widgetUtils.dart';
 
+enum Order { ascending, descending }
+
 class FoodListScreen extends StatefulWidget {
   FoodListScreen({Key key, this.title}) : super(key: key);
 
@@ -23,7 +25,40 @@ class _FoodListScreenState extends State<FoodListScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: WidgetUtils.appBarBackArrow('Food List', context),
+      appBar: WidgetUtils.appBarBackArrow('Food List', context, actions: [
+        PopupMenuButton<Order>(
+          onSelected: (order) {
+            switch (order) {
+              case Order.ascending:
+                {
+                  foodListServices.orderFoodsAscending();
+                }
+                break;
+              case Order.descending:
+                {
+                  foodListServices.orderFoodsDescending();
+                }
+                break;
+              default:
+            }
+          },
+          icon: Icon(Icons.more_vert, color: SecondaryColor),
+          itemBuilder: (
+            BuildContext context,
+          ) {
+            return [
+              const PopupMenuItem<Order>(
+                child: Text('Ascending Order'),
+                value: Order.ascending,
+              ),
+              const PopupMenuItem<Order>(
+                child: Text('Descending Order'),
+                value: Order.descending,
+              ),
+            ];
+          },
+        )
+      ]),
       body: StreamBuilder<List<Food>>(
         stream: foodListServices.stream,
         builder: (BuildContext context, AsyncSnapshot snapshot) {

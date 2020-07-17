@@ -72,6 +72,19 @@ class FoodService {
     await _foodRepository.updateFood(food);
     _getFoods();
   }
+
+  void orderFoodsAscending() {
+    List<Food> orderList = currentList;
+    orderList.sort((a, b) => a.name.compareTo(b.name));
+    _foodList.add(orderList);
+  }
+
+  void orderFoodsDescending() {
+    List<Food> orderList = currentList;
+    orderList.sort((a, b) => a.name.compareTo(b.name));
+    List<Food> reversedList = orderList.reversed.toList();
+    _foodList.add(reversedList);
+  }
 }
 
 FoodService foodListServices = FoodService();
