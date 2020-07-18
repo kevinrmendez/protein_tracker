@@ -117,6 +117,7 @@ class _TrackerScreenState extends State<TrackerScreen> {
                                         .getProteinId(proteinItem);
                                     proteinListServices.remove(proteinId);
                                     proteinService.updateConsumedProtein();
+                                    statisticsService.updateStatisticsData();
                                   },
                                 ),
                               ],
@@ -414,7 +415,9 @@ class _EditProteinDialogState extends State<EditProteinDialog> {
                       widget.protein.id = proteinId;
                       widget.protein.name = foodName;
                       widget.protein.amount = proteinAmount;
+
                       proteinListServices.update(widget.protein);
+                      statisticsService.updateStatisticsData();
 
                       proteinService.updateConsumedProtein();
                       statisticsService.updateStatisticsData();

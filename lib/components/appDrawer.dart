@@ -4,10 +4,7 @@ import 'package:protein_tracker/ui/calculatorScreen.dart';
 import 'package:protein_tracker/ui/welcomeScreen.dart';
 import 'package:protein_tracker/utils/colors.dart';
 import 'package:protein_tracker/ui/goalScreen.dart';
-import 'package:protein_tracker/ui/homeScreen.dart';
 import 'package:protein_tracker/ui/settingsScreen.dart';
-
-import '../main.dart';
 
 class AppDrawer extends StatelessWidget {
   // This widget is the root of your application.
@@ -28,21 +25,6 @@ class AppDrawer extends StatelessWidget {
                       fit: BoxFit.cover),
                   // color: Colors.blue,
                 ),
-              ),
-              ListTile(
-                title: Text(
-                  "Home",
-                  // style: TextStyle(color: Theme.of(context).primaryColor),
-                ),
-                trailing: Icon(
-                  Icons.home,
-                  color: Theme.of(context).accentColor,
-                ),
-                onTap: () {
-                  Navigator.of(context).pop();
-                  Navigator.of(context).push(MaterialPageRoute(
-                      builder: (BuildContext context) => App()));
-                },
               ),
               ListTile(
                 title: Text(
