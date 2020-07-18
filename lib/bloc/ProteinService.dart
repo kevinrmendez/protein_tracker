@@ -69,9 +69,21 @@ class ProteinService {
     // var proteinConsumed = currentConsumedProtein + proteinAmount;
     _consumedProtein.add(proteinConsumed);
     preferences.setInt("protein_consumed", proteinConsumed);
+    updateRemainingGoalProtein();
   }
 
-  updateRemainingGoalProtein() {}
+//TODO:FIX REMAINING PROTEIN CALCULATION
+  updateRemainingGoalProtein() {
+    int remainingGoalProtein;
+
+    remainingGoalProtein =
+        proteinService.current - proteinService.currentConsumedProtein;
+
+    if (remainingGoalProtein < 0) {
+      remainingGoalProtein = 0;
+    }
+    _remainingProteinGoal.add(remainingGoalProtein);
+  }
 
   resetConsumedProtein() {
     _consumedProtein.add(0);

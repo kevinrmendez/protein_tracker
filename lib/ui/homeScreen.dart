@@ -129,13 +129,13 @@ class DailyStatus extends StatelessWidget {
                 width: 10,
               ),
               StreamBuilder<Object>(
-                  stream: proteinService.stream,
+                  stream: proteinService.streamRemainingProteinGoal,
                   builder: (context, snapshot) {
                     return Text(
-                      'remaining : ${proteinService.currentConsumedProtein > proteinService.current ? 0 : proteinService.current - proteinService.currentConsumedProtein} gr',
+                      'remaining : ${snapshot.data} gr',
                       style: TextStyle(fontSize: 16),
                     );
-                  })
+                  }),
             ],
           ),
         ],
