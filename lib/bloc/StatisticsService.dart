@@ -70,6 +70,7 @@ class StatisticsService {
     int dailyTotalProtein = 0;
     String proteinDateCache = "";
     int counter = 0;
+    int index = 0;
 
     monthlyProtein.forEach((protein) {
       TimeSeriesProtein dailyProtein;
@@ -80,9 +81,11 @@ class StatisticsService {
         proteinDateCache = protein.date;
         dailyTotalProtein = protein.amount;
       } else {
+        //add protein with same day
         if (proteinDateCache == protein.date) {
           dailyTotalProtein = dailyTotalProtein + protein.amount;
           counter++;
+          //add the protein to the list if date is different
         } else {
           if (dailyTotalProtein == 0) {
             dailyTotalProtein = protein.amount;
@@ -96,8 +99,15 @@ class StatisticsService {
           counter = 0;
         }
       }
+      //add the first day with protein if chart is empty
       if (dailyTotalProteinList.length == 0 &&
           counter == monthlyProtein.length - 1) {
+        dailyProtein = TimeSeriesProtein(proteinDay, dailyTotalProtein);
+        dailyTotalProteinList.add(dailyProtein);
+      }
+      index++;
+      //add latest day with protein
+      if (monthlyProtein.length == index) {
         dailyProtein = TimeSeriesProtein(proteinDay, dailyTotalProtein);
         dailyTotalProteinList.add(dailyProtein);
       }
