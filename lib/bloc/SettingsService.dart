@@ -19,7 +19,7 @@ class SettingsService {
     }
   }
 
-  void getWeightSettingsFromPreferences() async {
+  void getWeightSettingsFromPreferences() {
     int sharedPrefenrencesWeightSettings =
         preferences.getInt("settings_weight");
     print(
@@ -34,7 +34,7 @@ class SettingsService {
 
   int get currentWeightSettings => _weightSettings.value;
 
-  updateWeightSettings(int weightSettings) async {
+  updateWeightSettings(int weightSettings) {
     _weightSettings.add(weightSettings);
 
     preferences.setInt("settings_weight", weightSettings);
