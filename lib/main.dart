@@ -44,7 +44,6 @@ void main() async {
   final DateFormat formatter = DateFormat('dd-MMMM-yyyy');
   formattedDateNow = formatter.format(currentDate);
   preferences = await SharedPreferences.getInstance();
-  print(formattedDateNow);
 
   // dateService.updateDate(currentDate);
   dateService.updateDateMonth(currentDate);
