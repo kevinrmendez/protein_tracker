@@ -45,11 +45,15 @@ class ProteinChart extends StatelessWidget {
   /// Create one series with sample hard coded data.
   static List<charts.Series<TimeSeriesProtein, DateTime>> _createSampleData() {
     final data = [
-      new TimeSeriesProtein(new DateTime(2017, 9, 5), 75),
-      new TimeSeriesProtein(new DateTime(2017, 9, 6), 88),
-      new TimeSeriesProtein(new DateTime(2017, 9, 7), 65),
-      new TimeSeriesProtein(new DateTime(2017, 9, 8), 91),
-      new TimeSeriesProtein(new DateTime(2017, 9, 9), 100),
+      new TimeSeriesProtein(new DateTime(2017, 9, 1), 75),
+      new TimeSeriesProtein(new DateTime(2017, 9, 2), 88),
+      new TimeSeriesProtein(new DateTime(2017, 9, 3), 65),
+      new TimeSeriesProtein(new DateTime(2017, 9, 4), 91),
+      new TimeSeriesProtein(new DateTime(2017, 9, 5), 100),
+      new TimeSeriesProtein(new DateTime(2017, 9, 6), 111),
+      new TimeSeriesProtein(new DateTime(2017, 9, 7), 111),
+      new TimeSeriesProtein(new DateTime(2017, 9, 8), 111),
+      new TimeSeriesProtein(new DateTime(2017, 9, 9), 111),
       new TimeSeriesProtein(new DateTime(2017, 9, 10), 111),
       new TimeSeriesProtein(new DateTime(2017, 9, 11), 90),
       new TimeSeriesProtein(new DateTime(2017, 9, 12), 50),
@@ -62,10 +66,16 @@ class ProteinChart extends StatelessWidget {
       new TimeSeriesProtein(new DateTime(2017, 9, 19), 40),
       new TimeSeriesProtein(new DateTime(2017, 9, 20), 32),
       new TimeSeriesProtein(new DateTime(2017, 9, 21), 31),
-      new TimeSeriesProtein(new DateTime(2017, 10, 1), 5),
-      new TimeSeriesProtein(new DateTime(2017, 10, 2), 5),
-      new TimeSeriesProtein(new DateTime(2017, 10, 3), 25),
-      new TimeSeriesProtein(new DateTime(2017, 10, 4), 100),
+      new TimeSeriesProtein(new DateTime(2017, 9, 22), 5),
+      new TimeSeriesProtein(new DateTime(2017, 9, 23), 5),
+      new TimeSeriesProtein(new DateTime(2017, 9, 24), 25),
+      new TimeSeriesProtein(new DateTime(2017, 9, 25), 100),
+      new TimeSeriesProtein(new DateTime(2017, 9, 26), 40),
+      new TimeSeriesProtein(new DateTime(2017, 9, 27), 32),
+      new TimeSeriesProtein(new DateTime(2017, 9, 28), 31),
+      new TimeSeriesProtein(new DateTime(2017, 9, 29), 31),
+      new TimeSeriesProtein(new DateTime(2017, 9, 30), 31),
+      new TimeSeriesProtein(new DateTime(2017, 9, 31), 31),
     ];
 
     return [

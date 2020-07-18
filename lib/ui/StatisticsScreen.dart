@@ -82,7 +82,7 @@ class StatisticsScreen extends StatelessWidget {
               ),
               Container(
                   height: MediaQuery.of(context).size.height * .4,
-                  // child: ProteinChart.withSampleData()),
+                  // child: ProteinChart.withSampleData(),
                   child: ProteinChart.withData(
                       statisticsService.currentChartData)),
               Container(

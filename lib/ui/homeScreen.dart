@@ -205,12 +205,12 @@ class ProgressIndicator extends StatelessWidget {
                           Text(
                             "$consumedproteins",
                             style: TextStyle(
-                              fontSize: 60,
+                              fontSize: 50,
                             ),
                           ),
                           Text(
                             'gr',
-                            style: TextStyle(fontSize: 30),
+                            style: TextStyle(fontSize: 20),
                           )
                         ],
                       ),
