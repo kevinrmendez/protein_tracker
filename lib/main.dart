@@ -46,6 +46,12 @@ void main() async {
   formattedDateNow = formatter.format(currentDate);
   preferences = await SharedPreferences.getInstance();
 
+  if (!preferences.containsKey("first_time_open")) {
+    preferences.setBool("first_time_open", false);
+  } else {
+    preferences.setBool("first_time_open", true);
+  }
+
   // dateService.updateDate(currentDate);
   dateService.updateDateMonth(currentDate);
   proteinListServices.getMonthlyProtein(currentDate);
@@ -57,7 +63,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      initialRoute: true ? '/welcome' : '/',
+      initialRoute: preferences.getBool("first_time_open") ? '/' : '/welcome',
       routes: {
         '/': (context) => App(),
         '/welcome': (context) => WelcomeScreen(),
