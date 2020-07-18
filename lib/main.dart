@@ -63,7 +63,9 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      initialRoute: preferences.getBool("first_time_open") ? '/' : '/welcome',
+      //TODO: FIX SHOW WELCOME SCREEN FOR FIRST TIME
+      // initialRoute: !preferences.getBool("first_time_open") ? '/' : '/welcome',
+      initialRoute: true ? '/welcome' : '/',
       routes: {
         '/': (context) => App(),
         '/welcome': (context) => WelcomeScreen(),

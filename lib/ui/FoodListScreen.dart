@@ -121,7 +121,6 @@ class _FoodListScreenState extends State<FoodListScreen> {
           color: Colors.white,
         ),
         onPressed: () {
-          print('add food');
           showDialog(context: context, builder: (_) => AddProteinDialog());
         },
       ),

@@ -128,10 +128,14 @@ class DailyStatus extends StatelessWidget {
               SizedBox(
                 width: 10,
               ),
-              Text(
-                'remaining : ${proteinService.currentConsumedProtein > proteinService.current ? 0 : proteinService.current - proteinService.currentConsumedProtein} gr',
-                style: TextStyle(fontSize: 16),
-              )
+              StreamBuilder<Object>(
+                  stream: proteinService.stream,
+                  builder: (context, snapshot) {
+                    return Text(
+                      'remaining : ${proteinService.currentConsumedProtein > proteinService.current ? 0 : proteinService.current - proteinService.currentConsumedProtein} gr',
+                      style: TextStyle(fontSize: 16),
+                    );
+                  })
             ],
           ),
         ],

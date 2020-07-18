@@ -5,12 +5,15 @@ import 'package:rxdart/rxdart.dart';
 class ProteinService {
   BehaviorSubject _proteinGoal = BehaviorSubject.seeded(1);
   BehaviorSubject _consumedProtein = BehaviorSubject.seeded(0);
+  BehaviorSubject _remainingProteinGoal = BehaviorSubject.seeded(0);
 
   Stream get stream => _proteinGoal.stream;
   Stream get streamConsumedProtein => _consumedProtein.stream;
+  Stream get streamRemainingProteinGoal => _remainingProteinGoal.stream;
 
   int get current => _proteinGoal.value;
   int get currentConsumedProtein => _consumedProtein.value;
+  int get currentRemianingProteinGoal => _remainingProteinGoal.value;
 
   ProteinService() {
     initPreferences();
@@ -67,6 +70,8 @@ class ProteinService {
     _consumedProtein.add(proteinConsumed);
     preferences.setInt("protein_consumed", proteinConsumed);
   }
+
+  updateRemainingGoalProtein() {}
 
   resetConsumedProtein() {
     _consumedProtein.add(0);
