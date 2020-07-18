@@ -87,17 +87,19 @@ class StatisticsService {
           if (dailyTotalProtein == 0) {
             dailyTotalProtein = protein.amount;
           }
-          dailyProtein = TimeSeriesProtein(proteinDay, dailyTotalProtein);
+          var date = DateUtils.parseDate(proteinDateCache);
+          DateTime formattedDate = DateTime.parse(date);
+          dailyProtein = TimeSeriesProtein(formattedDate, dailyTotalProtein);
           dailyTotalProteinList.add(dailyProtein);
           proteinDateCache = protein.date;
-          dailyTotalProtein = 0;
+          dailyTotalProtein = protein.amount;
           counter = 0;
         }
-        if (dailyTotalProteinList.length == 0 &&
-            counter == monthlyProtein.length - 1) {
-          dailyProtein = TimeSeriesProtein(proteinDay, dailyTotalProtein);
-          dailyTotalProteinList.add(dailyProtein);
-        }
+      }
+      if (dailyTotalProteinList.length == 0 &&
+          counter == monthlyProtein.length - 1) {
+        dailyProtein = TimeSeriesProtein(proteinDay, dailyTotalProtein);
+        dailyTotalProteinList.add(dailyProtein);
       }
     });
     _chartData.add(dailyTotalProteinList);
