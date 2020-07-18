@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:protein_tracker/main.dart';
 import 'package:protein_tracker/utils/appAssets.dart';
 import 'package:protein_tracker/utils/colors.dart';
 import 'package:protein_tracker/utils/widgetUtils.dart';
@@ -41,11 +42,13 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                 onPressed: () {},
                 color: Colors.white,
                 textColor: PrimaryColor),
-            WidgetUtils.button(context,
-                text: 'skip',
-                onPressed: () {},
-                color: Colors.white,
-                textColor: PrimaryColor),
+            WidgetUtils.button(context, text: 'skip', onPressed: () {
+              Navigator.of(context).pushAndRemoveUntil(
+                  MaterialPageRoute(builder: (context) => App()),
+                  (Route<dynamic> route) => false);
+              // Navigator.of(context).push(
+              //     MaterialPageRoute(builder: (BuildContext context) => App()));
+            }, color: Colors.white, textColor: PrimaryColor),
           ],
         ),
       ),
