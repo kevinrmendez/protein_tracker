@@ -3,6 +3,7 @@ import 'package:intl/intl.dart';
 
 import 'package:protein_tracker/bloc/FoodService.dart';
 import 'package:protein_tracker/bloc/ProteinListService.dart';
+import 'package:protein_tracker/bloc/StatisticsService.dart';
 import 'package:protein_tracker/utils/appAssets.dart';
 import 'package:protein_tracker/utils/colors.dart';
 import 'package:protein_tracker/dao/protein_dao.dart';
@@ -260,6 +261,7 @@ class _AddProteinDialogState extends State<AddProteinDialog> {
 
                       proteinListServices.add(protein);
                       proteinService.updateConsumedProtein();
+                      statisticsService.updateStatisticsData();
 
                       Navigator.pop(context);
                     } else {}
@@ -401,6 +403,7 @@ class _EditProteinDialogState extends State<EditProteinDialog> {
                       proteinListServices.update(widget.protein);
 
                       proteinService.updateConsumedProtein();
+                      statisticsService.updateStatisticsData();
 
                       Navigator.pop(context);
                     } else {}

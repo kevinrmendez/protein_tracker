@@ -23,10 +23,11 @@ import 'package:flutter/services.dart';
 import 'package:protein_tracker/utils/widgetUtils.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import 'package:flutter_svg/flutter_svg.dart';
+
 DateTime currentDate;
 var preferences;
 String formattedDateNow;
-var uuid;
 enum Order { ascending, descending }
 
 void resetState() {
@@ -124,7 +125,15 @@ class _AppState extends State<App> {
         backgroundColor: LightGreyColor,
         iconTheme: new IconThemeData(color: PrimaryColor),
         elevation: 0.0,
-        title: SizedBox(child: appIcon),
+        title: SizedBox(
+          child: SvgPicture.asset(
+            "assets/protein-tracker-icon.svg",
+            height: 40,
+            width: 40,
+          ),
+          height: 40,
+          width: 40,
+        ),
       ),
       body: _activities[_selectedIndex],
       floatingActionButton: new FloatingActionButton(

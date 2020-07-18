@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:protein_tracker/bloc/DateService.dart';
 import 'package:protein_tracker/bloc/ProteinListService.dart';
+import 'package:protein_tracker/bloc/StatisticsService.dart';
 import 'package:protein_tracker/components/proteinChart.dart';
 import 'package:protein_tracker/main.dart';
 import 'package:protein_tracker/utils/colors.dart';
@@ -9,69 +10,12 @@ import 'package:protein_tracker/utils/fontStyle.dart';
 import 'package:protein_tracker/utils/widgetUtils.dart';
 
 class StatisticsScreen extends StatelessWidget {
-  List monthlyProteins;
-  List<TimeSeriesProtein> chartData = [];
-  int totalProtein = 0;
-  int avgProtein = 0;
   StatisticsScreen({Key key}) : super(key: key) {
     initStatistics();
   }
 
   initStatistics() async {
-    await getMonthProteinFromDb();
-    await getTotalProtein();
-    getAvgProtein();
-  }
-
-  getMonthProteinFromDb() async {
-    monthlyProteins = await proteinListServices.getMonthlyProtein(currentDate);
-    chartData = getDailyTotalProtein(monthlyProteins);
-  }
-
-  getTotalProtein() {
-    chartData.forEach((p) {
-      totalProtein = totalProtein + p.proteinAmount;
-    });
-  }
-
-  getAvgProtein() {
-    var numberOfDays = chartData.length;
-    avgProtein = (totalProtein / numberOfDays).round();
-  }
-
-  List<TimeSeriesProtein> getDailyTotalProtein(List monthlyProtein) {
-    List<TimeSeriesProtein> dailyTotalProteinList = [];
-    int dailyTotalProtein = 0;
-    String proteinDateCache = "";
-    int counter = 0;
-
-    monthlyProteins.forEach((protein) {
-      TimeSeriesProtein dailyProtein;
-      String formattedDate = DateUtils.parseDate(protein.date);
-      DateTime proteinDay = DateTime.parse(formattedDate);
-
-      if (proteinDateCache == "") {
-        proteinDateCache = protein.date;
-        dailyTotalProtein = protein.amount;
-      } else {
-        if (proteinDateCache == protein.date) {
-          dailyTotalProtein = dailyTotalProtein + protein.amount;
-          counter++;
-        } else {
-          dailyProtein = TimeSeriesProtein(proteinDay, dailyTotalProtein);
-          dailyTotalProteinList.add(dailyProtein);
-          dailyTotalProtein = 0;
-          counter = 0;
-          proteinDateCache == protein.date;
-        }
-        if (dailyTotalProteinList.length == 0 &&
-            counter == monthlyProteins.length - 1) {
-          dailyProtein = TimeSeriesProtein(proteinDay, dailyTotalProtein);
-          dailyTotalProteinList.add(dailyProtein);
-        }
-      }
-    });
-    return dailyTotalProteinList;
+    await statisticsService.initStatistics();
   }
 
   _statsDataRow({List<Widget> children, Color color = MediumLightGreyColor}) {
@@ -139,7 +83,8 @@ class StatisticsScreen extends StatelessWidget {
               Container(
                   height: MediaQuery.of(context).size.height * .4,
                   // child: ProteinChart.withSampleData()),
-                  child: ProteinChart.withData(chartData)),
+                  child: ProteinChart.withData(
+                      statisticsService.currentChartData)),
               Container(
                 padding: EdgeInsets.symmetric(horizontal: 10),
                 child: Column(
@@ -154,21 +99,21 @@ class StatisticsScreen extends StatelessWidget {
                     _statsDataRow(children: [
                       _statsData(
                           label: 'PROTEIN CONSUMED',
-                          data: totalProtein,
+                          data: statisticsService.currentTotalProtein,
                           measurement: "gr"),
                       _statsData(
                           label: 'AVG PROTEIN CONSUMED',
-                          data: avgProtein,
+                          data: statisticsService.currentAvgProtein,
                           measurement: "gr"),
                     ]),
                     _statsDataRow(color: Colors.transparent, children: [
                       _statsData(
                           label: 'CALORIES CONSUMED',
-                          data: totalProtein * 4,
+                          data: statisticsService.currentTotalProtein * 4,
                           measurement: "cal"),
                       _statsData(
                           label: 'AVG CALORIES CONSUMED',
-                          data: avgProtein * 4,
+                          data: statisticsService.currentAvgProtein * 4,
                           measurement: "cal"),
                     ])
                   ],
