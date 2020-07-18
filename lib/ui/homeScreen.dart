@@ -37,6 +37,9 @@ class _MyHomePageState extends State<HomeScreen> {
           // ),
           MotivationalText(),
           DailyStatus(),
+          // Container(
+          //     margin: EdgeInsets.symmetric(vertical: 10),
+          //     child: AdMobUtils.admobBanner()),
           ProgressIndicator(),
           ConsumedCalories(),
           SizedBox(
@@ -131,16 +134,6 @@ class DailyStatus extends StatelessWidget {
               )
             ],
           ),
-          // Row(
-          //   mainAxisAlignment: MainAxisAlignment.center,
-          //   children: <Widget>[
-          //     Icon(Icons.timelapse),
-          //     Text(
-          //       'avarage daily protein intake : 40gr',
-          //       style: TextStyle(fontSize: 18),
-          //     )
-          //   ],
-          // ),
         ],
       ),
     );
@@ -196,28 +189,29 @@ class ProgressIndicator extends StatelessWidget {
                 height: 180,
                 selectedStepSize: 15,
                 child: Center(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
+                    child: Container(
+                  child: Wrap(
+                    runSpacing: -25,
+                    // direction: Axis.vertical,
+                    alignment: WrapAlignment.center,
+                    crossAxisAlignment: WrapCrossAlignment.center,
                     children: <Widget>[
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          Text(
-                            "$consumedproteins",
-                            style: TextStyle(
-                              fontSize: 50,
-                            ),
-                          ),
-                          Text(
-                            'gr',
-                            style: TextStyle(fontSize: 20),
-                          )
-                        ],
+                      Text(
+                        "$consumedproteins",
+                        style: TextStyle(
+                          fontSize: 60,
+                        ),
                       ),
-                      // Text('consumed'),
+                      Text(
+                        'gr',
+                        style: TextStyle(fontSize: 30),
+                      )
                     ],
                   ),
-                ),
+                )
+
+                    // Text('consumed'),
+                    ),
               ),
             );
           }),

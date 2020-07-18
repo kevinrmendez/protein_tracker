@@ -70,40 +70,52 @@ class _FoodListScreenState extends State<FoodListScreen> {
                 itemCount: foodListServices.currentList.length,
                 itemBuilder: (BuildContext ctxt, int index) {
                   Food foodItem = snapshot.data[index];
-                  return Card(
-                    child: ListTile(
-                        title: Text(foodItem.name),
-                        subtitle:
-                            Text("${foodItem.proteinAmount.toString()} gr"),
-                        trailing: Row(
-                          mainAxisSize: MainAxisSize.min,
-                          children: <Widget>[
-                            IconButton(
-                              icon: Icon(Icons.edit),
-                              onPressed: () {
-                                showDialog(
-                                    context: context,
-                                    builder: (_) => EditFoodDialog(foodItem));
-                              },
-                            ),
-                            IconButton(
-                              icon: Icon(Icons.delete),
-                              onPressed: () async {
-                                var foodId =
-                                    await foodListServices.getFoodId(foodItem);
+                  return Column(
+                    children: <Widget>[
+                      Card(
+                        child: ListTile(
+                            title: Text(foodItem.name),
+                            subtitle:
+                                Text("${foodItem.proteinAmount.toString()} gr"),
+                            trailing: Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: <Widget>[
+                                IconButton(
+                                  icon: Icon(Icons.edit),
+                                  onPressed: () {
+                                    showDialog(
+                                        context: context,
+                                        builder: (_) =>
+                                            EditFoodDialog(foodItem));
+                                  },
+                                ),
+                                IconButton(
+                                  icon: Icon(Icons.delete),
+                                  onPressed: () async {
+                                    var foodId = await foodListServices
+                                        .getFoodId(foodItem);
 
-                                foodListServices.remove(foodId, index);
-                              },
-                            ),
-                          ],
-                        )),
+                                    foodListServices.remove(foodId, index);
+                                  },
+                                ),
+                              ],
+                            )),
+                      ),
+                      index == snapshot.data.length - 1
+                          ? Container(
+                              margin: EdgeInsets.only(top: 30),
+                              width: MediaQuery.of(context).size.width,
+                              height: 40,
+                            )
+                          : SizedBox()
+                    ],
                   );
                 });
           }
         },
       ),
       floatingActionButton: FloatingActionButton(
-        backgroundColor: PrimaryColor,
+        backgroundColor: SecondaryColor,
         child: Icon(
           Icons.add,
           color: Colors.white,

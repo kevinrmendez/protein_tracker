@@ -1,9 +1,11 @@
+import 'package:admob_flutter/admob_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 import 'package:protein_tracker/bloc/FoodService.dart';
 import 'package:protein_tracker/bloc/ProteinListService.dart';
 import 'package:protein_tracker/bloc/StatisticsService.dart';
+import 'package:protein_tracker/utils/AdMobUtils.dart';
 import 'package:protein_tracker/utils/appAssets.dart';
 import 'package:protein_tracker/utils/colors.dart';
 import 'package:protein_tracker/dao/protein_dao.dart';
@@ -80,43 +82,55 @@ class _TrackerScreenState extends State<TrackerScreen> {
                 itemBuilder: (BuildContext ctxt, int index) {
                   Protein proteinItem = snapshot.data[index];
                   print("PROTEIN ITEM ID: ${proteinItem.id}");
-                  return Card(
-                    child: ListTile(
-                        title: Text(proteinItem.name),
-                        subtitle: Container(
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            mainAxisSize: MainAxisSize.min,
-                            children: <Widget>[
-                              Text("${proteinItem.amount.toString()} gr"),
-                              Text(proteinItem.date)
-                            ],
-                          ),
-                        ),
-                        trailing: Row(
-                          mainAxisSize: MainAxisSize.min,
-                          children: <Widget>[
-                            IconButton(
-                              icon: Icon(Icons.edit),
-                              onPressed: () {
-                                showDialog(
-                                    context: context,
-                                    builder: (_) =>
-                                        EditProteinDialog(proteinItem));
-                              },
+                  return Column(
+                    children: <Widget>[
+                      Card(
+                        child: ListTile(
+                            title: Text(proteinItem.name),
+                            subtitle: Container(
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisSize: MainAxisSize.min,
+                                children: <Widget>[
+                                  Text("${proteinItem.amount.toString()} gr"),
+                                  Text(proteinItem.date)
+                                ],
+                              ),
                             ),
-                            IconButton(
-                              icon: Icon(Icons.delete),
-                              onPressed: () async {
-                                var proteinId = await proteinListServices
-                                    .getProteinId(proteinItem);
-                                proteinListServices.remove(proteinId);
-                                proteinService.updateConsumedProtein();
-                              },
-                            ),
-                          ],
-                        )),
+                            trailing: Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: <Widget>[
+                                IconButton(
+                                  icon: Icon(Icons.edit),
+                                  onPressed: () {
+                                    showDialog(
+                                        context: context,
+                                        builder: (_) =>
+                                            EditProteinDialog(proteinItem));
+                                  },
+                                ),
+                                IconButton(
+                                  icon: Icon(Icons.delete),
+                                  onPressed: () async {
+                                    var proteinId = await proteinListServices
+                                        .getProteinId(proteinItem);
+                                    proteinListServices.remove(proteinId);
+                                    proteinService.updateConsumedProtein();
+                                  },
+                                ),
+                              ],
+                            )),
+                      ),
+                      //TODO: FIND ANOTHER WAY TO ADD FOOTER TO THE LIST
+                      index == snapshot.data.length - 1
+                          ? Container(
+                              margin: EdgeInsets.only(top: 30),
+                              width: MediaQuery.of(context).size.width,
+                              height: 40,
+                            )
+                          : SizedBox()
+                    ],
                   );
                 });
           }
