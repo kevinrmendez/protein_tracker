@@ -26,8 +26,7 @@ class ProteinService {
       getProteinGoalFromPreferences();
     }
     if (!preferences.containsKey("protein_consumed")) {
-      preferences.setInt(
-          "protein_consumed", preferences.getInt("protein_goal"));
+      preferences.setInt("protein_consumed", 0);
       print(preferences.getInt("protein_consumed").toString());
     } else {
       getConsumedProteinFromPreferences();

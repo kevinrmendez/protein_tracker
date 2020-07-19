@@ -132,6 +132,7 @@ class DailyStatus extends StatelessWidget {
                   stream: proteinService.streamConsumedProtein,
                   builder: (context, snapshot) {
                     var consumedProtein = snapshot.data ?? 0;
+
                     var remainingProtein =
                         proteinService.current - consumedProtein;
                     remainingProtein =
