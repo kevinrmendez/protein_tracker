@@ -3,17 +3,16 @@ import 'package:protein_tracker/main.dart';
 import 'package:rxdart/rxdart.dart';
 
 class ProteinService {
-  BehaviorSubject _proteinGoal = BehaviorSubject.seeded(1);
-  BehaviorSubject _consumedProtein = BehaviorSubject.seeded(0);
-  BehaviorSubject _remainingProteinGoal = BehaviorSubject.seeded(0);
+  BehaviorSubject _proteinGoal =
+      BehaviorSubject.seeded(preferences.getInt("protein_goal") ?? 1);
+  BehaviorSubject _consumedProtein =
+      BehaviorSubject.seeded(preferences.getInt("protein_consumed") ?? 0);
 
   Stream get stream => _proteinGoal.stream;
   Stream get streamConsumedProtein => _consumedProtein.stream;
-  Stream get streamRemainingProteinGoal => _remainingProteinGoal.stream;
 
   int get current => _proteinGoal.value;
   int get currentConsumedProtein => _consumedProtein.value;
-  int get currentRemianingProteinGoal => _remainingProteinGoal.value;
 
   ProteinService() {
     initPreferences();
@@ -27,7 +26,8 @@ class ProteinService {
       getProteinGoalFromPreferences();
     }
     if (!preferences.containsKey("protein_consumed")) {
-      preferences.setInt("protein_consumed", 0);
+      preferences.setInt(
+          "protein_consumed", preferences.getInt("protein_goal"));
       print(preferences.getInt("protein_consumed").toString());
     } else {
       getConsumedProteinFromPreferences();
@@ -69,20 +69,6 @@ class ProteinService {
     // var proteinConsumed = currentConsumedProtein + proteinAmount;
     _consumedProtein.add(proteinConsumed);
     preferences.setInt("protein_consumed", proteinConsumed);
-    updateRemainingGoalProtein();
-  }
-
-//TODO:FIX REMAINING PROTEIN CALCULATION
-  updateRemainingGoalProtein() {
-    int remainingGoalProtein;
-
-    remainingGoalProtein =
-        proteinService.current - proteinService.currentConsumedProtein;
-
-    if (remainingGoalProtein < 0) {
-      remainingGoalProtein = 0;
-    }
-    _remainingProteinGoal.add(remainingGoalProtein);
   }
 
   resetConsumedProtein() {
