@@ -107,6 +107,7 @@ class _GoalScreenState extends State<GoalScreen> {
                 child: WidgetUtils.button(
                   context,
                   text: 'set goal',
+                  color: DarkGreyColor,
                   onPressed: () {
                     if (_formKey.currentState.validate()) {
                       _proteinGoal = int.parse(proteinGoalController.text);

@@ -9,5 +9,5 @@ const LightGreyColor = const Color(0xFFF8F8F8);
 const MediumLightGreyColor = const Color(0xFFD8D8D8);
 const MediumGreyColor = const Color(0xFF9E9E9E);
 const DarkMediumGreyColor = const Color(0xFFBEBEBE);
-const DarkGreyColor = const Color(0xFF878787);
+const DarkGreyColor = const Color(0xFF808080);
 const RedColor = const Color(0xFFDD314B);

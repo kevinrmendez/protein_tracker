@@ -388,6 +388,7 @@ class _MyHomePageState extends State<CalculatorScreen> {
                 padding: EdgeInsets.symmetric(vertical: 0),
                 child: WidgetUtils.button(
                   context,
+                  color: DarkGreyColor,
                   text: 'calculate',
                   onPressed: () {
                     if (_formKey.currentState.validate()) {
@@ -397,8 +398,9 @@ class _MyHomePageState extends State<CalculatorScreen> {
                 ),
               ),
               _isCalculated
-                  ? WidgetUtils.button(context, text: 'set as protein goal',
-                      onPressed: () {
+                  ? WidgetUtils.button(context,
+                      text: 'set as protein goal',
+                      color: DarkGreyColor, onPressed: () {
                       proteinService.setGoal(proteinIntake);
                       showDialog(
                           context: context, builder: (_) => GoalChangeDialog());
