@@ -47,9 +47,9 @@ void main() async {
   preferences = await SharedPreferences.getInstance();
 
   if (preferences.containsKey("first_time_open")) {
-    preferences.setBool("first_time_open", true);
-  } else {
     preferences.setBool("first_time_open", false);
+  } else {
+    preferences.setBool("first_time_open", true);
   }
 
   // dateService.updateDate(currentDate);
