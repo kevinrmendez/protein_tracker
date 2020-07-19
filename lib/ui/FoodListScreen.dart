@@ -199,7 +199,8 @@ class _AddProteinDialogState extends State<AddProteinDialog> {
                       return null;
                     },
                   ),
-                  WidgetUtils.button(context, text: "Add", onPressed: () async {
+                  WidgetUtils.button(context, text: "Add", color: DarkGreyColor,
+                      onPressed: () async {
                     if (_formKey.currentState.validate()) {
                       print('add food');
                       print(foodName);
@@ -293,8 +294,8 @@ class _EditFoodDialogState extends State<EditFoodDialog> {
                       return null;
                     },
                   ),
-                  WidgetUtils.button(context, text: "Edit",
-                      onPressed: () async {
+                  WidgetUtils.button(context,
+                      text: "Edit", color: DarkGreyColor, onPressed: () async {
                     if (_formKey.currentState.validate()) {
                       var foodId =
                           await foodListServices.getFoodId(widget.food);
