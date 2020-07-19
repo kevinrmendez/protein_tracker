@@ -1,4 +1,4 @@
-package com.example.protein_tracker
+package com.protein_tracker
 
 import androidx.annotation.NonNull;
 import io.flutter.embedding.android.FlutterActivity
