@@ -112,7 +112,7 @@ class DailyStatus extends StatelessWidget {
                     style: TextStyle(fontSize: 16),
                   );
                 },
-              )
+              ),
             ],
           ),
           Row(
@@ -128,14 +128,18 @@ class DailyStatus extends StatelessWidget {
               SizedBox(
                 width: 10,
               ),
-              StreamBuilder<Object>(
-                  stream: proteinService.streamRemainingProteinGoal,
-                  builder: (context, snapshot) {
-                    return Text(
-                      'remaining : ${snapshot.data} gr',
-                      style: TextStyle(fontSize: 16),
-                    );
-                  }),
+              // StreamBuilder<Object>(
+              //     stream: proteinService.streamRemainingProteinGoal,
+              //     builder: (context, snapshot) {
+              //       return Text(
+              //         'remaining : ${snapshot.data} gr',
+              //         style: TextStyle(fontSize: 16),
+              //       );
+              //     }),
+              Text(
+                "remaining: ${(proteinService.currentConsumedProtein > proteinService.current ? 0 : proteinService.current - proteinService.currentConsumedProtein) ?? 0}gr",
+                style: TextStyle(fontSize: 16),
+              )
             ],
           ),
         ],
