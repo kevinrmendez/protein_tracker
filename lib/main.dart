@@ -46,10 +46,10 @@ void main() async {
   formattedDateNow = formatter.format(currentDate);
   preferences = await SharedPreferences.getInstance();
 
-  if (!preferences.containsKey("first_time_open")) {
-    preferences.setBool("first_time_open", false);
-  } else {
+  if (preferences.containsKey("first_time_open")) {
     preferences.setBool("first_time_open", true);
+  } else {
+    preferences.setBool("first_time_open", false);
   }
 
   // dateService.updateDate(currentDate);
@@ -59,13 +59,27 @@ void main() async {
   runApp(MyApp());
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
+  @override
+  _MyAppState createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  bool showWelcomeScreen;
+
+  @override
+  void initState() {
+    super.initState();
+
+    setState(() {
+      showWelcomeScreen = preferences.getBool("first_time_open") ?? true;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      //TODO: FIX SHOW WELCOME SCREEN FOR FIRST TIME
-      // initialRoute: !preferences.getBool("first_time_open") ? '/' : '/welcome',
-      initialRoute: true ? '/welcome' : '/',
+      initialRoute: showWelcomeScreen ? '/welcome' : '/',
       routes: {
         '/': (context) => App(),
         '/welcome': (context) => WelcomeScreen(),
