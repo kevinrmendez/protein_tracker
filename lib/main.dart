@@ -87,10 +87,11 @@ class _MyAppState extends State<MyApp> {
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       theme: ThemeData(
-        fontFamily: "OpenSans",
-        primaryColor: PrimaryColor,
-        primarySwatch: Colors.grey,
-      ),
+          fontFamily: "OpenSans",
+          primaryColor: PrimaryColor,
+          primarySwatch: Colors.grey,
+          scaffoldBackgroundColor: BackgroundColor),
+
       // home: App(),
     );
   }
@@ -149,7 +150,7 @@ class _AppState extends State<App> {
       drawer: AppDrawer(),
       appBar: AppBar(
         centerTitle: true,
-        backgroundColor: LightGreyColor,
+        backgroundColor: BackgroundColor,
         iconTheme: new IconThemeData(color: PrimaryColor),
         elevation: 0.0,
         title: SizedBox(
@@ -183,6 +184,7 @@ class _AppState extends State<App> {
           // mainAxisAlignment: MainAxisAlignment.end,
           // children: <Widget>[
           BottomNavigationBar(
+        backgroundColor: Colors.white,
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             icon: Icon(Icons.home),
