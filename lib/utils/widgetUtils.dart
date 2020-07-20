@@ -165,7 +165,7 @@ class WidgetUtils {
       {List<Widget> actions}) {
     return AppBar(
       centerTitle: true,
-      backgroundColor: LightGreyColor,
+      backgroundColor: BackgroundColor,
       iconTheme: new IconThemeData(color: PrimaryColor),
       elevation: 0.0,
       actions: actions,

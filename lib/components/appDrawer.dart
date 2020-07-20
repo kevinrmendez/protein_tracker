@@ -14,7 +14,7 @@ class AppDrawer extends StatelessWidget {
       width: MediaQuery.of(context).size.width * .8,
       child: Drawer(
         child: Container(
-          color: LightGreyColor,
+          color: BackgroundColor,
           child: ListView(
             children: <Widget>[
               DrawerHeader(
