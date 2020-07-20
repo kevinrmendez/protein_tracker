@@ -4,6 +4,7 @@ import 'package:protein_tracker/bloc/ProteinListService.dart';
 import 'package:protein_tracker/bloc/StatisticsService.dart';
 import 'package:protein_tracker/components/proteinChart.dart';
 import 'package:protein_tracker/main.dart';
+import 'package:protein_tracker/utils/AdMobUtils.dart';
 import 'package:protein_tracker/utils/colors.dart';
 import 'package:protein_tracker/utils/dateUtils.dart';
 import 'package:protein_tracker/utils/fontStyle.dart';
@@ -85,6 +86,9 @@ class StatisticsScreen extends StatelessWidget {
                   // child: ProteinChart.withSampleData(),
                   child: ProteinChart.withData(
                       statisticsService.currentChartData)),
+              Container(
+                  margin: EdgeInsets.only(top: 15),
+                  child: AdMobUtils.admobBanner()),
               Container(
                 padding: EdgeInsets.symmetric(horizontal: 10),
                 child: Column(

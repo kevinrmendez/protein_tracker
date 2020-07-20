@@ -39,9 +39,9 @@ class _MyHomePageState extends State<HomeScreen> {
           // ),
           MotivationalText(),
           DailyStatus(),
-          // Container(
-          //     margin: EdgeInsets.symmetric(vertical: 10),
-          //     child: AdMobUtils.admobBanner()),
+          Container(
+              margin: EdgeInsets.symmetric(vertical: 10),
+              child: AdMobUtils.admobBanner()),
           ProgressIndicator(),
           ConsumedCalories(),
           SizedBox(
