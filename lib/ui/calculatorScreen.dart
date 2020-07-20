@@ -435,7 +435,8 @@ class GoalChangeDialog extends StatelessWidget {
                   style: TextStyle(fontSize: 18),
                 ),
               ),
-              WidgetUtils.button(context, text: 'close', onPressed: () {
+              WidgetUtils.button(context, color: DarkGreyColor, text: 'close',
+                  onPressed: () {
                 Navigator.pop(context);
               })
             ],

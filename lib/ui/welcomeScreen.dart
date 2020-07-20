@@ -73,13 +73,16 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                       }, color: Colors.white, textColor: PrimaryColor)
                     : Column(
                         children: <Widget>[
-                          WidgetUtils.button(context, text: 'set protein goal',
-                              onPressed: () {
-                            showDialog(
-                                context: context,
-                                builder: (_) =>
-                                    GoalDialog(callback: this.callback));
-                          }, color: Colors.white, textColor: PrimaryColor),
+                          Container(
+                            margin: EdgeInsets.symmetric(vertical: 10),
+                            child: WidgetUtils.button(context,
+                                text: 'set protein goal', onPressed: () {
+                              showDialog(
+                                  context: context,
+                                  builder: (_) =>
+                                      GoalDialog(callback: this.callback));
+                            }, color: Colors.white, textColor: PrimaryColor),
+                          ),
                           WidgetUtils.button(context, text: 'skip',
                               onPressed: () {
                             Navigator.of(context).pushAndRemoveUntil(
@@ -87,7 +90,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                                 (Route<dynamic> route) => false);
                           }, color: Colors.white, textColor: PrimaryColor),
                         ],
-                      )
+                      ),
               ],
             ),
           ),
@@ -147,7 +150,7 @@ class _GoalDialogState extends State<GoalDialog> {
   Widget build(BuildContext context) {
     return WidgetUtils.dialog(
         context: context,
-        height: MediaQuery.of(context).size.height * .32,
+        height: MediaQuery.of(context).size.height * .37,
         title: 'Set goal',
         showAd: false,
         child: Container(
