@@ -34,31 +34,68 @@ class StatisticsScreen extends StatelessWidget {
     );
   }
 
-  _statsData({String label, int data, String measurement = ""}) {
-    return Container(
-      padding: EdgeInsets.symmetric(vertical: 10),
-      child: Column(children: [
-        Text(
-          label,
-          style: TextStyle(color: DarkGreyColor, fontSize: 12),
-        ),
-        Row(
-          children: <Widget>[
-            Text(
-              "$data",
-              style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
-            ),
-            SizedBox(
-              width: 5,
-            ),
-            Text(
-              measurement,
-              style: TextStyle(color: DarkGreyColor, fontSize: 12),
-            )
-          ],
-        )
-      ]),
-    );
+  _statsData({String label, Stream data, String measurement = ""}) {
+    return StreamBuilder(
+        stream: data,
+        builder: (context, snapshot) {
+          var data = snapshot.data ?? 0;
+          return Container(
+            padding: EdgeInsets.symmetric(vertical: 10),
+            child: Column(children: [
+              Text(
+                label,
+                style: TextStyle(color: DarkGreyColor, fontSize: 12),
+              ),
+              Row(
+                children: <Widget>[
+                  Text(
+                    "$data",
+                    style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+                  ),
+                  SizedBox(
+                    width: 5,
+                  ),
+                  Text(
+                    measurement,
+                    style: TextStyle(color: DarkGreyColor, fontSize: 12),
+                  )
+                ],
+              )
+            ]),
+          );
+        });
+  }
+
+  _statsDataCalories({String label, Stream data, String measurement = ""}) {
+    return StreamBuilder(
+        stream: data,
+        builder: (context, snapshot) {
+          var data = snapshot.data ?? 0;
+          return Container(
+            padding: EdgeInsets.symmetric(vertical: 10),
+            child: Column(children: [
+              Text(
+                label,
+                style: TextStyle(color: DarkGreyColor, fontSize: 12),
+              ),
+              Row(
+                children: <Widget>[
+                  Text(
+                    "${data * 4}",
+                    style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+                  ),
+                  SizedBox(
+                    width: 5,
+                  ),
+                  Text(
+                    measurement,
+                    style: TextStyle(color: DarkGreyColor, fontSize: 12),
+                  )
+                ],
+              )
+            ]),
+          );
+        });
   }
 
   @override
@@ -86,9 +123,9 @@ class StatisticsScreen extends StatelessWidget {
                   // child: ProteinChart.withSampleData(),
                   child: ProteinChart.withData(
                       statisticsService.currentChartData)),
-              Container(
-                  margin: EdgeInsets.only(top: 15),
-                  child: AdMobUtils.admobBanner()),
+              // Container(
+              //     margin: EdgeInsets.only(top: 15),
+              //     child: AdMobUtils.admobBanner()),
               Container(
                 padding: EdgeInsets.symmetric(horizontal: 10),
                 child: Column(
@@ -103,21 +140,21 @@ class StatisticsScreen extends StatelessWidget {
                     _statsDataRow(children: [
                       _statsData(
                           label: 'PROTEIN CONSUMED',
-                          data: statisticsService.currentTotalProtein,
+                          data: statisticsService.totalProteinStream,
                           measurement: "gr"),
                       _statsData(
                           label: 'AVG PROTEIN CONSUMED',
-                          data: statisticsService.currentAvgProtein,
+                          data: statisticsService.avgProteinStream,
                           measurement: "gr"),
                     ]),
                     _statsDataRow(color: Colors.transparent, children: [
-                      _statsData(
+                      _statsDataCalories(
                           label: 'CALORIES CONSUMED',
-                          data: statisticsService.currentTotalProtein * 4,
+                          data: statisticsService.totalProteinStream,
                           measurement: "cal"),
-                      _statsData(
+                      _statsDataCalories(
                           label: 'AVG CALORIES CONSUMED',
-                          data: statisticsService.currentAvgProtein * 4,
+                          data: statisticsService.avgProteinStream,
                           measurement: "cal"),
                     ])
                   ],
