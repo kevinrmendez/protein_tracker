@@ -43,11 +43,11 @@ class FoodDatabase {
         "amount INTEGER, "
         "date TEXT"
         ")");
-    await database.execute(
-        "INSERT INTO $proteinTable VALUES(15, 'kevin',50,'15-July-2020')");
-    await database.execute(
-        "INSERT INTO $proteinTable VALUES(16, 'ricardo',100,'16-July-2020')");
-    await database.execute(
-        "INSERT INTO $proteinTable VALUES(17, 'mendez',200,'17-July-2020')");
+    // await database.execute(
+    //     "INSERT INTO $proteinTable VALUES(15, 'kevin',50,'15-July-2020')");
+    // await database.execute(
+    //     "INSERT INTO $proteinTable VALUES(16, 'ricardo',100,'16-July-2020')");
+    // await database.execute(
+    //     "INSERT INTO $proteinTable VALUES(17, 'mendez',200,'17-July-2020')");
   }
 }
