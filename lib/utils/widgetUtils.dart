@@ -58,7 +58,7 @@ class WidgetUtils {
       bool showAd = true}) {
     return Dialog(
       shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.all(Radius.circular(20))),
+          borderRadius: BorderRadius.all(Radius.circular(14))),
       child: Container(
         height: height,
         child: Center(
@@ -78,7 +78,7 @@ class WidgetUtils {
                         fontWeight: FontWeight.bold),
                   )),
               SizedBox(
-                height: 7,
+                height: 18,
               ),
               Center(child: child),
               showAd ? AdMobUtils.admobBanner() : SizedBox(),
