@@ -10,12 +10,13 @@ import 'package:rxdart/rxdart.dart';
 class StatisticsService {
   BehaviorSubject _totalProtein = BehaviorSubject.seeded(0);
   BehaviorSubject _avgProtein = BehaviorSubject.seeded(0);
-  BehaviorSubject _chartData = BehaviorSubject.seeded([]);
+  BehaviorSubject<List<TimeSeriesProtein>> _chartData =
+      BehaviorSubject.seeded([]);
   ProteinRepository _proteinRepository = ProteinRepository();
 
   Stream get totalProteinStream => _totalProtein.stream;
   Stream get avgProteinStream => _avgProtein.stream;
-  Stream get chartDataStream => _chartData.stream;
+  Stream<List<TimeSeriesProtein>> get chartDataStream => _chartData.stream;
 
   int get currentTotalProtein => _totalProtein.value;
   int get currentAvgProtein => _avgProtein.value;

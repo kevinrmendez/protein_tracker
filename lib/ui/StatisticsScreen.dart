@@ -118,11 +118,22 @@ class StatisticsScreen extends StatelessWidget {
                 dateService.currentMonthDate,
                 style: AppFontStyle.subtitle,
               ),
-              Container(
-                  height: MediaQuery.of(context).size.height * .4,
-                  // child: ProteinChart.withSampleData(),
-                  child: ProteinChart.withData(
-                      statisticsService.currentChartData)),
+              StreamBuilder<List<TimeSeriesProtein>>(
+                  stream: statisticsService.chartDataStream,
+                  builder: (context, snapshot) {
+                    if (snapshot.data == null) {
+                      return Container(
+                          height: MediaQuery.of(context).size.height * .4,
+                          child: Center(
+                              child: SizedBox(
+                                  child: CircularProgressIndicator())));
+                    } else {
+                      return Container(
+                          height: MediaQuery.of(context).size.height * .4,
+                          // child: ProteinChart.withSampleData(),
+                          child: ProteinChart.withData(snapshot.data));
+                    }
+                  }),
               // Container(
               //     margin: EdgeInsets.only(top: 15),
               //     child: AdMobUtils.admobBanner()),
