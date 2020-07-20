@@ -96,7 +96,7 @@ class StatisticsScreen extends StatelessWidget {
                     Container(
                       margin: EdgeInsets.fromLTRB(0, 20, 10, 0),
                       child: Text(
-                        'statistics',
+                        'Statistics',
                         style: AppFontStyle.subtitle,
                       ),
                     ),

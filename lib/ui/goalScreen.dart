@@ -86,7 +86,7 @@ class _GoalScreenState extends State<GoalScreen> {
                           keyboardType: TextInputType.number,
                           decoration: InputDecoration(
                             border: OutlineInputBorder(),
-                            labelText: 'goal',
+                            labelText: 'Goal',
                           ),
                           validator: (value) {
                             if (value.isEmpty) {

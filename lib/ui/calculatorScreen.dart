@@ -234,7 +234,7 @@ class _MyHomePageState extends State<CalculatorScreen> {
                             keyboardType: TextInputType.number,
                             decoration: InputDecoration(
                               border: OutlineInputBorder(),
-                              labelText: 'weight',
+                              labelText: 'Weight',
                             ),
                             validator: (value) {
                               int weightLimit = intToBool(

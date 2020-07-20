@@ -40,7 +40,6 @@ class AboutScreen extends StatelessWidget {
                   _text(
                       "In order to keep free the app for everybody and support it's development, it contains some ads."),
                   _text('version 1.0.0'),
-                  _text('©2020 My Protein Tracker'),
                 ],
               ),
             ),

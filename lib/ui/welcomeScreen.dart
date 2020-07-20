@@ -57,12 +57,12 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                     ? Container(
                         margin: EdgeInsets.symmetric(horizontal: 20),
                         child: _text(
-                            'Goal set, you can change your goal any time'),
+                            'Goal set, you can change your goal at any time.'),
                       )
                     : Container(
                         margin: EdgeInsets.symmetric(horizontal: 20),
                         child: _text(
-                            'we recommend you to set your daily protein goal before using the app'),
+                            'We recommend you to set your daily protein goal before using the app.'),
                       ),
                 _isGoalAdded
                     ? WidgetUtils.button(context, text: 'continue',
@@ -180,7 +180,8 @@ class _GoalDialogState extends State<GoalDialog> {
                       return null;
                     },
                   ),
-                  WidgetUtils.button(context, text: "Add", onPressed: () async {
+                  WidgetUtils.button(context, text: "add", color: DarkGreyColor,
+                      onPressed: () async {
                     if (_formKey.currentState.validate()) {
                       proteinService.setGoal(goal);
                       widget.callback();

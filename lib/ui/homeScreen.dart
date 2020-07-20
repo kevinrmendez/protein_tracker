@@ -88,15 +88,15 @@ class MotivationalTextWidget extends StatelessWidget {
           padding: EdgeInsets.fromLTRB(40, 10, 40, 10),
           child: Text(
             consumedProtein >= goal
-                ? 'You have reached your daily goal, Well done!'
+                ? 'You have reached your daily goal! Well done!'
                 : consumedProtein >= goal / 4 * 3
                     ? 'You almost reach your goal! You got this!'
                     : consumedProtein >= goal / 2
                         ? 'You are more than halfway of your goal! Go for it!'
                         : consumedProtein >= goal / 4
-                            ? 'Continue tracking your proteins!Keep it up!'
+                            ? 'Continue tracking your proteins! Keep it up!!'
                             : consumedProtein == 0
-                                ? 'Start tracking your protein intake'
+                                ? 'Start tracking your protein intake.'
                                 : 'You have started tracking your protein! Good job!',
             textAlign: TextAlign.center,
             style: TextStyle(
