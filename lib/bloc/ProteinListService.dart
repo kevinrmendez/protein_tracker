@@ -11,6 +11,7 @@ class ProteinListService {
   ProteinListService() {
     _getProtein();
   }
+  //TODO: WHEN 2 DIFFERENT DATES ON THE SAME PROTEIN LIST, REST THE CONSUMED PROTEIN VALUE
   void _getProtein() async {
     var dateNow = DateTime.now();
     final DateFormat formatter = DateFormat('dd-MMMM-yyyy');

@@ -35,7 +35,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
             },
           ),
           ListTile(
-            title: Text('Weight Unit'),
+            title: Text('Weight unit'),
             trailing: Row(
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[
