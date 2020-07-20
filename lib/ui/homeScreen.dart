@@ -82,7 +82,7 @@ class MotivationalTextWidget extends StatelessWidget {
     } else {
       goal = proteinGoal.amount;
       return WidgetUtils.card(
-        color: consumedProtein >= goal ? SecondaryColor : PrimaryColor,
+        color: consumedProtein >= goal ? GreenColor : PrimaryColor,
         title: 'Status',
         child: Container(
           padding: EdgeInsets.fromLTRB(40, 10, 40, 10),
