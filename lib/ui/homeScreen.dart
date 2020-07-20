@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:protein_tracker/model/goal.dart';
 import 'package:protein_tracker/utils/AdMobUtils.dart';
 import 'package:protein_tracker/utils/colors.dart';
 import 'package:protein_tracker/main.dart';
@@ -6,6 +7,7 @@ import 'package:protein_tracker/bloc/ProteinService.dart';
 import 'package:protein_tracker/ui/trackerScreen.dart';
 import 'package:protein_tracker/utils/fontStyle.dart';
 import 'package:protein_tracker/utils/widgetUtils.dart';
+import 'package:provider/provider.dart';
 import 'package:step_progress_indicator/step_progress_indicator.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -54,41 +56,86 @@ class _MyHomePageState extends State<HomeScreen> {
 class MotivationalText extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return WidgetUtils.card(
-      color: PrimaryColor,
-      title: 'Status',
-      child: Container(
-        padding: EdgeInsets.fromLTRB(40, 10, 40, 10),
-        child: Text(
-          proteinService.currentConsumedProtein >= proteinService.current
-              ? 'You have reached your daily goal, well done!'
-              : proteinService.currentConsumedProtein >=
-                      proteinService.current / 4 * 3
-                  ? 'You almost reach your goal, keep it up'
-                  : proteinService.currentConsumedProtein >=
-                          proteinService.current / 2
-                      ? 'You are half way of your goal'
-                      : proteinService.currentConsumedProtein >=
-                              proteinService.current / 4
-                          ? 'You are starting to eat protein'
-                          : 'start tracking your protein intake',
-          textAlign: TextAlign.center,
-          style: TextStyle(
-              fontSize: 20, fontWeight: FontWeight.bold, color: Colors.white
-              // color: DarkGreyColor,
-              ),
+    return MultiProvider(
+      providers: [
+        StreamProvider<Goal>.value(
+          value: proteinService.stream,
         ),
-      ),
+        StreamProvider<int>.value(
+          value: proteinService.streamConsumedProtein,
+        )
+      ],
+      child: MotivationalTextWidget(),
     );
+  }
+}
+
+class MotivationalTextWidget extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    Goal initGoal = Goal(1);
+    Goal proteinGoal = Provider.of<Goal>(context) ?? initGoal;
+    int consumedProtein = Provider.of<int>(context) ?? 0;
+    int goal;
+    if (proteinGoal == null) {
+      return SizedBox();
+    } else {
+      goal = proteinGoal.amount;
+      return WidgetUtils.card(
+        color: consumedProtein >= goal ? SecondaryColor : PrimaryColor,
+        title: 'Status',
+        child: Container(
+          padding: EdgeInsets.fromLTRB(40, 10, 40, 10),
+          child: Text(
+            consumedProtein >= goal
+                ? 'You have reached your daily goal, well done!'
+                : consumedProtein >= goal / 4 * 3
+                    ? 'You almost reach your goal, keep it up'
+                    : consumedProtein >= goal / 2
+                        ? 'You are more than half way of your goal'
+                        : consumedProtein >= goal / 4
+                            ? 'You are starting to eat protein'
+                            : 'start tracking your protein intake',
+            textAlign: TextAlign.center,
+            style: TextStyle(
+                fontSize: 20, fontWeight: FontWeight.bold, color: Colors.white
+                // color: DarkGreyColor,
+                ),
+          ),
+        ),
+      );
+    }
   }
 }
 
 class DailyStatus extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return WidgetUtils.card(
-      title: 'Goal',
-      child: Column(
+    return MultiProvider(providers: [
+      StreamProvider<Goal>.value(
+        value: proteinService.stream,
+      ),
+      StreamProvider<int>.value(
+        value: proteinService.streamConsumedProtein,
+      )
+    ], child: WidgetUtils.card(title: 'Goal', child: DailyStatusWidget()));
+  }
+}
+
+class DailyStatusWidget extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    Goal initGoal = Goal(1);
+    Goal proteinGoal = Provider.of<Goal>(context) ?? initGoal;
+    int consumedProtein = Provider.of<int>(context) ?? 0;
+    int goal;
+    if (proteinGoal == null) {
+      return SizedBox();
+    } else {
+      goal = proteinGoal.amount;
+      var remainingProtein = goal - consumedProtein;
+      remainingProtein = remainingProtein > 0 ? remainingProtein : 0;
+      return Column(
         children: <Widget>[
           Row(
             mainAxisAlignment: MainAxisAlignment.start,
@@ -103,16 +150,10 @@ class DailyStatus extends StatelessWidget {
               SizedBox(
                 width: 10,
               ),
-              StreamBuilder(
-                stream: proteinService.stream,
-                builder: (BuildContext context, AsyncSnapshot snapshot) {
-                  var goal = snapshot.data ?? 0;
-                  return Text(
-                    "goal: $goal gr",
-                    style: TextStyle(fontSize: 16),
-                  );
-                },
-              ),
+              Text(
+                "goal: $goal gr",
+                style: TextStyle(fontSize: 16),
+              )
             ],
           ),
           Row(
@@ -128,26 +169,15 @@ class DailyStatus extends StatelessWidget {
               SizedBox(
                 width: 10,
               ),
-              StreamBuilder(
-                  stream: proteinService.streamConsumedProtein,
-                  builder: (context, snapshot) {
-                    var consumedProtein = snapshot.data ?? 0;
-
-                    var remainingProtein =
-                        proteinService.current - consumedProtein;
-                    remainingProtein =
-                        remainingProtein > 0 ? remainingProtein : 0;
-
-                    return Text(
-                      'remaining : ${remainingProtein ?? 0} gr',
-                      style: TextStyle(fontSize: 16),
-                    );
-                  }),
+              Text(
+                'remaining : ${remainingProtein ?? 0} gr',
+                style: TextStyle(fontSize: 16),
+              )
             ],
           ),
         ],
-      ),
-    );
+      );
+    }
   }
 }
 
@@ -182,50 +212,68 @@ class ConsumedCalories extends StatelessWidget {
 class ProgressIndicator extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return WidgetUtils.card(
-      title: 'Protein consumed',
-      child: StreamBuilder(
-          stream: proteinService.streamConsumedProtein,
-          builder: (context, snapshot) {
-            var consumedproteins = snapshot.data ?? 0;
-            return Center(
-              child: CircularStepProgressIndicator(
-                totalSteps: proteinService.current,
-                currentStep: consumedproteins,
-                // stepSize: 0,
-                selectedColor: PrimaryColor,
-                unselectedColor: Colors.grey[200],
-                // padding: 8,
-                width: 180,
-                height: 180,
-                selectedStepSize: 15,
-                child: Center(
-                    child: Container(
-                  child: Wrap(
-                    runSpacing: -25,
-                    // direction: Axis.vertical,
-                    alignment: WrapAlignment.center,
-                    crossAxisAlignment: WrapCrossAlignment.center,
-                    children: <Widget>[
-                      Text(
-                        "$consumedproteins",
-                        style: TextStyle(
-                          fontSize: 60,
-                        ),
-                      ),
-                      Text(
-                        'gr',
-                        style: TextStyle(fontSize: 30),
-                      )
-                    ],
-                  ),
-                )
-
-                    // Text('consumed'),
-                    ),
-              ),
-            );
-          }),
+    return MultiProvider(
+      providers: [
+        StreamProvider<Goal>.value(
+          value: proteinService.stream,
+        ),
+        StreamProvider<int>.value(
+          value: proteinService.streamConsumedProtein,
+        )
+      ],
+      child: WidgetUtils.card(
+          title: 'Protein consumed',
+          child: Center(child: ProgressIndicatorWidget())),
     );
+  }
+}
+
+class ProgressIndicatorWidget extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    Goal initGoal = Goal(1);
+    Goal proteinGoal = Provider.of<Goal>(context) ?? initGoal;
+    int consumedProtein = Provider.of<int>(context) ?? 0;
+    int goal;
+    if (proteinGoal == null) {
+      return CircularProgressIndicator();
+    } else {
+      goal = proteinGoal.amount;
+      return CircularStepProgressIndicator(
+        totalSteps: goal,
+        currentStep: consumedProtein,
+        // stepSize: 0,
+        selectedColor: PrimaryColor,
+        unselectedColor: Colors.grey[200],
+        // padding: 8,
+        width: 180,
+        height: 180,
+        selectedStepSize: 15,
+        child: Center(
+            child: Container(
+          child: Wrap(
+            runSpacing: -25,
+            // direction: Axis.vertical,
+            alignment: WrapAlignment.center,
+            crossAxisAlignment: WrapCrossAlignment.center,
+            children: <Widget>[
+              Text(
+                "$consumedProtein",
+                style: TextStyle(
+                  fontSize: 60,
+                ),
+              ),
+              Text(
+                'gr',
+                style: TextStyle(fontSize: 30),
+              )
+            ],
+          ),
+        )
+
+            // Text('consumed'),
+            ),
+      );
+    }
   }
 }

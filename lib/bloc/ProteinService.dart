@@ -1,17 +1,18 @@
 import 'package:protein_tracker/bloc/ProteinListService.dart';
 import 'package:protein_tracker/main.dart';
+import 'package:protein_tracker/model/goal.dart';
 import 'package:rxdart/rxdart.dart';
 
 class ProteinService {
-  BehaviorSubject _proteinGoal =
-      BehaviorSubject.seeded(preferences.getInt("protein_goal") ?? 1);
-  BehaviorSubject _consumedProtein =
+  static Goal initGoal = Goal(preferences.getInt("protein_goal") ?? 1);
+  BehaviorSubject<Goal> _proteinGoal = BehaviorSubject.seeded(initGoal);
+  BehaviorSubject<int> _consumedProtein =
       BehaviorSubject.seeded(preferences.getInt("protein_consumed") ?? 0);
 
-  Stream get stream => _proteinGoal.stream;
+  Stream<Goal> get stream => _proteinGoal.stream;
   Stream get streamConsumedProtein => _consumedProtein.stream;
 
-  int get current => _proteinGoal.value;
+  Goal get current => _proteinGoal.value;
   int get currentConsumedProtein => _consumedProtein.value;
 
   ProteinService() {
@@ -19,9 +20,10 @@ class ProteinService {
   }
   void initPreferences() {
     if (!preferences.containsKey("protein_goal")) {
-      preferences.setInt("protein_goal", 1);
+      Goal goal = Goal(1);
+      preferences.setInt("protein_goal", goal.amount);
       print(preferences.getInt("protein_goal").toString());
-      _proteinGoal.add(1);
+      _proteinGoal.add(goal);
     } else {
       getProteinGoalFromPreferences();
     }
@@ -36,7 +38,8 @@ class ProteinService {
   void getProteinGoalFromPreferences() async {
     int sharedPrefenrencesProteinGoal = preferences.getInt("protein_goal");
     print("SHARED PREFERENCES GOAL  $sharedPrefenrencesProteinGoal");
-    _proteinGoal.add(sharedPrefenrencesProteinGoal);
+    Goal goalFromPreferences = Goal(sharedPrefenrencesProteinGoal);
+    _proteinGoal.add(goalFromPreferences);
   }
 
   void getConsumedProteinFromPreferences() async {
@@ -46,9 +49,10 @@ class ProteinService {
     _consumedProtein.add(sharedPrefenrencesConsumedProtein);
   }
 
-  setGoal(int goal) {
+  setGoal(int goalAmount) {
+    Goal goal = Goal(goalAmount);
     _proteinGoal.add(goal);
-    preferences.setInt("protein_goal", goal);
+    preferences.setInt("protein_goal", goal.amount);
   }
 
   addConsumedProtein(int proteinAmount) {

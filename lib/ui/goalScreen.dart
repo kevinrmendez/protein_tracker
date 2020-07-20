@@ -56,7 +56,7 @@ class _GoalScreenState extends State<GoalScreen> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
                       Text(
-                        snapshot.data.toString(),
+                        snapshot.data.amount.toString(),
                         style: TextStyle(fontSize: 90),
                       ),
                       Text(
