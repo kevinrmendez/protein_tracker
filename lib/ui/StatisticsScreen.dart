@@ -101,6 +101,98 @@ class StatisticsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    String _getMonthName(int month) {
+      switch (month) {
+        case 1:
+          {
+            return translatedText(
+              "monthName_01",
+              context,
+            );
+          }
+        case 2:
+          {
+            return translatedText(
+              "monthName_02",
+              context,
+            );
+          }
+        case 3:
+          {
+            return translatedText(
+              "monthName_03",
+              context,
+            );
+          }
+        case 4:
+          {
+            return translatedText(
+              "monthName_04",
+              context,
+            );
+          }
+        case 5:
+          {
+            return translatedText(
+              "monthName_05",
+              context,
+            );
+          }
+        case 6:
+          {
+            return translatedText(
+              "monthName_06",
+              context,
+            );
+          }
+        case 7:
+          {
+            return translatedText(
+              "monthName_07",
+              context,
+            );
+          }
+        case 8:
+          {
+            return translatedText(
+              "monthName_08",
+              context,
+            );
+          }
+        case 9:
+          {
+            return translatedText(
+              "monthName_09",
+              context,
+            );
+          }
+        case 10:
+          {
+            return translatedText(
+              "monthName_10",
+              context,
+            );
+          }
+        case 11:
+          {
+            return translatedText(
+              "monthName_11",
+              context,
+            );
+          }
+        case 12:
+          {
+            return translatedText(
+              "monthName_12",
+              context,
+            );
+          }
+
+          break;
+        default:
+      }
+    }
+
     return ListView(children: [
       Center(
         child: Container(
@@ -119,7 +211,7 @@ class StatisticsScreen extends StatelessWidget {
                 height: 10,
               ),
               Text(
-                dateService.currentMonthDate,
+                _getMonthName(dateService.currentMonthDate),
                 style: AppFontStyle.subtitle,
               ),
               StreamBuilder<List<TimeSeriesProtein>>(

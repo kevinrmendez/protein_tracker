@@ -38,5 +38,17 @@
   "statistics_label_protein_consumed": "PROTEIN CONSUMED",
   "statistics_label_protein_avg_consumed": "AVG PROTEIN CONSUMED",
   "statistics_label_calories_consumed": "CALORIES CONSUMED",
-  "statistics_label_calories_avg_consumed": "AVG CALORIES CONSUMED"
+  "statistics_label_calories_avg_consumed": "AVG CALORIES CONSUMED",
+  "monthName_01": "January",
+  "monthName_02": "February",
+  "monthName_03": "March",
+  "monthName_04": "April",
+  "monthName_05": "May",
+  "monthName_06": "June",
+  "monthName_07": "July",
+  "monthName_08": "August",
+  "monthName_09": "September",
+  "monthName_10": "October",
+  "monthName_11": "November",
+  "monthName_12": "December"
 }
