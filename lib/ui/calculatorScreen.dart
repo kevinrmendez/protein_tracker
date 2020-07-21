@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:protein_tracker/bloc/SettingsService.dart';
+import 'package:protein_tracker/model/protein.dart';
 import 'package:protein_tracker/utils/colors.dart';
 import 'package:protein_tracker/main.dart';
 import 'package:protein_tracker/bloc/ProteinService.dart';
+import 'package:protein_tracker/utils/localization_utils.dart';
 import 'package:protein_tracker/utils/widgetUtils.dart';
 import 'package:scidart/numdart.dart';
 
@@ -17,7 +19,8 @@ class CalculatorScreen extends StatefulWidget {
 
 enum Gender { male, female }
 enum FemaleStatus { none, pregnant, lactanting }
-enum ProteinGoal { maintenance, muscleGain, fatLoss }
+enum ProteinGoal { none, maintenance, muscleGain, fatLoss }
+enum Activity { none, sedentary, moderate, active }
 
 class _MyHomePageState extends State<CalculatorScreen> {
   Gender _gender = Gender.male;
@@ -26,14 +29,27 @@ class _MyHomePageState extends State<CalculatorScreen> {
   final weightController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
 
-  String dropdownValueActivity = 'sedentary';
-  String dropdownValueGoal = 'maintenance';
+  Activity dropdownValueActivity = Activity.none;
+  ProteinGoal dropdownValueGoal = ProteinGoal.none;
   int proteinIntake = 0;
   int _counter = 0;
   int _selectedIndex = 0;
   bool _isCalculated;
   double _weight;
   int _weightRounded;
+
+  List<Activity> activityList = [
+    Activity.none,
+    Activity.sedentary,
+    Activity.moderate,
+    Activity.active
+  ];
+  List<ProteinGoal> goalList = [
+    ProteinGoal.none,
+    ProteinGoal.maintenance,
+    ProteinGoal.muscleGain,
+    ProteinGoal.fatLoss,
+  ];
 
   static const TextStyle optionStyle =
       TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
@@ -77,20 +93,20 @@ class _MyHomePageState extends State<CalculatorScreen> {
     int result;
 
     switch (dropdownValueActivity) {
-      case "sedentary":
+      case Activity.sedentary:
         {
           switch (dropdownValueGoal) {
-            case "maintenance":
+            case ProteinGoal.maintenance:
               {
                 proteinAmount = 1.2;
               }
               break;
-            case "muscle gain":
+            case ProteinGoal.muscleGain:
               {
                 proteinAmount = 1.4;
               }
               break;
-            case "fat loss":
+            case ProteinGoal.fatLoss:
               {
                 proteinAmount = 1.2;
               }
@@ -101,20 +117,20 @@ class _MyHomePageState extends State<CalculatorScreen> {
           }
         }
         break;
-      case "moderate":
+      case Activity.moderate:
         {
           switch (dropdownValueGoal) {
-            case "maintenance":
+            case ProteinGoal.maintenance:
               {
                 proteinAmount = 1.4;
               }
               break;
-            case "muscle gain":
+            case ProteinGoal.muscleGain:
               {
                 proteinAmount = 2;
               }
               break;
-            case "fat loss":
+            case ProteinGoal.fatLoss:
               {
                 proteinAmount = 1.3;
               }
@@ -124,20 +140,20 @@ class _MyHomePageState extends State<CalculatorScreen> {
           }
         }
         break;
-      case "active":
+      case Activity.active:
         {
           switch (dropdownValueGoal) {
-            case "maintenance":
+            case ProteinGoal.maintenance:
               {
                 proteinAmount = 1.6;
               }
               break;
-            case "muscle gain":
+            case ProteinGoal.muscleGain:
               {
                 proteinAmount = 2.7;
               }
               break;
-            case "fat loss":
+            case ProteinGoal.fatLoss:
               {
                 proteinAmount = 1.4;
               }
@@ -189,8 +205,79 @@ class _MyHomePageState extends State<CalculatorScreen> {
 
   @override
   Widget build(BuildContext context) {
+    String getDropDownActivityText(Activity activity) {
+      switch (activity) {
+        case Activity.none:
+          {
+            return '';
+          }
+        case Activity.sedentary:
+          {
+            return translatedText(
+              "calculator_dropDownValue_activity_sedentary",
+              context,
+            );
+          }
+        case Activity.moderate:
+          {
+            return translatedText(
+              "calculator_dropDownValue_activity_moderate",
+              context,
+            );
+          }
+        case Activity.active:
+          {
+            return translatedText(
+              "calculator_dropDownValue_activity_active",
+              context,
+            );
+          }
+
+          break;
+        default:
+      }
+    }
+
+    String getDropDownProteinGoalText(ProteinGoal goal) {
+      switch (goal) {
+        case ProteinGoal.none:
+          {
+            return '';
+          }
+        case ProteinGoal.maintenance:
+          {
+            return translatedText(
+              "calculator_dropDownValue_activity_maintenance",
+              context,
+            );
+          }
+        case ProteinGoal.muscleGain:
+          {
+            return translatedText(
+              "calculator_dropDownValue_activity_muscle_gain",
+              context,
+            );
+          }
+        case ProteinGoal.fatLoss:
+          {
+            return translatedText(
+              "calculator_dropDownValue_activity_fat_loss",
+              context,
+            );
+          }
+
+          break;
+        default:
+      }
+    }
+
     return Scaffold(
-      appBar: WidgetUtils.appBarBackArrow('Protein intake calculator', context),
+      appBar: WidgetUtils.appBarBackArrow(
+          translatedText(
+            "appbar_calculator",
+            context,
+          ),
+          context),
       body: Center(
         child: ListView(children: <Widget>[
           Column(
@@ -222,7 +309,12 @@ class _MyHomePageState extends State<CalculatorScreen> {
                     child: Column(
                       // mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
-                        _subtitle('Weight'),
+                        _subtitle(
+                          translatedText(
+                            "calculator_subtitle_weight",
+                            context,
+                          ),
+                        ),
                         Text(settingsService.currentWeightSettings == 0
                             ? 'lb'
                             : 'kg'),
@@ -234,7 +326,10 @@ class _MyHomePageState extends State<CalculatorScreen> {
                             keyboardType: TextInputType.number,
                             decoration: InputDecoration(
                               border: OutlineInputBorder(),
-                              labelText: 'Weight',
+                              labelText: translatedText(
+                                "calculator_label_weight",
+                                context,
+                              ),
                             ),
                             validator: (value) {
                               int weightLimit = intToBool(
@@ -243,13 +338,22 @@ class _MyHomePageState extends State<CalculatorScreen> {
                                   : 1300;
 
                               if (value.isEmpty) {
-                                return 'add your weight';
+                                return translatedText(
+                                  "calculator_error_emptyValue",
+                                  context,
+                                );
                               }
                               if (value == "0") {
-                                return 'your weight must be greater than 0';
+                                return translatedText(
+                                  "calculator_error_value_0",
+                                  context,
+                                );
                               }
                               if (int.parse(value) > weightLimit)
-                                return 'your weight is too high';
+                                return translatedText(
+                                  "calculator_error_value_too_high",
+                                  context,
+                                );
                             },
                             onChanged: (weight) {
                               setState(() {
@@ -261,17 +365,28 @@ class _MyHomePageState extends State<CalculatorScreen> {
                         ),
                         Column(
                           children: <Widget>[
-                            _subtitle('Gender'),
+                            _subtitle(
+                              translatedText(
+                                "calculator_subtitle_gender",
+                                context,
+                              ),
+                            ),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: <Widget>[
                                 _radioButton(
-                                  'male',
+                                  translatedText(
+                                    "calculator_radio_button_gender_male",
+                                    context,
+                                  ),
                                   _gender,
                                   Gender.male,
                                 ),
                                 _radioButton(
-                                  'female',
+                                  translatedText(
+                                    "calculator_radio_button_gender_female",
+                                    context,
+                                  ),
                                   _gender,
                                   Gender.female,
                                 )
@@ -284,17 +399,26 @@ class _MyHomePageState extends State<CalculatorScreen> {
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: <Widget>[
                                   _radioButton(
-                                    'none',
+                                    translatedText(
+                                      "calculator_radio_button_gender_female_none",
+                                      context,
+                                    ),
                                     _femaleStatus,
                                     FemaleStatus.none,
                                   ),
                                   _radioButton(
-                                    'pregnant',
+                                    translatedText(
+                                      "calculator_radio_button_gender_female_pregnant",
+                                      context,
+                                    ),
                                     _femaleStatus,
                                     FemaleStatus.pregnant,
                                   ),
                                   _radioButton(
-                                    'lactanting',
+                                    translatedText(
+                                      "calculator_radio_button_gender_female_lactanting",
+                                      context,
+                                    ),
                                     _femaleStatus,
                                     FemaleStatus.lactanting,
                                   )
@@ -303,14 +427,19 @@ class _MyHomePageState extends State<CalculatorScreen> {
                             : SizedBox(),
                         Column(
                           children: <Widget>[
-                            _subtitle('Activity'),
+                            _subtitle(
+                              translatedText(
+                                "calculator_subtitle_activity",
+                                context,
+                              ),
+                            ),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: <Widget>[
                                 SizedBox(
                                   width: 20,
                                 ),
-                                DropdownButton<String>(
+                                DropdownButton<Activity>(
                                   value: dropdownValueActivity,
                                   icon: Icon(Icons.arrow_downward),
                                   iconSize: 24,
@@ -320,20 +449,18 @@ class _MyHomePageState extends State<CalculatorScreen> {
                                     height: 2,
                                     color: Colors.grey,
                                   ),
-                                  onChanged: (String newValue) {
+                                  onChanged: (Activity newValue) {
                                     setState(() {
                                       dropdownValueActivity = newValue;
                                     });
                                   },
-                                  items: <String>[
-                                    'sedentary',
-                                    'moderate',
-                                    'active',
-                                  ].map<DropdownMenuItem<String>>(
-                                      (String value) {
-                                    return DropdownMenuItem<String>(
+                                  items: activityList
+                                      .map<DropdownMenuItem<Activity>>(
+                                          (Activity value) {
+                                    return DropdownMenuItem<Activity>(
                                       value: value,
-                                      child: Text(value),
+                                      child:
+                                          Text(getDropDownActivityText(value)),
                                     );
                                   }).toList(),
                                 )
@@ -343,14 +470,19 @@ class _MyHomePageState extends State<CalculatorScreen> {
                         ),
                         Column(
                           children: <Widget>[
-                            _subtitle('Goal'),
+                            _subtitle(
+                              translatedText(
+                                "calculator_subtitle_goal",
+                                context,
+                              ),
+                            ),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: <Widget>[
                                 SizedBox(
                                   width: 20,
                                 ),
-                                DropdownButton<String>(
+                                DropdownButton<ProteinGoal>(
                                   value: dropdownValueGoal,
                                   icon: Icon(Icons.arrow_downward),
                                   iconSize: 24,
@@ -360,20 +492,18 @@ class _MyHomePageState extends State<CalculatorScreen> {
                                     height: 2,
                                     color: Colors.grey,
                                   ),
-                                  onChanged: (String newValue) {
+                                  onChanged: (ProteinGoal newValue) {
                                     setState(() {
                                       dropdownValueGoal = newValue;
                                     });
                                   },
-                                  items: <String>[
-                                    'maintenance',
-                                    'muscle gain',
-                                    'fat loss'
-                                  ].map<DropdownMenuItem<String>>(
-                                      (String value) {
-                                    return DropdownMenuItem<String>(
+                                  items: goalList
+                                      .map<DropdownMenuItem<ProteinGoal>>(
+                                          (ProteinGoal value) {
+                                    return DropdownMenuItem<ProteinGoal>(
                                       value: value,
-                                      child: Text(value),
+                                      child: Text(
+                                          getDropDownProteinGoalText(value)),
                                     );
                                   }).toList(),
                                 )
@@ -389,17 +519,29 @@ class _MyHomePageState extends State<CalculatorScreen> {
                 child: WidgetUtils.button(
                   context,
                   color: DarkGreyColor,
-                  text: 'calculate',
+                  text: translatedText(
+                    "calculator_button_calculate",
+                    context,
+                  ),
                   onPressed: () {
                     if (_formKey.currentState.validate()) {
-                      calculateProteinIntake();
+                      if (dropdownValueGoal == ProteinGoal.none ||
+                          dropdownValueActivity == Activity.none) {
+                        showDialog(
+                            context: context, builder: (_) => ErrorDialog());
+                      } else {
+                        calculateProteinIntake();
+                      }
                     }
                   },
                 ),
               ),
               _isCalculated
                   ? WidgetUtils.button(context,
-                      text: 'set as protein goal',
+                      text: translatedText(
+                        "calculator_button_protein_goal",
+                        context,
+                      ),
                       color: DarkGreyColor, onPressed: () {
                       proteinService.setGoal(proteinIntake);
                       showDialog(
@@ -420,7 +562,10 @@ class GoalChangeDialog extends StatelessWidget {
     return WidgetUtils.dialog(
         context: context,
         height: MediaQuery.of(context).size.height * .34,
-        title: 'Protein Goal',
+        title: translatedText(
+          "calculator_dialog_goal_change_title",
+          context,
+        ),
         showAd: false,
         child: Container(
           margin: EdgeInsets.symmetric(horizontal: 40),
@@ -430,18 +575,65 @@ class GoalChangeDialog extends StatelessWidget {
               Container(
                 padding: EdgeInsets.symmetric(vertical: 10),
                 child: Text(
-                  'your daily protein intake goal has been changed',
+                  translatedText(
+                    "calculator_dialog_goal_change_text",
+                    context,
+                  ),
                   textAlign: TextAlign.center,
                   style: TextStyle(fontSize: 18),
                 ),
               ),
-              WidgetUtils.button(context, color: DarkGreyColor, text: 'close',
-                  onPressed: () {
+              WidgetUtils.button(context,
+                  color: DarkGreyColor,
+                  text: translatedText(
+                    "calculator_button_close",
+                    context,
+                  ), onPressed: () {
                 Navigator.pop(context);
               })
             ],
           ),
         ));
-    ;
+  }
+}
+
+class ErrorDialog extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return WidgetUtils.dialog(
+        context: context,
+        height: MediaQuery.of(context).size.height * .4,
+        title: translatedText(
+          "calculator_dialog_error_title",
+          context,
+        ),
+        showAd: false,
+        child: Container(
+          margin: EdgeInsets.symmetric(horizontal: 40),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: <Widget>[
+              Container(
+                padding: EdgeInsets.symmetric(vertical: 10),
+                child: Text(
+                  translatedText(
+                    "calculator_dialog_error_text",
+                    context,
+                  ),
+                  textAlign: TextAlign.center,
+                  style: TextStyle(fontSize: 18),
+                ),
+              ),
+              WidgetUtils.button(context,
+                  color: DarkGreyColor,
+                  text: translatedText(
+                    "calculator_button_close",
+                    context,
+                  ), onPressed: () {
+                Navigator.pop(context);
+              })
+            ],
+          ),
+        ));
   }
 }

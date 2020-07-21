@@ -69,14 +69,16 @@ class WidgetUtils {
                   padding: EdgeInsets.symmetric(vertical: 4),
                   width: MediaQuery.of(context).size.width,
                   // color: Theme.of(context).primaryColor,
-                  child: Text(
-                    title,
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                        color: PrimaryColor,
-                        fontSize: 19,
-                        fontWeight: FontWeight.bold),
-                  )),
+                  child: title.isEmpty
+                      ? SizedBox()
+                      : Text(
+                          title,
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                              color: PrimaryColor,
+                              fontSize: 19,
+                              fontWeight: FontWeight.bold),
+                        )),
               SizedBox(
                 height: 18,
               ),
