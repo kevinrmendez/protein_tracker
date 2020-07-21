@@ -1,5 +1,6 @@
 import 'package:admob_flutter/admob_flutter.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:intl/intl.dart';
 import 'package:protein_tracker/bloc/FoodService.dart';
 import 'package:protein_tracker/bloc/ProteinListService.dart';
@@ -25,6 +26,8 @@ import 'package:protein_tracker/utils/widgetUtils.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'package:flutter_svg/flutter_svg.dart';
+
+import 'app_localizations.dart';
 
 DateTime currentDate;
 var preferences;
@@ -85,6 +88,39 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      supportedLocales: [
+        const Locale('en', 'US'),
+        const Locale('es', 'MX'),
+        const Locale('es', 'AR'),
+        const Locale('es', 'ES'),
+        const Locale('es', 'GT'),
+        // const Locale('hi', 'IN'),
+        // const Locale('fr', 'FR'),
+        // const Locale('pt', 'BR'),
+        // const Locale('pt', 'PT'),
+        // const Locale('de', 'DE'),
+        // const Locale('it', 'IT'),
+      ],
+      localizationsDelegates: [
+        // A class which loads the translations from JSON files
+        AppLocalizations.delegate,
+        // Built-in localization of basic text for Material widgets
+        GlobalMaterialLocalizations.delegate,
+        // Built-in localization for text direction LTR/RTL
+        GlobalWidgetsLocalizations.delegate,
+      ],
+      localeResolutionCallback: (locale, supportedLocales) {
+        // Check if the current device locale is supported
+        for (var supportedLocale in supportedLocales) {
+          if (supportedLocale.languageCode == locale.languageCode &&
+              supportedLocale.countryCode == locale.countryCode) {
+            return supportedLocale;
+          }
+        }
+        // If the locale of the device is not supported, use the first one
+        // from the list (English, in this case).
+        return supportedLocales.first;
+      },
       initialRoute: showWelcomeScreen ? '/welcome' : '/',
       routes: {
         '/': (context) => App(),
