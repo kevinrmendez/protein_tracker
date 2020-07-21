@@ -5,6 +5,7 @@ import 'package:protein_tracker/ui/welcomeScreen.dart';
 import 'package:protein_tracker/utils/colors.dart';
 import 'package:protein_tracker/ui/goalScreen.dart';
 import 'package:protein_tracker/ui/settingsScreen.dart';
+import 'package:protein_tracker/utils/localization_utils.dart';
 
 class AppDrawer extends StatelessWidget {
   // This widget is the root of your application.
@@ -28,7 +29,10 @@ class AppDrawer extends StatelessWidget {
               ),
               ListTile(
                 title: Text(
-                  "Goal",
+                  translatedText(
+                    "app_drawer_goal",
+                    context,
+                  ),
                   // style: TextStyle(color: Theme.of(context).primaryColor),
                 ),
                 trailing: Icon(
@@ -43,7 +47,10 @@ class AppDrawer extends StatelessWidget {
               ),
               ListTile(
                 title: Text(
-                  "Food List",
+                  translatedText(
+                    "app_drawer_food_list",
+                    context,
+                  ),
                   // style: TextStyle(color: Theme.of(context).primaryColor),
                 ),
                 trailing: Icon(
@@ -58,7 +65,10 @@ class AppDrawer extends StatelessWidget {
               ),
               ListTile(
                 title: Text(
-                  "Calculator",
+                  translatedText(
+                    "app_drawer_food_calculator",
+                    context,
+                  ),
                   // style: TextStyle(color: Theme.of(context).primaryColor),
                 ),
                 trailing: Icon(
@@ -73,7 +83,10 @@ class AppDrawer extends StatelessWidget {
               ),
               ListTile(
                 title: Text(
-                  "Settings",
+                  translatedText(
+                    "app_drawer_food_settings",
+                    context,
+                  ),
                   // style: TextStyle(color: Theme.of(context).primaryColor),
                 ),
                 trailing: Icon(
