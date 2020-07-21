@@ -25,6 +25,7 @@ class ProteinListService {
     dbProteins.forEach((p) => print(p.name));
     _proteinList.add(dbProteins ?? []);
 
+//reset Protein Consumed on date change during app use
     print("FormattedDayCache: $formattedDayCache");
     if (formattedDate != formattedDayCache) {
       resetState();
