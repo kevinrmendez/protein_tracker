@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:protein_tracker/bloc/SettingsService.dart';
 import 'package:protein_tracker/ui/aboutScreen.dart';
+import 'package:protein_tracker/utils/localization_utils.dart';
 import 'package:protein_tracker/utils/widgetUtils.dart';
 import 'package:scidart/numdart.dart';
 
@@ -22,12 +23,22 @@ class _SettingsScreenState extends State<SettingsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: WidgetUtils.appBarBackArrow('Settings', context),
+      appBar: WidgetUtils.appBarBackArrow(
+          translatedText(
+            "appbar_settings",
+            context,
+          ),
+          context),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         children: <Widget>[
           ListTile(
-            title: Text('About the app'),
+            title: Text(
+              translatedText(
+                "settings_text_about",
+                context,
+              ),
+            ),
             trailing: Icon(Icons.info),
             onTap: () {
               Navigator.of(context).push(MaterialPageRoute(
@@ -35,7 +46,12 @@ class _SettingsScreenState extends State<SettingsScreen> {
             },
           ),
           ListTile(
-            title: Text('Weight unit'),
+            title: Text(
+              translatedText(
+                "settings_text_weight",
+                context,
+              ),
+            ),
             trailing: Row(
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[
