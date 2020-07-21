@@ -1,3 +1,8 @@
 {
-  "appbar_about": "About protein tracker"
+  "appbar_about": "About protein tracker",
+  "app_title": "My Protein Tracker",
+  "app_version": "version 1.0.0",
+  "about_text_description_1": "My Protein Tracker is a free app that helps you to calculate and track your protein intake.",
+  "about_text_description_2": "In order to keep free the app for everybody and support it's development, it contains some ads.",
+  "settings_title": "Settings"
 }

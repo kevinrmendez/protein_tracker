@@ -26,7 +26,10 @@ class AboutScreen extends StatelessWidget {
                   width: MediaQuery.of(context).size.width,
                   padding: EdgeInsets.symmetric(vertical: 10),
                   child: Text(
-                    'Protein Tracker',
+                    translatedText(
+                      "app_title",
+                      context,
+                    ),
                     textAlign: TextAlign.center,
                     style: TextStyle(
                         fontSize: 24,
@@ -41,11 +44,18 @@ class AboutScreen extends StatelessWidget {
               margin: EdgeInsets.only(top: 40),
               child: Column(
                 children: <Widget>[
-                  _text(
-                      'My Protein Tracker is a free app that helps you to calculate and track your protein intake.'),
-                  _text(
-                      "In order to keep free the app for everybody and support it's development, it contains some ads."),
-                  _text('version 1.0.0'),
+                  _text(translatedText(
+                    "about_text_description_1",
+                    context,
+                  )),
+                  _text(translatedText(
+                    "about_text_description_2",
+                    context,
+                  )),
+                  _text(translatedText(
+                    "app_version",
+                    context,
+                  )),
                 ],
               ),
             ),
