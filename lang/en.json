@@ -74,6 +74,7 @@
   "menu_home": "Home",
   "menu_statistics": "Statistics",
   "popup_menu_item_ascending": "Ascending Order",
+  "popup_menu_item_descending": "Descending Order",
   "app_drawer_goal": "Goal",
   "app_drawer_food_list": "Food List",
   "app_drawer_food_calculator": "Calculator",

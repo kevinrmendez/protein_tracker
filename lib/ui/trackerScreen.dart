@@ -62,12 +62,18 @@ class _TrackerScreenState extends State<TrackerScreen> {
                 BuildContext context,
               ) {
                 return [
-                  const PopupMenuItem<Order>(
-                    child: Text('Ascending Order'),
+                  PopupMenuItem<Order>(
+                    child: Text(translatedText(
+                      "popup_menu_item_ascending",
+                      context,
+                    )),
                     value: Order.ascending,
                   ),
-                  const PopupMenuItem<Order>(
-                    child: Text('Descending Order'),
+                  PopupMenuItem<Order>(
+                    child: Text(translatedText(
+                      "popup_menu_item_descending",
+                      context,
+                    )),
                     value: Order.descending,
                   ),
                 ];
