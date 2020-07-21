@@ -71,7 +71,8 @@
   "tracker_error_protein_value_empty": "protein amount is empty",
   "tracker_error_protein_value_0": "protein must be greater than 0",
   "tracker_error_value_too_high": "protein value is too high",
-
+  "menu_home": "Home",
+  "menu_statistics": "Statistics",
   "popup_menu_item_ascending": "Ascending Order",
   "app_drawer_goal": "Goal",
   "app_drawer_food_list": "Food List",

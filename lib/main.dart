@@ -22,6 +22,7 @@ import 'package:protein_tracker/model/protein.dart';
 import 'package:protein_tracker/ui/settingsScreen.dart';
 
 import 'package:flutter/services.dart';
+import 'package:protein_tracker/utils/localization_utils.dart';
 import 'package:protein_tracker/utils/widgetUtils.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -227,14 +228,24 @@ class _AppState extends State<App> {
           // children: <Widget>[
           BottomNavigationBar(
         backgroundColor: Colors.white,
-        items: const <BottomNavigationBarItem>[
+        items: <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             icon: Icon(Icons.home),
-            title: Text('Home'),
+            title: Text(
+              translatedText(
+                "menu_home",
+                context,
+              ),
+            ),
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.poll),
-            title: Text('Statistics'),
+            title: Text(
+              translatedText(
+                "menu_statistics",
+                context,
+              ),
+            ),
           ),
         ],
         currentIndex: _selectedIndex,
