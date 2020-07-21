@@ -3,6 +3,7 @@ import 'package:protein_tracker/utils/colors.dart';
 import 'package:protein_tracker/main.dart';
 import 'package:protein_tracker/bloc/FoodService.dart';
 import 'package:protein_tracker/model/food.dart';
+import 'package:protein_tracker/utils/localization_utils.dart';
 import 'package:protein_tracker/utils/widgetUtils.dart';
 
 class FoodListScreen extends StatefulWidget {
@@ -23,48 +24,60 @@ class _FoodListScreenState extends State<FoodListScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: WidgetUtils.appBarBackArrow('Food List', context, actions: [
-        PopupMenuButton<Order>(
-          onSelected: (order) {
-            switch (order) {
-              case Order.ascending:
-                {
-                  foodListServices.orderFoodsAscending();
+      appBar: WidgetUtils.appBarBackArrow(
+          translatedText(
+            "appbar_food_list",
+            context,
+          ),
+          context,
+          actions: [
+            PopupMenuButton<Order>(
+              onSelected: (order) {
+                switch (order) {
+                  case Order.ascending:
+                    {
+                      foodListServices.orderFoodsAscending();
+                    }
+                    break;
+                  case Order.descending:
+                    {
+                      foodListServices.orderFoodsDescending();
+                    }
+                    break;
+                  default:
                 }
-                break;
-              case Order.descending:
-                {
-                  foodListServices.orderFoodsDescending();
-                }
-                break;
-              default:
-            }
-          },
-          icon: Icon(Icons.more_vert, color: SecondaryColor),
-          itemBuilder: (
-            BuildContext context,
-          ) {
-            return [
-              const PopupMenuItem<Order>(
-                child: Text('Ascending Order'),
-                value: Order.ascending,
-              ),
-              const PopupMenuItem<Order>(
-                child: Text('Descending Order'),
-                value: Order.descending,
-              ),
-            ];
-          },
-        )
-      ]),
+              },
+              icon: Icon(Icons.more_vert, color: SecondaryColor),
+              itemBuilder: (
+                BuildContext context,
+              ) {
+                return [
+                  const PopupMenuItem<Order>(
+                    child: Text('Ascending Order'),
+                    value: Order.ascending,
+                  ),
+                  const PopupMenuItem<Order>(
+                    child: Text('Descending Order'),
+                    value: Order.descending,
+                  ),
+                ];
+              },
+            )
+          ]),
       body: StreamBuilder<List<Food>>(
         stream: foodListServices.stream,
         builder: (BuildContext context, AsyncSnapshot snapshot) {
           print(snapshot.data);
           if (snapshot.data.length == 0) {
             return Center(
-                child: WidgetUtils.iconText(context,
-                    icon: Icons.room_service, text: 'your food list is empty'));
+                child: WidgetUtils.iconText(
+              context,
+              icon: Icons.room_service,
+              text: translatedText(
+                "food_list_text_empty",
+                context,
+              ),
+            ));
           } else {
             return ListView.builder(
                 itemCount: foodListServices.currentList.length,
@@ -150,7 +163,10 @@ class _AddProteinDialogState extends State<AddProteinDialog> {
     return WidgetUtils.dialog(
         context: context,
         height: MediaQuery.of(context).size.height * .46,
-        title: 'Add food',
+        title: translatedText(
+          "food_dialog_add_title",
+          context,
+        ),
         showAd: false,
         child: Container(
           margin: EdgeInsets.symmetric(horizontal: 40),
@@ -162,7 +178,10 @@ class _AddProteinDialogState extends State<AddProteinDialog> {
                 child: Column(children: [
                   WidgetUtils.inputField(
                     controller: _foodNameController,
-                    labelText: 'Food name',
+                    labelText: translatedText(
+                      "food_dialog_label_food_name",
+                      context,
+                    ),
                     onChanged: (value) {
                       setState(() {
                         foodName = value;
@@ -172,10 +191,16 @@ class _AddProteinDialogState extends State<AddProteinDialog> {
                       List<String> currentFoods =
                           foodListServices.currentListFoodName;
                       if (value.isEmpty) {
-                        return 'food is empty';
+                        return translatedText(
+                          "food_error_food_value_empty",
+                          context,
+                        );
                       }
                       if (currentFoods.contains(value)) {
-                        return "food already added";
+                        return translatedText(
+                          "food_error_food_value_duplicate",
+                          context,
+                        );
                       }
                       return null;
                     },
@@ -183,7 +208,10 @@ class _AddProteinDialogState extends State<AddProteinDialog> {
                   WidgetUtils.inputField(
                     keyboardType: TextInputType.number,
                     controller: _proteinAmountController,
-                    labelText: 'Protein amount in gr',
+                    labelText: translatedText(
+                      "food_dialog_label_protein_amount",
+                      context,
+                    ),
                     onChanged: (value) {
                       setState(() {
                         proteinAmount = int.parse(value);
@@ -191,16 +219,26 @@ class _AddProteinDialogState extends State<AddProteinDialog> {
                     },
                     validator: (value) {
                       if (value.isEmpty) {
-                        return 'protein amount is empty';
+                        return translatedText(
+                          "food_error_value_empty",
+                          context,
+                        );
                       }
                       if (value == "0") {
-                        return 'protein amount must be greater than 0';
+                        return translatedText(
+                          "food_error_value_0",
+                          context,
+                        );
                       }
                       return null;
                     },
                   ),
-                  WidgetUtils.button(context, text: "add", color: DarkGreyColor,
-                      onPressed: () async {
+                  WidgetUtils.button(context,
+                      text: translatedText(
+                        "food_button_add",
+                        context,
+                      ),
+                      color: DarkGreyColor, onPressed: () async {
                     if (_formKey.currentState.validate()) {
                       print('add food');
                       print(foodName);
@@ -250,7 +288,10 @@ class _EditFoodDialogState extends State<EditFoodDialog> {
     return WidgetUtils.dialog(
         context: context,
         height: MediaQuery.of(context).size.height * .46,
-        title: 'Edit food',
+        title: translatedText(
+          "food_dialog_edit_title",
+          context,
+        ),
         showAd: false,
         child: Container(
           margin: EdgeInsets.symmetric(horizontal: 40),
@@ -262,7 +303,10 @@ class _EditFoodDialogState extends State<EditFoodDialog> {
                 child: Column(children: [
                   WidgetUtils.inputField(
                     controller: _foodNameController,
-                    labelText: 'Food name',
+                    labelText: translatedText(
+                      "food_dialog_label_food_name",
+                      context,
+                    ),
                     onChanged: (value) {
                       setState(() {
                         foodName = value;
@@ -278,7 +322,10 @@ class _EditFoodDialogState extends State<EditFoodDialog> {
                   WidgetUtils.inputField(
                     keyboardType: TextInputType.number,
                     controller: _proteinAmountController,
-                    labelText: 'Protein amount in gr',
+                    labelText: translatedText(
+                      "food_dialog_label_protein_amount",
+                      context,
+                    ),
                     onChanged: (value) {
                       setState(() {
                         proteinAmount = int.parse(value);
@@ -286,16 +333,26 @@ class _EditFoodDialogState extends State<EditFoodDialog> {
                     },
                     validator: (value) {
                       if (value.isEmpty) {
-                        return 'protein amount is empty';
+                        return translatedText(
+                          "food_error_value_empty",
+                          context,
+                        );
                       }
                       if (value == "0") {
-                        return 'protein amount must be greater than 0';
+                        return translatedText(
+                          "food_error_value_0",
+                          context,
+                        );
                       }
                       return null;
                     },
                   ),
                   WidgetUtils.button(context,
-                      text: "edit", color: DarkGreyColor, onPressed: () async {
+                      text: translatedText(
+                        "food_button_edit",
+                        context,
+                      ),
+                      color: DarkGreyColor, onPressed: () async {
                     if (_formKey.currentState.validate()) {
                       var foodId =
                           await foodListServices.getFoodId(widget.food);
