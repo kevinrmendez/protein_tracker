@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:protein_tracker/utils/colors.dart';
 import 'package:protein_tracker/main.dart';
 import 'package:protein_tracker/bloc/ProteinService.dart';
+import 'package:protein_tracker/utils/localization_utils.dart';
 import 'package:protein_tracker/utils/widgetUtils.dart';
 
 class GoalScreen extends StatefulWidget {
@@ -27,7 +28,12 @@ class _GoalScreenState extends State<GoalScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: WidgetUtils.appBarBackArrow('Protein Goal', context),
+      appBar: WidgetUtils.appBarBackArrow(
+          translatedText(
+            "appbar_goal",
+            context,
+          ),
+          context),
       body: ListView(children: <Widget>[
         Center(
           child: Column(
@@ -38,7 +44,10 @@ class _GoalScreenState extends State<GoalScreen> {
                     width: MediaQuery.of(context).size.width * .9,
                     padding: EdgeInsets.symmetric(vertical: 10),
                     child: Text(
-                      'Current protein goal',
+                      translatedText(
+                        "goal_title",
+                        context,
+                      ),
                       textAlign: TextAlign.center,
                       style: TextStyle(
                           fontSize: 24,
@@ -68,7 +77,10 @@ class _GoalScreenState extends State<GoalScreen> {
                 },
               ),
               Text(
-                'per day',
+                translatedText(
+                  "goal_text_per_day",
+                  context,
+                ),
                 style: TextStyle(fontSize: 24),
               ),
               SizedBox(
@@ -86,17 +98,29 @@ class _GoalScreenState extends State<GoalScreen> {
                           keyboardType: TextInputType.number,
                           decoration: InputDecoration(
                             border: OutlineInputBorder(),
-                            labelText: 'Goal',
+                            labelText: translatedText(
+                              "goal_label_goal",
+                              context,
+                            ),
                           ),
                           validator: (value) {
                             if (value.isEmpty) {
-                              return 'add your daily protein goal';
+                              return translatedText(
+                                "goal_error_value_empty",
+                                context,
+                              );
                             }
                             if (value == "0") {
-                              return 'your protein goal must be greater than 0';
+                              return translatedText(
+                                "goal_error_value_0",
+                                context,
+                              );
                             }
                             if (int.parse(value) > 2000)
-                              return 'your daily protein goal is too high';
+                              return translatedText(
+                                "goal_error_value_too_high",
+                                context,
+                              );
                           },
                         ),
                       ],
@@ -106,7 +130,10 @@ class _GoalScreenState extends State<GoalScreen> {
                 padding: const EdgeInsets.symmetric(vertical: 20),
                 child: WidgetUtils.button(
                   context,
-                  text: 'set goal',
+                  text: translatedText(
+                    "goal_button_goal",
+                    context,
+                  ),
                   color: DarkGreyColor,
                   onPressed: () {
                     if (_formKey.currentState.validate()) {
