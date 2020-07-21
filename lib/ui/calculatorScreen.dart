@@ -395,8 +395,10 @@ class _MyHomePageState extends State<CalculatorScreen> {
                           ],
                         ),
                         _gender == Gender.female
-                            ? Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
+                            ? Wrap(
+                                direction: Axis.vertical,
+                                // alignment: WrapAlignment.center,
+                                // mainAxisAlignment: MainAxisAlignment.center,
                                 children: <Widget>[
                                   _radioButton(
                                     translatedText(

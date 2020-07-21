@@ -3,6 +3,7 @@ import 'package:protein_tracker/bloc/ProteinService.dart';
 import 'package:protein_tracker/main.dart';
 import 'package:protein_tracker/utils/appAssets.dart';
 import 'package:protein_tracker/utils/colors.dart';
+import 'package:protein_tracker/utils/localization_utils.dart';
 import 'package:protein_tracker/utils/widgetUtils.dart';
 
 class WelcomeScreen extends StatefulWidget {
@@ -76,15 +77,21 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                           Container(
                             margin: EdgeInsets.symmetric(vertical: 10),
                             child: WidgetUtils.button(context,
-                                text: 'set protein goal', onPressed: () {
+                                text: translatedText(
+                                  "welcome_button_set_protein",
+                                  context,
+                                ), onPressed: () {
                               showDialog(
                                   context: context,
                                   builder: (_) =>
                                       GoalDialog(callback: this.callback));
                             }, color: Colors.white, textColor: PrimaryColor),
                           ),
-                          WidgetUtils.button(context, text: 'skip',
-                              onPressed: () {
+                          WidgetUtils.button(context,
+                              text: translatedText(
+                                "welcome_button_skip",
+                                context,
+                              ), onPressed: () {
                             Navigator.of(context).pushAndRemoveUntil(
                                 MaterialPageRoute(builder: (context) => App()),
                                 (Route<dynamic> route) => false);
@@ -103,13 +110,19 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
     return Column(
       children: <Widget>[
         Text(
-          'Welcome to ',
+          translatedText(
+            "welcome_title_welcome",
+            context,
+          ),
           textAlign: TextAlign.center,
           style: TextStyle(
               color: Colors.white, fontSize: 35, fontWeight: FontWeight.bold),
         ),
         Text(
-          'Protein Tracker',
+          translatedText(
+            "welcome_title_app_name",
+            context,
+          ),
           textAlign: TextAlign.center,
           style: TextStyle(
               color: Colors.white, fontSize: 35, fontWeight: FontWeight.bold),
@@ -151,7 +164,10 @@ class _GoalDialogState extends State<GoalDialog> {
     return WidgetUtils.dialog(
         context: context,
         height: MediaQuery.of(context).size.height * .37,
-        title: 'Set goal',
+        title: translatedText(
+          "welcome_dialog_goal_title",
+          context,
+        ),
         showAd: false,
         child: Container(
           margin: EdgeInsets.symmetric(horizontal: 40),
@@ -164,7 +180,10 @@ class _GoalDialogState extends State<GoalDialog> {
                   WidgetUtils.inputField(
                     keyboardType: TextInputType.number,
                     controller: _goalController,
-                    labelText: 'Goal',
+                    labelText: translatedText(
+                      "welcome_dialog_goal_label",
+                      context,
+                    ),
                     onChanged: (value) {
                       setState(() {
                         goal = int.parse(value);
@@ -172,16 +191,26 @@ class _GoalDialogState extends State<GoalDialog> {
                     },
                     validator: (value) {
                       if (value.isEmpty) {
-                        return 'your goal is empty';
+                        return translatedText(
+                          "welcome_error_value_empty",
+                          context,
+                        );
                       }
                       if (value == "0") {
-                        return 'your goal must be greater than 1';
+                        return translatedText(
+                          "welcome_error_value_greater_0",
+                          context,
+                        );
                       }
                       return null;
                     },
                   ),
-                  WidgetUtils.button(context, text: "add", color: DarkGreyColor,
-                      onPressed: () async {
+                  WidgetUtils.button(context,
+                      text: translatedText(
+                        "button_add",
+                        context,
+                      ),
+                      color: DarkGreyColor, onPressed: () async {
                     if (_formKey.currentState.validate()) {
                       proteinService.setGoal(goal);
                       widget.callback();

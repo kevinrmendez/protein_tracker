@@ -30,6 +30,7 @@
   "calculator_dialog_error_text": "add your activity level and your goal before calculating your protein intake",
   "calculator_radio_button_gender_male": "male",
   "calculator_radio_button_gender_female": "female",
+  "calculator_radio_button_gender_female_none": "none",
   "calculator_radio_button_gender_female_pregnant": "pregnant",
   "calculator_radio_button_gender_female_lactanting": "lactanting",
   "calculator_label_weight": "Weight",
@@ -103,5 +104,13 @@
   "monthName_09": "September",
   "monthName_10": "October",
   "monthName_11": "November",
-  "monthName_12": "December"
+  "monthName_12": "December",
+  "welcome_title_welcome": "Welcome to",
+  "welcome_title_app_name": "My Protein Tracker",
+  "welcome_dialog_goal_title": "Set goal",
+  "welcome_dialog_goal_label": "Goal",
+  "welcome_error_value_empty": "your goal is empty",
+  "welcome_error_value_greater_0": "your goal must be greater than 0",
+  "welcome_button_set_protein": "set protein goal",
+  "welcome_button_skip": "skip"
 }

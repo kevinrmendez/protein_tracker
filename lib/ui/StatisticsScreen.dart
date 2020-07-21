@@ -205,6 +205,7 @@ class StatisticsScreen extends StatelessWidget {
                   "statistics_title",
                   context,
                 ),
+                textAlign: TextAlign.center,
                 style: AppFontStyle.title,
               ),
               SizedBox(
