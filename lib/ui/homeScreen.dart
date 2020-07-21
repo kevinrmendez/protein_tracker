@@ -6,6 +6,7 @@ import 'package:protein_tracker/main.dart';
 import 'package:protein_tracker/bloc/ProteinService.dart';
 import 'package:protein_tracker/ui/trackerScreen.dart';
 import 'package:protein_tracker/utils/fontStyle.dart';
+import 'package:protein_tracker/utils/localization_utils.dart';
 import 'package:protein_tracker/utils/widgetUtils.dart';
 import 'package:provider/provider.dart';
 import 'package:step_progress_indicator/step_progress_indicator.dart';
@@ -26,7 +27,10 @@ class _MyHomePageState extends State<HomeScreen> {
       child: ListView(
         children: <Widget>[
           Text(
-            "Today",
+            translatedText(
+              "title_today",
+              context,
+            ),
             textAlign: TextAlign.center,
             style: AppFontStyle.title,
           ),
@@ -83,21 +87,42 @@ class MotivationalTextWidget extends StatelessWidget {
       goal = proteinGoal.amount;
       return WidgetUtils.card(
         color: consumedProtein >= goal ? GreenColor : PrimaryColor,
-        title: 'Status',
+        title: translatedText(
+          "home_label_status",
+          context,
+        ),
         child: Container(
           padding: EdgeInsets.fromLTRB(40, 10, 40, 10),
           child: Text(
             consumedProtein >= goal
-                ? 'You have reached your daily goal! Well done!'
+                ? translatedText(
+                    "home_motivational_5_completed",
+                    context,
+                  )
                 : consumedProtein >= goal / 4 * 3
-                    ? 'You almost reach your goal! You got this!'
+                    ? translatedText(
+                        "home_motivational_4_halfway",
+                        context,
+                      )
                     : consumedProtein >= goal / 2
-                        ? 'You are more than halfway of your goal! Go for it!'
+                        ? translatedText(
+                            "home_motivational_3_halfway",
+                            context,
+                          )
                         : consumedProtein >= goal / 4
-                            ? 'Continue tracking your proteins! Keep it up!!'
+                            ? translatedText(
+                                "home_motivational_2_continue_tracking",
+                                context,
+                              )
                             : consumedProtein == 0
-                                ? 'Start tracking your protein intake.'
-                                : 'You have started tracking your protein! Good job!',
+                                ? translatedText(
+                                    "home_motivational_0_start_tracking",
+                                    context,
+                                  )
+                                : translatedText(
+                                    "home_motivational_1_started_tracking",
+                                    context,
+                                  ),
             textAlign: TextAlign.center,
             style: TextStyle(
                 fontSize: 20, fontWeight: FontWeight.bold, color: Colors.white
@@ -113,14 +138,21 @@ class MotivationalTextWidget extends StatelessWidget {
 class DailyStatus extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MultiProvider(providers: [
-      StreamProvider<Goal>.value(
-        value: proteinService.stream,
-      ),
-      StreamProvider<int>.value(
-        value: proteinService.streamConsumedProtein,
-      )
-    ], child: WidgetUtils.card(title: 'Goal', child: DailyStatusWidget()));
+    return MultiProvider(
+        providers: [
+          StreamProvider<Goal>.value(
+            value: proteinService.stream,
+          ),
+          StreamProvider<int>.value(
+            value: proteinService.streamConsumedProtein,
+          )
+        ],
+        child: WidgetUtils.card(
+            title: translatedText(
+              "home_label_goal",
+              context,
+            ),
+            child: DailyStatusWidget()));
   }
 }
 
@@ -153,7 +185,10 @@ class DailyStatusWidget extends StatelessWidget {
                 width: 10,
               ),
               Text(
-                "goal: $goal gr",
+                '${translatedText(
+                  "text_goal",
+                  context,
+                )}: $goal gr',
                 style: TextStyle(fontSize: 16),
               )
             ],
@@ -172,7 +207,10 @@ class DailyStatusWidget extends StatelessWidget {
                 width: 10,
               ),
               Text(
-                'remaining : ${remainingProtein ?? 0} gr',
+                ' ${translatedText(
+                  "text_remaining",
+                  context,
+                )} : ${remainingProtein ?? 0} gr',
                 style: TextStyle(fontSize: 16),
               )
             ],
@@ -187,7 +225,10 @@ class ConsumedCalories extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return WidgetUtils.card(
-      title: 'Calories consumed from protein',
+      title: translatedText(
+        "home_label_calories_consumed",
+        context,
+      ),
       child: Column(
         children: <Widget>[
           Row(
@@ -224,7 +265,10 @@ class ProgressIndicator extends StatelessWidget {
         )
       ],
       child: WidgetUtils.card(
-          title: 'Protein consumed',
+          title: translatedText(
+            "home_label_protein_consumed",
+            context,
+          ),
           child: Center(child: ProgressIndicatorWidget())),
     );
   }
