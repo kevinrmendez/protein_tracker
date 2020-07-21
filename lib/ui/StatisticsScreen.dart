@@ -8,6 +8,7 @@ import 'package:protein_tracker/utils/AdMobUtils.dart';
 import 'package:protein_tracker/utils/colors.dart';
 import 'package:protein_tracker/utils/dateUtils.dart';
 import 'package:protein_tracker/utils/fontStyle.dart';
+import 'package:protein_tracker/utils/localization_utils.dart';
 import 'package:protein_tracker/utils/widgetUtils.dart';
 
 class StatisticsScreen extends StatelessWidget {
@@ -108,7 +109,10 @@ class StatisticsScreen extends StatelessWidget {
             // mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               Text(
-                'Monthly protein intake',
+                translatedText(
+                  "statistics_title",
+                  context,
+                ),
                 style: AppFontStyle.title,
               ),
               SizedBox(
@@ -144,27 +148,42 @@ class StatisticsScreen extends StatelessWidget {
                     Container(
                       margin: EdgeInsets.fromLTRB(0, 20, 10, 0),
                       child: Text(
-                        'Statistics',
+                        translatedText(
+                          "statistics_subtitle_statistics",
+                          context,
+                        ),
                         style: AppFontStyle.subtitle,
                       ),
                     ),
                     _statsDataRow(children: [
                       _statsData(
-                          label: 'PROTEIN CONSUMED',
+                          label: translatedText(
+                            "statistics_label_protein_consumed",
+                            context,
+                          ),
                           data: statisticsService.totalProteinStream,
                           measurement: "gr"),
                       _statsData(
-                          label: 'AVG PROTEIN CONSUMED',
+                          label: translatedText(
+                            "statistics_label_protein_avg_consumed",
+                            context,
+                          ),
                           data: statisticsService.avgProteinStream,
                           measurement: "gr"),
                     ]),
                     _statsDataRow(color: Colors.transparent, children: [
                       _statsDataCalories(
-                          label: 'CALORIES CONSUMED',
+                          label: translatedText(
+                            "statistics_label_calories_consumed",
+                            context,
+                          ),
                           data: statisticsService.totalProteinStream,
                           measurement: "cal"),
                       _statsDataCalories(
-                          label: 'AVG CALORIES CONSUMED',
+                          label: translatedText(
+                            "statistics_label_calories_avg_consumed",
+                            context,
+                          ),
                           data: statisticsService.avgProteinStream,
                           measurement: "cal"),
                     ])

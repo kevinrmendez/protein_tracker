@@ -32,5 +32,11 @@
   "calculator_label_weight": "Weight",
   "calculator_error_emptyValue": "add your weight",
   "calculator_error_value_0": "your weight must be greater than 0",
-  "calculator_error_value_too_high": "your weight is too high"
+  "calculator_error_value_too_high": "your weight is too high",
+  "statistics_title": "Monthly protein intake",
+  "statistics_subtitle_statistics": "Statistics",
+  "statistics_label_protein_consumed": "PROTEIN CONSUMED",
+  "statistics_label_protein_avg_consumed": "AVG PROTEIN CONSUMED",
+  "statistics_label_calories_consumed": "CALORIES CONSUMED",
+  "statistics_label_calories_avg_consumed": "AVG CALORIES CONSUMED"
 }
