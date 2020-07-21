@@ -230,12 +230,18 @@ class _AddProteinDialogState extends State<AddProteinDialog> {
                           context,
                         );
                       }
+                      if (int.parse(value) > 500) {
+                        return translatedText(
+                          "food_error_value_too_high",
+                          context,
+                        );
+                      }
                       return null;
                     },
                   ),
                   WidgetUtils.button(context,
                       text: translatedText(
-                        "food_button_add",
+                        "button_add",
                         context,
                       ),
                       color: DarkGreyColor, onPressed: () async {
@@ -344,12 +350,18 @@ class _EditFoodDialogState extends State<EditFoodDialog> {
                           context,
                         );
                       }
+                      if (int.parse(value) > 500) {
+                        return translatedText(
+                          "food_error_value_too_high",
+                          context,
+                        );
+                      }
                       return null;
                     },
                   ),
                   WidgetUtils.button(context,
                       text: translatedText(
-                        "food_button_edit",
+                        "button_edit",
                         context,
                       ),
                       color: DarkGreyColor, onPressed: () async {

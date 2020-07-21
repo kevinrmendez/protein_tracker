@@ -13,6 +13,7 @@ import 'package:protein_tracker/main.dart';
 import 'package:protein_tracker/model/food.dart';
 import 'package:protein_tracker/model/protein.dart';
 import 'package:protein_tracker/bloc/ProteinService.dart';
+import 'package:protein_tracker/utils/localization_utils.dart';
 import 'package:protein_tracker/utils/widgetUtils.dart';
 
 class TrackerScreen extends StatefulWidget {
@@ -33,40 +34,46 @@ class _TrackerScreenState extends State<TrackerScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: WidgetUtils.appBarBackArrow("Today's protein", context, actions: [
-        PopupMenuButton<Order>(
-          onSelected: (order) {
-            switch (order) {
-              case Order.ascending:
-                {
-                  proteinListServices.orderFoodsAscending();
+      appBar: WidgetUtils.appBarBackArrow(
+          translatedText(
+            "appbar_tracker",
+            context,
+          ),
+          context,
+          actions: [
+            PopupMenuButton<Order>(
+              onSelected: (order) {
+                switch (order) {
+                  case Order.ascending:
+                    {
+                      proteinListServices.orderFoodsAscending();
+                    }
+                    break;
+                  case Order.descending:
+                    {
+                      proteinListServices.orderFoodsDescending();
+                    }
+                    break;
+                  default:
                 }
-                break;
-              case Order.descending:
-                {
-                  proteinListServices.orderFoodsDescending();
-                }
-                break;
-              default:
-            }
-          },
-          icon: Icon(Icons.more_vert, color: SecondaryColor),
-          itemBuilder: (
-            BuildContext context,
-          ) {
-            return [
-              const PopupMenuItem<Order>(
-                child: Text('Ascending Order'),
-                value: Order.ascending,
-              ),
-              const PopupMenuItem<Order>(
-                child: Text('Descending Order'),
-                value: Order.descending,
-              ),
-            ];
-          },
-        )
-      ]),
+              },
+              icon: Icon(Icons.more_vert, color: SecondaryColor),
+              itemBuilder: (
+                BuildContext context,
+              ) {
+                return [
+                  const PopupMenuItem<Order>(
+                    child: Text('Ascending Order'),
+                    value: Order.ascending,
+                  ),
+                  const PopupMenuItem<Order>(
+                    child: Text('Descending Order'),
+                    value: Order.descending,
+                  ),
+                ];
+              },
+            )
+          ]),
       body: StreamBuilder<List<Protein>>(
         stream: proteinListServices.stream,
         builder: (BuildContext context, AsyncSnapshot snapshot) {
@@ -74,7 +81,10 @@ class _TrackerScreenState extends State<TrackerScreen> {
           if (snapshot.data.length == 0) {
             return Center(
                 child: WidgetUtils.imageText(context,
-                    text: 'your protein list is empty',
+                    text: translatedText(
+                      "tracker_list_empty",
+                      context,
+                    ),
                     asset: AppAssets.protein_icon_gray));
           } else {
             return ListView.builder(
@@ -175,7 +185,10 @@ class _AddProteinDialogState extends State<AddProteinDialog> {
     return WidgetUtils.dialog(
         context: context,
         height: MediaQuery.of(context).size.height * .56,
-        title: 'Add protein',
+        title: translatedText(
+          "tracker_dialog_title_add_protein",
+          context,
+        ),
         showAd: false,
         child: Container(
           margin: EdgeInsets.symmetric(horizontal: 40),
@@ -187,7 +200,10 @@ class _AddProteinDialogState extends State<AddProteinDialog> {
                 child: Column(children: [
                   WidgetUtils.inputField(
                       controller: _foodNameController,
-                      labelText: 'Food name',
+                      labelText: translatedText(
+                        "tracker_dialog_label_food_name",
+                        context,
+                      ),
                       onChanged: (value) {
                         setState(() {
                           foodName = value;
@@ -195,14 +211,20 @@ class _AddProteinDialogState extends State<AddProteinDialog> {
                       },
                       validator: (value) {
                         if (value.isEmpty) {
-                          return 'food is empty';
+                          return translatedText(
+                            "tracker_error_value_empty",
+                            context,
+                          );
                         }
                         return null;
                       }),
                   WidgetUtils.inputField(
                     keyboardType: TextInputType.number,
                     controller: _proteinAmountController,
-                    labelText: 'Protein amount in gr',
+                    labelText: translatedText(
+                      "tracker_dialog_label_protein_amount",
+                      context,
+                    ),
                     onChanged: (value) {
                       setState(() {
                         proteinAmount = int.parse(value);
@@ -210,10 +232,22 @@ class _AddProteinDialogState extends State<AddProteinDialog> {
                     },
                     validator: (value) {
                       if (value.isEmpty) {
-                        return 'protein amount is empty';
+                        return translatedText(
+                          "tracker_error_protein_value_empty",
+                          context,
+                        );
                       }
                       if (value == "0") {
-                        return 'protein amount must be greater than 0';
+                        return translatedText(
+                          "tracker_error_protein_value_0",
+                          context,
+                        );
+                      }
+                      if (int.parse(value) > 1000) {
+                        return translatedText(
+                          "tracker_error_value_too_high",
+                          context,
+                        );
                       }
                       return null;
                     },
@@ -221,7 +255,11 @@ class _AddProteinDialogState extends State<AddProteinDialog> {
                   foodListServices.currentListFoodName.length > 0
                       ? Column(
                           children: <Widget>[
-                            Container(child: Text('From food list')),
+                            Container(
+                                child: Text(translatedText(
+                              "tracker_dialog_label_food_list",
+                              context,
+                            ))),
                             DropdownButton<String>(
                               value: dropdownValueGoal,
                               icon: Icon(Icons.arrow_downward),
@@ -261,8 +299,12 @@ class _AddProteinDialogState extends State<AddProteinDialog> {
                       : SizedBox(
                           height: 15,
                         ),
-                  WidgetUtils.button(context, text: "add", color: DarkGreyColor,
-                      onPressed: () async {
+                  WidgetUtils.button(context,
+                      text: translatedText(
+                        "button_add",
+                        context,
+                      ),
+                      color: DarkGreyColor, onPressed: () async {
                     if (_formKey.currentState.validate()) {
                       print('add food');
                       print(foodName);
@@ -320,7 +362,10 @@ class _EditProteinDialogState extends State<EditProteinDialog> {
     return WidgetUtils.dialog(
         context: context,
         height: MediaQuery.of(context).size.height * .56,
-        title: 'Edit protein',
+        title: translatedText(
+          "tracker_dialog_title_edit_protein",
+          context,
+        ),
         showAd: false,
         child: Container(
           // height: 300,
@@ -333,7 +378,10 @@ class _EditProteinDialogState extends State<EditProteinDialog> {
                 child: Column(children: [
                   WidgetUtils.inputField(
                       controller: _foodNameController,
-                      labelText: 'Food name',
+                      labelText: translatedText(
+                        "tracker_dialog_label_food_name",
+                        context,
+                      ),
                       onChanged: (value) {
                         setState(() {
                           foodName = value;
@@ -341,14 +389,20 @@ class _EditProteinDialogState extends State<EditProteinDialog> {
                       },
                       validator: (value) {
                         if (value.isEmpty) {
-                          return 'food is empty';
+                          return translatedText(
+                            "tracker_error_value_empty",
+                            context,
+                          );
                         }
                         return null;
                       }),
                   WidgetUtils.inputField(
                     keyboardType: TextInputType.number,
                     controller: _proteinAmountController,
-                    labelText: 'Protein amount in gr',
+                    labelText: translatedText(
+                      "tracker_dialog_label_protein_amount",
+                      context,
+                    ),
                     onChanged: (value) {
                       setState(() {
                         proteinAmount = int.parse(value);
@@ -356,10 +410,22 @@ class _EditProteinDialogState extends State<EditProteinDialog> {
                     },
                     validator: (value) {
                       if (value.isEmpty) {
-                        return 'protein amount is empty';
+                        return translatedText(
+                          "tracker_error_protein_value_empty",
+                          context,
+                        );
                       }
                       if (value == "0") {
-                        return 'protein amount must be greater than 0';
+                        return translatedText(
+                          "tracker_error_protein_value_0",
+                          context,
+                        );
+                      }
+                      if (int.parse(value) > 500) {
+                        return translatedText(
+                          "tracker_error_value_too_high",
+                          context,
+                        );
                       }
                       return null;
                     },
@@ -375,7 +441,13 @@ class _EditProteinDialogState extends State<EditProteinDialog> {
                         } else {
                           return Column(
                             children: <Widget>[
-                              Container(child: Text('From food list')),
+                              Container(
+                                  child: Text(
+                                translatedText(
+                                  "tracker_dialog_label_food_list",
+                                  context,
+                                ),
+                              )),
                               DropdownButton<String>(
                                 value: dropdownValueGoal,
                                 icon: Icon(Icons.arrow_downward),
@@ -415,7 +487,11 @@ class _EditProteinDialogState extends State<EditProteinDialog> {
                         }
                       }),
                   WidgetUtils.button(context,
-                      text: "edit", color: DarkGreyColor, onPressed: () async {
+                      text: translatedText(
+                        "button_edit",
+                        context,
+                      ),
+                      color: DarkGreyColor, onPressed: () async {
                     if (_formKey.currentState.validate()) {
                       var proteinId = await proteinListServices
                           .getProteinId(widget.protein);
