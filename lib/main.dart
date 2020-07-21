@@ -29,6 +29,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 DateTime currentDate;
 var preferences;
 String formattedDateNow;
+String formattedDayCache;
 enum Order { ascending, descending }
 
 void resetState() {
@@ -43,7 +44,12 @@ void main() async {
   currentDate = DateTime.now();
   print("CURRENT TIME: $currentDate");
   final DateFormat formatter = DateFormat('dd-MMMM-yyyy');
+
   formattedDateNow = formatter.format(currentDate);
+  formattedDayCache = formattedDateNow;
+
+  // formattedDayCache = "19-July-2020"; //TEST
+  print("FORMATEDDATENOW: $formattedDateNow");
   preferences = await SharedPreferences.getInstance();
 
   if (preferences.containsKey("first_time_open")) {

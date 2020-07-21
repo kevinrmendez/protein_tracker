@@ -25,6 +25,12 @@ class ProteinListService {
     print("DBPROTEIN2: $dbProtein2");
     dbProteins.forEach((p) => print(p.name));
     _proteinList.add(dbProteins ?? []);
+
+    print("FormattedDayCache: $formattedDayCache");
+    if (formattedDate != formattedDayCache) {
+      resetState();
+      formattedDayCache = formattedDate;
+    }
   }
 
   getMonthlyProtein(DateTime date) async {
