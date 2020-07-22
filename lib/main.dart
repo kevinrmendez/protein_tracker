@@ -96,7 +96,7 @@ class _MyAppState extends State<MyApp> {
         const Locale('es', 'ES'),
         const Locale('es', 'GT'),
         // const Locale('hi', 'IN'),
-        // const Locale('fr', 'FR'),
+        const Locale('fr', 'FR'),
         // const Locale('pt', 'BR'),
         // const Locale('pt', 'PT'),
         // const Locale('de', 'DE'),
