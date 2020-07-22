@@ -112,7 +112,7 @@
   "welcome_dialog_goal_title": "Set goal",
   "welcome_dialog_goal_label": "Goal",
   "welcome_error_value_empty": "your goal is empty",
-  "welcome_error_value_greater_0": "your goal must be greater than 0",
+  "welcome_error_value_greater_1": "your goal must be greater than 1",
   "welcome_button_set_protein": "set protein goal",
   "welcome_button_skip": "skip",
   "welcome_button_continue": "continue"

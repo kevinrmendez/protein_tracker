@@ -7,7 +7,7 @@
   "appbar_tracker": "Protéine",
   "app_title": "Mon compteur de protéines",
   "app_version": "version 1.0.0",
-  "about_text_description_1": "My Protein Tracker est une application gratuite qui vous aide à calculer et à suivre votre apport en protéines.",
+  "about_text_description_1": "Mon compteur de protéines Tracker est une application gratuite qui vous aide à calculer et à suivre votre apport en protéines.",
   "about_text_description_2": "Afin de garder l'application gratuite pour tout le monde et de soutenir son développement, elle contient des publicités.",
   "settings_text_about": "À propos de l'application",
   "settings_text_weight": "Unité de poids",
@@ -112,7 +112,7 @@
   "welcome_dialog_goal_title": "Fixer un objectif",
   "welcome_dialog_goal_label": "Objectif",
   "welcome_error_value_empty": "votre objectif est vide",
-  "welcome_error_value_greater_0": "doit être supérieur à 0",
+  "welcome_error_value_greater_1": "doit être supérieur à 1",
   "welcome_button_set_protein": "fixer objectif",
   "welcome_button_skip": "sauter",
   "welcome_button_continue": "continuer"

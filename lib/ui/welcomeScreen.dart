@@ -203,9 +203,15 @@ class _GoalDialogState extends State<GoalDialog> {
                           context,
                         );
                       }
+                      // if (int.parse(value) < 1) {
+                      //   return translatedText(
+                      //     "welcome_error_value_greater_1",
+                      //     context,
+                      //   );
+                      // }
                       if (value == "0") {
                         return translatedText(
-                          "welcome_error_value_greater_0",
+                          "goal_error_value_0",
                           context,
                         );
                       }
