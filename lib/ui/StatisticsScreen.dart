@@ -231,9 +231,9 @@ class StatisticsScreen extends StatelessWidget {
                           child: ProteinChart.withData(snapshot.data));
                     }
                   }),
-              // Container(
-              //     margin: EdgeInsets.only(top: 15),
-              //     child: AdMobUtils.admobBanner()),
+              Container(
+                  margin: EdgeInsets.only(top: 15),
+                  child: AdMobUtils.admobBanner()),
               Container(
                 padding: EdgeInsets.symmetric(horizontal: 10),
                 child: Column(
