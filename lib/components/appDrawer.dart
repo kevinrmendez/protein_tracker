@@ -99,21 +99,21 @@ class AppDrawer extends StatelessWidget {
                       builder: (BuildContext context) => SettingsScreen()));
                 },
               ),
-              ListTile(
-                title: Text(
-                  "Welcome",
-                  // style: TextStyle(color: Theme.of(context).primaryColor),
-                ),
-                trailing: Icon(
-                  Icons.settings,
-                  color: Theme.of(context).accentColor,
-                ),
-                onTap: () {
-                  Navigator.of(context).pop();
-                  Navigator.of(context).push(MaterialPageRoute(
-                      builder: (BuildContext context) => WelcomeScreen()));
-                },
-              ),
+              // ListTile(
+              //   title: Text(
+              //     "Welcome",
+              //     // style: TextStyle(color: Theme.of(context).primaryColor),
+              //   ),
+              //   trailing: Icon(
+              //     Icons.settings,
+              //     color: Theme.of(context).accentColor,
+              //   ),
+              //   onTap: () {
+              //     Navigator.of(context).pop();
+              //     Navigator.of(context).push(MaterialPageRoute(
+              //         builder: (BuildContext context) => WelcomeScreen()));
+              //   },
+              // ),
             ],
           ),
         ),
