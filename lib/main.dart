@@ -35,6 +35,7 @@ var preferences;
 String formattedDateNow;
 String formattedDayCache;
 enum Order { ascending, descending }
+RegExp regExp = RegExp(r'^[0-9]+$');
 
 void resetState() {
   proteinService.resetConsumedProtein();

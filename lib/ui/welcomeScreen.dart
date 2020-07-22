@@ -203,12 +203,12 @@ class _GoalDialogState extends State<GoalDialog> {
                           context,
                         );
                       }
-                      // if (int.parse(value) < 1) {
-                      //   return translatedText(
-                      //     "welcome_error_value_greater_1",
-                      //     context,
-                      //   );
-                      // }
+                      if (!regExp.hasMatch(value)) {
+                        return translatedText(
+                          "error_only_numbers",
+                          context,
+                        );
+                      }
                       if (value == "0") {
                         return translatedText(
                           "goal_error_value_0",
@@ -225,7 +225,12 @@ class _GoalDialogState extends State<GoalDialog> {
                       ),
                       color: DarkGreyColor, onPressed: () async {
                     if (_formKey.currentState.validate()) {
-                      proteinService.setGoal(goal);
+                      if (regExp.hasMatch(goal.toString())) {
+                        proteinService.setGoal(goal);
+                      } else {
+                        proteinService.setGoal(1);
+                      }
+                      // proteinService.setGoal(goal);
                       widget.callback();
                       Navigator.pop(context);
                     } else {}
