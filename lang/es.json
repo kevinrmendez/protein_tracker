@@ -114,5 +114,6 @@
   "welcome_error_value_empty": "su meta está vacío",
   "welcome_error_value_greater_0": "su meta debe ser mayor que 0",
   "welcome_button_set_protein": "establecer meta",
-  "welcome_button_skip": "omitir"
+  "welcome_button_skip": "omitir",
+  "welcome_button_continue": "continuar"
 }

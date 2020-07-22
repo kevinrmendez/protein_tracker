@@ -70,8 +70,11 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                         )),
                       ),
                 _isGoalAdded
-                    ? WidgetUtils.button(context, text: 'continue',
-                        onPressed: () {
+                    ? WidgetUtils.button(context,
+                        text: translatedText(
+                          "welcome_button_continue",
+                          context,
+                        ), onPressed: () {
                         Navigator.of(context).pushAndRemoveUntil(
                             MaterialPageRoute(builder: (context) => App()),
                             (Route<dynamic> route) => false);
