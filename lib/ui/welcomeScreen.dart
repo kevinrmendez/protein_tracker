@@ -226,7 +226,11 @@ class _GoalDialogState extends State<GoalDialog> {
                       color: DarkGreyColor, onPressed: () async {
                     if (_formKey.currentState.validate()) {
                       if (regExp.hasMatch(goal.toString())) {
-                        proteinService.setGoal(goal);
+                        if (goal == 0) {
+                          proteinService.setGoal(1);
+                        } else {
+                          proteinService.setGoal(goal);
+                        }
                       } else {
                         proteinService.setGoal(1);
                       }
