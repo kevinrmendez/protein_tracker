@@ -107,6 +107,8 @@
   "monthName_12": "December",
   "welcome_title_welcome": "Welcome to",
   "welcome_title_app_name": "My Protein Tracker",
+  "welcome_text_goal_updated": "Conjunto de objetivos, puede cambiar su objetivo en cualquier momento",
+  "welcome_text_set_up": "Le recomendamos que establezca su objetivo diario de proteínas antes de usar la aplicación",
   "welcome_dialog_goal_title": "Set goal",
   "welcome_dialog_goal_label": "Goal",
   "welcome_error_value_empty": "your goal is empty",

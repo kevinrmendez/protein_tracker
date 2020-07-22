@@ -57,13 +57,17 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                 _isGoalAdded
                     ? Container(
                         margin: EdgeInsets.symmetric(horizontal: 20),
-                        child: _text(
-                            'Goal set, you can change your goal at any time.'),
+                        child: _text(translatedText(
+                          "welcome_text_goal_updated",
+                          context,
+                        )),
                       )
                     : Container(
                         margin: EdgeInsets.symmetric(horizontal: 20),
-                        child: _text(
-                            'We recommend you to set your daily protein goal before using the app.'),
+                        child: _text(translatedText(
+                          "welcome_text_set_up",
+                          context,
+                        )),
                       ),
                 _isGoalAdded
                     ? WidgetUtils.button(context, text: 'continue',
