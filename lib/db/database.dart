@@ -53,15 +53,15 @@ class FoodDatabase {
     await database.execute("INSERT INTO $foodTable VALUES(6, 'soy yogurt',7)");
     await database.execute("INSERT INTO $foodTable VALUES(7, 'ham',42)");
 
-    // await database.execute(
-    //     "INSERT INTO $proteinTable VALUES(17, 'mendez',70,'17-July-2020')");
-    // await database.execute(
-    //     "INSERT INTO $proteinTable VALUES(18, 'mendez',100,'18-July-2020')");
-    // await database.execute(
-    //     "INSERT INTO $proteinTable VALUES(19, 'mendez',90,'19-July-2020')");
-    // await database.execute(
-    //     "INSERT INTO $proteinTable VALUES(20, 'kevin',50,'20-July-2020')");
-    // await database.execute(
-    //     "INSERT INTO $proteinTable VALUES(21, 'ricardo',40,'20-July-2020')");
+    await database.execute(
+        "INSERT INTO $proteinTable VALUES(17, 'mendez',70,'17-July-2020')");
+    await database.execute(
+        "INSERT INTO $proteinTable VALUES(18, 'mendez',100,'18-July-2020')");
+    await database.execute(
+        "INSERT INTO $proteinTable VALUES(19, 'mendez',90,'19-July-2020')");
+    await database.execute(
+        "INSERT INTO $proteinTable VALUES(20, 'kevin',50,'20-July-2020')");
+    await database.execute(
+        "INSERT INTO $proteinTable VALUES(21, 'ricardo',40,'21-July-2020')");
   }
 }
