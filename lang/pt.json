@@ -57,6 +57,7 @@
   "food_dialog_label_protein_amount": "Proteínas em gr",
   "button_add": "adicionar",
   "button_edit": "editar",
+  "button_close": "fechar",
   "food_error_value_empty": "proteína está vazia",
   "food_error_value_0": "deve ser maior que 0",
   "food_error_food_value_empty": "a comida está vazia",

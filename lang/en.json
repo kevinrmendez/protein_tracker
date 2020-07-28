@@ -57,6 +57,7 @@
   "food_dialog_label_protein_amount": "Protein amount in gr",
   "button_add": "add",
   "button_edit": "edit",
+  "button_close": "close",
   "food_error_value_empty": "protein amount is empty",
   "food_error_value_0": "protein must be greater than 0",
   "food_error_food_value_empty": "food is empty",
