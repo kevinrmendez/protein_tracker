@@ -19,8 +19,8 @@ class CalendarScreen extends StatefulWidget {
 }
 
 class _CalendarScreenState extends State<CalendarScreen> {
-  DateTime _currentDate = DateTime(2020, 2, 3);
-  DateTime _currentDate2 = DateTime.now();
+  // DateTime _currentDate = DateTime(2020, 2, 3);
+  DateTime _currentDate = DateTime.now();
   String _currentMonth = DateFormat.yMMM().format(DateTime.now());
   DateTime _targetDateTime = DateTime.now();
 //  List<DateTime> _markedDate = [DateTime(2018, 9, 20), DateTime(2018, 10, 11)];
@@ -133,7 +133,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
           TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
       todayBorderColor: DarkGreyColor,
       onDayPressed: (DateTime date, List<Event> events) {
-        this.setState(() => _currentDate2 = date);
+        this.setState(() => _currentDate = date);
         events.forEach((event) => print(event.title));
         print('day pressed');
         showDialog(context: context, builder: (_) => AddProteinDialog());
@@ -148,7 +148,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
       // firstDayOfWeek: 4,
       markedDatesMap: _markedDateMap,
       height: 420.0,
-      selectedDateTime: _currentDate2,
+      selectedDateTime: _currentDate,
       targetDateTime: _targetDateTime,
       customGridViewPhysics: NeverScrollableScrollPhysics(),
       // markedDateCustomTextStyle:
@@ -180,12 +180,13 @@ class _CalendarScreenState extends State<CalendarScreen> {
       maxSelectedDate: _currentDate.add(Duration(days: 360)),
       prevDaysTextStyle: TextStyle(
         fontSize: 16,
-        color: MediumGreyColor,
+        color: DarkMediumGreyColor,
       ),
       inactiveDaysTextStyle: TextStyle(
-        color: Colors.tealAccent,
+        color: Colors.red[300],
         fontSize: 16,
       ),
+
       onCalendarChanged: (DateTime date) {
         this.setState(() {
           _targetDateTime = date;

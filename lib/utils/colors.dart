@@ -12,4 +12,5 @@ const MediumLightGreyColor = const Color(0xFFD8D8D8);
 const MediumGreyColor = const Color(0xFF9E9E9E);
 const DarkMediumGreyColor = const Color(0xFFBEBEBE);
 const DarkGreyColor = const Color(0xFF808080);
-const RedColor = const Color(0xFFDD314B);
+// const RedColor = const Color(0xFFDD314B);
+const RedColor = const Color(0xFFff2b48);
