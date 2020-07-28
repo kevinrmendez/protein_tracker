@@ -91,6 +91,7 @@
   "app_drawer_food_list": "Lista de alimentos",
   "app_drawer_food_calculator": "Calculadora",
   "app_drawer_food_settings": "Configuración",
+  "app_drawer_review_app": "Dar reseña",
   "title_today": "Hoy",
   "text_remaining": "restante",
   "text_goal": "meta",
@@ -121,5 +122,6 @@
   "dialog_close_app_description": "Por favor, comparta sus comentarios antes de salir de la aplicación, nos encantaría conocer su opinion",
   "button_yes": "Sí",
   "button_no": "No",
-  "button_review": "Dar reseña"
+  "button_review": "Dar reseña",
+  "button_update": "buscar actualizaciones"
 }

@@ -3,10 +3,12 @@ import 'package:protein_tracker/ui/FoodListScreen.dart';
 import 'package:protein_tracker/ui/calculatorScreen.dart';
 import 'package:protein_tracker/ui/calendarScreen.dart';
 import 'package:protein_tracker/ui/welcomeScreen.dart';
+import 'package:protein_tracker/utils/appAssets.dart';
 import 'package:protein_tracker/utils/colors.dart';
 import 'package:protein_tracker/ui/goalScreen.dart';
 import 'package:protein_tracker/ui/settingsScreen.dart';
 import 'package:protein_tracker/utils/localization_utils.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class AppDrawer extends StatelessWidget {
   // This widget is the root of your application.
@@ -102,19 +104,41 @@ class AppDrawer extends StatelessWidget {
               ),
               ListTile(
                 title: Text(
-                  'calendar',
+                  translatedText(
+                    "app_drawer_review_app",
+                    context,
+                  ),
+
                   // style: TextStyle(color: Theme.of(context).primaryColor),
                 ),
                 trailing: Icon(
-                  Icons.calendar_today,
+                  Icons.rate_review,
                   color: Theme.of(context).accentColor,
                 ),
-                onTap: () {
-                  Navigator.of(context).pop();
-                  Navigator.of(context).push(MaterialPageRoute(
-                      builder: (BuildContext context) => CalendarScreen()));
+                onTap: () async {
+                  String url = AppAssets.appUrl;
+                  if (await canLaunch(url)) {
+                    await launch(url);
+                  } else {
+                    throw 'Could not launch $url';
+                  }
                 },
               ),
+              // ListTile(
+              //   title: Text(
+              //     'calendar',
+              //     // style: TextStyle(color: Theme.of(context).primaryColor),
+              //   ),
+              //   trailing: Icon(
+              //     Icons.calendar_today,
+              //     color: Theme.of(context).accentColor,
+              //   ),
+              //   onTap: () {
+              //     Navigator.of(context).pop();
+              //     Navigator.of(context).push(MaterialPageRoute(
+              //         builder: (BuildContext context) => CalendarScreen()));
+              //   },
+              // ),
               // ListTile(
               //   title: Text(
               //     "Welcome",

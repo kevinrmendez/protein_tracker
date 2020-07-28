@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:protein_tracker/main.dart';
+import 'package:protein_tracker/utils/appAssets.dart';
 import 'package:protein_tracker/utils/colors.dart';
 import 'package:protein_tracker/utils/widgetUtils.dart';
 import 'package:protein_tracker/utils/localization_utils.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class AboutScreen extends StatelessWidget {
   AboutScreen({Key key}) : super(key: key);
@@ -56,6 +58,19 @@ class AboutScreen extends StatelessWidget {
                     "app_version",
                     context,
                   )),
+                  WidgetUtils.button(context,
+                      text: translatedText(
+                        "button_update",
+                        context,
+                      ),
+                      color: DarkGreyColor, onPressed: () async {
+                    String url = AppAssets.appUrl;
+                    if (await canLaunch(url)) {
+                      await launch(url);
+                    } else {
+                      throw 'Could not launch $url';
+                    }
+                  })
                 ],
               ),
             ),

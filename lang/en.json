@@ -91,6 +91,7 @@
   "app_drawer_food_list": "Food List",
   "app_drawer_food_calculator": "Calculator",
   "app_drawer_food_settings": "Settings",
+  "app_drawer_review_app": "Review App",
   "title_today": "Today",
   "text_remaining": "remaining",
   "text_goal": "goal",
@@ -122,5 +123,6 @@
   "dialog_close_app_description": "Please share us your feedback before leaving the app, we would love hearing from you",
   "button_yes": "Yes",
   "button_no": "No",
-  "button_review": "Review app"
+  "button_review": "Review app",
+  "button_update": "check for updates"
 }

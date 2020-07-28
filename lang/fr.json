@@ -91,6 +91,7 @@
   "app_drawer_food_list": "Liste des aliments",
   "app_drawer_food_calculator": "Calculatrice",
   "app_drawer_food_settings": "Paramètres",
+  "app_drawer_review_app": "Noter l'application",
   "title_today": "Aujourd'hui",
   "text_remaining": "restant",
   "text_goal": "objectif",
@@ -121,5 +122,6 @@
   "dialog_close_app_description": "Veuillez nous faire part de vos commentaires avant de quitter l'application, nous aimerions avoir de vos nouvelles",
   "button_yes": "Oui",
   "button_no": "Non",
-  "button_review": "Noter l'application"
+  "button_review": "Noter l'application",
+  "button_update": "vérifier les mises à jour"
 }
