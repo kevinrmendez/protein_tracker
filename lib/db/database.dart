@@ -6,6 +6,7 @@ import 'package:sqflite/sqflite.dart';
 
 final foodTable = 'Food';
 final proteinTable = 'Protein';
+final dailyProteinTable = 'DailyProtein';
 
 class FoodDatabase {
   static final FoodDatabase dbProvider = FoodDatabase();
@@ -43,6 +44,9 @@ class FoodDatabase {
         "amount INTEGER, "
         "date TEXT"
         ")");
+    await database.execute(
+      "CREATE TABLE $dailyProteinTable(id INTEGER PRIMARY KEY  AUTOINCREMENT, date TEXT, totalProtein INTEGER, goal INTEGER, isGoalAchieved INTEGER DEFAULT 0)",
+    );
 
     // await database.execute("INSERT INTO $foodTable VALUES(1, 'egg',6)");
     // await database
