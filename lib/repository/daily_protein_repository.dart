@@ -10,13 +10,14 @@ class DailyProteinRepository {
   Future getDailyProteinId(DailyProtein dailyProtein) =>
       dailyProteinDao.getDailyDailyProteinId(dailyProtein);
 
-  Future insertProtein(DailyProtein dailyProtein) =>
+  Future insertDailyProtein(DailyProtein dailyProtein) =>
       dailyProteinDao.createDailyProtein(dailyProtein);
 
-  Future updateProtein(DailyProtein dailyProtein) =>
+  Future updateDailyProtein(DailyProtein dailyProtein) =>
       dailyProteinDao.updateDailyProtein(dailyProtein);
 
-  Future deleteProteinById(int id) => dailyProteinDao.deleteDailyProtein(id);
+  Future deleteDailyProteinById(int id) =>
+      dailyProteinDao.deleteDailyProtein(id);
 
   Future deleteAllDailyProteins() => dailyProteinDao.deleteAllDailyProteins();
 }
