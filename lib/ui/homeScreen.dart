@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:protein_tracker/model/goal.dart';
 import 'package:protein_tracker/utils/AdMobUtils.dart';
+import 'package:protein_tracker/utils/appAssets.dart';
 import 'package:protein_tracker/utils/colors.dart';
 import 'package:protein_tracker/main.dart';
 import 'package:protein_tracker/bloc/ProteinService.dart';
@@ -10,6 +11,7 @@ import 'package:protein_tracker/utils/localization_utils.dart';
 import 'package:protein_tracker/utils/widgetUtils.dart';
 import 'package:provider/provider.dart';
 import 'package:step_progress_indicator/step_progress_indicator.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class HomeScreen extends StatefulWidget {
   HomeScreen({Key key, this.title}) : super(key: key);
@@ -21,30 +23,70 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<HomeScreen> {
+  Future<bool> _onWillPop() {
+    return showDialog(
+          context: context,
+          builder: (context) => new AlertDialog(
+            title: new Text(
+              translatedText('dialog_close_app_title', context),
+              style: TextStyle(fontWeight: FontWeight.bold),
+            ),
+            content: new Text(
+                translatedText('dialog_close_app_description', context)),
+            actions: <Widget>[
+              FlatButton(
+                onPressed: () => Navigator.of(context).pop(true),
+                child: new Text(translatedText('button_yes', context)),
+              ),
+              FlatButton(
+                onPressed: () async {
+                  // Navigator.of(context).pop(false);
+                  String url = AppAssets.appUrl;
+                  if (await canLaunch(url)) {
+                    await launch(url);
+                  } else {
+                    throw 'Could not launch $url';
+                  }
+                },
+                child: new Text('review app'),
+              ),
+              FlatButton(
+                onPressed: () => Navigator.of(context).pop(false),
+                child: Text(translatedText('button_no', context)),
+              ),
+            ],
+          ),
+        ) ??
+        false;
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: ListView(
-        children: <Widget>[
-          Text(
-            translatedText(
-              "title_today",
-              context,
+    return WillPopScope(
+      onWillPop: _onWillPop,
+      child: Center(
+        child: ListView(
+          children: <Widget>[
+            Text(
+              translatedText(
+                "title_today",
+                context,
+              ),
+              textAlign: TextAlign.center,
+              style: AppFontStyle.title,
             ),
-            textAlign: TextAlign.center,
-            style: AppFontStyle.title,
-          ),
-          MotivationalText(),
-          DailyStatus(),
-          Container(
-              margin: EdgeInsets.symmetric(vertical: 10),
-              child: AdMobUtils.admobBanner()),
-          ProgressIndicator(),
-          ConsumedCalories(),
-          SizedBox(
-            height: 40,
-          )
-        ],
+            MotivationalText(),
+            DailyStatus(),
+            Container(
+                margin: EdgeInsets.symmetric(vertical: 10),
+                child: AdMobUtils.admobBanner()),
+            ProgressIndicator(),
+            ConsumedCalories(),
+            SizedBox(
+              height: 40,
+            )
+          ],
+        ),
       ),
     );
   }
