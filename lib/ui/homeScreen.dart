@@ -29,14 +29,16 @@ class _MyHomePageState extends State<HomeScreen> {
           builder: (context) => new AlertDialog(
             title: new Text(
               translatedText('dialog_close_app_title', context),
-              style: TextStyle(fontWeight: FontWeight.bold),
+              style:
+                  TextStyle(fontWeight: FontWeight.bold, color: PrimaryColor),
             ),
             content: new Text(
                 translatedText('dialog_close_app_description', context)),
             actions: <Widget>[
               FlatButton(
                 onPressed: () => Navigator.of(context).pop(true),
-                child: new Text(translatedText('button_yes', context)),
+                child: new Text(translatedText('button_yes', context),
+                    style: TextStyle(color: DarkGreyColor)),
               ),
               FlatButton(
                 onPressed: () async {
@@ -48,11 +50,15 @@ class _MyHomePageState extends State<HomeScreen> {
                     throw 'Could not launch $url';
                   }
                 },
-                child: new Text('review app'),
+                child: new Text(
+                  translatedText("button_review", context),
+                  style: TextStyle(color: DarkGreyColor),
+                ),
               ),
               FlatButton(
                 onPressed: () => Navigator.of(context).pop(false),
-                child: Text(translatedText('button_no', context)),
+                child: Text(translatedText('button_no', context),
+                    style: TextStyle(color: DarkGreyColor)),
               ),
             ],
           ),

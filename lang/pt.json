@@ -116,5 +116,10 @@
   "welcome_error_value_gength_1": "deve ser maior que 0",
   "welcome_button_set_protein": "definir meta de proteína",
   "welcome_button_skip": "pular",
-  "welcome_button_continue": "continue"
+  "welcome_button_continue": "continue",
+  "dialog_close_app_title": "Deseja fechar o aplicativo?",
+  "dialog_close_app_description": "Compartilhe seus comentários antes de sair do aplicativo. Gostaríamos muito de ouvir sua opinião",
+  "button_yes": "Sim",
+  "button_no": "Não",
+  "button_review": "Analisar aplicativo"
 }

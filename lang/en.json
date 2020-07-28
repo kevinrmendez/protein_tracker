@@ -120,6 +120,7 @@
   "error_only_numbers": "only numbers",
   "dialog_close_app_title": "Do you want to close the app?",
   "dialog_close_app_description": "Please share us your feedback before leaving the app, we would love hearing from you",
-  "button_yes": "Yes"
-  "button_no": "No"
+  "button_yes": "Yes",
+  "button_no": "No",
+  "button_review": "Review app"
 }

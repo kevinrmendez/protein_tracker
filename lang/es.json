@@ -116,5 +116,10 @@
   "welcome_error_value_greater_1": "su meta debe ser mayor que 1",
   "welcome_button_set_protein": "establecer meta",
   "welcome_button_skip": "omitir",
-  "welcome_button_continue": "continuar"
+  "welcome_button_continue": "continuar",
+  "dialog_close_app_title": "¿Desea cerrar la aplicación?",
+  "dialog_close_app_description": "Por favor, comparta sus comentarios antes de salir de la aplicación, nos encantaría conocer su opinion",
+  "button_yes": "Sí",
+  "button_no": "No",
+  "button_review": "Dar reseña"
 }

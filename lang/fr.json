@@ -116,5 +116,10 @@
   "welcome_error_value_greater_1": "doit être supérieur à 1",
   "welcome_button_set_protein": "fixer objectif",
   "welcome_button_skip": "sauter",
-  "welcome_button_continue": "continuer"
+  "welcome_button_continue": "continuer",
+  "dialog_close_app_title": "Voulez-vous fermer l'application?",
+  "dialog_close_app_description": "Veuillez nous faire part de vos commentaires avant de quitter l'application, nous aimerions avoir de vos nouvelles",
+  "button_yes": "Oui",
+  "button_no": "Non",
+  "button_review": "Noter l'application"
 }
