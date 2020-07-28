@@ -79,4 +79,4 @@ class DailyProteinService {
   // }
 }
 
-DailyProteinService dailyProteinListServices = DailyProteinService();
+DailyProteinService dailyProteinServices = DailyProteinService();

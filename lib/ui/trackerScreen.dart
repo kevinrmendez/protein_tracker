@@ -1,10 +1,12 @@
 import 'package:admob_flutter/admob_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:protein_tracker/bloc/DailyProteinService.dart';
 
 import 'package:protein_tracker/bloc/FoodService.dart';
 import 'package:protein_tracker/bloc/ProteinListService.dart';
 import 'package:protein_tracker/bloc/StatisticsService.dart';
+import 'package:protein_tracker/model/dailyProtein.dart';
 import 'package:protein_tracker/utils/AdMobUtils.dart';
 import 'package:protein_tracker/utils/appAssets.dart';
 import 'package:protein_tracker/utils/colors.dart';
@@ -325,8 +327,27 @@ class _AddProteinDialogState extends State<AddProteinDialog> {
                           date: formattedDateNow);
 
                       proteinListServices.add(protein);
+
                       proteinService.updateConsumedProtein();
                       statisticsService.updateStatisticsData();
+
+                      //DAILY PROTEIN
+
+                      // var totalProtein = 0;
+                      // proteinListServices.currentList.forEach((protein) {
+                      //   totalProtein = totalProtein + protein.amount;
+                      // });
+                      // DailyProtein dailyProtein = DailyProtein(
+                      //     date: formattedDateNow,
+                      //     totalProtein: totalProtein,
+                      //     goal: proteinService.current.amount,
+                      //     isGoalAchieved: 1);
+                      // dailyProteinServices.add(dailyProtein);
+                      // print('hola');
+                      // dailyProteinServices.currentList.forEach((element) {
+                      //   print(element.totalProtein);
+                      //   print(element.goal);
+                      // });
 
                       Navigator.pop(context);
                     } else {}

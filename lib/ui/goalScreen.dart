@@ -116,7 +116,7 @@ class _GoalScreenState extends State<GoalScreen> {
                                 context,
                               );
                             }
-                            if (regExp.hasMatch(value)) {
+                            if (!regExp.hasMatch(value)) {
                               return translatedText(
                                 "error_only_numbers",
                                 context,
