@@ -520,6 +520,7 @@ class _MyHomePageState extends State<CalculatorScreen> {
                 padding: EdgeInsets.symmetric(vertical: 0),
                 child: WidgetUtils.button(
                   context,
+                  width: MediaQuery.of(context).size.width,
                   color: DarkGreyColor,
                   text: translatedText(
                     "calculator_button_calculate",
@@ -540,6 +541,7 @@ class _MyHomePageState extends State<CalculatorScreen> {
               ),
               _isCalculated
                   ? WidgetUtils.button(context,
+                      width: MediaQuery.of(context).size.width,
                       text: translatedText(
                         "calculator_button_protein_goal",
                         context,
@@ -586,6 +588,7 @@ class GoalChangeDialog extends StatelessWidget {
                 ),
               ),
               WidgetUtils.button(context,
+                  width: MediaQuery.of(context).size.width,
                   color: DarkGreyColor,
                   text: translatedText(
                     "calculator_button_close",
@@ -628,6 +631,7 @@ class ErrorDialog extends StatelessWidget {
               ),
               WidgetUtils.button(context,
                   color: DarkGreyColor,
+                  width: MediaQuery.of(context).size.width,
                   text: translatedText(
                     "calculator_button_close",
                     context,

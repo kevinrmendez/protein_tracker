@@ -88,46 +88,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
 
   @override
   Widget build(BuildContext context) {
-//     _calendarCarousel = CalendarCarousel<Event>(
-//       onDayPressed: (DateTime date, List<Event> events) {
-//         this.setState(() => _currentDate = date);
-//         events.forEach((event) => print(event.title));
-//       },
-//       weekendTextStyle: TextStyle(
-//         color: Colors.red,
-//       ),
-//       thisMonthDayBorderColor: Colors.grey,
-// //          weekDays: null, /// for pass null when you do not want to render weekDays
-//       headerText: 'Weekly',
-//       weekFormat: true,
-//       markedDatesMap: _markedDateMap,
-//       height: 200.0,
-//       selectedDateTime: _currentDate2,
-//       showIconBehindDayText: true,
-// //          daysHaveCircularBorder: false, /// null for not rendering any border, true for circular border, false for rectangular border
-//       customGridViewPhysics: NeverScrollableScrollPhysics(),
-//       markedDateShowIcon: true,
-//       markedDateIconMaxShown: 2,
-//       selectedDayTextStyle: TextStyle(
-//         color: Colors.yellow,
-//       ),
-//       todayTextStyle: TextStyle(
-//         color: Colors.blue,
-//       ),
-//       markedDateIconBuilder: (event) {
-//         return event.icon;
-//       },
-//       minSelectedDate: _currentDate.subtract(Duration(days: 360)),
-//       maxSelectedDate: _currentDate.add(Duration(days: 360)),
-//       todayButtonColor: Colors.transparent,
-//       todayBorderColor: Colors.green,
-//       markedDateMoreShowTotal:
-//           true, // null for not showing hidden events indicator
-// //          markedDateIconMargin: 9,
-// //          markedDateIconOffset: 3,
-//     );
-
-    /// Example Calendar Carousel without header and custom prev & next button
+    // / Example Calendar Carousel without header and custom prev & next button
     _calendarCarouselNoHeader = CalendarCarousel<Event>(
       weekdayTextStyle:
           TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
@@ -205,11 +166,6 @@ class _CalendarScreenState extends State<CalendarScreen> {
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.start,
             children: <Widget>[
-              //custom icon
-              // Container(
-              //   margin: EdgeInsets.symmetric(horizontal: 16.0),
-              //   child: _calendarCarousel,
-              // ), // This trailing comma makes auto-formatting nicer for build methods.
               //custom icon without header
               Container(
                 margin: EdgeInsets.only(
@@ -274,43 +230,65 @@ class _AddProteinDialogState extends State<AddProteinDialog> {
   String dropdownValueGoal;
   String foodName;
   int proteinAmount;
-  final _foodNameController = TextEditingController();
-  final _proteinAmountController = TextEditingController();
+
   @override
   void initState() {
     super.initState();
+  }
+
+  _text(text) {
+    return Text(
+      text,
+      style: TextStyle(fontSize: 19),
+    );
+  }
+
+  _textBold(text) {
+    return Text(
+      text,
+      style: TextStyle(fontSize: 19, fontWeight: FontWeight.bold),
+    );
   }
 
   @override
   Widget build(BuildContext context) {
     return WidgetUtils.dialog(
         context: context,
-        height: MediaQuery.of(context).size.height * .56,
-        title: translatedText(
-          "tracker_dialog_title_add_protein",
-          context,
-        ),
+        height: MediaQuery.of(context).size.height * .37,
+        title: "20 july 2020",
         showAd: false,
         child: Container(
-          margin: EdgeInsets.symmetric(horizontal: 40),
+          // margin: EdgeInsets.symmetric(horizontal: 40),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               Form(
                 key: _formKey,
                 child: Column(children: [
-                  Row(
-                    children: <Widget>[Text('goal: '), Text('84 gr')],
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[_textBold('goal '), _text('84 gr')],
                   ),
-                  Row(
-                    children: <Widget>[
-                      Text('protein consumed: '),
-                      Text('150 gr')
-                    ],
+                  SizedBox(
+                    height: 10,
                   ),
                   Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      _textBold('protein consumed '),
+                      _text('150 gr')
+                    ],
+                  ),
+                  SizedBox(
+                    height: 15,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
                       WidgetUtils.button(context,
+                          width: 80,
+                          height: 37,
+                          fontSize: 17,
                           text: translatedText(
                             "button_edit",
                             context,
@@ -337,27 +315,15 @@ class _AddProteinDialogState extends State<AddProteinDialog> {
                         } else {}
                       }),
                       WidgetUtils.button(context,
+                          width: 80,
+                          height: 37,
+                          fontSize: 17,
                           text: translatedText(
                             "button_close",
                             context,
                           ),
-                          color: DarkGreyColor, onPressed: () async {
-                        if (_formKey.currentState.validate()) {
-                          DateTime now = DateTime.now();
-                          final DateFormat formatter =
-                              DateFormat('dd-MMMM-yyyy');
-                          final String formattedDateNow = formatter.format(now);
-                          Protein protein = Protein(
-                              name: foodName,
-                              amount: proteinAmount,
-                              date: formattedDateNow);
-
-                          proteinListServices.add(protein);
-                          proteinService.updateConsumedProtein();
-                          statisticsService.updateStatisticsData();
-
-                          Navigator.pop(context);
-                        } else {}
+                          color: DarkGreyColor, onPressed: () {
+                        Navigator.pop(context);
                       })
                     ],
                   )

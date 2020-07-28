@@ -306,6 +306,7 @@ class _AddProteinDialogState extends State<AddProteinDialog> {
                           height: 15,
                         ),
                   WidgetUtils.button(context,
+                      width: MediaQuery.of(context).size.width,
                       text: translatedText(
                         "button_add",
                         context,
@@ -493,6 +494,7 @@ class _EditProteinDialogState extends State<EditProteinDialog> {
                         }
                       }),
                   WidgetUtils.button(context,
+                      width: MediaQuery.of(context).size.width,
                       text: translatedText(
                         "button_edit",
                         context,

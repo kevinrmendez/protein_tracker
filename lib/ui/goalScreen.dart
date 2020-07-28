@@ -136,6 +136,7 @@ class _GoalScreenState extends State<GoalScreen> {
                 padding: const EdgeInsets.symmetric(vertical: 20),
                 child: WidgetUtils.button(
                   context,
+                  width: MediaQuery.of(context).size.width,
                   text: translatedText(
                     "goal_button_goal",
                     context,

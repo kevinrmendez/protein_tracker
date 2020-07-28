@@ -6,11 +6,17 @@ import 'package:protein_tracker/main.dart';
 
 class WidgetUtils {
   static Widget button(BuildContext context,
-      {String text, Function onPressed, Color color, Color textColor}) {
+      {String text,
+      double fontSize = 22,
+      double width,
+      double height = 45,
+      Function onPressed,
+      Color color,
+      Color textColor}) {
     return Container(
       margin: EdgeInsets.fromLTRB(20, 6, 20, 6),
-      width: MediaQuery.of(context).size.width,
-      height: 45,
+      width: width,
+      height: height,
       child: RaisedButton(
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(8.0),
@@ -21,7 +27,7 @@ class WidgetUtils {
           textAlign: TextAlign.center,
           style: TextStyle(
               color: textColor == null ? Colors.white : textColor,
-              fontSize: 22),
+              fontSize: fontSize),
         ),
         onPressed: onPressed,
       ),

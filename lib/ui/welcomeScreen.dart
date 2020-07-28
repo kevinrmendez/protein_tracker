@@ -71,6 +71,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                       ),
                 _isGoalAdded
                     ? WidgetUtils.button(context,
+                        width: MediaQuery.of(context).size.width,
                         text: translatedText(
                           "welcome_button_continue",
                           context,
@@ -84,6 +85,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                           Container(
                             margin: EdgeInsets.symmetric(vertical: 10),
                             child: WidgetUtils.button(context,
+                                width: MediaQuery.of(context).size.width,
                                 text: translatedText(
                                   "welcome_button_set_protein",
                                   context,
@@ -95,6 +97,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                             }, color: Colors.white, textColor: PrimaryColor),
                           ),
                           WidgetUtils.button(context,
+                              width: MediaQuery.of(context).size.width,
                               text: translatedText(
                                 "welcome_button_skip",
                                 context,
@@ -219,6 +222,7 @@ class _GoalDialogState extends State<GoalDialog> {
                     },
                   ),
                   WidgetUtils.button(context,
+                      width: MediaQuery.of(context).size.width,
                       text: translatedText(
                         "button_add",
                         context,
