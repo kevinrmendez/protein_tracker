@@ -2,28 +2,21 @@ import 'package:admob_flutter/admob_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:intl/intl.dart';
-import 'package:protein_tracker/bloc/FoodService.dart';
 import 'package:protein_tracker/bloc/ProteinListService.dart';
 import 'package:protein_tracker/ui/StatisticsScreen.dart';
 import 'package:protein_tracker/bloc/DateService.dart';
 import 'package:protein_tracker/bloc/ProteinService.dart';
-import 'package:protein_tracker/ui/calculatorScreen.dart';
 import 'package:protein_tracker/ui/trackerScreen.dart';
 import 'package:protein_tracker/ui/welcomeScreen.dart';
 import 'package:protein_tracker/utils/AdMobUtils.dart';
 import 'package:protein_tracker/utils/appAssets.dart';
 import 'package:protein_tracker/utils/colors.dart';
 import 'package:protein_tracker/components/appDrawer.dart';
-import 'package:protein_tracker/dao/food_dao.dart';
-import 'package:protein_tracker/dao/protein_dao.dart';
+
 import 'package:protein_tracker/ui/homeScreen.dart';
-import 'package:protein_tracker/model/food.dart';
-import 'package:protein_tracker/model/protein.dart';
-import 'package:protein_tracker/ui/settingsScreen.dart';
 
 import 'package:flutter/services.dart';
 import 'package:protein_tracker/utils/localization_utils.dart';
-import 'package:protein_tracker/utils/widgetUtils.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'package:flutter_svg/flutter_svg.dart';
@@ -53,6 +46,11 @@ void main() async {
   formattedDateNow = formatter.format(currentDate);
   formattedDayCache = formattedDateNow;
 
+  //RESET CONSUMED PROTEIN ON APP OPEN
+  final DateFormat formatterDay = DateFormat('d');
+  // var todayDay = int.parse(formatterDay.format(currentDate));
+  var todayDay = 27;
+
   // formattedDayCache = "19-July-2020"; //TEST
   print("FORMATEDDATENOW: $formattedDateNow");
   preferences = await SharedPreferences.getInstance();
@@ -61,6 +59,16 @@ void main() async {
     preferences.setBool("first_time_open", false);
   } else {
     preferences.setBool("first_time_open", true);
+  }
+
+  //CHECK PREVIOS DATE FROM PREFERENCES AND RESET IF DAY IS DIFFERENT
+  if (!preferences.containsKey("cache_day")) {
+    preferences.setInt("cache_day", todayDay);
+  }
+
+  var preferencesDay = preferences.getInt("cache_day");
+  if (preferencesDay != todayDay) {
+    proteinService.resetConsumedProtein();
   }
 
   // dateService.updateDate(currentDate);
