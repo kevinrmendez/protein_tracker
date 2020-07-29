@@ -23,6 +23,8 @@ import 'package:flutter_svg/flutter_svg.dart';
 
 import 'app_localizations.dart';
 
+import 'package:cron/cron.dart';
+
 DateTime currentDate;
 var preferences;
 String formattedDateNow;
@@ -36,6 +38,11 @@ void resetState() {
 }
 
 void main() async {
+  // var cron = new Cron();
+  // cron.schedule(new Schedule.parse('*/1 * * * *'), () async {
+  //   resetState();
+  //   print('every three minutes');
+  // });
   WidgetsFlutterBinding.ensureInitialized();
   Admob.initialize(AdMobUtils.getAppId());
 
