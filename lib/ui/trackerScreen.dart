@@ -15,6 +15,7 @@ import 'package:protein_tracker/main.dart';
 import 'package:protein_tracker/model/food.dart';
 import 'package:protein_tracker/model/protein.dart';
 import 'package:protein_tracker/bloc/ProteinService.dart';
+import 'package:protein_tracker/utils/dateUtils.dart';
 import 'package:protein_tracker/utils/localization_utils.dart';
 import 'package:protein_tracker/utils/widgetUtils.dart';
 
@@ -320,34 +321,56 @@ class _AddProteinDialogState extends State<AddProteinDialog> {
                       print(proteinAmount);
                       DateTime now = DateTime.now();
                       final DateFormat formatter = DateFormat('dd-MMMM-yyyy');
-                      final String formattedDateNow = formatter.format(now);
+                      final String formattedDateProteinAdded =
+                          formatter.format(now);
                       Protein protein = Protein(
                           name: foodName,
                           amount: proteinAmount,
-                          date: formattedDateNow);
+                          date: formattedDateProteinAdded);
 
                       proteinListServices.add(protein);
 
                       proteinService.updateConsumedProtein();
                       statisticsService.updateStatisticsData();
 
-                      //DAILY PROTEIN
+                      // DAILY PROTEIN
 
-                      // var totalProtein = 0;
-                      // proteinListServices.currentList.forEach((protein) {
-                      //   totalProtein = totalProtein + protein.amount;
-                      // });
-                      // DailyProtein dailyProtein = DailyProtein(
-                      //     date: formattedDateNow,
-                      //     totalProtein: totalProtein,
-                      //     goal: proteinService.current.amount,
-                      //     isGoalAchieved: 1);
-                      // dailyProteinServices.add(dailyProtein);
-                      // print('hola');
-                      // dailyProteinServices.currentList.forEach((element) {
-                      //   print(element.totalProtein);
-                      //   print(element.goal);
-                      // });
+                      print("CHECK DAY CHANGE");
+                      if (DateUtils.hasDateChanged(
+                          formattedDateNow, formattedDateProteinAdded)) {
+                        print('day has changed');
+                        var totalProtein = 0;
+                        proteinListServices.currentList.forEach((protein) {
+                          totalProtein = totalProtein + protein.amount;
+                        });
+                        DailyProtein dailyProtein = DailyProtein(
+                            date: formattedDateProteinAdded,
+                            totalProtein: totalProtein,
+                            goal: proteinService.current.amount,
+                            isGoalAchieved: 1);
+                        dailyProteinServices.add(dailyProtein);
+                        dailyProteinServices.currentList.forEach((element) {
+                          print(element.totalProtein);
+                          print(element.goal);
+                        });
+                      } else {
+                        print('day is the same');
+                        var totalProtein = 0;
+                        proteinListServices.currentList.forEach((protein) {
+                          totalProtein = totalProtein + protein.amount;
+                        });
+                        DailyProtein dailyProtein = DailyProtein(
+                            date: formattedDateProteinAdded,
+                            totalProtein: totalProtein,
+                            goal: proteinService.current.amount,
+                            isGoalAchieved: 1);
+                        dailyProteinServices.add(dailyProtein);
+                        dailyProteinServices.currentList.forEach((element) {
+                          print(element.date);
+                          print(element.totalProtein);
+                          print(element.goal);
+                        });
+                      }
 
                       Navigator.pop(context);
                     } else {}

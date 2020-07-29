@@ -42,4 +42,18 @@ class DateUtils {
     formattedString = formattedStringList.join("-");
     return formattedString;
   }
+
+  static bool hasDateChanged(String date1, String date2) {
+    String day1String, day2String;
+    int day1, day2;
+    day1String = date1.substring(0, 1);
+    day2String = date2.substring(0, 1);
+    print('TESTIING');
+    print(day1String);
+    print(day2String);
+    day1 = int.parse(day1String);
+    day2 = int.parse(day2String);
+
+    return day1 != day2;
+  }
 }

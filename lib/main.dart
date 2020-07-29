@@ -48,8 +48,8 @@ void main() async {
 
   //RESET CONSUMED PROTEIN ON APP OPEN
   final DateFormat formatterDay = DateFormat('d');
-  // var todayDay = int.parse(formatterDay.format(currentDate));
-  var todayDay = 27;
+  var todayDay = int.parse(formatterDay.format(currentDate));
+  // var todayDay = 27;
 
   // formattedDayCache = "19-July-2020"; //TEST
   print("FORMATEDDATENOW: $formattedDateNow");

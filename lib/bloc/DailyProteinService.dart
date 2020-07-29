@@ -29,7 +29,6 @@ class DailyProteinService {
     final DateFormat formatter = DateFormat('MMMM');
     var monthName = formatter.format(currentDate);
     print("MONTH NAME: $monthName");
-    formattedDateNow = formatter.format(date);
 
     List monthlyProteins =
         await _dailyProteinRepository.getAllDailyProteins(query: monthName);

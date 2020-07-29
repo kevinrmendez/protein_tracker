@@ -41,7 +41,6 @@ class StatisticsService {
     var now = DateTime.now();
     final DateFormat formatter = DateFormat('MMMM');
     var monthName = formatter.format(now);
-    formattedDateNow = formatter.format(date);
 
     List monthlyProteins =
         await _proteinRepository.getAllProteins(query: monthName);
