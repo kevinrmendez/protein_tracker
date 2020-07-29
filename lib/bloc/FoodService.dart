@@ -7,6 +7,18 @@ class FoodService {
   final FoodRepository _foodRepository = FoodRepository();
   static List<Food> dbFoods;
 
+  BehaviorSubject<List<Food>> _foodList = BehaviorSubject.seeded([]);
+  // BehaviorSubject.seeded([dbFoods] == null ? <List<Food>>[] : dbFoods);
+
+  BehaviorSubject<List<String>> _foodNameList =
+      BehaviorSubject.seeded(<String>[]);
+
+  Stream get stream => _foodList.stream;
+  Stream get streamFoodName => _foodNameList.stream;
+
+  List<Food> get currentList => _foodList.value;
+  List<String> get currentListFoodName => _foodNameList.value;
+
   FoodService() {
     _getFoods();
   }
@@ -24,18 +36,6 @@ class FoodService {
     _foodNameList.add(foodNamesFromDb);
     print("foodNames added");
   }
-
-  BehaviorSubject<List<Food>> _foodList = BehaviorSubject.seeded([]);
-  // BehaviorSubject.seeded([dbFoods] == null ? <List<Food>>[] : dbFoods);
-
-  BehaviorSubject<List<String>> _foodNameList =
-      BehaviorSubject.seeded(<String>[]);
-
-  Stream get stream => _foodList.stream;
-  Stream get streamFoodName => _foodNameList.stream;
-
-  List<Food> get currentList => _foodList.value;
-  List<String> get currentListFoodName => _foodNameList.value;
 
   add(Food food) async {
     _foodRepository.insertFood(food);

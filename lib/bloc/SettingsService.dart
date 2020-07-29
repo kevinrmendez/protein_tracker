@@ -5,6 +5,12 @@ import 'package:protein_tracker/repository/food_repository.dart';
 import 'package:rxdart/rxdart.dart';
 
 class SettingsService {
+  //weight value is a boolean number 0 means false  setting value "lb" and 1 means true setting value "kg"
+  BehaviorSubject<int> _weightSettings = BehaviorSubject.seeded(0);
+
+  Stream get stream => _weightSettings.stream;
+
+  int get currentWeightSettings => _weightSettings.value;
   SettingsService() {
     initPreferences();
   }
@@ -26,13 +32,6 @@ class SettingsService {
         "SHARED PREFERENCES WEIGHT SETTINGS  $sharedPrefenrencesWeightSettings");
     _weightSettings.add(sharedPrefenrencesWeightSettings);
   }
-
-  //weight value is a boolean number 0 means false  setting value "lb" and 1 means true setting value "kg"
-  BehaviorSubject<int> _weightSettings = BehaviorSubject.seeded(0);
-
-  Stream get stream => _weightSettings.stream;
-
-  int get currentWeightSettings => _weightSettings.value;
 
   updateWeightSettings(int weightSettings) {
     _weightSettings.add(weightSettings);

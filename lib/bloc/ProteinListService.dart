@@ -8,6 +8,13 @@ class ProteinListService {
   static List<Protein> dbProteins = [];
   final ProteinRepository _proteinRepository = ProteinRepository();
 
+  BehaviorSubject<List<Protein>> _proteinList =
+      BehaviorSubject.seeded(<Protein>[]);
+
+  Stream get stream => _proteinList.stream;
+
+  List<Protein> get currentList => _proteinList.value;
+
   ProteinListService() {
     _getProtein();
   }
@@ -46,13 +53,6 @@ class ProteinListService {
     monthlyProteins.forEach((p) => print("${p.name}"));
     return monthlyProteins;
   }
-
-  BehaviorSubject<List<Protein>> _proteinList =
-      BehaviorSubject.seeded(<Protein>[]);
-
-  Stream get stream => _proteinList.stream;
-
-  List<Protein> get currentList => _proteinList.value;
 
   add(Protein protein) async {
     _proteinList.value.add(protein);
