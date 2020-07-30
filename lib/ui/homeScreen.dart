@@ -201,10 +201,15 @@ class DailyStatus extends StatelessWidget {
 class DailyStatusWidget extends StatelessWidget {
   // FOR TESTING DAILY PROTEIN DATA
   _buildDailyProtein() {
-    return Column(
-        children: dailyProteinServices.currentList
-            .map((e) => Text(e.totalProtein.toString()))
-            .toList());
+    return Row(
+      children: <Widget>[
+        Text('dailyProtein'),
+        Column(
+            children: dailyProteinServices.currentList
+                .map((e) => Text(e.totalProtein.toString()))
+                .toList()),
+      ],
+    );
   }
 
   @override
