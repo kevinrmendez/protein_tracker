@@ -87,21 +87,22 @@ class AppDrawer extends StatelessWidget {
               ListTile(
                 title: Text(
                   translatedText(
-                    "app_drawer_food_settings",
+                    "app_drawer_calendar",
                     context,
                   ),
                   // style: TextStyle(color: Theme.of(context).primaryColor),
                 ),
                 trailing: Icon(
-                  Icons.settings,
+                  Icons.calendar_today,
                   color: Theme.of(context).accentColor,
                 ),
                 onTap: () {
                   Navigator.of(context).pop();
                   Navigator.of(context).push(MaterialPageRoute(
-                      builder: (BuildContext context) => SettingsScreen()));
+                      builder: (BuildContext context) => CalendarScreen()));
                 },
               ),
+
               ListTile(
                 title: Text(
                   translatedText(
@@ -126,19 +127,23 @@ class AppDrawer extends StatelessWidget {
               ),
               ListTile(
                 title: Text(
-                  'calendar',
+                  translatedText(
+                    "app_drawer_food_settings",
+                    context,
+                  ),
                   // style: TextStyle(color: Theme.of(context).primaryColor),
                 ),
                 trailing: Icon(
-                  Icons.calendar_today,
+                  Icons.settings,
                   color: Theme.of(context).accentColor,
                 ),
                 onTap: () {
                   Navigator.of(context).pop();
                   Navigator.of(context).push(MaterialPageRoute(
-                      builder: (BuildContext context) => CalendarScreen()));
+                      builder: (BuildContext context) => SettingsScreen()));
                 },
               ),
+
               // ListTile(
               //   title: Text(
               //     "Welcome",

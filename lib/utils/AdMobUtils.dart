@@ -12,10 +12,11 @@ class AdMobUtils {
     return apikeys["adMobBanner"];
   }
 
-  static Widget admobBanner() {
+  static Widget admobBanner({String size = "s"}) {
     return AdmobBanner(
       adUnitId: getBannerAdUnitId(),
-      adSize: AdmobBannerSize.BANNER,
+      adSize:
+          size == "s" ? AdmobBannerSize.BANNER : AdmobBannerSize.LARGE_BANNER,
     );
   }
 }

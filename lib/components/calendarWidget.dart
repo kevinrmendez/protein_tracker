@@ -148,7 +148,8 @@ class _CalendarWidgetState extends State<CalendarWidget> {
       weekFormat: false,
       // firstDayOfWeek: 4,
       markedDatesMap: _markedDateMap,
-      height: 420.0,
+      // height: 420.0,
+      height: MediaQuery.of(context).size.height * .45,
       selectedDateTime: _currentDate,
       targetDateTime: _targetDateTime,
       customGridViewPhysics: NeverScrollableScrollPhysics(),
@@ -245,6 +246,7 @@ class _CalendarWidgetState extends State<CalendarWidget> {
           ),
         ),
         Container(
+          height: MediaQuery.of(context).size.height * .45,
           margin: EdgeInsets.symmetric(horizontal: 16.0),
           child: _calendarCarouselNoHeader,
         ), //
