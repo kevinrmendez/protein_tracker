@@ -1,6 +1,9 @@
+import 'package:protein_tracker/bloc/DailyProteinService.dart';
 import 'package:protein_tracker/bloc/ProteinListService.dart';
 import 'package:protein_tracker/main.dart';
+import 'package:protein_tracker/model/dailyProtein.dart';
 import 'package:protein_tracker/model/goal.dart';
+import 'package:protein_tracker/utils/dateUtils.dart';
 import 'package:rxdart/rxdart.dart';
 
 class ProteinService {
@@ -62,7 +65,7 @@ class ProteinService {
     preferences.setInt("protein_consumed", proteinConsumed);
   }
 
-  updateConsumedProtein() {
+  updateConsumedProtein() async {
     var proteinConsumed = 0;
     List proteinList = proteinListServices.currentList;
     proteinList.forEach((p) {
@@ -72,6 +75,28 @@ class ProteinService {
     // var proteinConsumed = currentConsumedProtein + proteinAmount;
     _consumedProtein.add(proteinConsumed);
     preferences.setInt("protein_consumed", proteinConsumed);
+
+    //UPDATE DAILY PROTEIN INTAKE
+    var currentGoal = proteinService.current.amount;
+    var today = DateUtils.formattedToday();
+    var isGoalAchieved = proteinConsumed >= currentGoal ? 1 : 0;
+    var dailyProtein = DailyProtein(
+        date: today,
+        totalProtein: proteinConsumed,
+        isGoalAchieved: isGoalAchieved,
+        goal: currentGoal);
+    var dailyProteinId =
+        await dailyProteinServices.getDailyProteinIdByDate(today);
+
+    if (dailyProteinId == null) {
+      dailyProteinServices.add(dailyProtein);
+    } else {
+      dailyProtein.id = dailyProteinId;
+      dailyProteinServices.update(dailyProtein);
+    }
+    dailyProteinServices.currentList.forEach((element) {
+      print(element.toString());
+    });
   }
 
   resetConsumedProtein() {

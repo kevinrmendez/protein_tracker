@@ -9,6 +9,8 @@ class DailyProteinRepository {
 
   Future getDailyProteinId(DailyProtein dailyProtein) =>
       dailyProteinDao.getDailyDailyProteinId(dailyProtein);
+  Future getDailyProteinIdByDate(String date) =>
+      dailyProteinDao.getDailyDailyProteinIdByDate(date);
 
   Future insertDailyProtein(DailyProtein dailyProtein) =>
       dailyProteinDao.createDailyProtein(dailyProtein);

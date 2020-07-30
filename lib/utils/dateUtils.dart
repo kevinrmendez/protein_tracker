@@ -1,3 +1,5 @@
+import 'package:intl/intl.dart';
+
 class DateUtils {
   static parseDate(String date) {
     String formattedString = "";
@@ -55,5 +57,12 @@ class DateUtils {
     day2 = int.parse(day2String);
 
     return day1 != day2;
+  }
+
+  static String formattedToday() {
+    var today = DateTime.now();
+    DateFormat formatter = DateFormat('dd-MMMM-yyyy');
+
+    return formatter.format(today);
   }
 }

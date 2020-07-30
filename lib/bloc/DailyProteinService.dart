@@ -64,6 +64,11 @@ class DailyProteinService {
     return id;
   }
 
+  getDailyProteinIdByDate(String date) async {
+    int id = await _dailyProteinRepository.getDailyProteinIdByDate(date);
+    return id;
+  }
+
   // void orderFoodsAscending() {
   //   List<DailyProtein> orderList = currentList;
   //   orderList.sort((a, b) => a.date.compareTo(b.date));

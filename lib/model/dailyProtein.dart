@@ -23,4 +23,9 @@ class DailyProtein {
         "goal": this.goal,
         "isGoalAchieved": this.isGoalAchieved,
       };
+
+  @override
+  String toString() {
+    return 'Contact{id: $id, date: $date, totalProtein: $totalProtein, goal: $goal, isGoalAchieved: $isGoalAchieved}';
+  }
 }

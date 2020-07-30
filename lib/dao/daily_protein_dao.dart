@@ -49,8 +49,12 @@ class DailyProteinDao {
     } else {
       result = await db.query(dailyProteinTable);
     }
-    DailyProtein dailyProteinfromDb = DailyProtein.fromJson(result[0]);
-    return dailyProteinfromDb.id;
+    if (result == null || result.length == 0) {
+      return null;
+    } else {
+      DailyProtein dailyProteinfromDb = DailyProtein.fromJson(result[0]);
+      return dailyProteinfromDb.id;
+    }
   }
 
   Future<int> deleteDailyProtein(int id) async {
@@ -68,5 +72,23 @@ class DailyProteinDao {
     );
 
     return result;
+  }
+
+  Future<int> getDailyDailyProteinIdByDate(String date) async {
+    final db = await dbProvider.database;
+
+    List<Map<String, dynamic>> result;
+    if (date != null) {
+      result = await db
+          .query(dailyProteinTable, where: 'date = ?', whereArgs: ["$date"]);
+    } else {
+      result = await db.query(dailyProteinTable);
+    }
+    if (result == null || result.isEmpty) {
+      return null;
+    } else {
+      DailyProtein dailyProteinfromDb = DailyProtein.fromJson(result[0]);
+      return dailyProteinfromDb.id;
+    }
   }
 }

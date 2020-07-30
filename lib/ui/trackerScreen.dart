@@ -333,45 +333,6 @@ class _AddProteinDialogState extends State<AddProteinDialog> {
                       proteinService.updateConsumedProtein();
                       statisticsService.updateStatisticsData();
 
-                      // DAILY PROTEIN
-
-                      print("CHECK DAY CHANGE");
-                      if (DateUtils.hasDateChanged(
-                          formattedDateNow, formattedDateProteinAdded)) {
-                        print('day has changed');
-                        var totalProtein = 0;
-                        proteinListServices.currentList.forEach((protein) {
-                          totalProtein = totalProtein + protein.amount;
-                        });
-                        DailyProtein dailyProtein = DailyProtein(
-                            date: formattedDateProteinAdded,
-                            totalProtein: totalProtein,
-                            goal: proteinService.current.amount,
-                            isGoalAchieved: 1);
-                        dailyProteinServices.add(dailyProtein);
-                        dailyProteinServices.currentList.forEach((element) {
-                          print(element.totalProtein);
-                          print(element.goal);
-                        });
-                      } else {
-                        print('day is the same');
-                        var totalProtein = 0;
-                        proteinListServices.currentList.forEach((protein) {
-                          totalProtein = totalProtein + protein.amount;
-                        });
-                        DailyProtein dailyProtein = DailyProtein(
-                            date: formattedDateProteinAdded,
-                            totalProtein: totalProtein,
-                            goal: proteinService.current.amount,
-                            isGoalAchieved: 1);
-                        dailyProteinServices.add(dailyProtein);
-                        dailyProteinServices.currentList.forEach((element) {
-                          print(element.date);
-                          print(element.totalProtein);
-                          print(element.goal);
-                        });
-                      }
-
                       Navigator.pop(context);
                     } else {}
                   })
