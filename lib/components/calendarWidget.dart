@@ -51,7 +51,11 @@ class _CalendarWidgetState extends State<CalendarWidget> {
         DateTime proteinDate =
             DateTime.parse(DateUtils.parseDate(dailyProtein.date));
         var event = _transformDailyProteinToEvent(dailyProtein);
-        eventList.add(proteinDate, event);
+
+        //check if they have completed their goal and add to event list
+        if (dailyProtein.isGoalAchieved == 1) {
+          eventList.add(proteinDate, event);
+        }
       });
     }
 
