@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:protein_tracker/bloc/DailyProteinService.dart';
 import 'package:protein_tracker/model/goal.dart';
 import 'package:protein_tracker/utils/AdMobUtils.dart';
 import 'package:protein_tracker/utils/appAssets.dart';
@@ -198,6 +199,14 @@ class DailyStatus extends StatelessWidget {
 }
 
 class DailyStatusWidget extends StatelessWidget {
+  // FOR TESTING DAILY PROTEIN DATA
+  _buildDailyProtein() {
+    return Column(
+        children: dailyProteinServices.currentList
+            .map((e) => Text(e.totalProtein.toString()))
+            .toList());
+  }
+
   @override
   Widget build(BuildContext context) {
     Goal initGoal = Goal(1);
@@ -212,6 +221,7 @@ class DailyStatusWidget extends StatelessWidget {
       remainingProtein = remainingProtein > 0 ? remainingProtein : 0;
       return Column(
         children: <Widget>[
+          _buildDailyProtein(),
           Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: <Widget>[

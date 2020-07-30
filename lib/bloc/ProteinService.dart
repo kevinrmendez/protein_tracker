@@ -80,18 +80,24 @@ class ProteinService {
     var currentGoal = proteinService.current.amount;
     var today = DateUtils.formattedToday();
     var isGoalAchieved = proteinConsumed >= currentGoal ? 1 : 0;
-    var dailyProtein = DailyProtein(
-        date: today,
-        totalProtein: proteinConsumed,
-        isGoalAchieved: isGoalAchieved,
-        goal: currentGoal);
+
     var dailyProteinId =
         await dailyProteinServices.getDailyProteinIdByDate(today);
 
     if (dailyProteinId == null) {
+      var dailyProtein = DailyProtein(
+          date: today,
+          totalProtein: proteinConsumed,
+          isGoalAchieved: isGoalAchieved,
+          goal: currentGoal);
       dailyProteinServices.add(dailyProtein);
     } else {
-      dailyProtein.id = dailyProteinId;
+      var dailyProtein = DailyProtein(
+          id: dailyProteinId,
+          date: today,
+          totalProtein: proteinConsumed,
+          isGoalAchieved: isGoalAchieved,
+          goal: currentGoal);
       dailyProteinServices.update(dailyProtein);
     }
     dailyProteinServices.currentList.forEach((element) {
