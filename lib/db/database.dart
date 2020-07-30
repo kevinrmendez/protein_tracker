@@ -50,6 +50,12 @@ class FoodDatabase {
 
     await database.execute(
         "INSERT INTO $dailyProteinTable VALUES(10, '29-July-2020',100,80,1)");
+
+    await database.execute(
+        "INSERT INTO $dailyProteinTable VALUES(11, '17-July-2020',100,80,1)");
+    await database.execute(
+        "INSERT INTO $dailyProteinTable VALUES(12, '11-July-2020',100,80,1)");
+
     // await database.execute("INSERT INTO $foodTable VALUES(1, 'egg',6)");
     // await database
     //     .execute("INSERT INTO $foodTable VALUES(2, 'glass of milk',8)");
