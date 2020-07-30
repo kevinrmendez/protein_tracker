@@ -203,7 +203,7 @@ class DailyStatusWidget extends StatelessWidget {
   _buildDailyProtein() {
     return Row(
       children: <Widget>[
-        Text('dailyProtein'),
+        Text('dailyProtein: '),
         Column(
             children: dailyProteinServices.currentList
                 .map((e) => Text(e.totalProtein.toString()))
