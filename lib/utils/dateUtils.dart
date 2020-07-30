@@ -1,7 +1,7 @@
 import 'package:intl/intl.dart';
 
 class DateUtils {
-  static parseDate(String date) {
+  static String parseDate(String date) {
     String formattedString = "";
     if (date.contains('January')) {
       formattedString = date.replaceFirst('January', '01');

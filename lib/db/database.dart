@@ -48,6 +48,8 @@ class FoodDatabase {
       "CREATE TABLE $dailyProteinTable(id INTEGER PRIMARY KEY  AUTOINCREMENT, date TEXT, totalProtein INTEGER, goal INTEGER, isGoalAchieved INTEGER DEFAULT 0)",
     );
 
+    await database.execute(
+        "INSERT INTO $dailyProteinTable VALUES(10, '29-July-2020',100,80,1)");
     // await database.execute("INSERT INTO $foodTable VALUES(1, 'egg',6)");
     // await database
     //     .execute("INSERT INTO $foodTable VALUES(2, 'glass of milk',8)");

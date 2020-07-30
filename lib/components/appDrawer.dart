@@ -124,21 +124,21 @@ class AppDrawer extends StatelessWidget {
                   }
                 },
               ),
-              // ListTile(
-              //   title: Text(
-              //     'calendar',
-              //     // style: TextStyle(color: Theme.of(context).primaryColor),
-              //   ),
-              //   trailing: Icon(
-              //     Icons.calendar_today,
-              //     color: Theme.of(context).accentColor,
-              //   ),
-              //   onTap: () {
-              //     Navigator.of(context).pop();
-              //     Navigator.of(context).push(MaterialPageRoute(
-              //         builder: (BuildContext context) => CalendarScreen()));
-              //   },
-              // ),
+              ListTile(
+                title: Text(
+                  'calendar',
+                  // style: TextStyle(color: Theme.of(context).primaryColor),
+                ),
+                trailing: Icon(
+                  Icons.calendar_today,
+                  color: Theme.of(context).accentColor,
+                ),
+                onTap: () {
+                  Navigator.of(context).pop();
+                  Navigator.of(context).push(MaterialPageRoute(
+                      builder: (BuildContext context) => CalendarScreen()));
+                },
+              ),
               // ListTile(
               //   title: Text(
               //     "Welcome",
