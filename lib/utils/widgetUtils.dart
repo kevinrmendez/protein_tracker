@@ -61,6 +61,7 @@ class WidgetUtils {
       BuildContext context,
       String title,
       double height,
+      Color color = Colors.black,
       bool showAd = true}) {
     return Dialog(
       shape: RoundedRectangleBorder(
@@ -81,8 +82,8 @@ class WidgetUtils {
                           title,
                           textAlign: TextAlign.center,
                           style: TextStyle(
-                              color: PrimaryColor,
-                              fontSize: 19,
+                              color: color,
+                              fontSize: 27,
                               fontWeight: FontWeight.bold),
                         )),
               SizedBox(
