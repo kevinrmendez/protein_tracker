@@ -48,6 +48,13 @@ class DailyProteinService {
 
   update(DailyProtein dailyProtein) async {
     await _dailyProteinRepository.updateDailyProtein(dailyProtein);
+    List<DailyProtein> dailyProteins =
+        await _dailyProteinRepository.getAllDailyProteins();
+    dailyProteins.forEach((element) {
+      print(element.date);
+      print(element.totalProtein);
+      print(element.goal);
+    });
     _getDailyProtein();
   }
 

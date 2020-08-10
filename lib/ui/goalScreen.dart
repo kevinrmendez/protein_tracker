@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:protein_tracker/bloc/DailyProteinService.dart';
+import 'package:protein_tracker/model/dailyProtein.dart';
 import 'package:protein_tracker/utils/colors.dart';
 import 'package:protein_tracker/main.dart';
 import 'package:protein_tracker/bloc/ProteinService.dart';
+import 'package:protein_tracker/utils/dateUtils.dart';
 import 'package:protein_tracker/utils/localization_utils.dart';
 import 'package:protein_tracker/utils/widgetUtils.dart';
 
@@ -142,11 +145,41 @@ class _GoalScreenState extends State<GoalScreen> {
                     context,
                   ),
                   color: DarkGreyColor,
-                  onPressed: () {
+                  onPressed: () async {
                     if (_formKey.currentState.validate()) {
                       _proteinGoal = int.parse(proteinGoalController.text);
                       proteinService.setGoal(_proteinGoal);
                       print('goal set: $_proteinGoal');
+
+                      //update DailyProtein goal
+                      var currentGoal = proteinService.current.amount ?? 0;
+                      var proteinConsumed =
+                          proteinService.currentConsumedProtein ?? 0;
+                      var today = DateUtils.formattedToday();
+                      var isGoalAchieved =
+                          proteinConsumed >= currentGoal ? 1 : 0;
+                      var dailyProteinId = await dailyProteinServices
+                          .getDailyProteinIdByDate(today);
+
+                      if (dailyProteinId == null) {
+                        var dailyProtein = DailyProtein(
+                            date: today,
+                            totalProtein: proteinConsumed,
+                            isGoalAchieved: isGoalAchieved,
+                            goal: currentGoal);
+                        dailyProteinServices.add(dailyProtein);
+                      } else {
+                        var dailyProtein = DailyProtein(
+                            id: dailyProteinId,
+                            date: today,
+                            totalProtein: proteinConsumed,
+                            isGoalAchieved: isGoalAchieved,
+                            goal: currentGoal);
+                        dailyProteinServices.update(dailyProtein);
+                      }
+                      dailyProteinServices.currentList.forEach((element) {
+                        print(element.toString());
+                      });
                     }
                   },
                 ),
