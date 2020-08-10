@@ -223,7 +223,10 @@ class _CalendarWidgetState extends State<CalendarWidget> {
                 ),
               )),
               FlatButton(
-                child: Text('PREV'),
+                child: Text(translatedText(
+                  "calendar_label_prev",
+                  context,
+                )),
                 onPressed: () {
                   setState(() {
                     _targetDateTime = DateTime(
@@ -233,7 +236,10 @@ class _CalendarWidgetState extends State<CalendarWidget> {
                 },
               ),
               FlatButton(
-                child: Text('NEXT'),
+                child: Text(translatedText(
+                  "calendar_label_next",
+                  context,
+                )),
                 onPressed: () {
                   setState(() {
                     _targetDateTime = DateTime(

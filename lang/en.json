@@ -126,5 +126,10 @@
   "button_yes": "Yes",
   "button_no": "No",
   "button_review": "Review app",
-  "button_update": "check for updates"
+  "button_update": "check for updates",
+  "calendar_label_prev": "PREV",
+  "calendar_label_next": "NEXT",
+  "calendar_label_goal_completed": "goal completed",
+  "calendar_label_current_day": "current day",
+  "calendar_label_selected_day": "selected day"
 }

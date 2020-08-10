@@ -63,12 +63,24 @@ class CalendarScreen extends StatelessWidget {
                   Column(
                     children: <Widget>[
                       _calendarLabel(
-                          text: 'goal completed',
+                          text: translatedText(
+                            "calendar_label_goal_completed",
+                            context,
+                          ),
                           color: PrimaryColor,
                           ringShape: true),
-                      _calendarLabel(text: 'current Day', color: DarkGreyColor),
                       _calendarLabel(
-                          text: 'selected Day', color: SecondaryColor),
+                          text: translatedText(
+                            "calendar_label_current_day",
+                            context,
+                          ),
+                          color: DarkGreyColor),
+                      _calendarLabel(
+                          text: translatedText(
+                            "calendar_label_selected_day",
+                            context,
+                          ),
+                          color: SecondaryColor),
                     ],
                   ),
                 ],
