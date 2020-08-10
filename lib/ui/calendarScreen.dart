@@ -75,12 +75,12 @@ class CalendarScreen extends StatelessWidget {
                             context,
                           ),
                           color: DarkGreyColor),
-                      _calendarLabel(
-                          text: translatedText(
-                            "calendar_label_selected_day",
-                            context,
-                          ),
-                          color: SecondaryColor),
+                      // _calendarLabel(
+                      //     text: translatedText(
+                      //       "calendar_label_selected_day",
+                      //       context,
+                      //     ),
+                      //     color: SecondaryColor),
                     ],
                   ),
                 ],

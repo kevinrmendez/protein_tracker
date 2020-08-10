@@ -143,13 +143,13 @@ class _CalendarWidgetState extends State<CalendarWidget> {
       todayBorderColor: DarkGreyColor,
       onDayPressed: (DateTime date, List<Event> events) {
         this.setState(() => _currentDate = date);
-        events.forEach((event) => print(event.title));
-        print('day pressed');
-        if (events.isNotEmpty) {
-          showDialog(
-              context: context,
-              builder: (_) => CalendarProteinDialog(events[0]));
-        }
+        // events.forEach((event) => print(event.title));
+        // print('day pressed');
+        // if (events.isNotEmpty) {
+        //   showDialog(
+        //       context: context,
+        //       builder: (_) => CalendarProteinDialog(events[0]));
+        // }
       },
       daysHaveCircularBorder: true,
       showOnlyCurrentMonthDate: false,
@@ -173,8 +173,11 @@ class _CalendarWidgetState extends State<CalendarWidget> {
       //   fontSize: 18,
       //   color: Colors.blue,
       // ),
-      selectedDayButtonColor: SecondaryColor,
-      selectedDayBorderColor: SecondaryColor,
+      selectedDayButtonColor: BackgroundColor,
+      selectedDayBorderColor: BackgroundColor,
+      selectedDayTextStyle: TextStyle(color: Colors.black),
+      // selectedDayButtonColor: SecondaryColor,
+      // selectedDayBorderColor: SecondaryColor,
       showHeader: false,
 
       todayTextStyle: TextStyle(
@@ -187,9 +190,9 @@ class _CalendarWidgetState extends State<CalendarWidget> {
       // },
       // markedDateMoreShowTotal: true,
       todayButtonColor: DarkGreyColor,
-      selectedDayTextStyle: TextStyle(
-        color: Colors.white,
-      ),
+      // selectedDayTextStyle: TextStyle(
+      //   color: Colors.white,
+      // ),
       minSelectedDate: _currentDate.subtract(Duration(days: 360)),
       maxSelectedDate: _currentDate.add(Duration(days: 360)),
       prevDaysTextStyle: TextStyle(
