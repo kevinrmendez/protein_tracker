@@ -145,7 +145,11 @@ class _CalendarWidgetState extends State<CalendarWidget> {
         this.setState(() => _currentDate = date);
         events.forEach((event) => print(event.title));
         print('day pressed');
-        showDialog(context: context, builder: (_) => AddProteinDialog());
+        if (events.isNotEmpty) {
+          showDialog(
+              context: context,
+              builder: (_) => CalendarProteinDialog(events[0]));
+        }
       },
       daysHaveCircularBorder: true,
       showOnlyCurrentMonthDate: false,
@@ -275,12 +279,14 @@ class _CalendarWidgetState extends State<CalendarWidget> {
   }
 }
 
-class AddProteinDialog extends StatefulWidget {
+class CalendarProteinDialog extends StatefulWidget {
+  final Event event;
+  CalendarProteinDialog(this.event);
   @override
-  _AddProteinDialogState createState() => _AddProteinDialogState();
+  _CalendarProteinDialogState createState() => _CalendarProteinDialogState();
 }
 
-class _AddProteinDialogState extends State<AddProteinDialog> {
+class _CalendarProteinDialogState extends State<CalendarProteinDialog> {
   final _formKey = GlobalKey<FormState>();
 
   String dropdownValueGoal;
@@ -311,7 +317,7 @@ class _AddProteinDialogState extends State<AddProteinDialog> {
     return WidgetUtils.dialog(
         context: context,
         height: MediaQuery.of(context).size.height * .37,
-        title: "20 july 2020",
+        title: widget.event.title,
         showAd: false,
         child: Container(
           // margin: EdgeInsets.symmetric(horizontal: 40),

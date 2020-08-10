@@ -61,6 +61,7 @@ class DateUtils {
 
   static String formattedToday() {
     var today = DateTime.now();
+
     DateFormat formatter = DateFormat('dd-MMMM-yyyy');
 
     return formatter.format(today);
