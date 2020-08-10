@@ -125,5 +125,10 @@
   "button_yes": "Sim",
   "button_no": "Não",
   "button_review": "Razão de aplicação",
-  "button_update": "verifique se há atualizações"
+  "button_update": "verifique se há atualizações",
+  "calendar_label_prev": "ANTERIOR",
+  "calendar_label_next": "PROXIMO",
+  "calendar_label_goal_completed": "objetivo concluído",
+  "calendar_label_current_day": "dia atual",
+  "calendar_label_selected_day": "dia selecionado"
 }

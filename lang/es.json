@@ -125,5 +125,10 @@
   "button_yes": "Sí",
   "button_no": "No",
   "button_review": "Dar reseña",
-  "button_update": "buscar actualizaciones"
+  "button_update": "buscar actualizaciones",
+  "calendar_label_prev": "ANTERIOR",
+  "calendar_label_next": "SIGUIENTE",
+  "calendar_label_goal_completed": "meta completada",
+  "calendar_label_current_day": "día actual",
+  "calendar_label_selected_day": "día seleccionado"
 }

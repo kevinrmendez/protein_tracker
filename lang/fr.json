@@ -125,5 +125,10 @@
   "button_yes": "Oui",
   "button_no": "Non",
   "button_review": "Noter l'application",
-  "button_update": "vérifier les mises à jour"
+  "button_update": "vérifier les mises à jour",
+  "calendar_label_prev": " PRECEDENT",
+  "calendar_label_next": "SUIVANT",
+  "calendar_label_goal_completed": "objectif atteint",
+  "calendar_label_current_day": "jour actuel",
+  "calendar_label_selected_day": "jour sélectionné"
 }

@@ -18,7 +18,8 @@ import 'package:protein_tracker/utils/localization_utils.dart';
 
 class CalendarWidget extends StatefulWidget {
   final List<DailyProtein> dailyProteinList;
-  CalendarWidget(this.dailyProteinList);
+  final BuildContext context;
+  CalendarWidget(this.dailyProteinList, this.context);
   @override
   _CalendarWidgetState createState() => _CalendarWidgetState();
 }
@@ -26,7 +27,10 @@ class CalendarWidget extends StatefulWidget {
 class _CalendarWidgetState extends State<CalendarWidget> {
   // DateTime _currentDate = DateTime(2020, 2, 3);
   DateTime _currentDate = DateTime.now();
-  String _currentMonth = DateFormat.yMMM().format(DateTime.now());
+  String _currentMonth;
+  // String _currentMonth = DateFormat.yMMM()
+  //         .format(DateTime.now());
+
   DateTime _targetDateTime = DateTime.now();
   EventList<Event> _markedDateMap;
 
@@ -121,6 +125,9 @@ class _CalendarWidgetState extends State<CalendarWidget> {
     //     icon: _eventIcon,
     //   ),
     // );
+    _currentMonth =
+        DateFormat.yMMM(Localizations.localeOf(widget.context).languageCode)
+            .format(DateTime.now());
     _markedDateMap = _getEventList();
 
     super.initState();
@@ -130,6 +137,7 @@ class _CalendarWidgetState extends State<CalendarWidget> {
   Widget build(BuildContext context) {
     // / Example Calendar Carousel without header and custom prev & next button
     _calendarCarouselNoHeader = CalendarCarousel<Event>(
+      locale: Localizations.localeOf(context).languageCode,
       weekdayTextStyle:
           TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
       todayBorderColor: DarkGreyColor,
@@ -149,7 +157,7 @@ class _CalendarWidgetState extends State<CalendarWidget> {
       // firstDayOfWeek: 4,
       markedDatesMap: _markedDateMap,
       // height: 420.0,
-      height: MediaQuery.of(context).size.height * .45,
+      height: MediaQuery.of(context).size.height * .42,
       selectedDateTime: _currentDate,
       targetDateTime: _targetDateTime,
       customGridViewPhysics: NeverScrollableScrollPhysics(),
@@ -192,7 +200,9 @@ class _CalendarWidgetState extends State<CalendarWidget> {
       onCalendarChanged: (DateTime date) {
         this.setState(() {
           _targetDateTime = date;
-          _currentMonth = DateFormat.yMMM().format(_targetDateTime);
+          _currentMonth =
+              DateFormat.yMMM(Localizations.localeOf(context).languageCode)
+                  .format(_targetDateTime);
         });
       },
       onDayLongPressed: (DateTime date) {
@@ -207,7 +217,7 @@ class _CalendarWidgetState extends State<CalendarWidget> {
         //custom icon without header
         Container(
           margin: EdgeInsets.only(
-            top: 30.0,
+            top: 20.0,
             bottom: 16.0,
             left: 16.0,
             right: 16.0,
@@ -231,7 +241,9 @@ class _CalendarWidgetState extends State<CalendarWidget> {
                   setState(() {
                     _targetDateTime = DateTime(
                         _targetDateTime.year, _targetDateTime.month - 1);
-                    _currentMonth = DateFormat.yMMM().format(_targetDateTime);
+                    _currentMonth = DateFormat.yMMM(
+                            Localizations.localeOf(context).languageCode)
+                        .format(_targetDateTime);
                   });
                 },
               ),
@@ -244,7 +256,9 @@ class _CalendarWidgetState extends State<CalendarWidget> {
                   setState(() {
                     _targetDateTime = DateTime(
                         _targetDateTime.year, _targetDateTime.month + 1);
-                    _currentMonth = DateFormat.yMMM().format(_targetDateTime);
+                    _currentMonth = DateFormat.yMMM(
+                            Localizations.localeOf(context).languageCode)
+                        .format(_targetDateTime);
                   });
                 },
               )
@@ -252,7 +266,7 @@ class _CalendarWidgetState extends State<CalendarWidget> {
           ),
         ),
         Container(
-          height: MediaQuery.of(context).size.height * .45,
+          height: MediaQuery.of(context).size.height * .42,
           margin: EdgeInsets.symmetric(horizontal: 16.0),
           child: _calendarCarouselNoHeader,
         ), //

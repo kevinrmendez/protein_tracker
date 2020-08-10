@@ -55,7 +55,7 @@ class CalendarScreen extends StatelessWidget {
                   if (snapshot.data == null) {
                     return CircularProgressIndicator();
                   }
-                  return CalendarWidget(snapshot.data);
+                  return CalendarWidget(snapshot.data, context);
                 }),
             Container(
               child: Column(
@@ -87,7 +87,7 @@ class CalendarScreen extends StatelessWidget {
               ),
             ),
             SizedBox(
-              height: 10,
+              height: 5,
             ),
             AdMobUtils.admobBanner(size: "b")
           ],
