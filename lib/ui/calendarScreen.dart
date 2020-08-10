@@ -57,6 +57,9 @@ class CalendarScreen extends StatelessWidget {
                   }
                   return CalendarWidget(snapshot.data, context);
                 }),
+            SizedBox(
+              height: 10,
+            ),
             Container(
               child: Column(
                 children: <Widget>[
@@ -87,7 +90,7 @@ class CalendarScreen extends StatelessWidget {
               ),
             ),
             SizedBox(
-              height: 5,
+              height: 10,
             ),
             AdMobUtils.admobBanner(size: "b")
           ],
