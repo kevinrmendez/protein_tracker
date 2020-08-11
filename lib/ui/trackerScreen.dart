@@ -193,7 +193,7 @@ class _AddProteinDialogState extends State<AddProteinDialog> {
   Widget build(BuildContext context) {
     return WidgetUtils.dialog(
         context: context,
-        height: MediaQuery.of(context).size.height * .6,
+        height: MediaQuery.of(context).size.height * .52,
         title: translatedText(
           "tracker_dialog_title_add_protein",
           context,
@@ -373,7 +373,7 @@ class _EditProteinDialogState extends State<EditProteinDialog> {
   Widget build(BuildContext context) {
     return WidgetUtils.dialog(
         context: context,
-        height: MediaQuery.of(context).size.height * .6,
+        height: MediaQuery.of(context).size.height * .52,
         title: translatedText(
           "tracker_dialog_title_edit_protein",
           context,

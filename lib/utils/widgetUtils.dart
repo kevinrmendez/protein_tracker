@@ -78,13 +78,16 @@ class WidgetUtils {
                   // color: Theme.of(context).primaryColor,
                   child: title.isEmpty
                       ? SizedBox()
-                      : Text(
-                          title,
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                              color: color,
-                              fontSize: 22,
-                              fontWeight: FontWeight.bold),
+                      : Container(
+                          padding: EdgeInsets.fromLTRB(30, 4, 30, 4),
+                          child: Text(
+                            title,
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                                color: color,
+                                fontSize: 22,
+                                fontWeight: FontWeight.bold),
+                          ),
                         )),
               SizedBox(
                 height: 18,
