@@ -31,7 +31,7 @@ class _MyHomePageState extends State<HomeScreen> {
             title: new Text(
               translatedText('dialog_close_app_title', context),
               style:
-                  TextStyle(fontWeight: FontWeight.bold, color: PrimaryColor),
+                  TextStyle(fontWeight: FontWeight.bold, color: Colors.black),
             ),
             content: new Text(
                 translatedText('dialog_close_app_description', context)),
