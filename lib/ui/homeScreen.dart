@@ -200,17 +200,17 @@ class DailyStatus extends StatelessWidget {
 
 class DailyStatusWidget extends StatelessWidget {
   // FOR TESTING DAILY PROTEIN DATA
-  _buildDailyProtein() {
-    return Row(
-      children: <Widget>[
-        Text('dailyProtein: '),
-        Column(
-            children: dailyProteinServices.currentList
-                .map((e) => Text(e.totalProtein.toString()))
-                .toList()),
-      ],
-    );
-  }
+  // _buildDailyProtein() {
+  //   return Row(
+  //     children: <Widget>[
+  //       Text('dailyProtein: '),
+  //       Column(
+  //           children: dailyProteinServices.currentList
+  //               .map((e) => Text(e.totalProtein.toString()))
+  //               .toList()),
+  //     ],
+  //   );
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -226,7 +226,7 @@ class DailyStatusWidget extends StatelessWidget {
       remainingProtein = remainingProtein > 0 ? remainingProtein : 0;
       return Column(
         children: <Widget>[
-          _buildDailyProtein(),
+          // _buildDailyProtein(),
           Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: <Widget>[
