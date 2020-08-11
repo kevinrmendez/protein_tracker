@@ -83,7 +83,7 @@ class WidgetUtils {
                           textAlign: TextAlign.center,
                           style: TextStyle(
                               color: color,
-                              fontSize: 27,
+                              fontSize: 22,
                               fontWeight: FontWeight.bold),
                         )),
               SizedBox(

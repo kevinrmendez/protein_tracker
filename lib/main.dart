@@ -23,7 +23,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 
 import 'app_localizations.dart';
 
-import 'package:cron/cron.dart';
+// import 'package:cron/cron.dart';
 
 DateTime currentDate;
 var preferences;
@@ -68,14 +68,9 @@ void main() async {
     preferences.setBool("first_time_open", true);
   }
 
-  //CHECK PREVIOS DATE FROM PREFERENCES AND RESET IF DAY IS DIFFERENT
+  //SAVE DATE IN CACHE FOR FIRST TIME
   if (!preferences.containsKey("cache_day")) {
-    preferences.setInt("cache_day", todayDay);
-  }
-
-  var preferencesDay = preferences.getInt("cache_day");
-  if (preferencesDay != todayDay) {
-    proteinService.resetConsumedProtein();
+    await preferences.setInt("cache_day", todayDay);
   }
 
   // dateService.updateDate(currentDate);
@@ -96,10 +91,24 @@ class _MyAppState extends State<MyApp> {
   @override
   void initState() {
     super.initState();
+    _restartApp();
 
     setState(() {
       showWelcomeScreen = preferences.getBool("first_time_open") ?? true;
     });
+  }
+
+  _restartApp() async {
+    final DateFormat formatterDay = DateFormat('d');
+    var todayDay = int.parse(formatterDay.format(currentDate));
+
+    var preferencesDay = await preferences.getInt("cache_day");
+    if (preferencesDay != todayDay) {
+      proteinService.resetConsumedProtein();
+      await preferences.setInt("cache_day", todayDay);
+      // var preferencesDay = preferences.getInt("cache_day");
+      // assert(preferencesDay == todayDay);
+    }
   }
 
   @override
