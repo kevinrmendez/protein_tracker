@@ -41,6 +41,7 @@ dependencies:
   flutter_calendar_carousel: ^1.4.12
   url_launcher:
   cron: ^0.2.3
+  share:
 
 dev_dependencies:
   flutter_test:

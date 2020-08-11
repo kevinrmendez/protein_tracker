@@ -94,6 +94,7 @@
   "app_drawer_food_settings": "Settings",
   "app_drawer_review_app": "Review App",
   "app_drawer_calendar": "Calendar",
+  "app_drawer_share": "Share App",
   "title_today": "Today",
   "text_remaining": "remaining",
   "text_goal": "goal",
@@ -131,5 +132,6 @@
   "calendar_label_next": "NEXT",
   "calendar_label_goal_completed": "goal completed",
   "calendar_label_current_day": "current day",
-  "calendar_label_selected_day": "selected day"
+  "calendar_label_selected_day": "selected day",
+  "text_share_app": "I am using this app for tracking my protein intake, you can download it from the next link:"
 }

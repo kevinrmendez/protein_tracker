@@ -94,6 +94,7 @@
   "app_drawer_food_settings": "Configurações",
   "app_drawer_review_app": "Razão de aplicação",
   "app_drawer_calendar": "Calendário",
+  "app_drawer_share": "Compartilhe o aplicativo",
   "title_today": "Hoje",
   "text_remaining": "restante",
   "text_goal": "meta",
@@ -130,5 +131,6 @@
   "calendar_label_next": "PROXIMO",
   "calendar_label_goal_completed": "objetivo concluído",
   "calendar_label_current_day": "dia atual",
-  "calendar_label_selected_day": "dia selecionado"
+  "calendar_label_selected_day": "dia selecionado",
+  "text_share_app": "Estou usando este aplicativo para rastrear minha ingestão de proteínas, você pode baixá-lo no próximo link:"
 }

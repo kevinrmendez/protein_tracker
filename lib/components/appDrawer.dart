@@ -8,6 +8,7 @@ import 'package:protein_tracker/utils/colors.dart';
 import 'package:protein_tracker/ui/goalScreen.dart';
 import 'package:protein_tracker/ui/settingsScreen.dart';
 import 'package:protein_tracker/utils/localization_utils.dart';
+import 'package:share/share.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class AppDrawer extends StatelessWidget {
@@ -143,7 +144,26 @@ class AppDrawer extends StatelessWidget {
                       builder: (BuildContext context) => SettingsScreen()));
                 },
               ),
-
+              ListTile(
+                title: Text(
+                  translatedText(
+                    "app_drawer_share",
+                    context,
+                  ),
+                ),
+                trailing: Icon(
+                  Icons.share,
+                  // color: Theme.of(context).accentColor,
+                ),
+                onTap: () {
+                  String url = AppAssets.appUrl;
+                  print('sharing');
+                  Share.share("${translatedText(
+                    'text_share_app',
+                    context,
+                  )} $url");
+                },
+              ),
               // ListTile(
               //   title: Text(
               //     "Welcome",
