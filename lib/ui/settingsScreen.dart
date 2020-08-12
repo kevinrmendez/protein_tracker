@@ -1,15 +1,17 @@
+import 'dart:io';
 import 'package:flutter/material.dart';
+
+import 'package:path_provider/path_provider.dart';
+import 'package:csv/csv.dart';
+import 'package:flutter_email_sender/flutter_email_sender.dart';
+import 'package:scidart/numdart.dart';
+
 import 'package:protein_tracker/bloc/DailyProteinService.dart';
 import 'package:protein_tracker/bloc/SettingsService.dart';
 import 'package:protein_tracker/model/dailyProtein.dart';
 import 'package:protein_tracker/ui/aboutScreen.dart';
 import 'package:protein_tracker/utils/localization_utils.dart';
 import 'package:protein_tracker/utils/widgetUtils.dart';
-import 'package:scidart/numdart.dart';
-import 'dart:io';
-import 'package:path_provider/path_provider.dart';
-import 'package:csv/csv.dart';
-import 'package:flutter_email_sender/flutter_email_sender.dart';
 
 class SettingsScreen extends StatefulWidget {
   SettingsScreen({Key key}) : super(key: key);
@@ -95,7 +97,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
     Directory dir = await getExternalStorageDirectory();
     String path = dir.absolute.path;
     print(path);
-    File file = File('${path}/protein.csv');
+    File file = File('$path/protein.csv');
     List<DailyProtein> dailyProtein = dailyProteinServices.currentList;
     List<List<dynamic>> rows = List<List<dynamic>>();
     for (int i = 0; i < dailyProtein.length; i++) {

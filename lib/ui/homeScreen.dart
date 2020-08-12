@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:protein_tracker/bloc/DailyProteinService.dart';
-import 'package:protein_tracker/model/goal.dart';
-import 'package:protein_tracker/utils/AdMobUtils.dart';
-import 'package:protein_tracker/utils/appAssets.dart';
-import 'package:protein_tracker/utils/colors.dart';
-import 'package:protein_tracker/main.dart';
-import 'package:protein_tracker/bloc/ProteinService.dart';
-import 'package:protein_tracker/ui/trackerScreen.dart';
-import 'package:protein_tracker/utils/fontStyle.dart';
-import 'package:protein_tracker/utils/localization_utils.dart';
-import 'package:protein_tracker/utils/widgetUtils.dart';
+
 import 'package:provider/provider.dart';
 import 'package:step_progress_indicator/step_progress_indicator.dart';
 import 'package:url_launcher/url_launcher.dart';
+
+import 'package:protein_tracker/utils/AdMobUtils.dart';
+import 'package:protein_tracker/utils/appAssets.dart';
+import 'package:protein_tracker/utils/colors.dart';
+import 'package:protein_tracker/utils/fontStyle.dart';
+import 'package:protein_tracker/utils/localization_utils.dart';
+import 'package:protein_tracker/utils/widgetUtils.dart';
+
+import 'package:protein_tracker/bloc/ProteinService.dart';
+import 'package:protein_tracker/model/goal.dart';
 
 class HomeScreen extends StatefulWidget {
   HomeScreen({Key key, this.title}) : super(key: key);
@@ -371,10 +371,7 @@ class ProgressIndicatorWidget extends StatelessWidget {
               )
             ],
           ),
-        )
-
-            // Text('consumed'),
-            ),
+        )),
       );
     }
   }

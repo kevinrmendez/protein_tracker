@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:scidart/numdart.dart';
+
 import 'package:protein_tracker/bloc/SettingsService.dart';
-import 'package:protein_tracker/model/protein.dart';
-import 'package:protein_tracker/utils/colors.dart';
-import 'package:protein_tracker/main.dart';
 import 'package:protein_tracker/bloc/ProteinService.dart';
 import 'package:protein_tracker/utils/localization_utils.dart';
 import 'package:protein_tracker/utils/widgetUtils.dart';
-import 'package:scidart/numdart.dart';
+import 'package:protein_tracker/utils/colors.dart';
 
 class CalculatorScreen extends StatefulWidget {
   CalculatorScreen({Key key, this.title}) : super(key: key);

@@ -1,23 +1,18 @@
-import 'package:admob_flutter/admob_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:protein_tracker/bloc/DailyProteinService.dart';
 
 import 'package:protein_tracker/bloc/FoodService.dart';
 import 'package:protein_tracker/bloc/ProteinListService.dart';
 import 'package:protein_tracker/bloc/StatisticsService.dart';
-import 'package:protein_tracker/model/dailyProtein.dart';
-import 'package:protein_tracker/utils/AdMobUtils.dart';
-import 'package:protein_tracker/utils/appAssets.dart';
-import 'package:protein_tracker/utils/colors.dart';
-import 'package:protein_tracker/dao/protein_dao.dart';
+import 'package:protein_tracker/bloc/ProteinService.dart';
+
 import 'package:protein_tracker/main.dart';
 import 'package:protein_tracker/model/food.dart';
 import 'package:protein_tracker/model/protein.dart';
-import 'package:protein_tracker/bloc/ProteinService.dart';
-import 'package:protein_tracker/utils/dateUtils.dart';
 import 'package:protein_tracker/utils/localization_utils.dart';
 import 'package:protein_tracker/utils/widgetUtils.dart';
+import 'package:protein_tracker/utils/appAssets.dart';
+import 'package:protein_tracker/utils/colors.dart';
 
 class TrackerScreen extends StatefulWidget {
   TrackerScreen({Key key, this.title}) : super(key: key);

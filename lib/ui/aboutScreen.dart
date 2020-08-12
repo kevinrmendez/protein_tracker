@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:protein_tracker/main.dart';
+import 'package:url_launcher/url_launcher.dart';
+
 import 'package:protein_tracker/utils/appAssets.dart';
 import 'package:protein_tracker/utils/colors.dart';
 import 'package:protein_tracker/utils/widgetUtils.dart';
 import 'package:protein_tracker/utils/localization_utils.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 class AboutScreen extends StatelessWidget {
   AboutScreen({Key key}) : super(key: key);
