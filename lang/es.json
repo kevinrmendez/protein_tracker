@@ -38,7 +38,7 @@
   "calculator_error_emptyValue": "agrega tu peso",
   "calculator_error_value_0": "su peso debe ser mayor que 0",
   "calculator_error_value_too_high": "su peso es demasiado alto",
-  "statistics_title": "Ingesta mensual de proteínas",
+  "statistics_title": "Proteína mensual",
   "statistics_subtitle_statistics": "Estadísticas",
   "statistics_label_protein_consumed": "PROTEÍNA CONSUMIDA",
   "statistics_label_protein_avg_consumed": "PROM PROTEÍNA  CONSUMIDA",

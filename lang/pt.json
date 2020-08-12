@@ -38,7 +38,7 @@
   "calculator_error_emptyValue": "adicione seu peso",
   "calculator_error_value_0": " deve ser maior que 0",
   "calculator_error_value_too_high": " está muito alto",
-  "statistics_title": "Ingestão mensal de proteínas",
+  "statistics_title": "Proteína mensal",
   "statistics_subtitle_statistics": "Estatísticas",
   "statistics_label_protein_consumed": "PROTEÍNA",
   "statistics_label_protein_avg_consumed": "MÉDIA PROTEÍNA",

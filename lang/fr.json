@@ -38,7 +38,7 @@
   "calculator_error_emptyValue": "ajoutez votre poids",
   "calculator_error_value_0": "votre poids doit être supérieur à 0",
   "calculator_error_value_too_high": "votre poids est trop élevé",
-  "statistics_title": "Apport mensuel en protéines",
+  "statistics_title": "Protéine mensuelle",
   "statistics_subtitle_statistics": "Statistiques",
   "statistics_label_protein_consumed": "PROTÉINES",
   "statistics_label_protein_avg_consumed": "MOYENNES PROTEIN",
