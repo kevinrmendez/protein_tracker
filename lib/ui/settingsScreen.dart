@@ -30,66 +30,58 @@ class _SettingsScreenState extends State<SettingsScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: WidgetUtils.appBarBackArrow(
-          translatedText(
-            "appbar_settings",
-            context,
-          ),
-          context),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: <Widget>[
-          ListTile(
-            title: Text(
-              translatedText(
-                "settings_text_about",
-                context,
-              ),
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.start,
+      children: <Widget>[
+        ListTile(
+          title: Text(
+            translatedText(
+              "settings_text_about",
+              context,
             ),
-            trailing: Icon(Icons.info),
-            onTap: () {
-              Navigator.of(context).push(MaterialPageRoute(
-                  builder: (BuildContext context) => AboutScreen()));
+          ),
+          trailing: Icon(Icons.info),
+          onTap: () {
+            Navigator.of(context).push(MaterialPageRoute(
+                builder: (BuildContext context) => AboutScreen()));
+          },
+        ),
+        ListTile(
+          title: Text(
+            translatedText(
+              "settings_text_weight",
+              context,
+            ),
+          ),
+          trailing: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: <Widget>[
+              Text('lb'),
+              Switch(
+                  value: weightSettingsBool,
+                  onChanged: (value) {
+                    setState(() {
+                      weightSettingsBool = value;
+                    });
+                    settingsService.updateWeightSettings(boolToInt(value));
+                  }),
+              Text('kg')
+            ],
+          ),
+        ),
+        ListTile(
+          title: Text(
+            "export data as csv",
+          ),
+          trailing: IconButton(
+            icon: Icon(Icons.import_export),
+            onPressed: () async {
+              print('exporting data');
+              _exportData();
             },
           ),
-          ListTile(
-            title: Text(
-              translatedText(
-                "settings_text_weight",
-                context,
-              ),
-            ),
-            trailing: Row(
-              mainAxisSize: MainAxisSize.min,
-              children: <Widget>[
-                Text('lb'),
-                Switch(
-                    value: weightSettingsBool,
-                    onChanged: (value) {
-                      setState(() {
-                        weightSettingsBool = value;
-                      });
-                      settingsService.updateWeightSettings(boolToInt(value));
-                    }),
-                Text('kg')
-              ],
-            ),
-          ),
-          ListTile(
-            title: Text(
-              "export data as csv",
-            ),
-            trailing: IconButton(
-              icon: Icon(Icons.import_export),
-              onPressed: () async {
-                print('exporting data');
-                _exportData();
-              },
-            ),
-          ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 

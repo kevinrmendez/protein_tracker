@@ -88,24 +88,6 @@ class AppDrawer extends StatelessWidget {
               ListTile(
                 title: Text(
                   translatedText(
-                    "app_drawer_calendar",
-                    context,
-                  ),
-                  // style: TextStyle(color: Theme.of(context).primaryColor),
-                ),
-                trailing: Icon(
-                  Icons.calendar_today,
-                  color: Theme.of(context).accentColor,
-                ),
-                onTap: () {
-                  Navigator.of(context).pop();
-                  Navigator.of(context).push(MaterialPageRoute(
-                      builder: (BuildContext context) => CalendarScreen()));
-                },
-              ),
-              ListTile(
-                title: Text(
-                  translatedText(
                     "app_drawer_review_app",
                     context,
                   ),
@@ -123,24 +105,6 @@ class AppDrawer extends StatelessWidget {
                   } else {
                     throw 'Could not launch $url';
                   }
-                },
-              ),
-              ListTile(
-                title: Text(
-                  translatedText(
-                    "app_drawer_food_settings",
-                    context,
-                  ),
-                  // style: TextStyle(color: Theme.of(context).primaryColor),
-                ),
-                trailing: Icon(
-                  Icons.settings,
-                  color: Theme.of(context).accentColor,
-                ),
-                onTap: () {
-                  Navigator.of(context).pop();
-                  Navigator.of(context).push(MaterialPageRoute(
-                      builder: (BuildContext context) => SettingsScreen()));
                 },
               ),
               ListTile(
