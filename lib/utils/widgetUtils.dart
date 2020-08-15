@@ -200,4 +200,17 @@ class WidgetUtils {
       ),
     );
   }
+
+  static Widget screenTitle({String title, BuildContext context}) {
+    return Container(
+      // color: Colors.red,
+      width: MediaQuery.of(context).size.width,
+      margin: EdgeInsets.only(left: 20),
+      child: Text(
+        title,
+        textAlign: TextAlign.left,
+        style: TextStyle(fontSize: 36, fontWeight: FontWeight.bold),
+      ),
+    );
+  }
 }

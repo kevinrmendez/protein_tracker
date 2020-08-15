@@ -42,11 +42,14 @@ class CalendarScreen extends StatelessWidget {
         child: Column(
       mainAxisSize: MainAxisSize.min,
       children: <Widget>[
+        WidgetUtils.screenTitle(title: 'Calendar', context: context),
         StreamBuilder<List<DailyProtein>>(
             stream: dailyProteinServices.stream,
             builder: (context, snapshot) {
               if (snapshot.data == null) {
-                return CircularProgressIndicator();
+                return Container(
+                    height: MediaQuery.of(context).size.height * .55,
+                    child: Center(child: CircularProgressIndicator()));
               }
               return CalendarWidget(snapshot.data, context);
             }),
