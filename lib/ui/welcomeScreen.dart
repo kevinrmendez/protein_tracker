@@ -426,6 +426,48 @@ class _SetupCalculatorScreenState extends State<SetupCalculatorScreen> {
     );
   }
 
+  _buildScreen4() {
+    return Center(
+      child: Column(
+        children: <Widget>[
+          Text('screen4'),
+          WidgetUtils.button(context,
+              width: MediaQuery.of(context).size.width, text: 'yes',
+              // text: translatedText(
+              //   "welcome_button_skip",
+              //   context,
+              // ),
+              onPressed: () {
+            setState(() {
+              _index++;
+            });
+          }, color: Colors.white, textColor: PrimaryColor),
+        ],
+      ),
+    );
+  }
+
+  _buildScreen5() {
+    return Center(
+      child: Column(
+        children: <Widget>[
+          Text('screen5'),
+          WidgetUtils.button(context,
+              width: MediaQuery.of(context).size.width, text: 'yes',
+              // text: translatedText(
+              //   "welcome_button_skip",
+              //   context,
+              // ),
+              onPressed: () {
+            setState(() {
+              _index++;
+            });
+          }, color: Colors.white, textColor: PrimaryColor),
+        ],
+      ),
+    );
+  }
+
   // Widget _radioButton(
   //   String label,
   //   groupValue,
@@ -460,7 +502,13 @@ class _SetupCalculatorScreenState extends State<SetupCalculatorScreen> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           _titleText('Calculate protein'),
-          [_buildScreen1(), _buildScreen2(), _buildScreen3()][_index]
+          [
+            _buildScreen1(),
+            _buildScreen2(),
+            _buildScreen3(),
+            _buildScreen4(),
+            _buildScreen5()
+          ][_index]
         ],
       ),
     );
