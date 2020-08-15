@@ -6,6 +6,7 @@ import 'package:protein_tracker/utils/appAssets.dart';
 import 'package:protein_tracker/utils/colors.dart';
 import 'package:protein_tracker/utils/localization_utils.dart';
 import 'package:protein_tracker/utils/widgetUtils.dart';
+import 'package:protein_tracker/utils/enums.dart';
 
 Widget _titleText(text) {
   return Text(
@@ -13,6 +14,21 @@ Widget _titleText(text) {
     textAlign: TextAlign.center,
     style: TextStyle(
         color: Colors.white, fontSize: 35, fontWeight: FontWeight.bold),
+  );
+}
+
+Widget _bodyText(text) {
+  return Text(
+    text,
+    style: TextStyle(color: Colors.white, fontSize: 24),
+  );
+}
+
+Widget _numberText(int number) {
+  return Text(
+    "$number",
+    style: TextStyle(
+        fontSize: 80, color: Colors.white, fontWeight: FontWeight.bold),
   );
 }
 
@@ -99,7 +115,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                     onPressed: () {
                   Navigator.of(context).pushAndRemoveUntil(
                       MaterialPageRoute(
-                          builder: (context) => SetupGoalScreen()),
+                          builder: (context) => SetupCalculatorScreen()),
                       (Route<dynamic> route) => false);
                 }, color: Colors.white, textColor: PrimaryColor),
               ],
@@ -144,10 +160,8 @@ class _SetupGoalScreenState extends State<SetupGoalScreen> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           _titleText('Set your protein goal'),
-          Text(
-            "$goal",
-            style: TextStyle(
-                fontSize: 80, color: Colors.white, fontWeight: FontWeight.bold),
+          _numberText(
+            goal,
           ),
           _titleText('gr'),
           Container(
@@ -228,6 +242,225 @@ class _SetupGoalScreenState extends State<SetupGoalScreen> {
               ],
             ),
           ),
+        ],
+      ),
+    );
+  }
+}
+
+class SetupCalculatorScreen extends StatefulWidget {
+  @override
+  _SetupCalculatorScreenState createState() => _SetupCalculatorScreenState();
+}
+
+class _SetupCalculatorScreenState extends State<SetupCalculatorScreen> {
+  int _index;
+  int _weight;
+  Gender _gender = Gender.male;
+  WeightUnit _weightUnit;
+
+  final _formKey = GlobalKey<FormState>();
+  final _weightformKey = GlobalKey<FormState>();
+  static Widget _screen1, _screen2, _screen3;
+  List<Widget> _screens = [_screen1, _screen2, _screen3];
+
+  int goal;
+  final _goalController = TextEditingController();
+  final _weightController = TextEditingController();
+
+  @override
+  void initState() {
+    _index = 0;
+    _weight = 0;
+    goal = 0;
+    _weightUnit = WeightUnit.lb;
+    super.initState();
+  }
+
+  _buildScreen1() {
+    _buildRadioButtonWeight(String text, value) {
+      return Theme(
+        data: ThemeData.dark(),
+        child: Column(
+          children: <Widget>[
+            Text(
+              text,
+              style: TextStyle(color: Colors.white, fontSize: 24),
+            ),
+            Radio(
+              activeColor: Colors.white,
+              value: value,
+              groupValue: _weightUnit,
+              onChanged: (value) {
+                setState(() {
+                  _weightUnit = value;
+                });
+              },
+            ),
+          ],
+        ),
+      );
+    }
+
+    return Center(
+      child: Column(
+        children: <Widget>[
+          _bodyText(
+            'What is your weight?',
+          ),
+          _numberText(_weight),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              _buildRadioButtonWeight('lb', WeightUnit.lb),
+              _buildRadioButtonWeight('kg', WeightUnit.kg),
+            ],
+          ),
+          Form(
+            key: _weightformKey,
+            child: Column(children: [
+              WidgetUtils.inputField(
+                keyboardType: TextInputType.number,
+                controller: _weightController,
+                labelText: "weight",
+                // labelText: translatedText(
+                //   "welcome_dialog_goal_label",
+                //   context,
+                // ),
+                onChanged: (value) {
+                  setState(() {
+                    _weight = int.parse(value);
+                  });
+                },
+                validator: (value) {
+                  if (value.isEmpty) {
+                    return translatedText(
+                      "welcome_error_value_empty",
+                      context,
+                    );
+                  }
+                  if (!regExp.hasMatch(value)) {
+                    return translatedText(
+                      "error_only_numbers",
+                      context,
+                    );
+                  }
+                  if (value == "0") {
+                    return translatedText(
+                      "goal_error_value_0",
+                      context,
+                    );
+                  }
+                  return null;
+                },
+              ),
+              WidgetUtils.button(context,
+                  width: MediaQuery.of(context).size.width,
+                  text: translatedText(
+                    "button_add",
+                    context,
+                  ),
+                  color: Colors.white,
+                  textColor: PrimaryColor, onPressed: () async {
+                if (_weightformKey.currentState.validate()) {
+                  if (regExp.hasMatch(goal.toString())) {
+                    if (goal == 0) {
+                      proteinService.setGoal(1);
+                    } else {
+                      proteinService.setGoal(goal);
+                    }
+                  } else {
+                    proteinService.setGoal(1);
+                  }
+                  setState(() {
+                    _index++;
+                  });
+                }
+              }),
+            ]),
+          ),
+        ],
+      ),
+    );
+  }
+
+  _buildScreen2() {
+    return Center(
+      child: Column(
+        children: <Widget>[
+          _bodyText('What is your gender?'),
+          WidgetUtils.button(context,
+              width: MediaQuery.of(context).size.width, text: 'yes',
+              // text: translatedText(
+              //   "welcome_button_skip",
+              //   context,
+              // ),
+              onPressed: () {
+            setState(() {
+              _index++;
+            });
+          }, color: Colors.white, textColor: PrimaryColor),
+        ],
+      ),
+    );
+  }
+
+  _buildScreen3() {
+    return Center(
+      child: Column(
+        children: <Widget>[
+          Text('screen3'),
+          WidgetUtils.button(context,
+              width: MediaQuery.of(context).size.width, text: 'yes',
+              // text: translatedText(
+              //   "welcome_button_skip",
+              //   context,
+              // ),
+              onPressed: () {
+            setState(() {
+              _index++;
+            });
+          }, color: Colors.white, textColor: PrimaryColor),
+        ],
+      ),
+    );
+  }
+
+  // Widget _radioButton(
+  //   String label,
+  //   groupValue,
+  //   value,
+  // ) {
+  //   return Row(
+  //     children: <Widget>[
+  //       Radio(
+  //         activeColor: PrimaryColor,
+  //         value: value,
+  //         groupValue: groupValue,
+  //         onChanged: (value) {
+  //           setState(() {
+  //             if (value is Gender) {
+  //               _gender = value;
+  //             }
+  //             if (value is FemaleStatus) {
+  //               _femaleStatus = value;
+  //             }
+  //           });
+  //         },
+  //       ),
+  //       Text(label)
+  //     ],
+  //   );
+  // }
+
+  @override
+  Widget build(BuildContext context) {
+    return BlueScreen(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          _titleText('Calculate protein'),
+          [_buildScreen1(), _buildScreen2(), _buildScreen3()][_index]
         ],
       ),
     );

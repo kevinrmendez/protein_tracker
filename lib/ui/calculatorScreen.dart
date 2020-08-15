@@ -6,6 +6,12 @@ import 'package:protein_tracker/bloc/ProteinService.dart';
 import 'package:protein_tracker/utils/localization_utils.dart';
 import 'package:protein_tracker/utils/widgetUtils.dart';
 import 'package:protein_tracker/utils/colors.dart';
+import 'package:protein_tracker/utils/enums.dart';
+
+// enum Gender { male, female }
+// enum FemaleStatus { none, pregnant, lactanting }
+// enum ProteinGoal { none, maintenance, muscleGain, fatLoss }
+// enum Activity { none, sedentary, moderate, active }
 
 class CalculatorScreen extends StatefulWidget {
   CalculatorScreen({Key key, this.title}) : super(key: key);
@@ -15,11 +21,6 @@ class CalculatorScreen extends StatefulWidget {
   @override
   _MyHomePageState createState() => _MyHomePageState();
 }
-
-enum Gender { male, female }
-enum FemaleStatus { none, pregnant, lactanting }
-enum ProteinGoal { none, maintenance, muscleGain, fatLoss }
-enum Activity { none, sedentary, moderate, active }
 
 class _MyHomePageState extends State<CalculatorScreen> {
   Gender _gender = Gender.male;
