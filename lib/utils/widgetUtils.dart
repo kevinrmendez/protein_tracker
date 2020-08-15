@@ -12,9 +12,11 @@ class WidgetUtils {
       double height = 45,
       Function onPressed,
       Color color,
-      Color textColor}) {
+      Color textColor,
+      EdgeInsetsGeometry padding = const EdgeInsets.fromLTRB(20, 0, 20, 0)}) {
     return Container(
-      margin: EdgeInsets.fromLTRB(20, 6, 20, 6),
+      margin: EdgeInsets.fromLTRB(0, 6, 0, 6),
+      padding: padding,
       width: width,
       height: height,
       child: RaisedButton(
@@ -47,6 +49,8 @@ class WidgetUtils {
         keyboardType: keyboardType,
         controller: controller,
         decoration: InputDecoration(
+          fillColor: Colors.white,
+          filled: true,
           labelText: labelText,
           border: OutlineInputBorder(),
         ),

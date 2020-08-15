@@ -515,28 +515,25 @@ class _MyHomePageState extends State<CalculatorScreen> {
                       ],
                     )),
               ),
-              Container(
-                padding: EdgeInsets.symmetric(vertical: 0),
-                child: WidgetUtils.button(
+              WidgetUtils.button(
+                context,
+                width: MediaQuery.of(context).size.width,
+                color: DarkGreyColor,
+                text: translatedText(
+                  "calculator_button_calculate",
                   context,
-                  width: MediaQuery.of(context).size.width,
-                  color: DarkGreyColor,
-                  text: translatedText(
-                    "calculator_button_calculate",
-                    context,
-                  ),
-                  onPressed: () {
-                    if (_formKey.currentState.validate()) {
-                      if (dropdownValueGoal == ProteinGoal.none ||
-                          dropdownValueActivity == Activity.none) {
-                        showDialog(
-                            context: context, builder: (_) => ErrorDialog());
-                      } else {
-                        calculateProteinIntake();
-                      }
-                    }
-                  },
                 ),
+                onPressed: () {
+                  if (_formKey.currentState.validate()) {
+                    if (dropdownValueGoal == ProteinGoal.none ||
+                        dropdownValueActivity == Activity.none) {
+                      showDialog(
+                          context: context, builder: (_) => ErrorDialog());
+                    } else {
+                      calculateProteinIntake();
+                    }
+                  }
+                },
               ),
               _isCalculated
                   ? WidgetUtils.button(context,

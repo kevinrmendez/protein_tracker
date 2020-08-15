@@ -136,7 +136,7 @@ class _GoalScreenState extends State<GoalScreen> {
                     )),
               ),
               Padding(
-                padding: const EdgeInsets.symmetric(vertical: 20),
+                padding: const EdgeInsets.all(20),
                 child: WidgetUtils.button(
                   context,
                   width: MediaQuery.of(context).size.width,
