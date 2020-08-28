@@ -10,6 +10,5 @@ class MainActivity: FlutterActivity() {
         GeneratedPluginRegistrant.registerWith(flutterEngine);
     }
     override fun onDestroy() { 
-    // flutterEngine?.platformViewsController?.onFlutterViewDestroyed(); 
     super.onDestroy(); }
 }
