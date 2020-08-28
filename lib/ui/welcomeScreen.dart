@@ -149,7 +149,7 @@ class _SetupGoalScreenState extends State<SetupGoalScreen> {
 
   @override
   void initState() {
-    goal = 0;
+    goal = 10;
     super.initState();
   }
 
@@ -230,6 +230,7 @@ class _SetupGoalScreenState extends State<SetupGoalScreen> {
                                   title: 'your goal has been added',
                                   description:
                                       'congratulations you have set up your protein goal! You can change this goal any time from the app',
+                                  showChangeGoalButton: true,
                                 ));
 
                         // proteinService.setGoal(goal);
@@ -258,6 +259,9 @@ class _SetupCalculatorScreenState extends State<SetupCalculatorScreen> {
   int _weight;
   Gender _gender = Gender.male;
   WeightUnit _weightUnit;
+  FemaleStatus _femaleStatus;
+  Activity _activityLevel;
+  ProteinGoal _proteinGoal;
 
   final _formKey = GlobalKey<FormState>();
   final _weightformKey = GlobalKey<FormState>();
@@ -274,13 +278,16 @@ class _SetupCalculatorScreenState extends State<SetupCalculatorScreen> {
     _weight = 0;
     goal = 0;
     _weightUnit = WeightUnit.lb;
+    _femaleStatus = FemaleStatus.none;
+    _proteinGoal = ProteinGoal.maintenance;
+    _activityLevel = Activity.moderate;
     super.initState();
   }
 
-  _buildScreen1() {
-    _buildRadioButtonWeight(String text, value) {
-      return Theme(
-        data: ThemeData.dark(),
+  _buildRadioButton(String text, value, groupValue) {
+    return Theme(
+      data: ThemeData.dark(),
+      child: Container(
         child: Column(
           children: <Widget>[
             Text(
@@ -290,18 +297,34 @@ class _SetupCalculatorScreenState extends State<SetupCalculatorScreen> {
             Radio(
               activeColor: Colors.white,
               value: value,
-              groupValue: _weightUnit,
+              groupValue: groupValue,
               onChanged: (value) {
                 setState(() {
-                  _weightUnit = value;
+                  if (value is Gender) {
+                    _gender = value;
+                  }
+                  if (value is FemaleStatus) {
+                    _femaleStatus = value;
+                  }
+                  if (value is WeightUnit) {
+                    _weightUnit = value;
+                  }
+                  if (value is ProteinGoal) {
+                    _proteinGoal = value;
+                  }
+                  if (value is Activity) {
+                    _activityLevel = value;
+                  }
                 });
               },
             ),
           ],
         ),
-      );
-    }
+      ),
+    );
+  }
 
+  _buildScreen1() {
     return Center(
       child: Column(
         children: <Widget>[
@@ -312,8 +335,8 @@ class _SetupCalculatorScreenState extends State<SetupCalculatorScreen> {
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              _buildRadioButtonWeight('lb', WeightUnit.lb),
-              _buildRadioButtonWeight('kg', WeightUnit.kg),
+              _buildRadioButton('lb', WeightUnit.lb, _weightUnit),
+              _buildRadioButton('kg', WeightUnit.kg, _weightUnit),
             ],
           ),
           Form(
@@ -389,8 +412,37 @@ class _SetupCalculatorScreenState extends State<SetupCalculatorScreen> {
       child: Column(
         children: <Widget>[
           _bodyText('What is your gender?'),
+          Container(
+            margin: EdgeInsets.symmetric(vertical: 15),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                _buildRadioButton('male', Gender.male, _gender),
+                SizedBox(
+                  width: 40,
+                ),
+                _buildRadioButton('female', Gender.female, _gender),
+              ],
+            ),
+          ),
+          _gender == Gender.female
+              ? Column(children: [
+                  // _bodyText('What is your status?'),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: <Widget>[
+                      _buildRadioButton(
+                          'none', FemaleStatus.none, _femaleStatus),
+                      _buildRadioButton(
+                          'lactanting', FemaleStatus.lactanting, _femaleStatus),
+                      _buildRadioButton(
+                          'pregnant', FemaleStatus.pregnant, _femaleStatus)
+                    ],
+                  ),
+                ])
+              : SizedBox(),
           WidgetUtils.button(context,
-              width: MediaQuery.of(context).size.width, text: 'yes',
+              width: MediaQuery.of(context).size.width, text: 'continue',
               // text: translatedText(
               //   "welcome_button_skip",
               //   context,
@@ -409,9 +461,18 @@ class _SetupCalculatorScreenState extends State<SetupCalculatorScreen> {
     return Center(
       child: Column(
         children: <Widget>[
-          Text('screen3'),
+          _bodyText('What is your activity level?'),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: <Widget>[
+              _buildRadioButton(
+                  'sedentary', Activity.sedentary, _activityLevel),
+              _buildRadioButton('moderate', Activity.moderate, _activityLevel),
+              _buildRadioButton('active', Activity.active, _activityLevel)
+            ],
+          ),
           WidgetUtils.button(context,
-              width: MediaQuery.of(context).size.width, text: 'yes',
+              width: MediaQuery.of(context).size.width, text: 'continue',
               // text: translatedText(
               //   "welcome_button_skip",
               //   context,
@@ -430,9 +491,18 @@ class _SetupCalculatorScreenState extends State<SetupCalculatorScreen> {
     return Center(
       child: Column(
         children: <Widget>[
-          Text('screen4'),
+          _bodyText('What is your goal?'),
+          Column(
+            children: <Widget>[
+              _buildRadioButton(
+                  'maintenance', ProteinGoal.maintenance, _proteinGoal),
+              _buildRadioButton(
+                  'muscle gain', ProteinGoal.muscleGain, _proteinGoal),
+              _buildRadioButton('fat loss', ProteinGoal.fatLoss, _proteinGoal)
+            ],
+          ),
           WidgetUtils.button(context,
-              width: MediaQuery.of(context).size.width, text: 'yes',
+              width: MediaQuery.of(context).size.width, text: 'calculate',
               // text: translatedText(
               //   "welcome_button_skip",
               //   context,
@@ -451,17 +521,26 @@ class _SetupCalculatorScreenState extends State<SetupCalculatorScreen> {
     return Center(
       child: Column(
         children: <Widget>[
-          Text('screen5'),
+          _bodyText('Result'),
+          _numberText(100),
+          _bodyText('gr'),
           WidgetUtils.button(context,
-              width: MediaQuery.of(context).size.width, text: 'yes',
+              width: MediaQuery.of(context).size.width,
+              text: 'set protein goal',
               // text: translatedText(
               //   "welcome_button_skip",
               //   context,
               // ),
               onPressed: () {
-            setState(() {
-              _index++;
-            });
+            proteinService.setGoal(goal);
+            showDialog(
+                context: context,
+                builder: (_) => ConfirmationDialog(
+                      title: 'your goal has been added',
+                      description:
+                          'congratulations you have set up your protein goal! You can change this goal any time from the app',
+                    ));
+            print('protein Goal set');
           }, color: Colors.white, textColor: PrimaryColor),
         ],
       ),
@@ -540,7 +619,10 @@ class BlueScreen extends StatelessWidget {
 class ConfirmationDialog extends StatelessWidget {
   final String title;
   final String description;
-  ConfirmationDialog({this.title, this.description});
+  final bool showChangeGoalButton;
+
+  ConfirmationDialog(
+      {this.title, this.description, this.showChangeGoalButton = false});
 
   @override
   Widget build(BuildContext context) {
@@ -563,7 +645,7 @@ class ConfirmationDialog extends StatelessWidget {
                 height: 20,
               ),
               Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                mainAxisAlignment: MainAxisAlignment.center,
                 // mainAxisSize: MainAxisSize.min,
                 children: <Widget>[
                   WidgetUtils.button(context,
@@ -580,18 +662,23 @@ class ConfirmationDialog extends StatelessWidget {
                         MaterialPageRoute(builder: (context) => App()),
                         (Route<dynamic> route) => false);
                   }),
-                  WidgetUtils.button(context,
-                      fontSize: 14,
-                      padding: EdgeInsets.zero,
-                      width: MediaQuery.of(context).size.width * .3,
-                      text: 'change goal',
-                      // text: translatedText(
-                      //   "button_yes",
-                      //   context,
-                      // ),
-                      color: DarkGreyColor, onPressed: () async {
-                    Navigator.of(context).pop();
-                  })
+                  showChangeGoalButton
+                      ? Container(
+                          margin: EdgeInsets.only(left: 10),
+                          child: WidgetUtils.button(context,
+                              fontSize: 14,
+                              padding: EdgeInsets.zero,
+                              width: MediaQuery.of(context).size.width * .3,
+                              text: 'change goal',
+                              // text: translatedText(
+                              //   "button_yes",
+                              //   context,
+                              // ),
+                              color: DarkGreyColor, onPressed: () async {
+                            Navigator.of(context).pop();
+                          }),
+                        )
+                      : SizedBox()
                 ],
               )
             ],
