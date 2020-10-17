@@ -7,6 +7,7 @@ import 'package:protein_tracker/utils/AdMobUtils.dart';
 import 'package:protein_tracker/utils/colors.dart';
 import 'package:protein_tracker/utils/fontStyle.dart';
 import 'package:protein_tracker/utils/localization_utils.dart';
+import 'package:protein_tracker/utils/widgetUtils.dart';
 
 class StatisticsScreen extends StatelessWidget {
   StatisticsScreen({Key key}) : super(key: key) {
@@ -191,20 +192,14 @@ class StatisticsScreen extends StatelessWidget {
     }
 
     return ListView(children: [
+      WidgetUtils.screenTitle(
+          title: translatedText("statistics_title", context), context: context),
       Center(
         child: Container(
           margin: EdgeInsets.symmetric(horizontal: 10),
           child: Column(
             // mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              Text(
-                translatedText(
-                  "statistics_title",
-                  context,
-                ),
-                textAlign: TextAlign.center,
-                style: AppFontStyle.title,
-              ),
               SizedBox(
                 height: 10,
               ),

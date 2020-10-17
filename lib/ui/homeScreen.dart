@@ -74,14 +74,17 @@ class _MyHomePageState extends State<HomeScreen> {
       child: Center(
         child: ListView(
           children: <Widget>[
-            Text(
-              translatedText(
-                "title_today",
-                context,
-              ),
-              textAlign: TextAlign.center,
-              style: AppFontStyle.title,
-            ),
+            WidgetUtils.screenTitle(
+                title: translatedText("title_today", context),
+                context: context),
+            // Text(
+            //   translatedText(
+            //     "title_today",
+            //     context,
+            //   ),
+            //   textAlign: TextAlign.center,
+            //   style: AppFontStyle.title,
+            // ),
             MotivationalText(),
             DailyStatus(),
             Container(

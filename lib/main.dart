@@ -8,6 +8,8 @@ import 'package:protein_tracker/bloc/DateService.dart';
 import 'package:protein_tracker/bloc/ProteinService.dart';
 import 'package:protein_tracker/ui/trackerScreen.dart';
 import 'package:protein_tracker/ui/welcomeScreen.dart';
+import 'package:protein_tracker/ui/calendarScreen.dart';
+import 'package:protein_tracker/ui/settingsScreen.dart';
 import 'package:protein_tracker/utils/AdMobUtils.dart';
 import 'package:protein_tracker/utils/appAssets.dart';
 import 'package:protein_tracker/utils/colors.dart';
@@ -180,6 +182,8 @@ class _AppState extends State<App> {
     // StatisticsActivity(),
     HomeScreen(),
     StatisticsScreen(),
+    CalendarScreen(),
+    SettingsScreen(),
   ];
 
   static const TextStyle optionStyle =
@@ -232,16 +236,19 @@ class _AppState extends State<App> {
         ),
       ),
       body: _activities[_selectedIndex],
-      floatingActionButton: new FloatingActionButton(
-        backgroundColor: SecondaryColor,
-        child: const Icon(
-          Icons.add,
-          color: Colors.white,
+      floatingActionButton: Container(
+        padding: EdgeInsets.only(bottom: 20),
+        child: FloatingActionButton(
+          backgroundColor: SecondaryColor,
+          child: const Icon(
+            Icons.add,
+            color: Colors.white,
+          ),
+          onPressed: () {
+            Navigator.of(context).push(MaterialPageRoute(
+                builder: (BuildContext context) => TrackerScreen()));
+          },
         ),
-        onPressed: () {
-          Navigator.of(context).push(MaterialPageRoute(
-              builder: (BuildContext context) => TrackerScreen()));
-        },
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       bottomNavigationBar:
@@ -252,26 +259,20 @@ class _AppState extends State<App> {
           // mainAxisAlignment: MainAxisAlignment.end,
           // children: <Widget>[
           BottomNavigationBar(
+        type: BottomNavigationBarType.fixed,
         backgroundColor: Colors.white,
         items: <BottomNavigationBarItem>[
           BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            title: Text(
-              translatedText(
-                "menu_home",
-                context,
-              ),
-            ),
-          ),
+              icon: MenuIcon(Icons.home), title: SizedBox()),
           BottomNavigationBarItem(
-            icon: Icon(Icons.poll),
-            title: Text(
-              translatedText(
-                "menu_statistics",
-                context,
+              icon: MenuIcon(
+                Icons.poll,
               ),
-            ),
-          ),
+              title: SizedBox()),
+          BottomNavigationBarItem(
+              icon: MenuIcon(Icons.calendar_today), title: SizedBox()),
+          BottomNavigationBarItem(
+              icon: MenuIcon(Icons.settings), title: SizedBox()),
         ],
         currentIndex: _selectedIndex,
         selectedItemColor: PrimaryColor,
@@ -283,6 +284,18 @@ class _AppState extends State<App> {
       // ],
       // ),
       // ),
+    );
+  }
+}
+
+class MenuIcon extends StatelessWidget {
+  final IconData icon;
+  MenuIcon(this.icon);
+  @override
+  Widget build(BuildContext context) {
+    return Icon(
+      icon,
+      size: 27,
     );
   }
 }

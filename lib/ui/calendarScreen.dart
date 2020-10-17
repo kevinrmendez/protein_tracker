@@ -38,63 +38,67 @@ class CalendarScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return new Scaffold(
-        appBar: WidgetUtils.appBarBackArrow(
-            translatedText(
-              "appbar_calendar",
+    return SingleChildScrollView(
+        child: Column(
+      mainAxisSize: MainAxisSize.min,
+      children: <Widget>[
+        WidgetUtils.screenTitle(
+            title: translatedText(
+              "calendar_title",
               context,
             ),
-            context),
-        body: SingleChildScrollView(
-            child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: <Widget>[
-            StreamBuilder<List<DailyProtein>>(
-                stream: dailyProteinServices.stream,
-                builder: (context, snapshot) {
-                  if (snapshot.data == null) {
-                    return CircularProgressIndicator();
-                  }
-                  return CalendarWidget(snapshot.data, context);
-                }),
-            SizedBox(
-              height: 10,
-            ),
-            Container(
-              child: Column(
+            context: context),
+        StreamBuilder<List<DailyProtein>>(
+            stream: dailyProteinServices.stream,
+            builder: (context, snapshot) {
+              if (snapshot.data == null) {
+                return Container(
+                    height: MediaQuery.of(context).size.height * .55,
+                    child: Center(child: CircularProgressIndicator()));
+              }
+              return CalendarWidget(snapshot.data, context);
+            }),
+        SizedBox(
+          height: 10,
+        ),
+        AdMobUtils.admobBanner(),
+        SizedBox(
+          height: 10,
+        ),
+        Container(
+          child: Column(
+            children: <Widget>[
+              Column(
                 children: <Widget>[
-                  Column(
-                    children: <Widget>[
-                      _calendarLabel(
-                          text: translatedText(
-                            "calendar_label_goal_completed",
-                            context,
-                          ),
-                          color: PrimaryColor,
-                          ringShape: true),
-                      _calendarLabel(
-                          text: translatedText(
-                            "calendar_label_current_day",
-                            context,
-                          ),
-                          color: DarkGreyColor),
-                      // _calendarLabel(
-                      //     text: translatedText(
-                      //       "calendar_label_selected_day",
-                      //       context,
-                      //     ),
-                      //     color: SecondaryColor),
-                    ],
-                  ),
+                  _calendarLabel(
+                      text: translatedText(
+                        "calendar_label_goal_completed",
+                        context,
+                      ),
+                      color: PrimaryColor,
+                      ringShape: true),
+                  _calendarLabel(
+                      text: translatedText(
+                        "calendar_label_current_day",
+                        context,
+                      ),
+                      color: DarkGreyColor),
+                  // _calendarLabel(
+                  //     text: translatedText(
+                  //       "calendar_label_selected_day",
+                  //       context,
+                  //     ),
+                  //     color: SecondaryColor),
                 ],
               ),
-            ),
-            SizedBox(
-              height: 10,
-            ),
-            AdMobUtils.admobBanner(size: "b")
-          ],
-        )));
+            ],
+          ),
+        ),
+        SizedBox(
+          height: 10,
+        ),
+      ],
+    ));
   }
 }
 

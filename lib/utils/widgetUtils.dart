@@ -9,14 +9,16 @@ class WidgetUtils {
       {String text,
       double fontSize = 22,
       double width,
-      double height = 45,
+      // double height = 45,
       Function onPressed,
       Color color,
-      Color textColor}) {
+      Color textColor,
+      EdgeInsetsGeometry padding = const EdgeInsets.fromLTRB(20, 0, 20, 0)}) {
     return Container(
-      margin: EdgeInsets.fromLTRB(20, 6, 20, 6),
+      margin: EdgeInsets.fromLTRB(0, 6, 0, 6),
+      padding: padding,
       width: width,
-      height: height,
+      // height: height,
       child: RaisedButton(
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(8.0),
@@ -47,6 +49,8 @@ class WidgetUtils {
         keyboardType: keyboardType,
         controller: controller,
         decoration: InputDecoration(
+          fillColor: Colors.white,
+          filled: true,
           labelText: labelText,
           border: OutlineInputBorder(),
         ),
@@ -193,6 +197,19 @@ class WidgetUtils {
         style: TextStyle(
             // color: PrimaryColor,
             fontWeight: FontWeight.bold),
+      ),
+    );
+  }
+
+  static Widget screenTitle({String title, BuildContext context}) {
+    return Container(
+      // color: Colors.red,
+      width: MediaQuery.of(context).size.width,
+      margin: EdgeInsets.only(left: 20),
+      child: Text(
+        title,
+        textAlign: TextAlign.left,
+        style: TextStyle(fontSize: 36, fontWeight: FontWeight.bold),
       ),
     );
   }

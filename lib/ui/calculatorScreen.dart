@@ -6,6 +6,13 @@ import 'package:protein_tracker/bloc/ProteinService.dart';
 import 'package:protein_tracker/utils/localization_utils.dart';
 import 'package:protein_tracker/utils/widgetUtils.dart';
 import 'package:protein_tracker/utils/colors.dart';
+import 'package:protein_tracker/utils/enums.dart';
+import 'package:protein_tracker/services/protein_calculator_service.dart';
+
+// enum Gender { male, female }
+// enum FemaleStatus { none, pregnant, lactanting }
+// enum ProteinGoal { none, maintenance, muscleGain, fatLoss }
+// enum Activity { none, sedentary, moderate, active }
 
 class CalculatorScreen extends StatefulWidget {
   CalculatorScreen({Key key, this.title}) : super(key: key);
@@ -15,11 +22,6 @@ class CalculatorScreen extends StatefulWidget {
   @override
   _MyHomePageState createState() => _MyHomePageState();
 }
-
-enum Gender { male, female }
-enum FemaleStatus { none, pregnant, lactanting }
-enum ProteinGoal { none, maintenance, muscleGain, fatLoss }
-enum Activity { none, sedentary, moderate, active }
 
 class _MyHomePageState extends State<CalculatorScreen> {
   Gender _gender = Gender.male;
@@ -88,108 +90,13 @@ class _MyHomePageState extends State<CalculatorScreen> {
   }
 
   calculateProteinIntake() {
-    double proteinAmount = 0;
-    int result;
-
-    switch (dropdownValueActivity) {
-      case Activity.sedentary:
-        {
-          switch (dropdownValueGoal) {
-            case ProteinGoal.maintenance:
-              {
-                proteinAmount = 1.2;
-              }
-              break;
-            case ProteinGoal.muscleGain:
-              {
-                proteinAmount = 1.4;
-              }
-              break;
-            case ProteinGoal.fatLoss:
-              {
-                proteinAmount = 1.2;
-              }
-              break;
-
-              break;
-            default:
-          }
-        }
-        break;
-      case Activity.moderate:
-        {
-          switch (dropdownValueGoal) {
-            case ProteinGoal.maintenance:
-              {
-                proteinAmount = 1.4;
-              }
-              break;
-            case ProteinGoal.muscleGain:
-              {
-                proteinAmount = 2;
-              }
-              break;
-            case ProteinGoal.fatLoss:
-              {
-                proteinAmount = 1.3;
-              }
-              break;
-
-            default:
-          }
-        }
-        break;
-      case Activity.active:
-        {
-          switch (dropdownValueGoal) {
-            case ProteinGoal.maintenance:
-              {
-                proteinAmount = 1.6;
-              }
-              break;
-            case ProteinGoal.muscleGain:
-              {
-                proteinAmount = 2.7;
-              }
-              break;
-            case ProteinGoal.fatLoss:
-              {
-                proteinAmount = 1.4;
-              }
-              break;
-            default:
-          }
-        }
-        break;
-      default:
-    }
-    if (_femaleStatus != FemaleStatus.none) {
-      switch (_femaleStatus) {
-        case FemaleStatus.pregnant:
-          {
-            proteinAmount = 1.8;
-          }
-          break;
-        case FemaleStatus.lactanting:
-          {
-            proteinAmount = 1.5;
-          }
-          break;
-
-          break;
-        default:
-      }
-    }
-    //calculate protein intake
-    result = (proteinAmount * _weight).round();
-
-    //convert lbs to kgs
-    if (settingsService.currentWeightSettings == 0) {
-      result = (result * .45359237).round();
-    }
-
     setState(() {
-      proteinIntake = result;
+      proteinIntake = ProteinCalculatorService.calculateProtein(
+          activityValue: dropdownValueActivity,
+          proteinGoalValue: dropdownValueGoal,
+          femaleStatusValue: _femaleStatus,
+          weight: _weight,
+          currentWeightSettings: settingsService.currentWeightSettings);
       _isCalculated = true;
     });
   }
@@ -515,28 +422,25 @@ class _MyHomePageState extends State<CalculatorScreen> {
                       ],
                     )),
               ),
-              Container(
-                padding: EdgeInsets.symmetric(vertical: 0),
-                child: WidgetUtils.button(
+              WidgetUtils.button(
+                context,
+                width: MediaQuery.of(context).size.width,
+                color: DarkGreyColor,
+                text: translatedText(
+                  "calculator_button_calculate",
                   context,
-                  width: MediaQuery.of(context).size.width,
-                  color: DarkGreyColor,
-                  text: translatedText(
-                    "calculator_button_calculate",
-                    context,
-                  ),
-                  onPressed: () {
-                    if (_formKey.currentState.validate()) {
-                      if (dropdownValueGoal == ProteinGoal.none ||
-                          dropdownValueActivity == Activity.none) {
-                        showDialog(
-                            context: context, builder: (_) => ErrorDialog());
-                      } else {
-                        calculateProteinIntake();
-                      }
-                    }
-                  },
                 ),
+                onPressed: () {
+                  if (_formKey.currentState.validate()) {
+                    if (dropdownValueGoal == ProteinGoal.none ||
+                        dropdownValueActivity == Activity.none) {
+                      showDialog(
+                          context: context, builder: (_) => ErrorDialog());
+                    } else {
+                      calculateProteinIntake();
+                    }
+                  }
+                },
               ),
               _isCalculated
                   ? WidgetUtils.button(context,

@@ -352,7 +352,7 @@ class _CalendarProteinDialogState extends State<CalendarProteinDialog> {
                     children: <Widget>[
                       WidgetUtils.button(context,
                           width: 80,
-                          height: 37,
+                          // height: 37,
                           fontSize: 17,
                           text: translatedText(
                             "button_edit",
@@ -381,7 +381,7 @@ class _CalendarProteinDialogState extends State<CalendarProteinDialog> {
                       }),
                       WidgetUtils.button(context,
                           width: 80,
-                          height: 37,
+                          // height: 37,
                           fontSize: 17,
                           text: translatedText(
                             "button_close",

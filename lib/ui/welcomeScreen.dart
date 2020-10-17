@@ -6,6 +6,36 @@ import 'package:protein_tracker/utils/appAssets.dart';
 import 'package:protein_tracker/utils/colors.dart';
 import 'package:protein_tracker/utils/localization_utils.dart';
 import 'package:protein_tracker/utils/widgetUtils.dart';
+import 'package:protein_tracker/utils/enums.dart';
+import 'package:protein_tracker/services/protein_calculator_service.dart';
+
+Widget _titleText(text) {
+  return Text(
+    text,
+    textAlign: TextAlign.center,
+    style: TextStyle(
+        color: Colors.white, fontSize: 35, fontWeight: FontWeight.bold),
+  );
+}
+
+Widget _bodyText(text) {
+  return Container(
+    padding: EdgeInsets.only(bottom: 20),
+    child: Text(
+      text,
+      style: TextStyle(color: Colors.white, fontSize: 24),
+      textAlign: TextAlign.center,
+    ),
+  );
+}
+
+Widget _numberText(int number) {
+  return Text(
+    "$number",
+    style: TextStyle(
+        fontSize: 80, color: Colors.white, fontWeight: FontWeight.bold),
+  );
+}
 
 class WelcomeScreen extends StatefulWidget {
   WelcomeScreen({Key key}) : super(key: key);
@@ -15,18 +45,23 @@ class WelcomeScreen extends StatefulWidget {
 }
 
 class _WelcomeScreenState extends State<WelcomeScreen> {
-  bool _isGoalAdded;
-
-  @override
-  void initState() {
-    _isGoalAdded = false;
-    super.initState();
-  }
-
-  void callback() {
-    setState(() {
-      _isGoalAdded = true;
-    });
+  Widget _title(BuildContext context) {
+    return Column(
+      children: <Widget>[
+        _titleText(
+          translatedText(
+            "welcome_title_welcome",
+            context,
+          ),
+        ),
+        _titleText(
+          translatedText(
+            "welcome_title_app_name",
+            context,
+          ),
+        ),
+      ],
+    );
   }
 
   @override
@@ -55,90 +90,40 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                 SizedBox(
                   height: 20,
                 ),
-                _isGoalAdded
-                    ? Container(
-                        margin: EdgeInsets.symmetric(horizontal: 20),
-                        child: _text(translatedText(
-                          "welcome_text_goal_updated",
-                          context,
-                        )),
-                      )
-                    : Container(
-                        margin: EdgeInsets.symmetric(horizontal: 20),
-                        child: _text(translatedText(
-                          "welcome_text_set_up",
-                          context,
-                        )),
-                      ),
-                _isGoalAdded
-                    ? WidgetUtils.button(context,
-                        width: MediaQuery.of(context).size.width,
-                        text: translatedText(
-                          "welcome_button_continue",
-                          context,
-                        ), onPressed: () {
-                        Navigator.of(context).pushAndRemoveUntil(
-                            MaterialPageRoute(builder: (context) => App()),
-                            (Route<dynamic> route) => false);
-                      }, color: Colors.white, textColor: PrimaryColor)
-                    : Column(
-                        children: <Widget>[
-                          Container(
-                            margin: EdgeInsets.symmetric(vertical: 10),
-                            child: WidgetUtils.button(context,
-                                width: MediaQuery.of(context).size.width,
-                                text: translatedText(
-                                  "welcome_button_set_protein",
-                                  context,
-                                ), onPressed: () {
-                              showDialog(
-                                  context: context,
-                                  builder: (_) =>
-                                      GoalDialog(callback: this.callback));
-                            }, color: Colors.white, textColor: PrimaryColor),
-                          ),
-                          WidgetUtils.button(context,
-                              width: MediaQuery.of(context).size.width,
-                              text: translatedText(
-                                "welcome_button_skip",
-                                context,
-                              ), onPressed: () {
-                            Navigator.of(context).pushAndRemoveUntil(
-                                MaterialPageRoute(builder: (context) => App()),
-                                (Route<dynamic> route) => false);
-                          }, color: Colors.white, textColor: PrimaryColor),
-                        ],
-                      ),
+                Container(
+                  margin: EdgeInsets.symmetric(horizontal: 20),
+                  child: _text(translatedText(
+                    "welcome_question",
+                    context,
+                  )),
+                ),
+                WidgetUtils.button(context,
+                    width: MediaQuery.of(context).size.width,
+                    text: translatedText(
+                      "welcome_yes",
+                      context,
+                    ), onPressed: () {
+                  Navigator.of(context).pushAndRemoveUntil(
+                      MaterialPageRoute(
+                          builder: (context) => SetupGoalScreen()),
+                      (Route<dynamic> route) => false);
+                }, color: Colors.white, textColor: PrimaryColor),
+                WidgetUtils.button(context,
+                    width: MediaQuery.of(context).size.width,
+                    text: translatedText(
+                      "welcome_no",
+                      context,
+                    ), onPressed: () {
+                  Navigator.of(context).pushAndRemoveUntil(
+                      MaterialPageRoute(
+                          builder: (context) => SetupCalculatorScreen()),
+                      (Route<dynamic> route) => false);
+                }, color: Colors.white, textColor: PrimaryColor),
               ],
             ),
           ),
         ],
       ),
-    );
-  }
-
-  Widget _title(BuildContext context) {
-    return Column(
-      children: <Widget>[
-        Text(
-          translatedText(
-            "welcome_title_welcome",
-            context,
-          ),
-          textAlign: TextAlign.center,
-          style: TextStyle(
-              color: Colors.white, fontSize: 35, fontWeight: FontWeight.bold),
-        ),
-        Text(
-          translatedText(
-            "welcome_title_app_name",
-            context,
-          ),
-          textAlign: TextAlign.center,
-          style: TextStyle(
-              color: Colors.white, fontSize: 35, fontWeight: FontWeight.bold),
-        ),
-      ],
     );
   }
 
@@ -152,100 +137,626 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
       ));
 }
 
-class GoalDialog extends StatefulWidget {
-  final Function callback;
-  GoalDialog({this.callback});
-
+class SetupGoalScreen extends StatefulWidget {
   @override
-  _GoalDialogState createState() => _GoalDialogState();
+  _SetupGoalScreenState createState() => _SetupGoalScreenState();
 }
 
-class _GoalDialogState extends State<GoalDialog> {
+class _SetupGoalScreenState extends State<SetupGoalScreen> {
   final _formKey = GlobalKey<FormState>();
 
   int goal;
   final _goalController = TextEditingController();
+
   @override
   void initState() {
+    goal = 10;
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
+    return BlueScreen(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          _titleText(translatedText(
+            "welcome_set_protein_goal",
+            context,
+          )),
+          _numberText(
+            goal,
+          ),
+          _titleText('gr'),
+          Container(
+            padding: EdgeInsetsDirectional.only(top: 20),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Form(
+                  key: _formKey,
+                  child: Column(children: [
+                    WidgetUtils.inputField(
+                      keyboardType: TextInputType.number,
+                      controller: _goalController,
+                      labelText: translatedText(
+                        "welcome_dialog_goal_label",
+                        context,
+                      ),
+                      onChanged: (value) {
+                        setState(() {
+                          goal = int.parse(value);
+                        });
+                      },
+                      validator: (value) {
+                        if (value.isEmpty) {
+                          return translatedText(
+                            "welcome_error_value_empty",
+                            context,
+                          );
+                        }
+                        if (!regExp.hasMatch(value)) {
+                          return translatedText(
+                            "error_only_numbers",
+                            context,
+                          );
+                        }
+                        if (value == "0") {
+                          return translatedText(
+                            "goal_error_value_0",
+                            context,
+                          );
+                        }
+                        return null;
+                      },
+                    ),
+                    WidgetUtils.button(context,
+                        width: MediaQuery.of(context).size.width,
+                        text: translatedText(
+                          "button_add",
+                          context,
+                        ),
+                        color: Colors.white,
+                        textColor: PrimaryColor, onPressed: () async {
+                      if (_formKey.currentState.validate()) {
+                        if (regExp.hasMatch(goal.toString())) {
+                          if (goal == 0) {
+                            proteinService.setGoal(1);
+                          } else {
+                            proteinService.setGoal(goal);
+                          }
+                        } else {
+                          proteinService.setGoal(1);
+                        }
+                        showDialog(
+                            context: context,
+                            builder: (_) => ConfirmationDialog(
+                                  title: translatedText(
+                                    "welcome_protein_goal_set_title",
+                                    context,
+                                  ),
+                                  description: translatedText(
+                                    "welcome_protein_goal_set",
+                                    context,
+                                  ),
+                                  showChangeGoalButton: true,
+                                ));
+
+                        // proteinService.setGoal(goal);
+                        // widget.callback();
+                        // Navigator.pop(context);
+                      } else {}
+                    }),
+                  ]),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class SetupCalculatorScreen extends StatefulWidget {
+  @override
+  _SetupCalculatorScreenState createState() => _SetupCalculatorScreenState();
+}
+
+class _SetupCalculatorScreenState extends State<SetupCalculatorScreen> {
+  int _index;
+  int _weight;
+  Gender _gender = Gender.male;
+  WeightUnit _weightUnit;
+  FemaleStatus _femaleStatus;
+  Activity _activityLevel;
+  ProteinGoal _proteinGoal;
+
+  final _formKey = GlobalKey<FormState>();
+  final _weightformKey = GlobalKey<FormState>();
+  static Widget _screen1, _screen2, _screen3;
+  List<Widget> _screens = [_screen1, _screen2, _screen3];
+
+  int goal;
+  final _goalController = TextEditingController();
+  final _weightController = TextEditingController();
+
+  calculateProteinIntake() {
+    setState(() {
+      goal = ProteinCalculatorService.calculateProtein(
+          activityValue: _activityLevel,
+          proteinGoalValue: _proteinGoal,
+          femaleStatusValue: _femaleStatus,
+          weight: _weight.toDouble(),
+          currentWeightSettings: _weightUnit.index);
+      // _isCalculated = true;
+    });
+  }
+
+  @override
+  void initState() {
+    _index = 0;
+    _weight = 0;
+    goal = 0;
+    _weightUnit = WeightUnit.lb;
+    _femaleStatus = FemaleStatus.none;
+    _proteinGoal = ProteinGoal.maintenance;
+    _activityLevel = Activity.moderate;
+    super.initState();
+  }
+
+  _buildRadioButton(String text, value, groupValue) {
+    return Theme(
+      data: ThemeData.dark(),
+      child: Container(
+        child: Column(
+          children: <Widget>[
+            Text(
+              text,
+              style: TextStyle(color: Colors.white, fontSize: 24),
+            ),
+            Radio(
+              activeColor: Colors.white,
+              value: value,
+              groupValue: groupValue,
+              onChanged: (value) {
+                setState(() {
+                  if (value is Gender) {
+                    _gender = value;
+                  }
+                  if (value is FemaleStatus) {
+                    _femaleStatus = value;
+                  }
+                  if (value is WeightUnit) {
+                    _weightUnit = value;
+                  }
+                  if (value is ProteinGoal) {
+                    _proteinGoal = value;
+                  }
+                  if (value is Activity) {
+                    _activityLevel = value;
+                  }
+                });
+              },
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  _buildScreen1() {
+    return Center(
+      child: Column(
+        children: <Widget>[
+          _bodyText(translatedText(
+            "welcome_question_weight",
+            context,
+          )),
+          _numberText(_weight),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              _buildRadioButton('lb', WeightUnit.lb, _weightUnit),
+              _buildRadioButton('kg', WeightUnit.kg, _weightUnit),
+            ],
+          ),
+          Form(
+            key: _weightformKey,
+            child: Column(children: [
+              WidgetUtils.inputField(
+                keyboardType: TextInputType.number,
+                controller: _weightController,
+                labelText: translatedText(
+                  "word_weight",
+                  context,
+                ),
+                onChanged: (value) {
+                  setState(() {
+                    _weight = int.parse(value);
+                  });
+                },
+                validator: (value) {
+                  if (value.isEmpty) {
+                    return translatedText(
+                      "welcome_error_value_empty",
+                      context,
+                    );
+                  }
+                  if (!regExp.hasMatch(value)) {
+                    return translatedText(
+                      "error_only_numbers",
+                      context,
+                    );
+                  }
+                  if (value == "0") {
+                    return translatedText(
+                      "goal_error_value_0",
+                      context,
+                    );
+                  }
+                  return null;
+                },
+              ),
+              WidgetUtils.button(context,
+                  width: MediaQuery.of(context).size.width,
+                  text: translatedText(
+                    "button_add",
+                    context,
+                  ),
+                  color: Colors.white,
+                  textColor: PrimaryColor, onPressed: () async {
+                if (_weightformKey.currentState.validate()) {
+                  if (regExp.hasMatch(goal.toString())) {
+                    if (goal == 0) {
+                      proteinService.setGoal(1);
+                    } else {
+                      proteinService.setGoal(goal);
+                    }
+                  } else {
+                    proteinService.setGoal(1);
+                  }
+                  setState(() {
+                    _index++;
+                  });
+                }
+              }),
+            ]),
+          ),
+        ],
+      ),
+    );
+  }
+
+  _buildScreen2() {
+    return Center(
+      child: Column(
+        children: <Widget>[
+          _bodyText(translatedText(
+            "welcome_question_gender",
+            context,
+          )),
+          Container(
+            margin: EdgeInsets.symmetric(vertical: 15),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                _buildRadioButton(
+                    translatedText(
+                      "calculator_radio_button_gender_male",
+                      context,
+                    ),
+                    Gender.male,
+                    _gender),
+                SizedBox(
+                  width: 40,
+                ),
+                _buildRadioButton(
+                    translatedText(
+                      "calculator_radio_button_gender_female",
+                      context,
+                    ),
+                    Gender.female,
+                    _gender),
+              ],
+            ),
+          ),
+          _gender == Gender.female
+              ? Column(children: [
+                  // _bodyText('What is your status?'),
+                  Wrap(
+                    alignment: WrapAlignment.spaceEvenly,
+                    // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: <Widget>[
+                      _buildRadioButton(
+                          translatedText(
+                            "calculator_radio_button_gender_female_none",
+                            context,
+                          ),
+                          FemaleStatus.none,
+                          _femaleStatus),
+                      SizedBox(
+                        width: 15,
+                      ),
+                      _buildRadioButton(
+                          translatedText(
+                            "calculator_radio_button_gender_female_lactanting",
+                            context,
+                          ),
+                          FemaleStatus.lactanting,
+                          _femaleStatus),
+                      _buildRadioButton(
+                          translatedText(
+                            "calculator_radio_button_gender_female_pregnant",
+                            context,
+                          ),
+                          FemaleStatus.pregnant,
+                          _femaleStatus)
+                    ],
+                  ),
+                ])
+              : SizedBox(),
+          WidgetUtils.button(context,
+              width: MediaQuery.of(context).size.width,
+              text: translatedText(
+                "welcome_button_continue",
+                context,
+              ), onPressed: () {
+            setState(() {
+              _index++;
+            });
+          }, color: Colors.white, textColor: PrimaryColor),
+        ],
+      ),
+    );
+  }
+
+  _buildScreen3() {
+    return Center(
+      child: Column(
+        children: <Widget>[
+          _bodyText(
+            translatedText(
+              "welcome_question_activity",
+              context,
+            ),
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: <Widget>[
+              _buildRadioButton(
+                  translatedText(
+                    "calculator_dropDownValue_activity_sedentary",
+                    context,
+                  ),
+                  Activity.sedentary,
+                  _activityLevel),
+              _buildRadioButton(
+                  translatedText(
+                    "calculator_dropDownValue_activity_moderate",
+                    context,
+                  ),
+                  Activity.moderate,
+                  _activityLevel),
+              _buildRadioButton(
+                  translatedText(
+                    "calculator_dropDownValue_activity_active",
+                    context,
+                  ),
+                  Activity.active,
+                  _activityLevel)
+            ],
+          ),
+          WidgetUtils.button(context,
+              width: MediaQuery.of(context).size.width,
+              text: translatedText(
+                "welcome_button_continue",
+                context,
+              ), onPressed: () {
+            setState(() {
+              _index++;
+            });
+          }, color: Colors.white, textColor: PrimaryColor),
+        ],
+      ),
+    );
+  }
+
+  _buildScreen4() {
+    return Center(
+      child: Column(
+        children: <Widget>[
+          _bodyText(
+            translatedText(
+              "welcome_question_goal",
+              context,
+            ),
+          ),
+          Column(
+            children: <Widget>[
+              _buildRadioButton(
+                  translatedText(
+                    "calculator_dropDownValue_activity_maintenance",
+                    context,
+                  ),
+                  ProteinGoal.maintenance,
+                  _proteinGoal),
+              _buildRadioButton(
+                  translatedText(
+                    "calculator_dropDownValue_activity_muscle_gain",
+                    context,
+                  ),
+                  ProteinGoal.muscleGain,
+                  _proteinGoal),
+              _buildRadioButton(
+                  translatedText(
+                    "calculator_dropDownValue_activity_fat_loss",
+                    context,
+                  ),
+                  ProteinGoal.fatLoss,
+                  _proteinGoal)
+            ],
+          ),
+          WidgetUtils.button(context,
+              width: MediaQuery.of(context).size.width,
+              text: translatedText(
+                "calculator_button_calculate",
+                context,
+              ), onPressed: () {
+            setState(() {
+              calculateProteinIntake();
+              _index++;
+            });
+          }, color: Colors.white, textColor: PrimaryColor),
+        ],
+      ),
+    );
+  }
+
+  _buildScreen5() {
+    return Center(
+      child: Column(
+        children: <Widget>[
+          _bodyText(translatedText(
+            "welcome_protein_goal_result",
+            context,
+          )),
+          _numberText(goal),
+          _bodyText('gr'),
+          WidgetUtils.button(context,
+              width: MediaQuery.of(context).size.width,
+              text: translatedText(
+                "welcome_protein_goal_set_button",
+                context,
+              ), onPressed: () {
+            proteinService.setGoal(goal);
+            showDialog(
+                context: context,
+                builder: (_) => ConfirmationDialog(
+                      title: translatedText(
+                        "welcome_protein_goal_set_title",
+                        context,
+                      ),
+                      description: translatedText(
+                        "welcome_protein_goal_set",
+                        context,
+                      ),
+                    ));
+          }, color: Colors.white, textColor: PrimaryColor),
+        ],
+      ),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return BlueScreen(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          _titleText(
+            translatedText(
+              "welcome_title_calculate_protein",
+              context,
+            ),
+          ),
+          [
+            _buildScreen1(),
+            _buildScreen2(),
+            _buildScreen3(),
+            _buildScreen4(),
+            _buildScreen5()
+          ][_index]
+        ],
+      ),
+    );
+  }
+}
+
+class BlueScreen extends StatelessWidget {
+  final Widget child;
+  BlueScreen({this.child});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: ListView(
+        children: <Widget>[
+          Container(
+              padding: EdgeInsets.symmetric(horizontal: 20),
+              width: MediaQuery.of(context).size.width,
+              height: MediaQuery.of(context).size.height,
+              color: PrimaryColor,
+              child: child),
+        ],
+      ),
+    );
+  }
+}
+
+class ConfirmationDialog extends StatelessWidget {
+  final String title;
+  final String description;
+  final bool showChangeGoalButton;
+
+  ConfirmationDialog(
+      {this.title, this.description, this.showChangeGoalButton = false});
+
+  @override
+  Widget build(BuildContext context) {
     return WidgetUtils.dialog(
         context: context,
-        height: MediaQuery.of(context).size.height * .37,
-        title: translatedText(
-          "welcome_dialog_goal_title",
-          context,
-        ),
+        height: MediaQuery.of(context).size.height * .4,
+        title: title,
+        // title: translatedText(
+        //   "welcome_dialog_goal_title",
+        //   context,
+        // ),
         showAd: false,
         child: Container(
-          margin: EdgeInsets.symmetric(horizontal: 40),
+          margin: EdgeInsets.symmetric(horizontal: 20),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              Form(
-                key: _formKey,
-                child: Column(children: [
-                  WidgetUtils.inputField(
-                    keyboardType: TextInputType.number,
-                    controller: _goalController,
-                    labelText: translatedText(
-                      "welcome_dialog_goal_label",
-                      context,
-                    ),
-                    onChanged: (value) {
-                      setState(() {
-                        goal = int.parse(value);
-                      });
-                    },
-                    validator: (value) {
-                      if (value.isEmpty) {
-                        return translatedText(
-                          "welcome_error_value_empty",
-                          context,
-                        );
-                      }
-                      if (!regExp.hasMatch(value)) {
-                        return translatedText(
-                          "error_only_numbers",
-                          context,
-                        );
-                      }
-                      if (value == "0") {
-                        return translatedText(
-                          "goal_error_value_0",
-                          context,
-                        );
-                      }
-                      return null;
-                    },
-                  ),
+              Text(description),
+              SizedBox(
+                height: 20,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                // mainAxisSize: MainAxisSize.min,
+                children: <Widget>[
                   WidgetUtils.button(context,
-                      width: MediaQuery.of(context).size.width,
+                      fontSize: 14,
+                      padding: EdgeInsets.zero,
+                      width: MediaQuery.of(context).size.width * .3,
                       text: translatedText(
-                        "button_add",
+                        "welcome_button_continue",
                         context,
                       ),
                       color: DarkGreyColor, onPressed: () async {
-                    if (_formKey.currentState.validate()) {
-                      if (regExp.hasMatch(goal.toString())) {
-                        if (goal == 0) {
-                          proteinService.setGoal(1);
-                        } else {
-                          proteinService.setGoal(goal);
-                        }
-                      } else {
-                        proteinService.setGoal(1);
-                      }
-                      // proteinService.setGoal(goal);
-                      widget.callback();
-                      Navigator.pop(context);
-                    } else {}
-                  })
-                ]),
-              ),
+                    Navigator.of(context).pushAndRemoveUntil(
+                        MaterialPageRoute(builder: (context) => App()),
+                        (Route<dynamic> route) => false);
+                  }),
+                  showChangeGoalButton
+                      ? Container(
+                          margin: EdgeInsets.only(left: 10),
+                          child: WidgetUtils.button(context,
+                              fontSize: 14,
+                              padding: EdgeInsets.zero,
+                              width: MediaQuery.of(context).size.width * .3,
+                              text: translatedText(
+                                "welcome_change_goal",
+                                context,
+                              ),
+                              color: DarkGreyColor, onPressed: () async {
+                            Navigator.of(context).pop();
+                          }),
+                        )
+                      : SizedBox()
+                ],
+              )
             ],
           ),
         ));
