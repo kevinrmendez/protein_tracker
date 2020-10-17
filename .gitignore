@@ -30,6 +30,7 @@
 .pub/
 /build/
 /lib/apikeys.dart
+pubspec.lock
 
 
 # Web related
