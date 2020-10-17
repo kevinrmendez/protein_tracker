@@ -42,7 +42,12 @@ class CalendarScreen extends StatelessWidget {
         child: Column(
       mainAxisSize: MainAxisSize.min,
       children: <Widget>[
-        WidgetUtils.screenTitle(title: 'Calendar', context: context),
+        WidgetUtils.screenTitle(
+            title: translatedText(
+              "calendar_title",
+              context,
+            ),
+            context: context),
         StreamBuilder<List<DailyProtein>>(
             stream: dailyProteinServices.stream,
             builder: (context, snapshot) {

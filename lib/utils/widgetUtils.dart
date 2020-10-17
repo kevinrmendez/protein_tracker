@@ -9,7 +9,7 @@ class WidgetUtils {
       {String text,
       double fontSize = 22,
       double width,
-      double height = 45,
+      // double height = 45,
       Function onPressed,
       Color color,
       Color textColor,
@@ -18,7 +18,7 @@ class WidgetUtils {
       margin: EdgeInsets.fromLTRB(0, 6, 0, 6),
       padding: padding,
       width: width,
-      height: height,
+      // height: height,
       child: RaisedButton(
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(8.0),

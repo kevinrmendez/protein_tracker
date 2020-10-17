@@ -38,7 +38,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
           width: MediaQuery.of(context).size.width,
           margin: EdgeInsets.only(left: 20),
           child: Text(
-            'Settings',
+            translatedText(
+              "settings_title",
+              context,
+            ),
             textAlign: TextAlign.left,
             style: TextStyle(fontSize: 40, fontWeight: FontWeight.bold),
           ),
@@ -81,7 +84,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
         ),
         ListTile(
           title: Text(
-            "export data as csv",
+            translatedText(
+              "settings_export_csv",
+              context,
+            ),
           ),
           trailing: IconButton(
             icon: Icon(Icons.import_export),
