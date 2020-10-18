@@ -39,6 +39,8 @@ lib/generated_plugin_registrant.dart
 # Exceptions to above rules.
 !/packages/flutter_tools/test/data/dart_dependencies_test/**/.packages
 
+# Visual Studio Code related
+.vscode/
 
 # Android related
 **/android/key.jks
@@ -51,6 +53,7 @@ lib/generated_plugin_registrant.dart
 **/android/local.properties
 **/android/**/GeneratedPluginRegistrant.java
 **/android/app/google-services.json
+
 
 # iOS/XCode related
 **/ios/**/*.mode1v3

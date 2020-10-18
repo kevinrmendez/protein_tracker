@@ -483,8 +483,12 @@ class _SetupCalculatorScreenState extends State<SetupCalculatorScreen> {
                             "calculator_radio_button_gender_female_lactanting",
                             context,
                           ),
+                        
                           FemaleStatus.lactanting,
                           _femaleStatus),
+                             SizedBox(
+                        width: 15,
+                      ),
                       _buildRadioButton(
                           translatedText(
                             "calculator_radio_button_gender_female_pregnant",

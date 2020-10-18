@@ -46,7 +46,7 @@ void main() async {
   //   print('every three minutes');
   // });
   WidgetsFlutterBinding.ensureInitialized();
-  Admob.initialize(AdMobUtils.getAppId());
+  Admob.initialize();
 
   currentDate = DateTime.now();
   print("CURRENT TIME: $currentDate");
