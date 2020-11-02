@@ -14,7 +14,7 @@ Widget _titleText(text) {
     text,
     textAlign: TextAlign.center,
     style: TextStyle(
-        color: Colors.white, fontSize: 35, fontWeight: FontWeight.bold),
+        color: Colors.white, fontSize: 26, fontWeight: FontWeight.bold),
   );
 }
 
@@ -71,7 +71,6 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
         children: <Widget>[
           Container(
             width: MediaQuery.of(context).size.width,
-            height: MediaQuery.of(context).size.height,
             color: PrimaryColor,
             padding: EdgeInsets.symmetric(vertical: 40),
             child: Column(
@@ -309,6 +308,7 @@ class _SetupCalculatorScreenState extends State<SetupCalculatorScreen> {
     return Theme(
       data: ThemeData.dark(),
       child: Container(
+        margin: EdgeInsets.symmetric(horizontal:10),
         child: Column(
           children: <Widget>[
             Text(
@@ -525,8 +525,8 @@ class _SetupCalculatorScreenState extends State<SetupCalculatorScreen> {
               context,
             ),
           ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          Column(
+            // mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
               _buildRadioButton(
                   translatedText(
