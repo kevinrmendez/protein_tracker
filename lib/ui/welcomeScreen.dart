@@ -710,7 +710,7 @@ class ConfirmationDialog extends StatelessWidget {
   Widget build(BuildContext context) {
     return WidgetUtils.dialog(
         context: context,
-        height: MediaQuery.of(context).size.height * .4,
+        height: MediaQuery.of(context).size.height * .5,
         title: title,
         // title: translatedText(
         //   "welcome_dialog_goal_title",

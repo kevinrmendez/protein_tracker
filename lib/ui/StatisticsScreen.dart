@@ -33,6 +33,18 @@ class StatisticsScreen extends StatelessWidget {
     );
   }
 
+  _statsLabel({String text, BuildContext context}){
+    return   Container(
+                width: MediaQuery.of(context).size.width * .4,
+                child: Expanded(
+                                child: Text(
+                    text,
+                    style: TextStyle(color: DarkGreyColor, fontSize: 12),
+                  ),
+                ),
+              );
+   }
+
   _statsData({String label, Stream data, String measurement = ""}) {
     return StreamBuilder(
         stream: data,
@@ -41,14 +53,12 @@ class StatisticsScreen extends StatelessWidget {
           return Container(
             padding: EdgeInsets.symmetric(vertical: 10),
             child: Column(children: [
-              Text(
-                label,
-                style: TextStyle(color: DarkGreyColor, fontSize: 12),
-              ),
+              _statsLabel(text: label,context: context),
               Row(
                 children: <Widget>[
                   Text(
                     "$data",
+                    textAlign: TextAlign.center,
                     style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
                   ),
                   SizedBox(
@@ -73,10 +83,7 @@ class StatisticsScreen extends StatelessWidget {
           return Container(
             padding: EdgeInsets.symmetric(vertical: 10),
             child: Column(children: [
-              Text(
-                label,
-                style: TextStyle(color: DarkGreyColor, fontSize: 12),
-              ),
+              _statsLabel(text: label,context: context),
               Row(
                 children: <Widget>[
                   Text(
@@ -262,7 +269,7 @@ class StatisticsScreen extends StatelessWidget {
                             "statistics_label_calories_consumed",
                             context,
                           ),
-                          data: statisticsService.totalProteinStream,
+                          data: statisticsService.totalProteinStream ,
                           measurement: "cal"),
                       _statsDataCalories(
                           label: translatedText(
