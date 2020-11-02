@@ -20,8 +20,8 @@ class AboutScreen extends StatelessWidget {
           context),
       body: Container(
         // padding: EdgeInsets.symmetric(vertical: 40),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
+        child: ListView(
+          // mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget>[
             WidgetUtils.card(
                 child: Container(
@@ -43,7 +43,7 @@ class AboutScreen extends StatelessWidget {
                 ),
                 color: PrimaryColor),
             Container(
-              margin: EdgeInsets.only(top: 40),
+              margin: EdgeInsets.only(top: 30),
               child: Column(
                 children: <Widget>[
                   _text(translatedText(

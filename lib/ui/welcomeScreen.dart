@@ -731,9 +731,9 @@ class ConfirmationDialog extends StatelessWidget {
                 // mainAxisSize: MainAxisSize.min,
                 children: <Widget>[
                   WidgetUtils.button(context,
-                      fontSize: 14,
+                      fontSize: 12,
                       padding: EdgeInsets.zero,
-                      width: MediaQuery.of(context).size.width * .3,
+                      // width: MediaQuery.of(context).size.width * .3,
                       text: translatedText(
                         "welcome_button_continue",
                         context,
@@ -747,7 +747,7 @@ class ConfirmationDialog extends StatelessWidget {
                       ? Container(
                           margin: EdgeInsets.only(left: 10),
                           child: WidgetUtils.button(context,
-                              fontSize: 14,
+                              fontSize: 12,
                               padding: EdgeInsets.zero,
                               width: MediaQuery.of(context).size.width * .3,
                               text: translatedText(

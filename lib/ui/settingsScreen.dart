@@ -37,14 +37,13 @@ class _SettingsScreenState extends State<SettingsScreen> {
           // color: Colors.red,
           width: MediaQuery.of(context).size.width,
           margin: EdgeInsets.only(left: 20),
-          child: Text(
-            translatedText(
+          child: WidgetUtils.screenTitle(
+            title: 
+          translatedText(
               "settings_title",
               context,
             ),
-            textAlign: TextAlign.left,
-            style: TextStyle(fontSize: 40, fontWeight: FontWeight.bold),
-          ),
+            context: context),
         ),
         ListTile(
           title: Text(

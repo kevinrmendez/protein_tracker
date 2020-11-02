@@ -209,7 +209,7 @@ class WidgetUtils {
       child: Text(
         title,
         textAlign: TextAlign.left,
-        style: TextStyle(fontSize: 36, fontWeight: FontWeight.bold),
+        style: TextStyle(fontSize: 34, fontWeight: FontWeight.bold),
       ),
     );
   }
