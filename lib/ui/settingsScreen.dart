@@ -81,7 +81,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
             ],
           ),
         ),
-        ListTile(
+       Platform.isAndroid ? ListTile(
           title: Text(
             translatedText(
               "settings_export_csv",
@@ -95,7 +95,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
               _exportData();
             },
           ),
-        ),
+        ) : SizedBox(),
       ],
     );
   }
