@@ -33,18 +33,12 @@ class _SettingsScreenState extends State<SettingsScreen> {
     return Column(
       mainAxisAlignment: MainAxisAlignment.start,
       children: <Widget>[
-        Container(
-          // color: Colors.red,
-          width: MediaQuery.of(context).size.width,
-          margin: EdgeInsets.only(left: 20),
-          child: WidgetUtils.screenTitle(
-            title: 
-          translatedText(
+        WidgetUtils.screenTitle(
+            title: translatedText(
               "settings_title",
               context,
             ),
             context: context),
-        ),
         ListTile(
           title: Text(
             translatedText(
@@ -81,21 +75,23 @@ class _SettingsScreenState extends State<SettingsScreen> {
             ],
           ),
         ),
-       Platform.isAndroid ? ListTile(
-          title: Text(
-            translatedText(
-              "settings_export_csv",
-              context,
-            ),
-          ),
-          trailing: IconButton(
-            icon: Icon(Icons.import_export),
-            onPressed: () async {
-              print('exporting data');
-              _exportData();
-            },
-          ),
-        ) : SizedBox(),
+        Platform.isAndroid
+            ? ListTile(
+                title: Text(
+                  translatedText(
+                    "settings_export_csv",
+                    context,
+                  ),
+                ),
+                trailing: IconButton(
+                  icon: Icon(Icons.import_export),
+                  onPressed: () async {
+                    print('exporting data');
+                    _exportData();
+                  },
+                ),
+              )
+            : SizedBox(),
       ],
     );
   }

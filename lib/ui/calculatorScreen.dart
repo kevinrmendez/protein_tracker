@@ -179,11 +179,11 @@ class _MyHomePageState extends State<CalculatorScreen> {
 
     return Scaffold(
       appBar: WidgetUtils.appBarBackArrow(
-        title:  translatedText(
+          title: translatedText(
             "appbar_calculator",
             context,
           ),
-        context:  context),
+          context: context),
       body: Center(
         child: ListView(children: <Widget>[
           Column(

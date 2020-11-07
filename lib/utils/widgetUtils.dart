@@ -69,55 +69,56 @@ class WidgetUtils {
       Color color = Colors.black,
       bool showAd = true}) {
     return Center(
-      child: 
-          Dialog(
-            
-            shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.all(Radius.circular(14))),
-            child: Stack(
-              children: [
-                Container(
-                  padding: EdgeInsets.symmetric(vertical:10),
-                  // height: height,
-                child : ListView(          
-                      shrinkWrap: true,
-                      children: <Widget>[
-                        Container(
-                            padding: EdgeInsets.symmetric(vertical: 4),
-                            width: MediaQuery.of(context).size.width,
-                            // color: Theme.of(context).primaryColor,
-                            child: title.isEmpty
-                                ? SizedBox()
-                                : Container(
-                                    padding: EdgeInsets.fromLTRB(30, 0, 30, 0),
-                                    child: Text(
-                                      title,
-                                      textAlign: TextAlign.center,
-                                      style: TextStyle(
-                                          color: color,
-                                          fontSize: 18,
-                                          fontWeight: FontWeight.bold),
-                                    ),
-                                  )),
-                        SizedBox(
-                          height: 10,
-                        ),
-                        Center(child: child),
-                        showAd ? AdMobUtils.admobBanner() : SizedBox(),
-                      ],
-                    ),
+      child: Dialog(
+        shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(Radius.circular(14))),
+        child: Stack(
+          children: [
+            Container(
+              padding: EdgeInsets.symmetric(vertical: 10),
+              // height: height,
+              child: ListView(
+                physics: const NeverScrollableScrollPhysics(),
+                shrinkWrap: true,
+                children: <Widget>[
+                  Container(
+                      padding: EdgeInsets.symmetric(vertical: 4),
+                      width: MediaQuery.of(context).size.width,
+                      // color: Theme.of(context).primaryColor,
+                      child: title.isEmpty
+                          ? SizedBox()
+                          : Container(
+                              padding: EdgeInsets.fromLTRB(30, 0, 30, 0),
+                              child: Text(
+                                title,
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                    color: color,
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                            )),
+                  SizedBox(
+                    height: 10,
                   ),
-                    Positioned( top:7,right: 5,child: IconButton(icon: Icon(Icons.close),
-              onPressed: (){
-              Navigator.pop(context);
-            },),)
-              ],
+                  Center(child: child),
+                  showAd ? AdMobUtils.admobBanner() : SizedBox(),
+                ],
+              ),
             ),
-            ),
-          
-        
-      
-      
+            Positioned(
+              top: 7,
+              right: 5,
+              child: IconButton(
+                icon: Icon(Icons.close),
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+              ),
+            )
+          ],
+        ),
+      ),
     );
   }
 
@@ -193,8 +194,8 @@ class WidgetUtils {
     );
   }
 
-  static AppBar appBarBackArrow({String title, BuildContext context,
-      List<Widget> actions}) {
+  static AppBar appBarBackArrow(
+      {String title, BuildContext context, List<Widget> actions}) {
     return AppBar(
       centerTitle: true,
       backgroundColor: BackgroundColor,
@@ -207,17 +208,22 @@ class WidgetUtils {
         ),
         onPressed: () => Navigator.of(context).pop(),
       ),
-      title: title == null ? SizedBox() : Text(
-        title,
-        textAlign: TextAlign.center,
-        style: TextStyle(
-            // color: PrimaryColor,
-            fontWeight: FontWeight.bold),
-      ),
+      title: title == null
+          ? SizedBox()
+          : Text(
+              title,
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                  // color: PrimaryColor,
+                  fontWeight: FontWeight.bold),
+            ),
     );
   }
 
-  static Widget screenTitle({String title, BuildContext context, TextAlign textAlign = TextAlign.left}) {
+  static Widget screenTitle(
+      {String title,
+      BuildContext context,
+      TextAlign textAlign = TextAlign.left}) {
     return Container(
       // color: Colors.red,
       width: MediaQuery.of(context).size.width,

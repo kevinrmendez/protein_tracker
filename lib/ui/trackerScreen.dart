@@ -1,18 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
-import 'package:protein_tracker/bloc/FoodService.dart';
-import 'package:protein_tracker/bloc/ProteinListService.dart';
-import 'package:protein_tracker/bloc/StatisticsService.dart';
-import 'package:protein_tracker/bloc/ProteinService.dart';
-
-import 'package:protein_tracker/main.dart';
-import 'package:protein_tracker/model/food.dart';
-import 'package:protein_tracker/model/protein.dart';
-import 'package:protein_tracker/utils/localization_utils.dart';
-import 'package:protein_tracker/utils/widgetUtils.dart';
-import 'package:protein_tracker/utils/appAssets.dart';
-import 'package:protein_tracker/utils/colors.dart';
+import '../bloc/FoodService.dart';
+import '../bloc/ProteinListService.dart';
+import '../bloc/ProteinService.dart';
+import '../bloc/StatisticsService.dart';
+import '../main.dart';
+import '../model/food.dart';
+import '../model/protein.dart';
+import '../utils/appAssets.dart';
+import '../utils/colors.dart';
+import '../utils/localization_utils.dart';
+import '../utils/widgetUtils.dart';
 
 class TrackerScreen extends StatefulWidget {
   TrackerScreen({Key key, this.title}) : super(key: key);
@@ -33,11 +32,11 @@ class _TrackerScreenState extends State<TrackerScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: WidgetUtils.appBarBackArrow(
-        title:  translatedText(
+          title: translatedText(
             "appbar_tracker",
             context,
           ),
-        context:  context,
+          context: context,
           actions: [
             PopupMenuButton<Order>(
               onSelected: (order) {
@@ -437,7 +436,6 @@ class _EditProteinDialogState extends State<EditProteinDialog> {
                       return null;
                     },
                   ),
-                 
                   WidgetUtils.button(context,
                       width: MediaQuery.of(context).size.width,
                       text: translatedText(

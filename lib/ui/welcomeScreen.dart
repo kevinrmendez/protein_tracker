@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:protein_tracker/bloc/ProteinService.dart';
 import 'package:protein_tracker/main.dart';
+import 'package:protein_tracker/ui/core/number_grams.dart';
 import 'package:protein_tracker/utils/appAssets.dart';
 import 'package:protein_tracker/utils/colors.dart';
 import 'package:protein_tracker/utils/localization_utils.dart';
@@ -9,21 +10,26 @@ import 'package:protein_tracker/utils/widgetUtils.dart';
 import 'package:protein_tracker/utils/enums.dart';
 import 'package:protein_tracker/services/protein_calculator_service.dart';
 
+import 'welcome_screen/widgets/blue_screen.dart';
+
 Widget _titleText(text) {
   return Text(
     text,
     textAlign: TextAlign.center,
     style: TextStyle(
-        color: Colors.white, fontSize: 26, fontWeight: FontWeight.bold),
+        color: Colors.white, fontSize: 30, fontWeight: FontWeight.bold),
   );
 }
 
 Widget _bodyText(text) {
   return Container(
-    padding: EdgeInsets.only(bottom: 20),
+    padding: EdgeInsets.fromLTRB(0, 20, 20, 20),
     child: Text(
       text,
-      style: TextStyle(color: Colors.white, fontSize: 24),
+      style: TextStyle(
+        color: Colors.white,
+        fontSize: 32,
+      ),
       textAlign: TextAlign.center,
     ),
   );
@@ -341,7 +347,7 @@ class _SetupCalculatorScreenState extends State<SetupCalculatorScreen> {
     return Center(
       child: Column(
         children: <Widget>[
-          _bodyText(translatedText(
+          _titleText(translatedText(
             "welcome_question_weight",
             context,
           )),
@@ -356,39 +362,42 @@ class _SetupCalculatorScreenState extends State<SetupCalculatorScreen> {
           Form(
             key: _weightformKey,
             child: Column(children: [
-              WidgetUtils.inputField(
-                keyboardType: TextInputType.number,
-                controller: _weightController,
-                labelText: translatedText(
-                  "word_weight",
-                  context,
+              Container(
+                height: 80,
+                child: WidgetUtils.inputField(
+                  keyboardType: TextInputType.number,
+                  controller: _weightController,
+                  labelText: translatedText(
+                    "word_weight",
+                    context,
+                  ),
+                  onChanged: (value) {
+                    setState(() {
+                      _weight = int.parse(value);
+                    });
+                  },
+                  validator: (value) {
+                    if (value.isEmpty) {
+                      return translatedText(
+                        "welcome_error_value_empty",
+                        context,
+                      );
+                    }
+                    if (!regExp.hasMatch(value)) {
+                      return translatedText(
+                        "error_only_numbers",
+                        context,
+                      );
+                    }
+                    if (value == "0") {
+                      return translatedText(
+                        "goal_error_value_0",
+                        context,
+                      );
+                    }
+                    return null;
+                  },
                 ),
-                onChanged: (value) {
-                  setState(() {
-                    _weight = int.parse(value);
-                  });
-                },
-                validator: (value) {
-                  if (value.isEmpty) {
-                    return translatedText(
-                      "welcome_error_value_empty",
-                      context,
-                    );
-                  }
-                  if (!regExp.hasMatch(value)) {
-                    return translatedText(
-                      "error_only_numbers",
-                      context,
-                    );
-                  }
-                  if (value == "0") {
-                    return translatedText(
-                      "goal_error_value_0",
-                      context,
-                    );
-                  }
-                  return null;
-                },
               ),
               WidgetUtils.button(context,
                   width: MediaQuery.of(context).size.width,
@@ -424,7 +433,7 @@ class _SetupCalculatorScreenState extends State<SetupCalculatorScreen> {
     return Center(
       child: Column(
         children: <Widget>[
-          _bodyText(translatedText(
+          _titleText(translatedText(
             "welcome_question_gender",
             context,
           )),
@@ -510,7 +519,7 @@ class _SetupCalculatorScreenState extends State<SetupCalculatorScreen> {
     return Center(
       child: Column(
         children: <Widget>[
-          _bodyText(
+          _titleText(
             translatedText(
               "welcome_question_activity",
               context,
@@ -561,7 +570,7 @@ class _SetupCalculatorScreenState extends State<SetupCalculatorScreen> {
     return Center(
       child: Column(
         children: <Widget>[
-          _bodyText(
+          _titleText(
             translatedText(
               "welcome_question_goal",
               context,
@@ -612,12 +621,14 @@ class _SetupCalculatorScreenState extends State<SetupCalculatorScreen> {
     return Center(
       child: Column(
         children: <Widget>[
-          _bodyText(translatedText(
+          _titleText(translatedText(
             "welcome_protein_goal_result",
             context,
           )),
-          _numberText(goal),
-          _bodyText('gr'),
+          NumberGrams(
+            grams: goal,
+            textColor: Colors.white,
+          ),
           WidgetUtils.button(context,
               width: MediaQuery.of(context).size.width,
               text: translatedText(
@@ -649,12 +660,6 @@ class _SetupCalculatorScreenState extends State<SetupCalculatorScreen> {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
-          _titleText(
-            translatedText(
-              "welcome_title_calculate_protein",
-              context,
-            ),
-          ),
           [
             _buildScreen1(),
             _buildScreen2(),
@@ -662,27 +667,6 @@ class _SetupCalculatorScreenState extends State<SetupCalculatorScreen> {
             _buildScreen4(),
             _buildScreen5()
           ][_index]
-        ],
-      ),
-    );
-  }
-}
-
-class BlueScreen extends StatelessWidget {
-  final Widget child;
-  BlueScreen({this.child});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: ListView(
-        children: [
-          Container(
-              padding: EdgeInsets.symmetric(horizontal: 20),
-              width: MediaQuery.of(context).size.width,
-              height: MediaQuery.of(context).size.height,
-              color: PrimaryColor,
-              child: child),
         ],
       ),
     );
@@ -701,7 +685,6 @@ class ConfirmationDialog extends StatelessWidget {
   Widget build(BuildContext context) {
     return WidgetUtils.dialog(
         context: context,
-        height: MediaQuery.of(context).size.height * .5,
         title: title,
         showAd: false,
         child: Container(
@@ -718,9 +701,6 @@ class ConfirmationDialog extends StatelessWidget {
                 // mainAxisSize: MainAxisSize.min,
                 children: <Widget>[
                   WidgetUtils.button(context,
-                      fontSize: 12,
-                      padding: EdgeInsets.zero,
-                      // width: MediaQuery.of(context).size.width * .3,
                       text: translatedText(
                         "welcome_button_continue",
                         context,
@@ -734,7 +714,6 @@ class ConfirmationDialog extends StatelessWidget {
                       ? Container(
                           margin: EdgeInsets.only(left: 10),
                           child: WidgetUtils.button(context,
-                              fontSize: 12,
                               padding: EdgeInsets.zero,
                               width: MediaQuery.of(context).size.width * .3,
                               text: translatedText(

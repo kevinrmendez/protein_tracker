@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:protein_tracker/bloc/DailyProteinService.dart';
 import 'package:protein_tracker/model/dailyProtein.dart';
+import 'package:protein_tracker/ui/core/number_grams.dart';
 import 'package:protein_tracker/ui/core/widgets/title_card.dart';
 import 'package:protein_tracker/utils/colors.dart';
 import 'package:protein_tracker/main.dart';
@@ -33,24 +34,29 @@ class _GoalScreenState extends State<GoalScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: WidgetUtils.appBarBackArrow(
-         title: translatedText(
+          title: translatedText(
             "appbar_goal",
             context,
           ),
-         context: context),
+          context: context),
       body: ListView(children: <Widget>[
         Center(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: <Widget>[  
-              TitleCard(title: translatedText(
-                        "goal_title",
-                        context,
-                      )),    
+            children: <Widget>[
+              TitleCard(
+                  title: translatedText(
+                "goal_title",
+                context,
+              )),
               StreamBuilder(
                 stream: proteinService.stream,
                 builder: (BuildContext context, AsyncSnapshot snapshot) {
+                  return NumberGrams(
+                    grams: snapshot.data.amount,
+                  );
+
                   return Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
