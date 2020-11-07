@@ -6,6 +6,8 @@ import 'package:protein_tracker/utils/colors.dart';
 import 'package:protein_tracker/utils/widgetUtils.dart';
 import 'package:protein_tracker/utils/localization_utils.dart';
 
+import 'core/widgets/title_card.dart';
+
 class AboutScreen extends StatelessWidget {
   AboutScreen({Key key}) : super(key: key);
 
@@ -13,35 +15,20 @@ class AboutScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: WidgetUtils.appBarBackArrow(
-          translatedText(
+      title:   translatedText(
             "appbar_about",
             context,
           ),
-          context),
+       context:   context),
       body: Container(
         // padding: EdgeInsets.symmetric(vertical: 40),
         child: ListView(
           // mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget>[
-            WidgetUtils.card(
-                child: Container(
-                  width: MediaQuery.of(context).size.width,
-                  padding: EdgeInsets.symmetric(vertical: 10),
-                  child: Text(
-                    translatedText(
+              TitleCard(title:translatedText(
                       "app_title",
                       context,
-                    ),
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                        fontSize: 24,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white
-                        // color: DarkGreyColor,
-                        ),
-                  ),
-                ),
-                color: PrimaryColor),
+                    ),),   
             Container(
               margin: EdgeInsets.only(top: 30),
               child: Column(

@@ -33,11 +33,11 @@ class _TrackerScreenState extends State<TrackerScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: WidgetUtils.appBarBackArrow(
-          translatedText(
+        title:  translatedText(
             "appbar_tracker",
             context,
           ),
-          context,
+        context:  context,
           actions: [
             PopupMenuButton<Order>(
               onSelected: (order) {

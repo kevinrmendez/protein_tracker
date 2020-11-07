@@ -26,11 +26,11 @@ class _FoodListScreenState extends State<FoodListScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: WidgetUtils.appBarBackArrow(
-          translatedText(
+         title: translatedText(
             "appbar_food_list",
             context,
           ),
-          context,
+         context: context,
           actions: [
             PopupMenuButton<Order>(
               onSelected: (order) {

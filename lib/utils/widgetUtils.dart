@@ -177,8 +177,8 @@ class WidgetUtils {
     );
   }
 
-  static AppBar appBarBackArrow(String title, BuildContext context,
-      {List<Widget> actions}) {
+  static AppBar appBarBackArrow({String title, BuildContext context,
+      List<Widget> actions}) {
     return AppBar(
       centerTitle: true,
       backgroundColor: BackgroundColor,
@@ -191,7 +191,7 @@ class WidgetUtils {
         ),
         onPressed: () => Navigator.of(context).pop(),
       ),
-      title: Text(
+      title: title == null ? SizedBox() : Text(
         title,
         textAlign: TextAlign.center,
         style: TextStyle(
@@ -201,14 +201,14 @@ class WidgetUtils {
     );
   }
 
-  static Widget screenTitle({String title, BuildContext context}) {
+  static Widget screenTitle({String title, BuildContext context, TextAlign textAlign = TextAlign.left}) {
     return Container(
       // color: Colors.red,
       width: MediaQuery.of(context).size.width,
       margin: EdgeInsets.only(left: 20),
       child: Text(
         title,
-        textAlign: TextAlign.left,
+        textAlign: textAlign,
         style: TextStyle(fontSize: 34, fontWeight: FontWeight.bold),
       ),
     );
