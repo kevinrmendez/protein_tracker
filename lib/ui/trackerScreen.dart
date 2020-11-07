@@ -437,62 +437,7 @@ class _EditProteinDialogState extends State<EditProteinDialog> {
                       return null;
                     },
                   ),
-                  StreamBuilder<List<String>>(
-                      stream: foodListServices.streamFoodName,
-                      builder: (context, snapshot) {
-                        if (snapshot.data == null ||
-                            snapshot.data.length == 0) {
-                          return SizedBox(
-                            height: 15,
-                          );
-                        } else {
-                          return Column(
-                            children: <Widget>[
-                              Container(
-                                  child: Text(
-                                translatedText(
-                                  "tracker_dialog_label_food_list",
-                                  context,
-                                ),
-                              )),
-                              DropdownButton<String>(
-                                value: dropdownValueGoal,
-                                icon: Icon(Icons.arrow_downward),
-                                iconSize: 24,
-                                elevation: 16,
-                                style: TextStyle(color: PrimaryColor),
-                                underline: Container(
-                                  height: 2,
-                                  color: Colors.grey,
-                                ),
-                                onChanged: (String newValue) {
-                                  Food food = foodListServices.currentList
-                                      .firstWhere(
-                                          (food) => food.name == newValue);
-                                  setState(() {
-                                    dropdownValueGoal = newValue;
-                                    _foodNameController.text = food.name;
-                                    _proteinAmountController.text =
-                                        food.proteinAmount.toString();
-                                    foodName = _foodNameController.text;
-                                    proteinAmount = int.parse(
-                                        _proteinAmountController.text);
-                                  });
-                                },
-                                items: snapshot.data
-                                    // items: <String>['', 'banana', 'pear', 'nuts']
-                                    .map<DropdownMenuItem<String>>(
-                                        (String value) {
-                                  return DropdownMenuItem<String>(
-                                    value: value,
-                                    child: Text(value),
-                                  );
-                                }).toList(),
-                              ),
-                            ],
-                          );
-                        }
-                      }),
+                 
                   WidgetUtils.button(context,
                       width: MediaQuery.of(context).size.width,
                       text: translatedText(
