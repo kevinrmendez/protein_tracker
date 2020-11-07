@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -45,7 +47,7 @@ class AboutScreen extends StatelessWidget {
                     "app_version",
                     context,
                   )),
-                  WidgetUtils.button(context,
+              Platform.isAndroid ?    WidgetUtils.button(context,
                       text: translatedText(
                         "button_update",
                         context,
@@ -57,7 +59,7 @@ class AboutScreen extends StatelessWidget {
                     } else {
                       throw 'Could not launch $url';
                     }
-                  })
+                  }) : SizedBox()
                 ],
               ),
             ),

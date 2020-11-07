@@ -308,7 +308,7 @@ class _SetupCalculatorScreenState extends State<SetupCalculatorScreen> {
     return Theme(
       data: ThemeData.dark(),
       child: Container(
-        margin: EdgeInsets.symmetric(horizontal:10),
+        margin: EdgeInsets.symmetric(horizontal: 10),
         child: Column(
           children: <Widget>[
             Text(
@@ -483,10 +483,9 @@ class _SetupCalculatorScreenState extends State<SetupCalculatorScreen> {
                             "calculator_radio_button_gender_female_lactanting",
                             context,
                           ),
-                        
                           FemaleStatus.lactanting,
                           _femaleStatus),
-                             SizedBox(
+                      SizedBox(
                         width: 15,
                       ),
                       _buildRadioButton(
@@ -712,10 +711,6 @@ class ConfirmationDialog extends StatelessWidget {
         context: context,
         height: MediaQuery.of(context).size.height * .5,
         title: title,
-        // title: translatedText(
-        //   "welcome_dialog_goal_title",
-        //   context,
-        // ),
         showAd: false,
         child: Container(
           margin: EdgeInsets.symmetric(horizontal: 20),

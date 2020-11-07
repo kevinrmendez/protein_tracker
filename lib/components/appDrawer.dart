@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:protein_tracker/ui/FoodListScreen.dart';
 import 'package:protein_tracker/ui/calculatorScreen.dart';
@@ -85,52 +87,53 @@ class AppDrawer extends StatelessWidget {
                       builder: (BuildContext context) => CalculatorScreen()));
                 },
               ),
-              ListTile(
-                title: Text(
-                  translatedText(
-                    "app_drawer_review_app",
-                    context,
-                  ),
-
-                  // style: TextStyle(color: Theme.of(context).primaryColor),
-                ),
-                trailing: Icon(
-                  Icons.rate_review,
-                  color: Theme.of(context).accentColor,
-                ),
-                onTap: () async {
-                  String url = AppAssets.appUrl;
-                  if (await canLaunch(url)) {
-                    await launch(url);
-                  } else {
-                    throw 'Could not launch $url';
-                  }
-                },
-              ),
-              ListTile(
-                title: Text(
-                  translatedText(
-                    "app_drawer_share",
-                    context,
-                  ),
-                ),
-                trailing: Icon(
-                  Icons.share,
-                  // color: Theme.of(context).accentColor,
-                ),
-                onTap: () {
-                  String url = AppAssets.appUrl;
-                  print('sharing');
-                  Share.share("${translatedText(
-                    'text_share_app',
-                    context,
-                  )} $url");
-                },
-              ),
+              Platform.isAndroid
+                  ? ListTile(
+                      title: Text(
+                        translatedText(
+                          "app_drawer_review_app",
+                          context,
+                        ),
+                      ),
+                      trailing: Icon(
+                        Icons.rate_review,
+                        color: Theme.of(context).accentColor,
+                      ),
+                      onTap: () async {
+                        String url = AppAssets.appUrl;
+                        if (await canLaunch(url)) {
+                          await launch(url);
+                        } else {
+                          throw 'Could not launch $url';
+                        }
+                      },
+                    )
+                  : SizedBox(),
+              Platform.isAndroid
+                  ? ListTile(
+                      title: Text(
+                        translatedText(
+                          "app_drawer_share",
+                          context,
+                        ),
+                      ),
+                      trailing: Icon(
+                        Icons.share,
+                        // color: Theme.of(context).accentColor,
+                      ),
+                      onTap: () {
+                        String url = AppAssets.appUrl;
+                        print('sharing');
+                        Share.share("${translatedText(
+                          'text_share_app',
+                          context,
+                        )} $url");
+                      },
+                    )
+                  : SizedBox(),
               ListTile(
                 title: Text(
                   "Welcome",
-                  // style: TextStyle(color: Theme.of(context).primaryColor),
                 ),
                 trailing: Icon(
                   Icons.settings,
