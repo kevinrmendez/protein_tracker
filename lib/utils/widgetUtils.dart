@@ -7,7 +7,7 @@ import 'package:protein_tracker/main.dart';
 class WidgetUtils {
   static Widget button(BuildContext context,
       {String text,
-      double fontSize = 22,
+      double fontSize = 20,
       double width,
       // double height = 45,
       Function onPressed,
@@ -43,9 +43,10 @@ class WidgetUtils {
       Function(String) onChanged,
       Function(String) validator}) {
     return Container(
-      margin: EdgeInsets.symmetric(vertical: 5),
-      height: 68,
+      margin: EdgeInsets.symmetric(vertical: 7),
+      height: 40,
       child: TextFormField(
+        style: TextStyle(fontSize: 16),
         keyboardType: keyboardType,
         controller: controller,
         decoration: InputDecoration(
@@ -60,48 +61,51 @@ class WidgetUtils {
     );
   }
 
-  static Dialog dialog(
+  static Widget dialog(
       {Widget child,
       BuildContext context,
       String title,
       double height,
       Color color = Colors.black,
       bool showAd = true}) {
-    return Dialog(
-      shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.all(Radius.circular(14))),
-      child: Container(
-        height: height,
-        child: Center(
-          child: ListView(
-            shrinkWrap: true,
-            children: <Widget>[
-              Container(
-                  padding: EdgeInsets.symmetric(vertical: 4),
-                  width: MediaQuery.of(context).size.width,
-                  // color: Theme.of(context).primaryColor,
-                  child: title.isEmpty
-                      ? SizedBox()
-                      : Container(
-                          padding: EdgeInsets.fromLTRB(30, 4, 30, 4),
-                          child: Text(
-                            title,
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                                color: color,
-                                fontSize: 22,
-                                fontWeight: FontWeight.bold),
-                          ),
-                        )),
-              SizedBox(
-                height: 18,
-              ),
-              Center(child: child),
-              showAd ? AdMobUtils.admobBanner() : SizedBox(),
-            ],
+    return Center(
+      child: Dialog(
+        
+        shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(Radius.circular(14))),
+        child: Container(
+          padding: EdgeInsets.symmetric(vertical:10),
+          // height: height,
+        child : ListView(          
+              shrinkWrap: true,
+              children: <Widget>[
+                Container(
+                    padding: EdgeInsets.symmetric(vertical: 4),
+                    width: MediaQuery.of(context).size.width,
+                    // color: Theme.of(context).primaryColor,
+                    child: title.isEmpty
+                        ? SizedBox()
+                        : Container(
+                            padding: EdgeInsets.fromLTRB(30, 0, 30, 0),
+                            child: Text(
+                              title,
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                  color: color,
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                          )),
+                SizedBox(
+                  height: 10,
+                ),
+                Center(child: child),
+                showAd ? AdMobUtils.admobBanner() : SizedBox(),
+              ],
+            ),
           ),
         ),
-      ),
+      
     );
   }
 
