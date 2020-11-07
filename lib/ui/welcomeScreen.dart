@@ -67,61 +67,53 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: ListView(
-        children: <Widget>[
-          Container(
-            width: MediaQuery.of(context).size.width,
-            color: PrimaryColor,
-            padding: EdgeInsets.symmetric(vertical: 40),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                Container(
-                  width: MediaQuery.of(context).size.width * .8,
-                  margin: EdgeInsets.only(bottom: 20),
-                  child: _title(context),
-                ),
-                Image.asset(
-                  AppAssets.protein_icon_white,
-                  width: 100,
-                  height: 100,
-                ),
-                SizedBox(
-                  height: 20,
-                ),
-                Container(
-                  margin: EdgeInsets.symmetric(horizontal: 20),
-                  child: _text(translatedText(
-                    "welcome_question",
-                    context,
-                  )),
-                ),
-                WidgetUtils.button(context,
-                    width: MediaQuery.of(context).size.width,
-                    text: translatedText(
-                      "welcome_yes",
-                      context,
-                    ), onPressed: () {
-                  Navigator.of(context).pushAndRemoveUntil(
-                      MaterialPageRoute(
-                          builder: (context) => SetupGoalScreen()),
-                      (Route<dynamic> route) => false);
-                }, color: Colors.white, textColor: PrimaryColor),
-                WidgetUtils.button(context,
-                    width: MediaQuery.of(context).size.width,
-                    text: translatedText(
-                      "welcome_no",
-                      context,
-                    ), onPressed: () {
-                  Navigator.of(context).pushAndRemoveUntil(
-                      MaterialPageRoute(
-                          builder: (context) => SetupCalculatorScreen()),
-                      (Route<dynamic> route) => false);
-                }, color: Colors.white, textColor: PrimaryColor),
-              ],
+      body: BlueScreen(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Container(
+              width: MediaQuery.of(context).size.width * .8,
+              margin: EdgeInsets.only(bottom: 20),
+              child: _title(context),
             ),
-          ),
-        ],
+            Image.asset(
+              AppAssets.protein_icon_white,
+              width: 100,
+              height: 100,
+            ),
+            SizedBox(
+              height: 20,
+            ),
+            Container(
+              margin: EdgeInsets.symmetric(horizontal: 20),
+              child: _text(translatedText(
+                "welcome_question",
+                context,
+              )),
+            ),
+            WidgetUtils.button(context,
+                width: MediaQuery.of(context).size.width,
+                text: translatedText(
+                  "welcome_yes",
+                  context,
+                ), onPressed: () {
+              Navigator.of(context).pushAndRemoveUntil(
+                  MaterialPageRoute(builder: (context) => SetupGoalScreen()),
+                  (Route<dynamic> route) => false);
+            }, color: Colors.white, textColor: PrimaryColor),
+            WidgetUtils.button(context,
+                width: MediaQuery.of(context).size.width,
+                text: translatedText(
+                  "welcome_no",
+                  context,
+                ), onPressed: () {
+              Navigator.of(context).pushAndRemoveUntil(
+                  MaterialPageRoute(
+                      builder: (context) => SetupCalculatorScreen()),
+                  (Route<dynamic> route) => false);
+            }, color: Colors.white, textColor: PrimaryColor),
+          ],
+        ),
       ),
     );
   }
@@ -684,7 +676,7 @@ class BlueScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: ListView(
-        children: <Widget>[
+        children: [
           Container(
               padding: EdgeInsets.symmetric(horizontal: 20),
               width: MediaQuery.of(context).size.width,
