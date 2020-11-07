@@ -44,7 +44,7 @@ class WidgetUtils {
       Function(String) validator}) {
     return Container(
       margin: EdgeInsets.symmetric(vertical: 7),
-      height: 40,
+      height: 45,
       child: TextFormField(
         style: TextStyle(fontSize: 16),
         keyboardType: keyboardType,
@@ -69,42 +69,54 @@ class WidgetUtils {
       Color color = Colors.black,
       bool showAd = true}) {
     return Center(
-      child: Dialog(
-        
-        shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.all(Radius.circular(14))),
-        child: Container(
-          padding: EdgeInsets.symmetric(vertical:10),
-          // height: height,
-        child : ListView(          
-              shrinkWrap: true,
-              children: <Widget>[
+      child: 
+          Dialog(
+            
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.all(Radius.circular(14))),
+            child: Stack(
+              children: [
                 Container(
-                    padding: EdgeInsets.symmetric(vertical: 4),
-                    width: MediaQuery.of(context).size.width,
-                    // color: Theme.of(context).primaryColor,
-                    child: title.isEmpty
-                        ? SizedBox()
-                        : Container(
-                            padding: EdgeInsets.fromLTRB(30, 0, 30, 0),
-                            child: Text(
-                              title,
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                  color: color,
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.bold),
-                            ),
-                          )),
-                SizedBox(
-                  height: 10,
-                ),
-                Center(child: child),
-                showAd ? AdMobUtils.admobBanner() : SizedBox(),
+                  padding: EdgeInsets.symmetric(vertical:10),
+                  // height: height,
+                child : ListView(          
+                      shrinkWrap: true,
+                      children: <Widget>[
+                        Container(
+                            padding: EdgeInsets.symmetric(vertical: 4),
+                            width: MediaQuery.of(context).size.width,
+                            // color: Theme.of(context).primaryColor,
+                            child: title.isEmpty
+                                ? SizedBox()
+                                : Container(
+                                    padding: EdgeInsets.fromLTRB(30, 0, 30, 0),
+                                    child: Text(
+                                      title,
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                          color: color,
+                                          fontSize: 18,
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                  )),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        Center(child: child),
+                        showAd ? AdMobUtils.admobBanner() : SizedBox(),
+                      ],
+                    ),
+                  ),
+                    Positioned( top:7,right: 5,child: IconButton(icon: Icon(Icons.close),
+              onPressed: (){
+              Navigator.pop(context);
+            },),)
               ],
             ),
-          ),
-        ),
+            ),
+          
+        
+      
       
     );
   }
