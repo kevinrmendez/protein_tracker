@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
-import 'package:protein_tracker/utils/colors.dart';
-import 'package:protein_tracker/main.dart';
-import 'package:protein_tracker/bloc/FoodService.dart';
-import 'package:protein_tracker/model/food.dart';
-import 'package:protein_tracker/utils/localization_utils.dart';
-import 'package:protein_tracker/utils/widgetUtils.dart';
+import '../bloc/FoodService.dart';
+import '../main.dart';
+import '../model/food.dart';
+import '../utils/colors.dart';
+import '../utils/localization_utils.dart';
+import '../utils/widgetUtils.dart';
 
 class FoodListScreen extends StatefulWidget {
   FoodListScreen({Key key, this.title}) : super(key: key);

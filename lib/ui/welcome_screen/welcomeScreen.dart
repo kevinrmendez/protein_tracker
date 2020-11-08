@@ -1,15 +1,14 @@
 import 'package:flutter/material.dart';
 
-import 'package:protein_tracker/bloc/ProteinService.dart';
-import 'package:protein_tracker/main.dart';
-import 'package:protein_tracker/ui/core/number_grams.dart';
-import 'package:protein_tracker/utils/appAssets.dart';
-import 'package:protein_tracker/utils/colors.dart';
-import 'package:protein_tracker/utils/localization_utils.dart';
-import 'package:protein_tracker/utils/widgetUtils.dart';
-import 'package:protein_tracker/utils/enums.dart';
-import 'package:protein_tracker/services/protein_calculator_service.dart';
-
+import '../../bloc/ProteinService.dart';
+import '../../main.dart';
+import '../../services/protein_calculator_service.dart';
+import '../../utils/appAssets.dart';
+import '../../utils/colors.dart';
+import '../../utils/enums.dart';
+import '../../utils/localization_utils.dart';
+import '../../utils/widgetUtils.dart';
+import '../core/number_grams.dart';
 import 'widgets/blue_screen.dart';
 import 'widgets/confirmation_dialog.dart';
 

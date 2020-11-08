@@ -116,6 +116,7 @@ class _GoalScreenState extends State<GoalScreen> {
                                 "goal_error_value_too_high",
                                 context,
                               );
+                            return null;
                           },
                         ),
                       ],
