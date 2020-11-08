@@ -74,63 +74,69 @@ class _FoodListScreenState extends State<FoodListScreen> {
       body: StreamBuilder<List<Food>>(
         stream: foodListServices.stream,
         builder: (BuildContext context, AsyncSnapshot snapshot) {
-          print(snapshot.data);
-          if (snapshot.data.length == 0) {
-            return Center(
-                child: WidgetUtils.iconText(
-              context,
-              icon: Icons.room_service,
-              text: translatedText(
-                "food_list_text_empty",
-                context,
-              ),
-            ));
-          } else {
-            return ListView.builder(
-                itemCount: foodListServices.currentList.length,
-                itemBuilder: (BuildContext ctxt, int index) {
-                  Food foodItem = snapshot.data[index];
-                  return Column(
-                    children: <Widget>[
-                      Card(
-                        child: ListTile(
-                            title: Text(foodItem.name),
-                            subtitle:
-                                Text("${foodItem.proteinAmount.toString()} gr"),
-                            trailing: Row(
-                              mainAxisSize: MainAxisSize.min,
-                              children: <Widget>[
-                                IconButton(
-                                  icon: Icon(Icons.edit),
-                                  onPressed: () {
-                                    showDialog(
-                                        context: context,
-                                        builder: (_) =>
-                                            EditFoodDialog(foodItem));
-                                  },
-                                ),
-                                IconButton(
-                                  icon: Icon(Icons.delete),
-                                  onPressed: () async {
-                                    var foodId = await foodListServices
-                                        .getFoodId(foodItem);
+          switch (snapshot.connectionState) {
+            case ConnectionState.waiting:
+              return Center(child: CircularProgressIndicator());
+              break;
+            default:
+              // print(snapshot.data);
+              if (snapshot.data.length == 0) {
+                return Center(
+                    child: WidgetUtils.iconText(
+                  context,
+                  icon: Icons.room_service,
+                  text: translatedText(
+                    "food_list_text_empty",
+                    context,
+                  ),
+                ));
+              } else {
+                return ListView.builder(
+                    itemCount: foodListServices.currentList.length,
+                    itemBuilder: (BuildContext ctxt, int index) {
+                      Food foodItem = snapshot.data[index];
+                      return Column(
+                        children: <Widget>[
+                          Card(
+                            child: ListTile(
+                                title: Text(foodItem.name),
+                                subtitle: Text(
+                                    "${foodItem.proteinAmount.toString()} gr"),
+                                trailing: Row(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: <Widget>[
+                                    IconButton(
+                                      icon: Icon(Icons.edit),
+                                      onPressed: () {
+                                        showDialog(
+                                            context: context,
+                                            builder: (_) =>
+                                                EditFoodDialog(foodItem));
+                                      },
+                                    ),
+                                    IconButton(
+                                      icon: Icon(Icons.delete),
+                                      onPressed: () async {
+                                        var foodId = await foodListServices
+                                            .getFoodId(foodItem);
 
-                                    foodListServices.remove(foodId, index);
-                                  },
-                                ),
-                              ],
-                            )),
-                      ),
-                      index == snapshot.data.length - 1
-                          ? Container(
-                              margin: EdgeInsets.only(top: 30),
-                              width: MediaQuery.of(context).size.width,
-                              height: 40,
-                            )
-                          : SizedBox()
-                    ],
-                  );
-                });
+                                        foodListServices.remove(foodId, index);
+                                      },
+                                    ),
+                                  ],
+                                )),
+                          ),
+                          index == snapshot.data.length - 1
+                              ? Container(
+                                  margin: EdgeInsets.only(top: 30),
+                                  width: MediaQuery.of(context).size.width,
+                                  height: 40,
+                                )
+                              : SizedBox()
+                        ],
+                      );
+                    });
+              }
           }
         },
       ),

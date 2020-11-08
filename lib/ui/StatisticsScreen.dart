@@ -226,8 +226,8 @@ class StatisticsScreen extends StatelessWidget {
                     } else {
                       return Container(
                           height: MediaQuery.of(context).size.height * .4,
-                          // child: ProteinChart.withSampleData(),
-                          child: ProteinChart.withData(snapshot.data));
+                          child: Expanded(
+                              child: ProteinChart.withData(snapshot.data)));
                     }
                   }),
               SizedBox(
