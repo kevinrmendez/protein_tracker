@@ -15,7 +15,7 @@ import 'package:protein_tracker/utils/appAssets.dart';
 import 'package:protein_tracker/utils/colors.dart';
 import 'package:protein_tracker/components/appDrawer.dart';
 
-import 'package:protein_tracker/ui/homeScreen.dart';
+import 'package:protein_tracker/ui/home_screen/homeScreen.dart';
 
 import 'package:flutter/services.dart';
 import 'package:protein_tracker/utils/localization_utils.dart';

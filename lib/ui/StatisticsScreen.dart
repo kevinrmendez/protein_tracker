@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
-import 'package:protein_tracker/bloc/DateService.dart';
-import 'package:protein_tracker/bloc/StatisticsService.dart';
-import 'package:protein_tracker/components/proteinChart.dart';
-import 'package:protein_tracker/utils/AdMobUtils.dart';
-import 'package:protein_tracker/utils/colors.dart';
-import 'package:protein_tracker/utils/fontStyle.dart';
-import 'package:protein_tracker/utils/localization_utils.dart';
-import 'package:protein_tracker/utils/widgetUtils.dart';
+import '../bloc/DateService.dart';
+import '../bloc/StatisticsService.dart';
+import '../components/proteinChart.dart';
+import '../utils/AdMobUtils.dart';
+import '../utils/colors.dart';
+import '../utils/fontStyle.dart';
+import '../utils/localization_utils.dart';
+import '../utils/widgetUtils.dart';
 
 class StatisticsScreen extends StatelessWidget {
   StatisticsScreen({Key key}) : super(key: key) {
@@ -230,9 +230,8 @@ class StatisticsScreen extends StatelessWidget {
                           child: ProteinChart.withData(snapshot.data));
                     }
                   }),
-              Container(
-                  margin: EdgeInsets.only(top: 15),
-                  child: AdMobUtils.admobBanner()),
+              AdMobUtils.admobBanner(),
+         
               Container(
                 padding: EdgeInsets.symmetric(horizontal: 10),
                 child: Column(
