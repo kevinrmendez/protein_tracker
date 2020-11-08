@@ -230,8 +230,10 @@ class StatisticsScreen extends StatelessWidget {
                           child: ProteinChart.withData(snapshot.data));
                     }
                   }),
+              SizedBox(
+                height: 10,
+              ),
               AdMobUtils.admobBanner(),
-         
               Container(
                 padding: EdgeInsets.symmetric(horizontal: 10),
                 child: Column(

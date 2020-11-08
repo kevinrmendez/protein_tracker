@@ -11,6 +11,7 @@ import 'package:protein_tracker/utils/enums.dart';
 import 'package:protein_tracker/services/protein_calculator_service.dart';
 
 import 'widgets/blue_screen.dart';
+import 'widgets/confirmation_dialog.dart';
 
 Widget _titleText(text) {
   return Text(
@@ -670,65 +671,5 @@ class _SetupCalculatorScreenState extends State<SetupCalculatorScreen> {
         ],
       ),
     );
-  }
-}
-
-class ConfirmationDialog extends StatelessWidget {
-  final String title;
-  final String description;
-  final bool showChangeGoalButton;
-
-  ConfirmationDialog(
-      {this.title, this.description, this.showChangeGoalButton = false});
-
-  @override
-  Widget build(BuildContext context) {
-    return WidgetUtils.dialog(
-        context: context,
-        title: title,
-        showAd: false,
-        child: Container(
-          margin: EdgeInsets.symmetric(horizontal: 20),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              Text(description),
-              SizedBox(
-                height: 20,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                // mainAxisSize: MainAxisSize.min,
-                children: <Widget>[
-                  WidgetUtils.button(context,
-                      text: translatedText(
-                        "welcome_button_continue",
-                        context,
-                      ),
-                      color: DarkGreyColor, onPressed: () async {
-                    Navigator.of(context).pushAndRemoveUntil(
-                        MaterialPageRoute(builder: (context) => App()),
-                        (Route<dynamic> route) => false);
-                  }),
-                  showChangeGoalButton
-                      ? Container(
-                          margin: EdgeInsets.only(left: 10),
-                          child: WidgetUtils.button(context,
-                              padding: EdgeInsets.zero,
-                              width: MediaQuery.of(context).size.width * .3,
-                              text: translatedText(
-                                "welcome_change_goal",
-                                context,
-                              ),
-                              color: DarkGreyColor, onPressed: () async {
-                            Navigator.of(context).pop();
-                          }),
-                        )
-                      : SizedBox()
-                ],
-              )
-            ],
-          ),
-        ));
   }
 }
