@@ -7,7 +7,7 @@ import 'package:protein_tracker/ui/StatisticsScreen.dart';
 import 'package:protein_tracker/bloc/DateService.dart';
 import 'package:protein_tracker/bloc/ProteinService.dart';
 import 'package:protein_tracker/ui/trackerScreen.dart';
-import 'package:protein_tracker/ui/welcomeScreen.dart';
+import 'package:protein_tracker/ui/welcome_screen/welcomeScreen.dart';
 import 'package:protein_tracker/ui/calendarScreen.dart';
 import 'package:protein_tracker/ui/settingsScreen.dart';
 import 'package:protein_tracker/utils/AdMobUtils.dart';
@@ -23,6 +23,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import 'package:flutter_svg/flutter_svg.dart';
 
+import 'apikeys.dart';
 import 'app_localizations.dart';
 
 // import 'package:cron/cron.dart';
@@ -46,7 +47,7 @@ void main() async {
   //   print('every three minutes');
   // });
   WidgetsFlutterBinding.ensureInitialized();
-  Admob.initialize();
+  Admob.initialize(apikeys["appId"]);
 
   currentDate = DateTime.now();
   print("CURRENT TIME: $currentDate");

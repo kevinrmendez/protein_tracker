@@ -43,20 +43,23 @@ class WidgetUtils {
       Function(String) onChanged,
       Function(String) validator}) {
     return Container(
-      margin: EdgeInsets.symmetric(vertical: 7),
-      height: 45,
-      child: TextFormField(
-        style: TextStyle(fontSize: 16),
-        keyboardType: keyboardType,
-        controller: controller,
-        decoration: InputDecoration(
-          fillColor: Colors.white,
-          filled: true,
-          labelText: labelText,
-          border: OutlineInputBorder(),
+      margin: EdgeInsets.symmetric(vertical: 4),
+      child: SizedBox(
+        height: 60,
+        child: TextFormField(
+          style: TextStyle(fontSize: 16),
+          keyboardType: keyboardType,
+          controller: controller,
+          decoration: InputDecoration(
+            helperText: '',
+            fillColor: Colors.white,
+            filled: true,
+            labelText: labelText,
+            border: OutlineInputBorder(),
+          ),
+          onChanged: onChanged,
+          validator: validator,
         ),
-        onChanged: onChanged,
-        validator: validator,
       ),
     );
   }

@@ -10,7 +10,7 @@ import 'package:protein_tracker/utils/widgetUtils.dart';
 import 'package:protein_tracker/utils/enums.dart';
 import 'package:protein_tracker/services/protein_calculator_service.dart';
 
-import 'welcome_screen/widgets/blue_screen.dart';
+import 'widgets/blue_screen.dart';
 
 Widget _titleText(text) {
   return Text(

@@ -15,9 +15,11 @@ class NumberGrams extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
         Container(
-          child: Text(
-            "$grams",
-            style: TextStyle(fontSize: 90, color: textColor),
+          child: Flexible(
+            child: Text(
+              "$grams",
+              style: TextStyle(fontSize: 90, color: textColor),
+            ),
           ),
         ),
         Text('gr',

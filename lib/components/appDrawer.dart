@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:protein_tracker/ui/FoodListScreen.dart';
 import 'package:protein_tracker/ui/calculatorScreen.dart';
 import 'package:protein_tracker/ui/calendarScreen.dart';
-import 'package:protein_tracker/ui/welcomeScreen.dart';
+import 'package:protein_tracker/ui/welcome_screen/welcomeScreen.dart';
 import 'package:protein_tracker/utils/appAssets.dart';
 import 'package:protein_tracker/utils/colors.dart';
 import 'package:protein_tracker/ui/goalScreen.dart';
