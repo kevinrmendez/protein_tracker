@@ -54,9 +54,15 @@ class _GoalScreenState extends State<GoalScreen> {
               StreamBuilder(
                 stream: proteinService.stream,
                 builder: (BuildContext context, AsyncSnapshot snapshot) {
-                  return NumberGrams(
-                    grams: snapshot.data.amount,
-                  );
+                  switch (snapshot.connectionState) {
+                    case ConnectionState.waiting:
+                      return CircularProgressIndicator();
+                      break;
+                    default:
+                      return NumberGrams(
+                        grams: snapshot.data.amount,
+                      );
+                  }
                 },
               ),
               Text(
@@ -132,7 +138,7 @@ class _GoalScreenState extends State<GoalScreen> {
                       print('goal set: $_proteinGoal');
 
                       //update DailyProtein goal
-                      var currentGoal = proteinService.current.amount ?? 0;
+                      var currentGoal = proteinService.current?.amount ?? 0;
                       var proteinConsumed =
                           proteinService.currentConsumedProtein ?? 0;
                       var today = DateUtils.formattedToday();
