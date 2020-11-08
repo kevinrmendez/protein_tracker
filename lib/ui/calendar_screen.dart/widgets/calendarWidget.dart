@@ -11,10 +11,13 @@ import 'package:protein_tracker/main.dart';
 import 'package:protein_tracker/model/dailyProtein.dart';
 import 'package:protein_tracker/model/food.dart';
 import 'package:protein_tracker/model/protein.dart';
+import 'package:protein_tracker/ui/calendar_screen.dart/widgets/protein_event.dart';
 import 'package:protein_tracker/utils/colors.dart';
 import 'package:protein_tracker/utils/dateUtils.dart';
 import 'package:protein_tracker/utils/widgetUtils.dart';
 import 'package:protein_tracker/utils/localization_utils.dart';
+
+import 'calendar_protein_dialog.dart';
 
 class CalendarWidget extends StatefulWidget {
   final List<DailyProtein> dailyProteinList;
@@ -32,7 +35,7 @@ class _CalendarWidgetState extends State<CalendarWidget> {
   //         .format(DateTime.now());
 
   DateTime _targetDateTime = DateTime.now();
-  EventList<Event> _markedDateMap;
+  EventList<ProteinEvent> _markedDateMap;
 
 //  List<DateTime> _markedDate = [DateTime(2018, 9, 20), DateTime(2018, 10, 11)];
   static Widget _eventIcon = new Container(
@@ -47,9 +50,9 @@ class _CalendarWidgetState extends State<CalendarWidget> {
     ),
   );
 
-  EventList<Event> _transformDailyProteinListToEvenList(
+  EventList<ProteinEvent> _transformDailyProteinListToEvenList(
       List<DailyProtein> dailyProteinList) {
-    EventList<Event> eventList = EventList<Event>();
+    EventList<ProteinEvent> eventList = EventList<ProteinEvent>();
     if (dailyProteinList != null) {
       dailyProteinList.forEach((dailyProtein) {
         DateTime proteinDate =
@@ -66,16 +69,21 @@ class _CalendarWidgetState extends State<CalendarWidget> {
     return eventList;
   }
 
-  EventList<Event> _getEventList() {
+  EventList<ProteinEvent> _getEventList() {
     var eventList =
         _transformDailyProteinListToEvenList(widget.dailyProteinList);
     return eventList;
   }
 
-  Event _transformDailyProteinToEvent(DailyProtein dailyProtein) {
+  ProteinEvent _transformDailyProteinToEvent(DailyProtein dailyProtein) {
     DateTime proteinDate =
         DateTime.parse(DateUtils.parseDate(dailyProtein.date));
-    return Event(date: proteinDate, title: dailyProtein.date, icon: _eventIcon);
+    return ProteinEvent(
+        date: proteinDate,
+        title: dailyProtein.date,
+        icon: _eventIcon,
+        goal: dailyProtein.goal,
+        proteinConsumed: dailyProtein.totalProtein);
   }
 
   // EventList<Event> _markedDateMap = new EventList<Event>(
@@ -136,20 +144,20 @@ class _CalendarWidgetState extends State<CalendarWidget> {
   @override
   Widget build(BuildContext context) {
     // / Example Calendar Carousel without header and custom prev & next button
-    _calendarCarouselNoHeader = CalendarCarousel<Event>(
+    _calendarCarouselNoHeader = CalendarCarousel<ProteinEvent>(
       locale: Localizations.localeOf(context).languageCode,
       weekdayTextStyle:
           TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
       todayBorderColor: DarkGreyColor,
-      onDayPressed: (DateTime date, List<Event> events) {
+      onDayPressed: (DateTime date, List<ProteinEvent> events) {
         this.setState(() => _currentDate = date);
-        // events.forEach((event) => print(event.title));
-        // print('day pressed');
-        // if (events.isNotEmpty) {
-        //   showDialog(
-        //       context: context,
-        //       builder: (_) => CalendarProteinDialog(events[0]));
-        // }
+        events.forEach((event) => print(event.title));
+        print('day pressed');
+        if (events.isNotEmpty) {
+          showDialog(
+              context: context,
+              builder: (_) => CalendarProteinDialog(events[0]));
+        }
       },
       daysHaveCircularBorder: true,
       showOnlyCurrentMonthDate: false,
@@ -279,122 +287,5 @@ class _CalendarWidgetState extends State<CalendarWidget> {
         ), //
       ],
     );
-  }
-}
-
-class CalendarProteinDialog extends StatefulWidget {
-  final Event event;
-  CalendarProteinDialog(this.event);
-  @override
-  _CalendarProteinDialogState createState() => _CalendarProteinDialogState();
-}
-
-class _CalendarProteinDialogState extends State<CalendarProteinDialog> {
-  final _formKey = GlobalKey<FormState>();
-
-  String dropdownValueGoal;
-  String foodName;
-  int proteinAmount;
-
-  @override
-  void initState() {
-    super.initState();
-  }
-
-  _text(text) {
-    return Text(
-      text,
-      style: TextStyle(fontSize: 19),
-    );
-  }
-
-  _textBold(text) {
-    return Text(
-      text,
-      style: TextStyle(fontSize: 19, fontWeight: FontWeight.bold),
-    );
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return WidgetUtils.dialog(
-        context: context,
-        height: MediaQuery.of(context).size.height * .37,
-        title: widget.event.title,
-        child: Container(
-          // margin: EdgeInsets.symmetric(horizontal: 40),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              Form(
-                key: _formKey,
-                child: Column(children: [
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[_textBold('goal '), _text('84 gr')],
-                  ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      _textBold('protein consumed '),
-                      _text('150 gr')
-                    ],
-                  ),
-                  SizedBox(
-                    height: 15,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      WidgetUtils.button(context,
-                          width: 80,
-                          // height: 37,
-                          fontSize: 17,
-                          text: translatedText(
-                            "button_edit",
-                            context,
-                          ),
-                          color: DarkGreyColor, onPressed: () async {
-                        if (_formKey.currentState.validate()) {
-                          print('add food');
-                          print(foodName);
-                          print(proteinAmount);
-                          DateTime now = DateTime.now();
-                          final DateFormat formatter =
-                              DateFormat('dd-MMMM-yyyy');
-                          final String formattedDateNow = formatter.format(now);
-                          Protein protein = Protein(
-                              name: foodName,
-                              amount: proteinAmount,
-                              date: formattedDateNow);
-
-                          proteinListServices.add(protein);
-                          proteinService.updateConsumedProtein();
-                          statisticsService.updateStatisticsData();
-
-                          Navigator.pop(context);
-                        } else {}
-                      }),
-                      WidgetUtils.button(context,
-                          width: 80,
-                          // height: 37,
-                          fontSize: 17,
-                          text: translatedText(
-                            "button_close",
-                            context,
-                          ),
-                          color: DarkGreyColor, onPressed: () {
-                        Navigator.pop(context);
-                      })
-                    ],
-                  )
-                ]),
-              ),
-            ],
-          ),
-        ));
   }
 }
