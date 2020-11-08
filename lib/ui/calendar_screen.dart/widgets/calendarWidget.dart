@@ -11,7 +11,7 @@ import 'package:protein_tracker/main.dart';
 import 'package:protein_tracker/model/dailyProtein.dart';
 import 'package:protein_tracker/model/food.dart';
 import 'package:protein_tracker/model/protein.dart';
-import 'package:protein_tracker/ui/calendar_screen.dart/widgets/protein_event.dart';
+import 'package:protein_tracker/model/protein_event.dart';
 import 'package:protein_tracker/utils/colors.dart';
 import 'package:protein_tracker/utils/dateUtils.dart';
 import 'package:protein_tracker/utils/widgetUtils.dart';

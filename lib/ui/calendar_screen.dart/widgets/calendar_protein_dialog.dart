@@ -5,7 +5,7 @@ import 'package:protein_tracker/bloc/ProteinListService.dart';
 import 'package:protein_tracker/bloc/ProteinService.dart';
 import 'package:protein_tracker/bloc/StatisticsService.dart';
 import 'package:protein_tracker/model/protein.dart';
-import 'package:protein_tracker/ui/calendar_screen.dart/widgets/protein_event.dart';
+import 'package:protein_tracker/model/protein_event.dart';
 import 'package:protein_tracker/utils/colors.dart';
 import 'package:protein_tracker/utils/localization_utils.dart';
 import 'package:protein_tracker/utils/widgetUtils.dart';
