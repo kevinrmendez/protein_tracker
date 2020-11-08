@@ -473,7 +473,6 @@ class GoalChangeDialog extends StatelessWidget {
           "calculator_dialog_goal_change_title",
           context,
         ),
-        showAd: false,
         child: Container(
           margin: EdgeInsets.symmetric(horizontal: 40),
           child: Column(
@@ -515,7 +514,6 @@ class ErrorDialog extends StatelessWidget {
           "calculator_dialog_error_title",
           context,
         ),
-        showAd: false,
         child: Container(
           margin: EdgeInsets.symmetric(horizontal: 40),
           child: Column(

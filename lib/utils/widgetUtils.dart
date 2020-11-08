@@ -69,8 +69,7 @@ class WidgetUtils {
       BuildContext context,
       String title,
       double height,
-      Color color = Colors.black,
-      bool showAd = true}) {
+      Color color = Colors.black}) {
     return Center(
       child: Dialog(
         shape: RoundedRectangleBorder(
@@ -105,7 +104,6 @@ class WidgetUtils {
                     height: 10,
                   ),
                   Center(child: child),
-                  showAd ? AdMobUtils.admobBanner() : SizedBox(),
                 ],
               ),
             ),

@@ -26,11 +26,11 @@ class _FoodListScreenState extends State<FoodListScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: WidgetUtils.appBarBackArrow(
-         title: translatedText(
+          title: translatedText(
             "appbar_food_list",
             context,
           ),
-         context: context,
+          context: context,
           actions: [
             PopupMenuButton<Order>(
               onSelected: (order) {
@@ -174,7 +174,6 @@ class _AddProteinDialogState extends State<AddProteinDialog> {
           "food_dialog_add_title",
           context,
         ),
-        showAd: false,
         child: Container(
           margin: EdgeInsets.symmetric(horizontal: 40),
           child: Column(
@@ -306,7 +305,6 @@ class _EditFoodDialogState extends State<EditFoodDialog> {
           "food_dialog_edit_title",
           context,
         ),
-        showAd: false,
         child: Container(
           margin: EdgeInsets.symmetric(horizontal: 40),
           child: Column(

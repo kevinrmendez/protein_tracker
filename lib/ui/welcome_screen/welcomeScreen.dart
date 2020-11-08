@@ -465,10 +465,8 @@ class _SetupCalculatorScreenState extends State<SetupCalculatorScreen> {
           ),
           _gender == Gender.female
               ? Column(children: [
-                  // _bodyText('What is your status?'),
                   Wrap(
                     alignment: WrapAlignment.spaceEvenly,
-                    // mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
                       _buildRadioButton(
                           translatedText(
@@ -527,7 +525,6 @@ class _SetupCalculatorScreenState extends State<SetupCalculatorScreen> {
             ),
           ),
           Column(
-            // mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
               _buildRadioButton(
                   translatedText(

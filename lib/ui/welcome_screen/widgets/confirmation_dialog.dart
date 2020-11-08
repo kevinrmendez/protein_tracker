@@ -18,7 +18,6 @@ class ConfirmationDialog extends StatelessWidget {
     return WidgetUtils.dialog(
         context: context,
         title: title,
-        showAd: false,
         child: Container(
           margin: EdgeInsets.symmetric(horizontal: 20),
           child: Column(

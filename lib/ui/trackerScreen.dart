@@ -192,7 +192,6 @@ class _AddProteinDialogState extends State<AddProteinDialog> {
           "tracker_dialog_title_add_protein",
           context,
         ),
-        showAd: false,
         child: Container(
           margin: EdgeInsets.symmetric(horizontal: 40),
           child: Column(
@@ -372,7 +371,6 @@ class _EditProteinDialogState extends State<EditProteinDialog> {
           "tracker_dialog_title_edit_protein",
           context,
         ),
-        showAd: false,
         child: Container(
           // height: 300,
           margin: EdgeInsets.symmetric(horizontal: 40),

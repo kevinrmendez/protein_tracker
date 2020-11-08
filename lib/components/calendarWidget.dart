@@ -321,7 +321,6 @@ class _CalendarProteinDialogState extends State<CalendarProteinDialog> {
         context: context,
         height: MediaQuery.of(context).size.height * .37,
         title: widget.event.title,
-        showAd: false,
         child: Container(
           // margin: EdgeInsets.symmetric(horizontal: 40),
           child: Column(
