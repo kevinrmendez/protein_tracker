@@ -1,22 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_calendar_carousel/classes/event.dart';
-import 'package:flutter_calendar_carousel/classes/event.dart';
 import 'package:flutter_calendar_carousel/flutter_calendar_carousel.dart';
 import 'package:intl/intl.dart';
-import 'package:protein_tracker/bloc/FoodService.dart';
-import 'package:protein_tracker/bloc/ProteinListService.dart';
-import 'package:protein_tracker/bloc/ProteinService.dart';
-import 'package:protein_tracker/bloc/StatisticsService.dart';
-import 'package:protein_tracker/main.dart';
-import 'package:protein_tracker/model/dailyProtein.dart';
-import 'package:protein_tracker/model/food.dart';
-import 'package:protein_tracker/model/protein.dart';
-import 'package:protein_tracker/model/protein_event.dart';
-import 'package:protein_tracker/utils/colors.dart';
-import 'package:protein_tracker/utils/dateUtils.dart';
-import 'package:protein_tracker/utils/widgetUtils.dart';
-import 'package:protein_tracker/utils/localization_utils.dart';
 
+import '../../../model/dailyProtein.dart';
+import '../../../model/protein_event.dart';
+import '../../../utils/colors.dart';
+import '../../../utils/dateUtils.dart';
+import '../../../utils/localization_utils.dart';
 import 'calendar_protein_dialog.dart';
 
 class CalendarWidget extends StatefulWidget {
@@ -33,6 +23,7 @@ class _CalendarWidgetState extends State<CalendarWidget> {
   String _currentMonth;
   // String _currentMonth = DateFormat.yMMM()
   //         .format(DateTime.now());
+  CalendarCarousel _calendarCarouselNoHeader;
 
   DateTime _targetDateTime = DateTime.now();
   EventList<ProteinEvent> _markedDateMap;
@@ -103,8 +94,6 @@ class _CalendarWidgetState extends State<CalendarWidget> {
   //     ],
   //   },
   // );
-
-  CalendarCarousel _calendarCarouselNoHeader;
 
   @override
   void initState() {

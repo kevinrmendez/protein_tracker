@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_calendar_carousel/classes/event.dart';
 import 'package:intl/intl.dart';
-import 'package:protein_tracker/bloc/ProteinListService.dart';
-import 'package:protein_tracker/bloc/ProteinService.dart';
-import 'package:protein_tracker/bloc/StatisticsService.dart';
-import 'package:protein_tracker/model/protein.dart';
-import 'package:protein_tracker/model/protein_event.dart';
-import 'package:protein_tracker/utils/colors.dart';
-import 'package:protein_tracker/utils/localization_utils.dart';
-import 'package:protein_tracker/utils/widgetUtils.dart';
+
+import '../../../bloc/ProteinListService.dart';
+import '../../../bloc/ProteinService.dart';
+import '../../../bloc/StatisticsService.dart';
+import '../../../model/protein.dart';
+import '../../../model/protein_event.dart';
+import '../../../utils/colors.dart';
+import '../../../utils/localization_utils.dart';
+import '../../../utils/widgetUtils.dart';
 
 class CalendarProteinDialog extends StatefulWidget {
   final ProteinEvent event;
@@ -47,7 +47,8 @@ class _CalendarProteinDialogState extends State<CalendarProteinDialog> {
   Widget build(BuildContext context) {
     return WidgetUtils.dialog(
         context: context,
-        title: widget.event.title,
+        // title: widget.event.title,
+        title: '',
         child: Container(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -75,8 +76,8 @@ class _CalendarProteinDialogState extends State<CalendarProteinDialog> {
                   SizedBox(
                     height: 15,
                   ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
+                  Wrap(
+                    // mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
                       WidgetUtils.button(context,
                           fontSize: 16,
@@ -105,15 +106,15 @@ class _CalendarProteinDialogState extends State<CalendarProteinDialog> {
                           Navigator.pop(context);
                         } else {}
                       }),
-                      WidgetUtils.button(context,
-                          fontSize: 16,
-                          text: translatedText(
-                            "button_close",
-                            context,
-                          ),
-                          color: DarkGreyColor, onPressed: () {
-                        Navigator.pop(context);
-                      })
+                      // WidgetUtils.button(context,
+                      //     fontSize: 16,
+                      //     text: translatedText(
+                      //       "button_close",
+                      //       context,
+                      //     ),
+                      //     color: DarkGreyColor, onPressed: () {
+                      //   Navigator.pop(context);
+                      // })
                     ],
                   )
                 ]),

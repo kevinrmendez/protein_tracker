@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 
-import 'package:protein_tracker/bloc/DailyProteinService.dart';
-import 'package:protein_tracker/model/dailyProtein.dart';
-import 'package:protein_tracker/ui/calendar_screen.dart/widgets/calendarWidget.dart';
-import 'package:protein_tracker/utils/AdMobUtils.dart';
-import 'package:protein_tracker/utils/colors.dart';
-import 'package:protein_tracker/utils/localization_utils.dart';
-import 'package:protein_tracker/utils/widgetUtils.dart';
+import '../../bloc/DailyProteinService.dart';
+import '../../model/dailyProtein.dart';
+import '../../utils/AdMobUtils.dart';
+import '../../utils/colors.dart';
+import '../../utils/localization_utils.dart';
+import '../../utils/widgetUtils.dart';
+import 'widgets/calendarWidget.dart';
 
 class CalendarScreen extends StatelessWidget {
   _calendarLabel({String text, Color color, bool ringShape = false}) {
