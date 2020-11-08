@@ -26,15 +26,14 @@ class CalculatorScreen extends StatefulWidget {
 class _MyHomePageState extends State<CalculatorScreen> {
   Gender _gender = Gender.male;
   FemaleStatus _femaleStatus = FemaleStatus.none;
-  ProteinGoal _goal = ProteinGoal.maintenance;
+  // ProteinGoal _goal = ProteinGoal.maintenance;
   final weightController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
 
   Activity dropdownValueActivity = Activity.none;
   ProteinGoal dropdownValueGoal = ProteinGoal.none;
   int proteinIntake = 0;
-  int _counter = 0;
-  int _selectedIndex = 0;
+
   bool _isCalculated;
   double _weight;
   int _weightRounded;
@@ -51,9 +50,6 @@ class _MyHomePageState extends State<CalculatorScreen> {
     ProteinGoal.muscleGain,
     ProteinGoal.fatLoss,
   ];
-
-  static const TextStyle optionStyle =
-      TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
 
   Widget _radioButton(
     String label,
@@ -213,7 +209,6 @@ class _MyHomePageState extends State<CalculatorScreen> {
                 child: Form(
                     key: _formKey,
                     child: Column(
-                      // mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
                         _subtitle(
                           translatedText(
@@ -303,8 +298,6 @@ class _MyHomePageState extends State<CalculatorScreen> {
                         _gender == Gender.female
                             ? Wrap(
                                 direction: Axis.vertical,
-                                // alignment: WrapAlignment.center,
-                                // mainAxisAlignment: MainAxisAlignment.center,
                                 children: <Widget>[
                                   _radioButton(
                                     translatedText(

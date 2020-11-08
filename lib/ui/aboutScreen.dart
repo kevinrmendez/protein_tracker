@@ -3,11 +3,10 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-import 'package:protein_tracker/utils/appAssets.dart';
-import 'package:protein_tracker/utils/colors.dart';
-import 'package:protein_tracker/utils/widgetUtils.dart';
-import 'package:protein_tracker/utils/localization_utils.dart';
-
+import '../utils/appAssets.dart';
+import '../utils/colors.dart';
+import '../utils/localization_utils.dart';
+import '../utils/widgetUtils.dart';
 import 'core/widgets/title_card.dart';
 
 class AboutScreen extends StatelessWidget {
@@ -17,20 +16,20 @@ class AboutScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: WidgetUtils.appBarBackArrow(
-      title:   translatedText(
+          title: translatedText(
             "appbar_about",
             context,
           ),
-       context:   context),
+          context: context),
       body: Container(
-        // padding: EdgeInsets.symmetric(vertical: 40),
         child: ListView(
-          // mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget>[
-              TitleCard(title:translatedText(
-                      "app_title",
-                      context,
-                    ),),   
+            TitleCard(
+              title: translatedText(
+                "app_title",
+                context,
+              ),
+            ),
             Container(
               margin: EdgeInsets.only(top: 30),
               child: Column(
@@ -47,19 +46,21 @@ class AboutScreen extends StatelessWidget {
                     "app_version",
                     context,
                   )),
-              Platform.isAndroid ?    WidgetUtils.button(context,
-                      text: translatedText(
-                        "button_update",
-                        context,
-                      ),
-                      color: DarkGreyColor, onPressed: () async {
-                    String url = AppAssets.appUrl;
-                    if (await canLaunch(url)) {
-                      await launch(url);
-                    } else {
-                      throw 'Could not launch $url';
-                    }
-                  }) : SizedBox()
+                  Platform.isAndroid
+                      ? WidgetUtils.button(context,
+                          text: translatedText(
+                            "button_update",
+                            context,
+                          ),
+                          color: DarkGreyColor, onPressed: () async {
+                          String url = AppAssets.appUrl;
+                          if (await canLaunch(url)) {
+                            await launch(url);
+                          } else {
+                            throw 'Could not launch $url';
+                          }
+                        })
+                      : SizedBox()
                 ],
               ),
             ),
