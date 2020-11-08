@@ -396,6 +396,12 @@ class _SetupCalculatorScreenState extends State<SetupCalculatorScreen> {
                         context,
                       );
                     }
+                    if (int.parse(value) > 1000) {
+                      return translatedText(
+                        "food_error_value_too_high",
+                        context,
+                      );
+                    }
                     return null;
                   },
                 ),

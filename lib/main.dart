@@ -163,8 +163,6 @@ class _MyAppState extends State<MyApp> {
           primaryColor: PrimaryColor,
           primarySwatch: Colors.grey,
           scaffoldBackgroundColor: BackgroundColor),
-
-      // home: App(),
     );
   }
 }
@@ -178,7 +176,6 @@ class App extends StatefulWidget {
 
 class _AppState extends State<App> {
   Image appIcon;
-  int _counter = 0;
   int _selectedIndex = 0;
   final List<Widget> _activities = [
     // StatisticsActivity(),
@@ -187,9 +184,6 @@ class _AppState extends State<App> {
     CalendarScreen(),
     SettingsScreen(),
   ];
-
-  static const TextStyle optionStyle =
-      TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
 
   void _onItemTapped(int index) {
     setState(() {
@@ -205,10 +199,10 @@ class _AppState extends State<App> {
     );
   }
 
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-  }
+  // @override
+  // void didChangeDependencies() {
+  //   super.didChangeDependencies();
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -253,14 +247,7 @@ class _AppState extends State<App> {
         ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      bottomNavigationBar:
-          // Container(
-          // // height: 110,
-          // child:
-          //   Column(
-          // mainAxisAlignment: MainAxisAlignment.end,
-          // children: <Widget>[
-          BottomNavigationBar(
+      bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
         backgroundColor: Colors.white,
         items: <BottomNavigationBarItem>[
@@ -280,12 +267,6 @@ class _AppState extends State<App> {
         selectedItemColor: PrimaryColor,
         onTap: _onItemTapped,
       ),
-      // Container(
-      //     width: MediaQuery.of(context).size.width,
-      //     child: AdMobUtils.admobBanner()),
-      // ],
-      // ),
-      // ),
     );
   }
 }

@@ -65,7 +65,7 @@
   "food_error_value_0": "la protéine doit être supérieure à 0",
   "food_error_food_value_empty": "la nourriture est vide",
   "food_error_food_value_duplicate": "nourriture déjà ajoutée",
-  "food_error_value_too_high": "la valeur protéique est trop élevée",
+  "food_error_value_too_high": "la valeur est trop élevée",
   "tracker_list_empty": "votre liste de protéines est vide",
   "tracker_dialog_title_add_protein": "Ajouter des protéines",
   "tracker_dialog_title_edit_protein": "Modifier la protéine",
