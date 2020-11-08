@@ -1,18 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:scidart/numdart.dart';
 
-import 'package:protein_tracker/bloc/SettingsService.dart';
-import 'package:protein_tracker/bloc/ProteinService.dart';
-import 'package:protein_tracker/utils/localization_utils.dart';
-import 'package:protein_tracker/utils/widgetUtils.dart';
-import 'package:protein_tracker/utils/colors.dart';
-import 'package:protein_tracker/utils/enums.dart';
-import 'package:protein_tracker/services/protein_calculator_service.dart';
-
-// enum Gender { male, female }
-// enum FemaleStatus { none, pregnant, lactanting }
-// enum ProteinGoal { none, maintenance, muscleGain, fatLoss }
-// enum Activity { none, sedentary, moderate, active }
+import '../../bloc/ProteinService.dart';
+import '../../bloc/SettingsService.dart';
+import '../../services/protein_calculator_service.dart';
+import '../../utils/colors.dart';
+import '../../utils/enums.dart';
+import '../../utils/localization_utils.dart';
+import '../../utils/widgetUtils.dart';
+import 'widgets/error_dialog.dart';
+import 'widgets/goal_change_dialog.dart';
 
 class CalculatorScreen extends StatefulWidget {
   CalculatorScreen({Key key, this.title}) : super(key: key);
@@ -453,87 +450,5 @@ class _MyHomePageState extends State<CalculatorScreen> {
         ]),
       ),
     );
-  }
-}
-
-class GoalChangeDialog extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return WidgetUtils.dialog(
-        context: context,
-        height: MediaQuery.of(context).size.height * .34,
-        title: translatedText(
-          "calculator_dialog_goal_change_title",
-          context,
-        ),
-        child: Container(
-          margin: EdgeInsets.symmetric(horizontal: 40),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: <Widget>[
-              Container(
-                padding: EdgeInsets.symmetric(vertical: 10),
-                child: Text(
-                  translatedText(
-                    "calculator_dialog_goal_change_text",
-                    context,
-                  ),
-                  textAlign: TextAlign.center,
-                  style: TextStyle(fontSize: 18),
-                ),
-              ),
-              WidgetUtils.button(context,
-                  width: MediaQuery.of(context).size.width,
-                  color: DarkGreyColor,
-                  text: translatedText(
-                    "calculator_button_close",
-                    context,
-                  ), onPressed: () {
-                Navigator.pop(context);
-              })
-            ],
-          ),
-        ));
-  }
-}
-
-class ErrorDialog extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return WidgetUtils.dialog(
-        context: context,
-        height: MediaQuery.of(context).size.height * .4,
-        title: translatedText(
-          "calculator_dialog_error_title",
-          context,
-        ),
-        child: Container(
-          margin: EdgeInsets.symmetric(horizontal: 40),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: <Widget>[
-              Container(
-                padding: EdgeInsets.symmetric(vertical: 10),
-                child: Text(
-                  translatedText(
-                    "calculator_dialog_error_text",
-                    context,
-                  ),
-                  textAlign: TextAlign.center,
-                  style: TextStyle(fontSize: 18),
-                ),
-              ),
-              WidgetUtils.button(context,
-                  color: DarkGreyColor,
-                  width: MediaQuery.of(context).size.width,
-                  text: translatedText(
-                    "calculator_button_close",
-                    context,
-                  ), onPressed: () {
-                Navigator.pop(context);
-              })
-            ],
-          ),
-        ));
   }
 }
