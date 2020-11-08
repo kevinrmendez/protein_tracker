@@ -8,7 +8,7 @@ import 'package:protein_tracker/bloc/DateService.dart';
 import 'package:protein_tracker/bloc/ProteinService.dart';
 import 'package:protein_tracker/ui/trackerScreen.dart';
 import 'package:protein_tracker/ui/welcome_screen/welcomeScreen.dart';
-import 'package:protein_tracker/ui/calendarScreen.dart';
+import 'package:protein_tracker/ui/calendar_screen.dart/calendarScreen.dart';
 import 'package:protein_tracker/ui/settingsScreen.dart';
 import 'package:protein_tracker/utils/AdMobUtils.dart';
 import 'package:protein_tracker/utils/appAssets.dart';
@@ -41,11 +41,6 @@ void resetState() {
 }
 
 void main() async {
-  // var cron = new Cron();
-  // cron.schedule(new Schedule.parse('*/1 * * * *'), () async {
-  //   resetState();
-  //   print('every three minutes');
-  // });
   WidgetsFlutterBinding.ensureInitialized();
   // Admob.initialize(apikeys["appId"]);
   Admob.initialize();
@@ -198,11 +193,6 @@ class _AppState extends State<App> {
       AppAssets.app_icon,
     );
   }
-
-  // @override
-  // void didChangeDependencies() {
-  //   super.didChangeDependencies();
-  // }
 
   @override
   Widget build(BuildContext context) {
