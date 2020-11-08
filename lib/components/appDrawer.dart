@@ -2,8 +2,8 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:protein_tracker/ui/FoodListScreen.dart';
-import 'package:protein_tracker/ui/calculatorScreen.dart';
-import 'package:protein_tracker/ui/calendarScreen.dart';
+import 'package:protein_tracker/ui/calculator_screen/calculatorScreen.dart';
+import 'package:protein_tracker/ui/calendar_screen.dart/calendarScreen.dart';
 import 'package:protein_tracker/ui/welcome_screen/welcomeScreen.dart';
 import 'package:protein_tracker/utils/appAssets.dart';
 import 'package:protein_tracker/utils/colors.dart';
