@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:protein_tracker/bloc/DailyProteinService.dart';
-import 'package:protein_tracker/ui/calendar_screen.dart/widgets/calendarWidget.dart';
+import 'package:protein_tracker/components/calendarWidget.dart';
 import 'package:protein_tracker/model/dailyProtein.dart';
 import 'package:protein_tracker/utils/AdMobUtils.dart';
 import 'package:protein_tracker/utils/colors.dart';
