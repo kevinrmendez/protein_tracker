@@ -42,8 +42,8 @@ void resetState() {
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  // Admob.initialize(apikeys["appId"]);
-  Admob.initialize();
+  Admob.initialize(apikeys["appId"]);
+  // Admob.initialize();
 
   currentDate = DateTime.now();
   print("CURRENT TIME: $currentDate");
