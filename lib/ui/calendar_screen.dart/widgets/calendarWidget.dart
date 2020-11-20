@@ -139,9 +139,9 @@ class _CalendarWidgetState extends State<CalendarWidget> {
           TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
       todayBorderColor: DarkGreyColor,
       onDayPressed: (DateTime date, List<ProteinEvent> events) {
-        this.setState(() => _currentDate = date);
+        // this.setState(() => _currentDate = date);
         events.forEach((event) => print(event.title));
-        print('day pressed');
+        print('day pressed ${date.toString()}');
         if (events.isNotEmpty) {
           showDialog(
               context: context,

@@ -89,7 +89,6 @@ class StatisticsScreen extends StatelessWidget {
         child: Container(
           margin: EdgeInsets.symmetric(horizontal: 10),
           child: Column(
-            // mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               SizedBox(
                 height: 10,
@@ -98,22 +97,21 @@ class StatisticsScreen extends StatelessWidget {
                 DateUtils.getMonthName(dateService.currentMonthDate, context),
                 style: AppFontStyle.subtitle,
               ),
-              StreamBuilder<List<TimeSeriesProtein>>(
-                  stream: statisticsService.chartDataStream,
-                  builder: (context, snapshot) {
-                    if (snapshot.data == null) {
-                      return Container(
-                          height: MediaQuery.of(context).size.height * .4,
-                          child: Center(
-                              child: SizedBox(
-                                  child: CircularProgressIndicator())));
-                    } else {
-                      return Container(
-                          height: MediaQuery.of(context).size.height * .4,
-                          child: Expanded(
-                              child: ProteinChart.withData(snapshot.data)));
-                    }
-                  }),
+              Container(
+                height: MediaQuery.of(context).size.height * .4,
+                child: StreamBuilder<List<TimeSeriesProtein>>(
+                    stream: statisticsService.chartDataStream,
+                    builder: (context, snapshot) {
+                      if (snapshot.data == null) {
+                        return Center(
+                            child:
+                                SizedBox(child: CircularProgressIndicator()));
+                      } else {
+                        return Expanded(
+                            child: ProteinChart.withData(snapshot.data));
+                      }
+                    }),
+              ),
               SizedBox(
                 height: 10,
               ),
