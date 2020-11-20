@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:protein_tracker/utils/dateUtils.dart';
 
 import '../bloc/DateService.dart';
 import '../bloc/StatisticsService.dart';
@@ -45,7 +46,11 @@ class StatisticsScreen extends StatelessWidget {
     );
   }
 
-  _statsData({String label, Stream data, String measurement = ""}) {
+  _statsData(
+      {String label,
+      Stream data,
+      String measurement = "",
+      bool isCalory = false}) {
     return StreamBuilder(
         stream: data,
         builder: (context, snapshot) {
@@ -57,37 +62,8 @@ class StatisticsScreen extends StatelessWidget {
               Row(
                 children: <Widget>[
                   Text(
-                    "$data",
+                    isCalory ? "${data * 4}" : "$data",
                     textAlign: TextAlign.center,
-                    style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
-                  ),
-                  SizedBox(
-                    width: 5,
-                  ),
-                  Text(
-                    measurement,
-                    style: TextStyle(color: DarkGreyColor, fontSize: 12),
-                  )
-                ],
-              )
-            ]),
-          );
-        });
-  }
-
-  _statsDataCalories({String label, Stream data, String measurement = ""}) {
-    return StreamBuilder(
-        stream: data,
-        builder: (context, snapshot) {
-          var data = snapshot.data ?? 0;
-          return Container(
-            padding: EdgeInsets.symmetric(vertical: 10),
-            child: Column(children: [
-              _statsLabel(text: label, context: context),
-              Row(
-                children: <Widget>[
-                  Text(
-                    "${data * 4}",
                     style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
                   ),
                   SizedBox(
@@ -106,8 +82,6 @@ class StatisticsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-  
-
     return ListView(children: [
       WidgetUtils.screenTitle(
           title: translatedText("statistics_title", context), context: context),
@@ -121,7 +95,7 @@ class StatisticsScreen extends StatelessWidget {
                 height: 10,
               ),
               Text(
-                DateUtils.getMonthName(dateService.currentMonthDate),
+                DateUtils.getMonthName(dateService.currentMonthDate, context),
                 style: AppFontStyle.subtitle,
               ),
               StreamBuilder<List<TimeSeriesProtein>>(
@@ -175,20 +149,22 @@ class StatisticsScreen extends StatelessWidget {
                           measurement: "gr"),
                     ]),
                     _statsDataRow(color: Colors.transparent, children: [
-                      _statsDataCalories(
+                      _statsData(
                           label: translatedText(
                             "statistics_label_calories_consumed",
                             context,
                           ),
                           data: statisticsService.totalProteinStream,
-                          measurement: "cal"),
-                      _statsDataCalories(
+                          measurement: "cal",
+                          isCalory: true),
+                      _statsData(
                           label: translatedText(
                             "statistics_label_calories_avg_consumed",
                             context,
                           ),
                           data: statisticsService.avgProteinStream,
-                          measurement: "cal"),
+                          measurement: "cal",
+                          isCalory: true),
                     ])
                   ],
                 ),
