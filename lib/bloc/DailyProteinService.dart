@@ -17,9 +17,9 @@ class DailyProteinService {
   List<DailyProtein> get currentList => _dailyProteinList.value;
 
   DailyProteinService() {
-    _getDailyProtein();
+    _getAllDailyProtein();
   }
-  void _getDailyProtein() async {
+  void _getAllDailyProtein() async {
     dbProteins = await _dailyProteinRepository.getAllDailyProteins();
     _dailyProteinList.add(dbProteins ?? []);
   }
@@ -43,7 +43,7 @@ class DailyProteinService {
 
     _dailyProteinRepository.insertDailyProtein(dailyProtein);
 
-    _getDailyProtein();
+    _getAllDailyProtein();
   }
 
   update(DailyProtein dailyProtein) async {
@@ -55,7 +55,7 @@ class DailyProteinService {
       print(element.totalProtein);
       print(element.goal);
     });
-    _getDailyProtein();
+    _getAllDailyProtein();
   }
 
   remove(int id) async {
@@ -63,7 +63,7 @@ class DailyProteinService {
         .removeWhere((dailyProtein) => dailyProtein.id == id);
     _dailyProteinList.add(List<DailyProtein>.from(currentList));
     await _dailyProteinRepository.deleteDailyProteinById(id);
-    _getDailyProtein();
+    _getAllDailyProtein();
   }
 
   getDailyProteinId(DailyProtein dailyProtein) async {
@@ -75,19 +75,6 @@ class DailyProteinService {
     int id = await _dailyProteinRepository.getDailyProteinIdByDate(date);
     return id;
   }
-
-  // void orderFoodsAscending() {
-  //   List<DailyProtein> orderList = currentList;
-  //   orderList.sort((a, b) => a.date.compareTo(b.date));
-  //   _dailyProteinList.add(orderList);
-  // }
-
-  // void orderFoodsDescending() {
-  //   List<DailyProtein> orderList = currentList;
-  //   orderList.sort((a, b) => a.date.compareTo(b.date));
-  //   List<DailyProtein> reversedList = orderList.reversed.toList();
-  //   _dailyProteinList.add(reversedList);
-  // }
 }
 
 DailyProteinService dailyProteinServices = DailyProteinService();

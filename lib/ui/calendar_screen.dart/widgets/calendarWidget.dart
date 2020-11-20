@@ -77,6 +77,13 @@ class _CalendarWidgetState extends State<CalendarWidget> {
         proteinConsumed: dailyProtein.totalProtein);
   }
 
+  _getDailyProteinByDate(DateTime date) {
+    print("date: $date");
+    return widget.dailyProteinList.firstWhere(
+        (element) => DateTime.parse(DateUtils.parseDate(element.date)) == date,
+        orElse: () => null);
+  }
+
   // EventList<Event> _markedDateMap = new EventList<Event>(
   //   events: {
   //     new DateTime(2020, 7, 7): [
@@ -140,12 +147,32 @@ class _CalendarWidgetState extends State<CalendarWidget> {
       todayBorderColor: DarkGreyColor,
       onDayPressed: (DateTime date, List<ProteinEvent> events) {
         // this.setState(() => _currentDate = date);
-        events.forEach((event) => print(event.title));
+        // events.forEach((event) => print(event.title));
+        DailyProtein dailyProteinSelected = _getDailyProteinByDate(date);
+        print("${dailyProteinSelected.toString()}");
         print('day pressed ${date.toString()}');
-        if (events.isNotEmpty) {
+
+        if (dailyProteinSelected != null) {
           showDialog(
               context: context,
-              builder: (_) => CalendarProteinDialog(events[0]));
+              builder: (_) => CalendarProteinDialog(dailyProteinSelected));
+        } else {
+          showDialog(
+              context: context,
+              builder: (BuildContext context) {
+                return AlertDialog(
+                  title: Text(
+                    'Selected date has no data',
+                  ),
+                  actions: [
+                    FlatButton(
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                        },
+                        child: Text('close'))
+                  ],
+                );
+              });
         }
       },
       daysHaveCircularBorder: true,

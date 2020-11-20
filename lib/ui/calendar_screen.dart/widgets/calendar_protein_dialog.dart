@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:protein_tracker/model/dailyProtein.dart';
 
 import '../../../bloc/ProteinListService.dart';
 import '../../../bloc/ProteinService.dart';
@@ -11,8 +12,10 @@ import '../../../utils/localization_utils.dart';
 import '../../../utils/widgetUtils.dart';
 
 class CalendarProteinDialog extends StatefulWidget {
-  final ProteinEvent event;
-  CalendarProteinDialog(this.event);
+  // final ProteinEvent event;
+  final DailyProtein dailyProtein;
+  CalendarProteinDialog(this.dailyProtein);
+  // CalendarProteinDialog(this.event);
   @override
   _CalendarProteinDialogState createState() => _CalendarProteinDialogState();
 }
@@ -60,7 +63,7 @@ class _CalendarProteinDialogState extends State<CalendarProteinDialog> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
                       _textBold('goal '),
-                      _text('${widget.event.goal} gr')
+                      _text('${widget.dailyProtein.goal} gr')
                     ],
                   ),
                   SizedBox(
@@ -70,7 +73,7 @@ class _CalendarProteinDialogState extends State<CalendarProteinDialog> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
                       _textBold('protein consumed '),
-                      _text('${widget.event.proteinConsumed} gr')
+                      _text('${widget.dailyProtein.totalProtein} gr')
                     ],
                   ),
                   SizedBox(
