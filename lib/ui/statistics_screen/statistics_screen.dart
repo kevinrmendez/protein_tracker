@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:protein_tracker/utils/dateUtils.dart';
 
-import '../bloc/DateService.dart';
-import '../bloc/StatisticsService.dart';
-import '../components/proteinChart.dart';
-import '../utils/AdMobUtils.dart';
-import '../utils/colors.dart';
-import '../utils/fontStyle.dart';
-import '../utils/localization_utils.dart';
-import '../utils/widgetUtils.dart';
+import '../../bloc/DateService.dart';
+import '../../bloc/StatisticsService.dart';
+import 'widgets/proteinChart.dart';
+import '../../utils/AdMobUtils.dart';
+import '../../utils/colors.dart';
+import '../../utils/fontStyle.dart';
+import '../../utils/localization_utils.dart';
+import '../../utils/widgetUtils.dart';
 
 class StatisticsScreen extends StatelessWidget {
   StatisticsScreen({Key key}) : super(key: key) {

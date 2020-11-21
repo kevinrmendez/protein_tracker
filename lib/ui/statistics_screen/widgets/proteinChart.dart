@@ -1,4 +1,3 @@
-/// Example of a time series chart using a bar renderer.
 import 'package:charts_flutter/flutter.dart' as charts;
 import 'package:flutter/material.dart';
 

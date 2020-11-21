@@ -1,6 +1,6 @@
 import 'package:intl/intl.dart';
 import 'package:protein_tracker/bloc/ProteinListService.dart';
-import 'package:protein_tracker/components/proteinChart.dart';
+import 'package:protein_tracker/ui/statistics_screen/widgets/proteinChart.dart';
 import 'package:protein_tracker/main.dart';
 import 'package:protein_tracker/model/protein.dart';
 import 'package:protein_tracker/repository/protein_repository.dart';

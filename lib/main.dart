@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:intl/intl.dart';
 import 'bloc/ProteinListService.dart';
-import 'ui/StatisticsScreen.dart';
+import 'ui/statistics_screen/statistics_screen.dart';
 import 'bloc/DateService.dart';
 import 'bloc/ProteinService.dart';
 import 'ui/trackerScreen.dart';
