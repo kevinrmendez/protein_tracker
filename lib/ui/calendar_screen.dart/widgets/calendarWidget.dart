@@ -201,18 +201,6 @@ class _CalendarWidgetState extends State<CalendarWidget> {
                         ],
                       ),
                     ));
-                return AlertDialog(
-                  title: Text(
-                    'Selected date has no data',
-                  ),
-                  actions: [
-                    FlatButton(
-                        onPressed: () {
-                          Navigator.of(context).pop();
-                        },
-                        child: Text('close'))
-                  ],
-                );
               });
         }
       },

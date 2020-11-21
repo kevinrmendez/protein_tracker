@@ -3,6 +3,7 @@ import 'package:protein_tracker/utils/AdMobUtils.dart';
 import 'package:protein_tracker/utils/appAssets.dart';
 import 'package:protein_tracker/utils/colors.dart';
 import 'package:protein_tracker/main.dart';
+import 'package:protein_tracker/utils/theme_text.dart';
 
 class WidgetUtils {
   static Widget button(BuildContext context,
@@ -84,21 +85,16 @@ class WidgetUtils {
                 shrinkWrap: true,
                 children: <Widget>[
                   Container(
-                      padding: EdgeInsets.symmetric(vertical: 4),
+                      padding: EdgeInsets.symmetric(vertical: 8),
                       width: MediaQuery.of(context).size.width,
                       // color: Theme.of(context).primaryColor,
                       child: title.isEmpty
                           ? SizedBox()
                           : Container(
                               padding: EdgeInsets.fromLTRB(30, 0, 30, 0),
-                              child: Text(
-                                title,
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                    color: color,
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.bold),
-                              ),
+                              child: Text(title,
+                                  textAlign: TextAlign.center,
+                                  style: ThemeText.dialogHeader),
                             )),
                   SizedBox(
                     height: 10,
@@ -108,7 +104,7 @@ class WidgetUtils {
               ),
             ),
             Positioned(
-              top: 7,
+              top: 4,
               right: 5,
               child: IconButton(
                 icon: Icon(Icons.close),
@@ -232,7 +228,7 @@ class WidgetUtils {
       child: Text(
         title,
         textAlign: textAlign,
-        style: TextStyle(fontSize: 34, fontWeight: FontWeight.bold),
+        style: ThemeText.bigTextTitle,
       ),
     );
   }

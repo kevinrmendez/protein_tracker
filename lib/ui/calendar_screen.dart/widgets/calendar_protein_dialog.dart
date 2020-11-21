@@ -54,7 +54,7 @@ class _CalendarProteinDialogState extends State<CalendarProteinDialog> {
                       ),
                       Text(
                         '${widget.dailyProtein.goal} gr',
-                        style: ThemeText.dialogHeader,
+                        style: ThemeText.dialogBody,
                       ),
                     ],
                   ),
