@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:protein_tracker/model/dailyProtein.dart';
+import 'package:protein_tracker/utils/theme_text.dart';
 
 import '../../../bloc/ProteinListService.dart';
 import '../../../bloc/ProteinService.dart';
 import '../../../bloc/StatisticsService.dart';
 import '../../../model/protein.dart';
-import '../../../model/protein_event.dart';
 import '../../../utils/colors.dart';
 import '../../../utils/localization_utils.dart';
 import '../../../utils/widgetUtils.dart';
@@ -32,20 +32,6 @@ class _CalendarProteinDialogState extends State<CalendarProteinDialog> {
     super.initState();
   }
 
-  _text(text) {
-    return Text(
-      text,
-      style: TextStyle(fontSize: 19),
-    );
-  }
-
-  _textBold(text) {
-    return Text(
-      text,
-      style: TextStyle(fontSize: 19, fontWeight: FontWeight.bold),
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     return WidgetUtils.dialog(
@@ -62,8 +48,14 @@ class _CalendarProteinDialogState extends State<CalendarProteinDialog> {
                   Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
-                      _textBold('goal '),
-                      _text('${widget.dailyProtein.goal} gr')
+                      Text(
+                        'goal',
+                        style: ThemeText.dialogHeader,
+                      ),
+                      Text(
+                        '${widget.dailyProtein.goal} gr',
+                        style: ThemeText.dialogHeader,
+                      ),
                     ],
                   ),
                   SizedBox(
@@ -72,8 +64,14 @@ class _CalendarProteinDialogState extends State<CalendarProteinDialog> {
                   Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
-                      _textBold('protein consumed '),
-                      _text('${widget.dailyProtein.totalProtein} gr')
+                      Text(
+                        'protein consumed',
+                        style: ThemeText.dialogHeader,
+                      ),
+                      Text(
+                        '${widget.dailyProtein.totalProtein} gr',
+                        style: ThemeText.dialogBody,
+                      )
                     ],
                   ),
                   SizedBox(

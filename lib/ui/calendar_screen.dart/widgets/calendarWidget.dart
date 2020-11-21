@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_calendar_carousel/flutter_calendar_carousel.dart';
 import 'package:intl/intl.dart';
+import 'package:protein_tracker/utils/theme_text.dart';
+import 'package:protein_tracker/utils/widgetUtils.dart';
 
 import '../../../model/dailyProtein.dart';
 import '../../../model/protein_event.dart';
@@ -160,6 +162,45 @@ class _CalendarWidgetState extends State<CalendarWidget> {
           showDialog(
               context: context,
               builder: (BuildContext context) {
+                return WidgetUtils.dialog(
+                    context: context,
+                    // title: widget.event.title,
+                    title: '',
+                    child: Container(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          Column(children: [
+                            Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: <Widget>[
+                                Text(
+                                  'Selected date has no data',
+                                  style: ThemeText.dialogHeader,
+                                )
+                              ],
+                            ),
+                            SizedBox(
+                              height: 15,
+                            ),
+                            Wrap(
+                              // mainAxisAlignment: MainAxisAlignment.center,
+                              children: <Widget>[
+                                WidgetUtils.button(context,
+                                    fontSize: 16,
+                                    text: translatedText(
+                                      "button_close",
+                                      context,
+                                    ),
+                                    color: DarkGreyColor, onPressed: () {
+                                  Navigator.pop(context);
+                                })
+                              ],
+                            )
+                          ]),
+                        ],
+                      ),
+                    ));
                 return AlertDialog(
                   title: Text(
                     'Selected date has no data',
