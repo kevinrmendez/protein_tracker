@@ -164,9 +164,6 @@ class _GoalScreenState extends State<GoalScreen> {
                             goal: currentGoal);
                         dailyProteinServices.update(dailyProtein);
                       }
-                      dailyProteinServices.currentList.forEach((element) {
-                        print(element.toString());
-                      });
                     }
                   },
                 ),

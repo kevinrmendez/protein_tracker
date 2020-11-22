@@ -21,20 +21,6 @@ Widget _titleText(text) {
   );
 }
 
-Widget _bodyText(text) {
-  return Container(
-    padding: EdgeInsets.fromLTRB(0, 20, 20, 20),
-    child: Text(
-      text,
-      style: TextStyle(
-        color: Colors.white,
-        fontSize: 32,
-      ),
-      textAlign: TextAlign.center,
-    ),
-  );
-}
-
 Widget _numberText(int number) {
   return Text(
     "$number",
