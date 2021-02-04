@@ -1,6 +1,8 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:protein_tracker/bloc/settings/settings_bloc.dart';
 import 'package:scidart/numdart.dart';
 
 import '../bloc/SettingsService.dart';
@@ -91,6 +93,20 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 ),
               )
             : SizedBox(),
+        ListTile(
+          onTap: () {
+            BlocProvider.of<SettingsBloc>(context)
+                .add(SettingsLocaleChanged(Locale('es', 'ES')));
+          },
+          title: Text('change to spanish'),
+        ),
+        ListTile(
+          onTap: () {
+            BlocProvider.of<SettingsBloc>(context)
+                .add(SettingsLocaleChanged(Locale('en', 'US')));
+          },
+          title: Text('change to english'),
+        )
       ],
     );
   }

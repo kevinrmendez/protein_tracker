@@ -30,6 +30,8 @@ dependencies:
   scidart: ^0.0.1-dev.6
   admob_flutter:
   flutter_svg: ^0.18.1
+  flutter_bloc: ^6.1.1
+  equatable: ^1.2.5
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.

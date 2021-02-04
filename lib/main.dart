@@ -1,7 +1,9 @@
 import 'package:admob_flutter/admob_flutter.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:intl/intl.dart';
+import 'package:protein_tracker/bloc/settings/settings_bloc.dart';
 import 'bloc/ProteinListService.dart';
 import 'ui/statistics_screen/statistics_screen.dart';
 import 'bloc/DateService.dart';
@@ -76,7 +78,10 @@ void main() async {
   dateService.updateDateMonth(currentDate);
   proteinListServices.getMonthlyProtein(currentDate);
 
-  runApp(MyApp());
+  runApp(BlocProvider(
+    create: (context) => SettingsBloc(),
+    child: MyApp(),
+  ));
 }
 
 class MyApp extends StatefulWidget {
@@ -112,52 +117,59 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      supportedLocales: [
-        const Locale('en', 'US'),
-        const Locale('es', 'MX'),
-        const Locale('es', 'AR'),
-        const Locale('es', 'ES'),
-        const Locale('es', 'GT'),
-        // const Locale('hi', 'IN'),
-        const Locale('fr', 'FR'),
-        const Locale('pt', 'BR'),
-        const Locale('pt', 'PT'),
-        // const Locale('de', 'DE'),
-        // const Locale('it', 'IT'),
-      ],
-      localizationsDelegates: [
-        // A class which loads the translations from JSON files
-        AppLocalizations.delegate,
-        // Built-in localization of basic text for Material widgets
-        GlobalMaterialLocalizations.delegate,
-        // Built-in localization for text direction LTR/RTL
-        GlobalWidgetsLocalizations.delegate,
-      ],
-      localeResolutionCallback: (locale, supportedLocales) {
-        // Check if the current device locale is supported
-        for (var supportedLocale in supportedLocales) {
-          if (supportedLocale.languageCode == locale.languageCode &&
-              supportedLocale.countryCode == locale.countryCode) {
-            return supportedLocale;
-          }
-        }
-        // If the locale of the device is not supported, use the first one
-        // from the list (English, in this case).
-        return supportedLocales.first;
+    return BlocBuilder<SettingsBloc, SettingsState>(
+      builder: (context, state) {
+        return MaterialApp(
+          // locale: Locale('es', 'MX'),
+          // locale: Locale('es', 'MX'),
+          locale: state.locale,
+          supportedLocales: [
+            const Locale('en', 'US'),
+            const Locale('es', 'MX'),
+            const Locale('es', 'AR'),
+            const Locale('es', 'ES'),
+            const Locale('es', 'GT'),
+            // const Locale('hi', 'IN'),
+            const Locale('fr', 'FR'),
+            const Locale('pt', 'BR'),
+            const Locale('pt', 'PT'),
+            // const Locale('de', 'DE'),
+            // const Locale('it', 'IT'),
+          ],
+          localizationsDelegates: [
+            // A class which loads the translations from JSON files
+            AppLocalizations.delegate,
+            // Built-in localization of basic text for Material widgets
+            GlobalMaterialLocalizations.delegate,
+            // Built-in localization for text direction LTR/RTL
+            GlobalWidgetsLocalizations.delegate,
+          ],
+          localeResolutionCallback: (locale, supportedLocales) {
+            // Check if the current device locale is supported
+            for (var supportedLocale in supportedLocales) {
+              if (supportedLocale.languageCode == locale.languageCode &&
+                  supportedLocale.countryCode == locale.countryCode) {
+                return supportedLocale;
+              }
+            }
+            // If the locale of the device is not supported, use the first one
+            // from the list (English, in this case).
+            return supportedLocales.first;
+          },
+          initialRoute: showWelcomeScreen ? '/welcome' : '/',
+          routes: {
+            '/': (context) => App(),
+            '/welcome': (context) => WelcomeScreen(),
+          },
+          debugShowCheckedModeBanner: false,
+          title: 'Flutter Demo',
+          theme: ThemeData(
+              fontFamily: "OpenSans",
+              primaryColor: PrimaryColor,
+              primarySwatch: Colors.grey,
+              scaffoldBackgroundColor: BackgroundColor),
+        );
       },
-      initialRoute: showWelcomeScreen ? '/welcome' : '/',
-      routes: {
-        '/': (context) => App(),
-        '/welcome': (context) => WelcomeScreen(),
-      },
-      debugShowCheckedModeBanner: false,
-      title: 'Flutter Demo',
-      theme: ThemeData(
-          fontFamily: "OpenSans",
-          primaryColor: PrimaryColor,
-          primarySwatch: Colors.grey,
-          scaffoldBackgroundColor: BackgroundColor),
     );
   }
 }

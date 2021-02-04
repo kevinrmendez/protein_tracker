@@ -104,7 +104,7 @@ class _TrackerScreenState extends State<TrackerScreen> {
                         children: <Widget>[
                           Card(
                             child: ListTile(
-                                title: Text(proteinItem.name),
+                                title: Text(proteinItem.name ?? ""),
                                 subtitle: Container(
                                   child: Column(
                                     mainAxisAlignment: MainAxisAlignment.start,
