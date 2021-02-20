@@ -23,6 +23,7 @@ import 'package:protein_tracker/ui/home_screen/homeScreen.dart';
 
 import 'package:flutter/services.dart';
 import 'package:protein_tracker/utils/localization_utils.dart';
+import 'package:protein_tracker/ui/core/theme.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'package:flutter_svg/flutter_svg.dart';
@@ -125,7 +126,11 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return BlocBuilder<SettingsBloc, SettingsState>(
       builder: (context, state) {
+        print('STATE: ${state.isDarkModeEnabled}');
         return MaterialApp(
+          themeMode: state.isDarkModeEnabled ? ThemeMode.dark : ThemeMode.light,
+          darkTheme:
+              state.isDarkModeEnabled ? AppTheme.dark() : AppTheme.light(),
           // locale: Locale('es', 'MX'),
           // locale: Locale('es', 'MX'),
           locale: state.locale ?? Locale('en'),

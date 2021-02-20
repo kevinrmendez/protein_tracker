@@ -15,3 +15,11 @@ class SettingsLocaleChanged extends SettingsEvent {
   @override
   List<Object> get props => [locale];
 }
+
+class SettingsDarkModeChanged extends SettingsEvent {
+  final bool isDarkModeEnabled;
+  const SettingsDarkModeChanged(this.isDarkModeEnabled);
+
+  @override
+  List<Object> get props => [isDarkModeEnabled];
+}

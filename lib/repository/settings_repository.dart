@@ -24,4 +24,15 @@ class SettingsRepository {
       countryCode,
     );
   }
+
+  void changeDarkModeValue(bool isDarkModeEnabled) {
+    preferences.setBool('isDarkModeEnabled', isDarkModeEnabled);
+  }
+
+  bool getDarkModeValue() {
+    if (!preferences.containsKey('isDarkModeEnabled')) {
+      preferences.setBool('isDarkModeEnabled', false);
+    }
+    return preferences.getBool('isDarkModeEnabled');
+  }
 }
