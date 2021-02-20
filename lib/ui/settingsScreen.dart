@@ -20,6 +20,7 @@ class SettingsScreen extends StatefulWidget {
 
 class _SettingsScreenState extends State<SettingsScreen> {
   bool weightSettingsBool;
+  GlobalKey expansionTile = GlobalKey();
   @override
   void initState() {
     weightSettingsBool = intToBool(settingsService.currentWeightSettings);
@@ -104,24 +105,26 @@ class _SettingsScreenState extends State<SettingsScreen> {
               )
             : SizedBox(),
         ExpansionTile(
-          title: Text('language'),
+          key: expansionTile,
+          title: Text(translatedText("language", context)),
           children: [
             _buildLanguageTile(
-                title: "change to english",
-                languageCode: 'en',
-                countryCode: 'US'),
+              title: translatedText("language_en", context),
+              languageCode: 'en',
+              countryCode: 'US',
+            ),
             _buildLanguageTile(
-              title: "change to spanish",
+              title: translatedText("language_es", context),
               languageCode: 'es',
               countryCode: 'ES',
             ),
             _buildLanguageTile(
-              title: "change to french",
+              title: translatedText("language_fr", context),
               languageCode: 'fr',
               countryCode: 'FR',
             ),
             _buildLanguageTile(
-              title: "change to portuguese",
+              title: translatedText("language_pt", context),
               languageCode: 'pt',
               countryCode: 'PT',
             ),
