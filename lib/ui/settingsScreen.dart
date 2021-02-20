@@ -26,6 +26,16 @@ class _SettingsScreenState extends State<SettingsScreen> {
     super.initState();
   }
 
+  _buildLanguageTile({String title, String languageCode, String countryCode}) {
+    return ListTile(
+      onTap: () {
+        BlocProvider.of<SettingsBloc>(context)
+            .add(SettingsLocaleChanged(Locale(languageCode, countryCode)));
+      },
+      title: Text(title),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -93,19 +103,19 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 ),
               )
             : SizedBox(),
-        ListTile(
-          onTap: () {
-            BlocProvider.of<SettingsBloc>(context)
-                .add(SettingsLocaleChanged(Locale('es', 'ES')));
-          },
-          title: Text('change to spanish'),
-        ),
-        ListTile(
-          onTap: () {
-            BlocProvider.of<SettingsBloc>(context)
-                .add(SettingsLocaleChanged(Locale('en', 'US')));
-          },
-          title: Text('change to english'),
+        ExpansionTile(
+          title: Text('language'),
+          children: [
+            _buildLanguageTile(
+                title: "change to english",
+                languageCode: 'en',
+                countryCode: 'US'),
+            _buildLanguageTile(
+              title: "change to spanish",
+              languageCode: 'es',
+              countryCode: 'ES',
+            )
+          ],
         )
       ],
     );
