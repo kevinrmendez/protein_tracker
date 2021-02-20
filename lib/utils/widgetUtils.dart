@@ -181,7 +181,7 @@ class WidgetUtils {
             ),
           ),
           Card(
-            color: color,
+            // color: color,
             margin: EdgeInsets.symmetric(horizontal: 0),
             child: Container(
                 padding: EdgeInsets.symmetric(vertical: 8), child: child),

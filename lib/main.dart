@@ -174,11 +174,7 @@ class _MyAppState extends State<MyApp> {
           },
           debugShowCheckedModeBanner: false,
           title: 'Flutter Demo',
-          theme: ThemeData(
-              fontFamily: "OpenSans",
-              primaryColor: PrimaryColor,
-              primarySwatch: Colors.grey,
-              scaffoldBackgroundColor: BackgroundColor),
+          theme: state.isDarkModeEnabled ? AppTheme.dark() : AppTheme.light(),
         );
       },
     );
@@ -231,7 +227,7 @@ class _AppState extends State<App> {
       drawer: AppDrawer(),
       appBar: AppBar(
         centerTitle: true,
-        backgroundColor: BackgroundColor,
+        backgroundColor: Theme.of(context).backgroundColor,
         iconTheme: new IconThemeData(color: PrimaryColor),
         elevation: 0.0,
         title: SizedBox(
@@ -262,7 +258,7 @@ class _AppState extends State<App> {
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
-        backgroundColor: Colors.white,
+        // backgroundColor: Colors.white,
         items: <BottomNavigationBarItem>[
           BottomNavigationBarItem(
               icon: MenuIcon(Icons.home), title: SizedBox()),
