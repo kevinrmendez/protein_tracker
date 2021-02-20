@@ -56,7 +56,9 @@ class CalendarScreen extends StatelessWidget {
                     height: MediaQuery.of(context).size.height * .55,
                     child: Center(child: CircularProgressIndicator()));
               }
-              return CalendarWidget(snapshot.data, context);
+              return Container(
+                  // color: Colors.black,
+                  child: CalendarWidget(snapshot.data, context));
             }),
         SizedBox(
           height: 10,

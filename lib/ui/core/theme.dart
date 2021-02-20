@@ -26,6 +26,7 @@ class AppTheme {
   }
 
   static ThemeData dark() {
-    return ThemeData.dark().copyWith(backgroundColor: BackgroundColorDark);
+    return ThemeData.dark().copyWith(
+        backgroundColor: BackgroundColorDark, accentColor: PrimaryColor);
   }
 }

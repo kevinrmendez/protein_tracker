@@ -182,8 +182,9 @@ class _MyHomePageState extends State<CalculatorScreen> {
           Column(
             children: <Widget>[
               Container(
-                child: WidgetUtils.card(
-                  color: PrimaryColor,
+                child: WidgetUtils.colorCard(
+                  context,
+                  // color: PrimaryColor,
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[

@@ -119,7 +119,7 @@ class AppDrawer extends StatelessWidget {
                       ),
                       trailing: Icon(
                         Icons.share,
-                        // color: Theme.of(context).accentColor,
+                        color: Theme.of(context).accentColor,
                       ),
                       onTap: () {
                         String url = AppAssets.appUrl;

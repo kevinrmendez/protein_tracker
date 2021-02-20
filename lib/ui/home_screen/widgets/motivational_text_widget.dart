@@ -16,7 +16,8 @@ class MotivationalTextWidget extends StatelessWidget {
       return SizedBox();
     } else {
       goal = proteinGoal.amount;
-      return WidgetUtils.card(
+      return WidgetUtils.colorCard(
+        context,
         color: consumedProtein >= goal ? GreenColor : PrimaryColor,
         title: translatedText(
           "home_label_status",
