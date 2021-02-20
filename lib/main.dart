@@ -2,8 +2,10 @@ import 'package:admob_flutter/admob_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:injectable/injectable.dart';
 import 'package:intl/intl.dart';
 import 'package:protein_tracker/bloc/settings/settings_bloc.dart';
+import 'package:protein_tracker/repository/settings_repository.dart';
 import 'bloc/ProteinListService.dart';
 import 'ui/statistics_screen/statistics_screen.dart';
 import 'bloc/DateService.dart';
@@ -27,11 +29,12 @@ import 'package:flutter_svg/flutter_svg.dart';
 
 import 'apikeys.dart';
 import 'app_localizations.dart';
+import 'injection.dart';
 
 // import 'package:cron/cron.dart';
 
 DateTime currentDate;
-var preferences;
+SharedPreferences preferences;
 String formattedDateNow;
 String formattedDayCache;
 enum Order { ascending, descending }
@@ -44,6 +47,7 @@ void resetState() {
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await configureInjection(Environment.prod);
   Admob.initialize(apikeys["appId"]);
   // Admob.initialize();
 
@@ -77,9 +81,11 @@ void main() async {
   // dateService.updateDate(currentDate);
   dateService.updateDateMonth(currentDate);
   proteinListServices.getMonthlyProtein(currentDate);
+  SettingsRepository settingsRepository = SettingsRepository();
 
   runApp(BlocProvider(
-    create: (context) => SettingsBloc(),
+    // create: (context) => SettingsBloc(),
+    create: (context) => getIt<SettingsBloc>(),
     child: MyApp(),
   ));
 }
@@ -122,7 +128,7 @@ class _MyAppState extends State<MyApp> {
         return MaterialApp(
           // locale: Locale('es', 'MX'),
           // locale: Locale('es', 'MX'),
-          locale: state.locale,
+          locale: state.locale ?? Locale('en'),
           supportedLocales: [
             const Locale('en', 'US'),
             const Locale('es', 'MX'),

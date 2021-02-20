@@ -20,10 +20,21 @@ class SettingsScreen extends StatefulWidget {
 
 class _SettingsScreenState extends State<SettingsScreen> {
   bool weightSettingsBool;
+  GlobalKey expansionTile = GlobalKey();
   @override
   void initState() {
     weightSettingsBool = intToBool(settingsService.currentWeightSettings);
     super.initState();
+  }
+
+  _buildLanguageTile({String title, String languageCode, String countryCode}) {
+    return ListTile(
+      onTap: () {
+        BlocProvider.of<SettingsBloc>(context)
+            .add(SettingsLocaleChanged(Locale(languageCode, countryCode)));
+      },
+      title: Text(title),
+    );
   }
 
   @override
@@ -93,19 +104,31 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 ),
               )
             : SizedBox(),
-        ListTile(
-          onTap: () {
-            BlocProvider.of<SettingsBloc>(context)
-                .add(SettingsLocaleChanged(Locale('es', 'ES')));
-          },
-          title: Text('change to spanish'),
-        ),
-        ListTile(
-          onTap: () {
-            BlocProvider.of<SettingsBloc>(context)
-                .add(SettingsLocaleChanged(Locale('en', 'US')));
-          },
-          title: Text('change to english'),
+        ExpansionTile(
+          key: expansionTile,
+          title: Text(translatedText("language", context)),
+          children: [
+            _buildLanguageTile(
+              title: translatedText("language_en", context),
+              languageCode: 'en',
+              countryCode: 'US',
+            ),
+            _buildLanguageTile(
+              title: translatedText("language_es", context),
+              languageCode: 'es',
+              countryCode: 'ES',
+            ),
+            _buildLanguageTile(
+              title: translatedText("language_fr", context),
+              languageCode: 'fr',
+              countryCode: 'FR',
+            ),
+            _buildLanguageTile(
+              title: translatedText("language_pt", context),
+              languageCode: 'pt',
+              countryCode: 'PT',
+            ),
+          ],
         )
       ],
     );

@@ -152,5 +152,10 @@
   "calendar_label_goal_completed": "objetivo concluído",
   "calendar_label_current_day": "dia atual",
   "calendar_label_selected_day": "dia selecionado",
-  "text_share_app": "Estou usando este aplicativo para rastrear minha ingestão de proteínas, você pode baixá-lo no próximo link:"
+  "text_share_app": "Estou usando este aplicativo para rastrear minha ingestão de proteínas, você pode baixá-lo no próximo link:",
+  "language": "idioma",
+  "language_en": "inglês",
+  "language_es": "espanhol",
+  "language_fr": "francês",
+  "language_pt": "portugues"
 }

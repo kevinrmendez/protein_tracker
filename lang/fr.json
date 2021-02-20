@@ -152,6 +152,10 @@
   "calendar_label_goal_completed": "objectif atteint",
   "calendar_label_current_day": "jour actuel",
   "calendar_label_selected_day": "jour sélectionné",
-
-  "text_share_app": "J'utilise cette application pour suivre mon apport en protéines, vous pouvez la télécharger à partir du lien suivant:"
+  "text_share_app": "J'utilise cette application pour suivre mon apport en protéines, vous pouvez la télécharger à partir du lien suivant:",
+  "language": "langue",
+  "language_en": "anglais",
+  "language_es": "espagnol",
+  "language_fr": "français",
+  "language_pt": "portugais"
 }
