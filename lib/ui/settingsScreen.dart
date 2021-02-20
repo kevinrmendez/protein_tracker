@@ -114,7 +114,17 @@ class _SettingsScreenState extends State<SettingsScreen> {
               title: "change to spanish",
               languageCode: 'es',
               countryCode: 'ES',
-            )
+            ),
+            _buildLanguageTile(
+              title: "change to french",
+              languageCode: 'fr',
+              countryCode: 'FR',
+            ),
+            _buildLanguageTile(
+              title: "change to portuguese",
+              languageCode: 'pt',
+              countryCode: 'PT',
+            ),
           ],
         )
       ],
