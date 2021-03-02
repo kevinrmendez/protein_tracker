@@ -318,7 +318,8 @@ class _AddProteinDialogState extends State<AddProteinDialog> {
                         "button_add",
                         context,
                       ),
-                      color: DarkGreyColor, onPressed: () async {
+                      color: Theme.of(context).buttonColor,
+                      onPressed: () async {
                     if (_formKey.currentState.validate()) {
                       print('add food');
                       print(foodName);
@@ -451,7 +452,8 @@ class _EditProteinDialogState extends State<EditProteinDialog> {
                         "button_edit",
                         context,
                       ),
-                      color: DarkGreyColor, onPressed: () async {
+                      color: Theme.of(context).buttonColor,
+                      onPressed: () async {
                     if (_formKey.currentState.validate()) {
                       var proteinId = await proteinListServices
                           .getProteinId(widget.protein);

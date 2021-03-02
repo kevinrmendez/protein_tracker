@@ -23,6 +23,7 @@ import 'package:protein_tracker/ui/home_screen/homeScreen.dart';
 
 import 'package:flutter/services.dart';
 import 'package:protein_tracker/utils/localization_utils.dart';
+import 'package:protein_tracker/ui/core/theme.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'package:flutter_svg/flutter_svg.dart';
@@ -125,7 +126,11 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return BlocBuilder<SettingsBloc, SettingsState>(
       builder: (context, state) {
+        print('STATE: ${state.isDarkModeEnabled}');
         return MaterialApp(
+          themeMode: state.isDarkModeEnabled ? ThemeMode.dark : ThemeMode.light,
+          darkTheme:
+              state.isDarkModeEnabled ? AppTheme.dark() : AppTheme.light(),
           // locale: Locale('es', 'MX'),
           // locale: Locale('es', 'MX'),
           locale: state.locale ?? Locale('en'),
@@ -169,11 +174,7 @@ class _MyAppState extends State<MyApp> {
           },
           debugShowCheckedModeBanner: false,
           title: 'Flutter Demo',
-          theme: ThemeData(
-              fontFamily: "OpenSans",
-              primaryColor: PrimaryColor,
-              primarySwatch: Colors.grey,
-              scaffoldBackgroundColor: BackgroundColor),
+          theme: state.isDarkModeEnabled ? AppTheme.dark() : AppTheme.light(),
         );
       },
     );
@@ -226,7 +227,7 @@ class _AppState extends State<App> {
       drawer: AppDrawer(),
       appBar: AppBar(
         centerTitle: true,
-        backgroundColor: BackgroundColor,
+        backgroundColor: Theme.of(context).backgroundColor,
         iconTheme: new IconThemeData(color: PrimaryColor),
         elevation: 0.0,
         title: SizedBox(
@@ -257,7 +258,7 @@ class _AppState extends State<App> {
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
-        backgroundColor: Colors.white,
+        // backgroundColor: Colors.white,
         items: <BottomNavigationBarItem>[
           BottomNavigationBarItem(
               icon: MenuIcon(Icons.home), title: SizedBox()),

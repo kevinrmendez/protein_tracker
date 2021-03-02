@@ -257,7 +257,8 @@ class _AddProteinDialogState extends State<AddProteinDialog> {
                         "button_add",
                         context,
                       ),
-                      color: DarkGreyColor, onPressed: () async {
+                      color: Theme.of(context).buttonColor,
+                      onPressed: () async {
                     if (_formKey.currentState.validate()) {
                       print('add food');
                       print(foodName);
@@ -377,7 +378,8 @@ class _EditFoodDialogState extends State<EditFoodDialog> {
                         "button_edit",
                         context,
                       ),
-                      color: DarkGreyColor, onPressed: () async {
+                      color: Theme.of(context).buttonColor,
+                      onPressed: () async {
                     if (_formKey.currentState.validate()) {
                       var foodId =
                           await foodListServices.getFoodId(widget.food);

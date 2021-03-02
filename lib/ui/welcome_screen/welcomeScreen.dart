@@ -616,7 +616,6 @@ class _SetupCalculatorScreenState extends State<SetupCalculatorScreen> {
           )),
           NumberGrams(
             grams: goal,
-            textColor: Colors.white,
           ),
           WidgetUtils.button(context,
               width: MediaQuery.of(context).size.width,

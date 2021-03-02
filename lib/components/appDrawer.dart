@@ -21,7 +21,7 @@ class AppDrawer extends StatelessWidget {
       width: MediaQuery.of(context).size.width * .8,
       child: Drawer(
         child: Container(
-          color: BackgroundColor,
+          // color: Theme.of(context).backgroundColor,
           child: ListView(
             children: <Widget>[
               DrawerHeader(
@@ -119,7 +119,7 @@ class AppDrawer extends StatelessWidget {
                       ),
                       trailing: Icon(
                         Icons.share,
-                        // color: Theme.of(context).accentColor,
+                        color: Theme.of(context).accentColor,
                       ),
                       onTap: () {
                         String url = AppAssets.appUrl;

@@ -16,7 +16,8 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
   final SettingsRepository settingsRepository;
   SettingsBloc(this.settingsRepository)
       // SettingsBloc()
-      : super(SettingsInitial(settingsRepository.getLanguage()));
+      : super(SettingsInitial(settingsRepository.getLanguage(),
+            settingsRepository.getDarkModeValue()));
   // : super(SettingsInitial(Locale('fr', 'FR')));
 
   @override
@@ -26,11 +27,20 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
     if (event is SettingsLocaleChanged) {
       yield* _mapSettingsLocaleChangeState(event);
     }
+    if (event is SettingsDarkModeChanged) {
+      yield* _mapSettingsDarkModeChangeState(event);
+    }
   }
 
   Stream<SettingsLocaleChangeState> _mapSettingsLocaleChangeState(
       SettingsLocaleChanged event) async* {
     settingsRepository.changeLanguage(event.locale);
     yield SettingsLocaleChangeState(event.locale);
+  }
+
+  Stream<SettingsDarkModeChangeState> _mapSettingsDarkModeChangeState(
+      SettingsDarkModeChanged event) async* {
+    settingsRepository.changeDarkModeValue(event.isDarkModeEnabled);
+    yield SettingsDarkModeChangeState(event.isDarkModeEnabled);
   }
 }

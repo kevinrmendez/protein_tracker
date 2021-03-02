@@ -131,7 +131,7 @@ class _GoalScreenState extends State<GoalScreen> {
                     "goal_button_goal",
                     context,
                   ),
-                  color: DarkGreyColor,
+                  color: Theme.of(context).buttonColor,
                   onPressed: () async {
                     if (_formKey.currentState.validate()) {
                       _proteinGoal = int.parse(proteinGoalController.text);

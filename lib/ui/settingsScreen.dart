@@ -129,6 +129,18 @@ class _SettingsScreenState extends State<SettingsScreen> {
               countryCode: 'PT',
             ),
           ],
+        ),
+        BlocBuilder<SettingsBloc, SettingsState>(
+          builder: (context, state) {
+            return SwitchListTile(
+              title: const Text('darkMode'),
+              onChanged: (value) {
+                BlocProvider.of<SettingsBloc>(context)
+                    .add(SettingsDarkModeChanged(value));
+              },
+              value: state.isDarkModeEnabled,
+            );
+          },
         )
       ],
     );

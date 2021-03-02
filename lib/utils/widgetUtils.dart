@@ -53,7 +53,7 @@ class WidgetUtils {
           controller: controller,
           decoration: InputDecoration(
             helperText: '',
-            fillColor: Colors.white,
+            // fillColor: Colors.white,
             filled: true,
             labelText: labelText,
             border: OutlineInputBorder(),
@@ -181,7 +181,33 @@ class WidgetUtils {
             ),
           ),
           Card(
-            color: color,
+            // color: color,
+            margin: EdgeInsets.symmetric(horizontal: 0),
+            child: Container(
+                padding: EdgeInsets.symmetric(vertical: 8), child: child),
+          ),
+        ],
+      ),
+    );
+  }
+
+  static Widget colorCard(BuildContext context,
+      {String title = "", Widget child, Color color}) {
+    return Container(
+      margin: EdgeInsets.symmetric(horizontal: 20),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          Container(
+            margin: EdgeInsets.only(bottom: 5),
+            child: Text(
+              title,
+              textAlign: TextAlign.right,
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
+            ),
+          ),
+          Card(
+            color: color ?? Theme.of(context).primaryColor,
             margin: EdgeInsets.symmetric(horizontal: 0),
             child: Container(
                 padding: EdgeInsets.symmetric(vertical: 8), child: child),
@@ -195,7 +221,7 @@ class WidgetUtils {
       {String title, BuildContext context, List<Widget> actions}) {
     return AppBar(
       centerTitle: true,
-      backgroundColor: BackgroundColor,
+      backgroundColor: Theme.of(context).backgroundColor,
       iconTheme: new IconThemeData(color: PrimaryColor),
       elevation: 0.0,
       actions: actions,
