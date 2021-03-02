@@ -12,9 +12,10 @@ import '../../../utils/localization_utils.dart';
 import 'calendar_protein_dialog.dart';
 
 class CalendarWidget extends StatefulWidget {
+  final Color iconColors;
   final List<DailyProtein> dailyProteinList;
   final BuildContext context;
-  CalendarWidget(this.dailyProteinList, this.context);
+  CalendarWidget(this.dailyProteinList, this.context, this.iconColors);
   @override
   _CalendarWidgetState createState() => _CalendarWidgetState();
 }
@@ -31,17 +32,19 @@ class _CalendarWidgetState extends State<CalendarWidget> {
   EventList<ProteinEvent> _markedDateMap;
 
 //  List<DateTime> _markedDate = [DateTime(2018, 9, 20), DateTime(2018, 10, 11)];
-  static Widget _eventIcon = new Container(
-    decoration: new BoxDecoration(
-        color: PrimaryColor,
-        borderRadius: BorderRadius.all(Radius.circular(1000)),
-        border: Border.all(color: PrimaryColor, width: 2.0)),
-    child: new Icon(
-      Icons.check,
-      color: Colors.white,
-      size: 22,
-    ),
-  );
+  Widget _eventIcon() {
+    return Container(
+      decoration: BoxDecoration(
+          color: widget.iconColors,
+          borderRadius: BorderRadius.all(Radius.circular(1000)),
+          border: Border.all(color: widget.iconColors, width: 2.0)),
+      child: new Icon(
+        Icons.check,
+        color: Colors.white,
+        size: 22,
+      ),
+    );
+  }
 
   EventList<ProteinEvent> _transformDailyProteinListToEvenList(
       List<DailyProtein> dailyProteinList) {
@@ -74,7 +77,7 @@ class _CalendarWidgetState extends State<CalendarWidget> {
     return ProteinEvent(
         date: proteinDate,
         title: dailyProtein.date,
-        icon: _eventIcon,
+        icon: _eventIcon(),
         goal: dailyProtein.goal,
         proteinConsumed: dailyProtein.totalProtein);
   }
@@ -221,7 +224,7 @@ class _CalendarWidgetState extends State<CalendarWidget> {
       // markedDateCustomTextStyle:
       //     TextStyle(fontWeight: FontWeight.bold, color: PrimaryColor),
       markedDateCustomShapeBorder:
-          CircleBorder(side: BorderSide(color: PrimaryColor, width: 3)),
+          CircleBorder(side: BorderSide(color: widget.iconColors, width: 3)),
       // markedDateCustomTextStyle: TextStyle(
       //   fontSize: 18,
       //   color: Colors.blue,
