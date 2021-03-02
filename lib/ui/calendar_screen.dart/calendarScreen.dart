@@ -57,7 +57,7 @@ class CalendarScreen extends StatelessWidget {
                     child: Center(child: CircularProgressIndicator()));
               }
               return Container(
-                  // color: Colors.black,
+                  // color: Colors.white,
                   child: CalendarWidget(snapshot.data, context));
             }),
         SizedBox(

@@ -18,6 +18,7 @@ class AppTheme {
 
   static ThemeData light() {
     return ThemeData(
+        inputDecorationTheme: InputDecorationTheme(fillColor: Colors.white),
         fontFamily: "OpenSans",
         primaryColor: PrimaryColor,
         primarySwatch: Colors.grey,

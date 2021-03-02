@@ -53,7 +53,7 @@ class WidgetUtils {
           controller: controller,
           decoration: InputDecoration(
             helperText: '',
-            fillColor: Colors.white,
+            // fillColor: Colors.white,
             filled: true,
             labelText: labelText,
             border: OutlineInputBorder(),
