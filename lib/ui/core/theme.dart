@@ -18,6 +18,7 @@ class AppTheme {
 
   static ThemeData light() {
     return ThemeData(
+        buttonColor: DarkGreyColor,
         inputDecorationTheme: InputDecorationTheme(fillColor: Colors.white),
         fontFamily: "OpenSans",
         primaryColor: PrimaryColor,
@@ -28,6 +29,9 @@ class AppTheme {
 
   static ThemeData dark() {
     return ThemeData.dark().copyWith(
-        backgroundColor: BackgroundColorDark, accentColor: PrimaryColor);
+      backgroundColor: BackgroundColorDark,
+      accentColor: PrimaryColor,
+      buttonColor: SecondaryColor,
+    );
   }
 }

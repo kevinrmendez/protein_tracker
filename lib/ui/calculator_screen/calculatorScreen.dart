@@ -416,7 +416,7 @@ class _MyHomePageState extends State<CalculatorScreen> {
               WidgetUtils.button(
                 context,
                 width: MediaQuery.of(context).size.width,
-                color: DarkGreyColor,
+                color: Theme.of(context).buttonColor,
                 text: translatedText(
                   "calculator_button_calculate",
                   context,
@@ -440,7 +440,7 @@ class _MyHomePageState extends State<CalculatorScreen> {
                         "calculator_button_protein_goal",
                         context,
                       ),
-                      color: DarkGreyColor, onPressed: () {
+                      color: Theme.of(context).buttonColor, onPressed: () {
                       proteinService.setGoal(proteinIntake);
                       showDialog(
                           context: context, builder: (_) => GoalChangeDialog());
