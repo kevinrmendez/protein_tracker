@@ -25,6 +25,10 @@ class ProteinsBloc extends Bloc<ProteinsEvent, ProteinsState> {
       yield* _mapProteinAddedToState(event);
     } else if (event is ProteinDeleted) {
       yield* _mapTodoDeletedToState(event);
+    } else if (event is ProteinOrderedAscending) {
+      yield* _mapTodoProteinOrderedAscendingState(event);
+    } else if (event is ProteinOrderedDescending) {
+      yield* _mapTodoProteinOrderedDescendingState(event);
     }
   }
 
@@ -72,6 +76,43 @@ class ProteinsBloc extends Bloc<ProteinsEvent, ProteinsState> {
     }
   }
 
+  Stream<ProteinsState> _mapTodoProteinOrderedAscendingState(
+      ProteinOrderedAscending event) async* {
+    if (state is ProteinsLoadSuccess) {
+      final updatedProteins =
+          List<Protein>.from((state as ProteinsLoadSuccess).proteins)
+            ..sort((a, b) => a.name.compareTo(b.name));
+      // updatedProteins.sort((a, b) => a.name.compareTo(b.name));
+
+      yield ProteinsLoadSuccess(updatedProteins);
+      // _saveProtein(updatedProteins);
+    }
+  }
+
+  Stream<ProteinsState> _mapTodoProteinOrderedDescendingState(
+      ProteinOrderedDescending event) async* {
+    if (state is ProteinsLoadSuccess) {
+      final updatedProteins =
+          List<Protein>.from((state as ProteinsLoadSuccess).proteins)
+            ..sort((a, b) => a.name.compareTo(b.name))
+            ..reversed;
+      yield ProteinsLoadSuccess(updatedProteins);
+      // _saveProtein(updatedProteins);
+    }
+  }
+
+  // void orderFoodsAscending() {
+  //   List<Protein> orderList = currentList;
+  //   orderList.sort((a, b) => a.name.compareTo(b.name));
+  //   _proteinList.add(orderList);
+  // }
+
+  // void orderFoodsDescending() {
+  //   List<Protein> orderList = currentList;
+  //   orderList.sort((a, b) => a.name.compareTo(b.name));
+  //   List<Protein> reversedList = orderList.reversed.toList();
+  //   _proteinList.add(reversedList);
+  // }
   // Stream<TodosState> _mapClearCompletedToState() async* {
   //   if (state is TodosLoadSuccess) {
   //     final List<Todo> updatedTodos = (state as TodosLoadSuccess)

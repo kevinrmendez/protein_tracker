@@ -45,3 +45,27 @@ class ProteinDeleted extends ProteinsEvent {
   @override
   String toString() => 'ProteinDeleted { protein: $protein }';
 }
+
+class ProteinOrderedAscending extends ProteinsEvent {
+  final List<Protein> proteins;
+
+  const ProteinOrderedAscending(this.proteins);
+
+  @override
+  List<Object> get props => [proteins];
+
+  @override
+  String toString() => 'ProteinOrderedAscending { proteins: $proteins}';
+}
+
+class ProteinOrderedDescending extends ProteinsEvent {
+  final List<Protein> proteins;
+
+  const ProteinOrderedDescending(this.proteins);
+
+  @override
+  List<Object> get props => [proteins];
+
+  @override
+  String toString() => 'ProteinOrderedAscending { proteins: $proteins}';
+}
