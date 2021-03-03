@@ -121,9 +121,12 @@ class _TrackerScreenState extends State<TrackerScreen> {
                               IconButton(
                                 icon: Icon(Icons.delete),
                                 onPressed: () async {
-                                  var proteinId = await proteinListServices
-                                      .getProteinId(proteinItem);
-                                  proteinListServices.remove(proteinId);
+                                  BlocProvider.of<ProteinsBloc>(context)
+                                      .add(ProteinDeleted(proteins[index]));
+
+                                  // var proteinId = await proteinListServices
+                                  //     .getProteinId(proteinItem);
+                                  // proteinListServices.remove(proteinId);
                                   proteinService.updateConsumedProtein();
                                   statisticsService.updateStatisticsData();
                                 },

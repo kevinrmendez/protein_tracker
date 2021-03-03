@@ -23,6 +23,8 @@ class ProteinsBloc extends Bloc<ProteinsEvent, ProteinsState> {
       yield* _mapProteinsLoadedToState();
     } else if (event is ProteinAdded) {
       yield* _mapProteinAddedToState(event);
+    } else if (event is ProteinDeleted) {
+      yield* _mapTodoDeletedToState(event);
     }
   }
 
@@ -58,16 +60,16 @@ class ProteinsBloc extends Bloc<ProteinsEvent, ProteinsState> {
   //   }
   // }
 
-  // Stream<TodosState> _mapTodoDeletedToState(TodoDeleted event) async* {
-  //   if (state is TodosLoadSuccess) {
-  //     final updatedTodos = (state as TodosLoadSuccess)
-  //         .todos
-  //         .where((todo) => todo.id != event.todo.id)
-  //         .toList();
-  //     yield TodosLoadSuccess(updatedTodos);
-  //     _saveTodos(updatedTodos);
-  //   }
-  // }
+  Stream<ProteinsState> _mapTodoDeletedToState(ProteinDeleted event) async* {
+    if (state is ProteinsLoadSuccess) {
+      final updatedProteins = (state as ProteinsLoadSuccess)
+          .proteins
+          .where((protein) => protein.id != event.protein.id)
+          .toList();
+      yield ProteinsLoadSuccess(updatedProteins);
+      _saveProtein(updatedProteins);
+    }
+  }
 
   // Stream<TodosState> _mapClearCompletedToState() async* {
   //   if (state is TodosLoadSuccess) {
