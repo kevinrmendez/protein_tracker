@@ -5,29 +5,15 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:protein_tracker/bloc/settings/settings_bloc.dart';
 import 'package:scidart/numdart.dart';
 
-import '../bloc/SettingsService.dart';
 import '../services/export_data_service.dart';
 import '../utils/localization_utils.dart';
 import '../utils/widgetUtils.dart';
 import 'aboutScreen.dart';
 
-class SettingsScreen extends StatefulWidget {
+class SettingsScreen extends StatelessWidget {
   SettingsScreen({Key key}) : super(key: key);
 
-  @override
-  _SettingsScreenState createState() => _SettingsScreenState();
-}
-
-class _SettingsScreenState extends State<SettingsScreen> {
-  bool weightSettingsBool;
-  GlobalKey expansionTile = GlobalKey();
-  @override
-  void initState() {
-    weightSettingsBool = intToBool(settingsService.currentWeightSettings);
-    super.initState();
-  }
-
-  _buildLanguageTile(
+  _buildLanguageTile(BuildContext context,
       {String title,
       String languageCode,
       String countryCode,
@@ -118,26 +104,26 @@ class _SettingsScreenState extends State<SettingsScreen> {
         BlocBuilder<SettingsBloc, SettingsState>(
           builder: (context, state) {
             return ExpansionTile(
-              key: expansionTile,
               title: Text(translatedText("language", context)),
               children: [
-                _buildLanguageTile(
+                _buildLanguageTile(context,
                     title: translatedText("language_en", context),
                     languageCode: 'en',
                     countryCode: 'US',
                     isSelected: state.locale.languageCode == 'en'),
                 _buildLanguageTile(
+                  context,
                   title: translatedText("language_es", context),
                   languageCode: 'es',
                   countryCode: 'ES',
                   isSelected: state.locale.languageCode == 'es',
                 ),
-                _buildLanguageTile(
+                _buildLanguageTile(context,
                     title: translatedText("language_fr", context),
                     languageCode: 'fr',
                     countryCode: 'FR',
                     isSelected: state.locale.languageCode == 'fr'),
-                _buildLanguageTile(
+                _buildLanguageTile(context,
                     title: translatedText("language_pt", context),
                     languageCode: 'pt',
                     countryCode: 'PT',
