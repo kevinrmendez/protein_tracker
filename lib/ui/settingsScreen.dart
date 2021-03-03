@@ -27,13 +27,21 @@ class _SettingsScreenState extends State<SettingsScreen> {
     super.initState();
   }
 
-  _buildLanguageTile({String title, String languageCode, String countryCode}) {
+  _buildLanguageTile(
+      {String title,
+      String languageCode,
+      String countryCode,
+      bool isSelected}) {
     return ListTile(
       onTap: () {
         BlocProvider.of<SettingsBloc>(context)
             .add(SettingsLocaleChanged(Locale(languageCode, countryCode)));
       },
-      title: Text(title),
+      title: Text(
+        title,
+        style: TextStyle(
+            fontWeight: isSelected ? FontWeight.bold : FontWeight.normal),
+      ),
     );
   }
 
@@ -104,31 +112,36 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 ),
               )
             : SizedBox(),
-        ExpansionTile(
-          key: expansionTile,
-          title: Text(translatedText("language", context)),
-          children: [
-            _buildLanguageTile(
-              title: translatedText("language_en", context),
-              languageCode: 'en',
-              countryCode: 'US',
-            ),
-            _buildLanguageTile(
-              title: translatedText("language_es", context),
-              languageCode: 'es',
-              countryCode: 'ES',
-            ),
-            _buildLanguageTile(
-              title: translatedText("language_fr", context),
-              languageCode: 'fr',
-              countryCode: 'FR',
-            ),
-            _buildLanguageTile(
-              title: translatedText("language_pt", context),
-              languageCode: 'pt',
-              countryCode: 'PT',
-            ),
-          ],
+        BlocBuilder<SettingsBloc, SettingsState>(
+          builder: (context, state) {
+            return ExpansionTile(
+              key: expansionTile,
+              title: Text(translatedText("language", context)),
+              children: [
+                _buildLanguageTile(
+                    title: translatedText("language_en", context),
+                    languageCode: 'en',
+                    countryCode: 'US',
+                    isSelected: state.locale.languageCode == 'en'),
+                _buildLanguageTile(
+                  title: translatedText("language_es", context),
+                  languageCode: 'es',
+                  countryCode: 'ES',
+                  isSelected: state.locale.languageCode == 'es',
+                ),
+                _buildLanguageTile(
+                    title: translatedText("language_fr", context),
+                    languageCode: 'fr',
+                    countryCode: 'FR',
+                    isSelected: state.locale.languageCode == 'fr'),
+                _buildLanguageTile(
+                    title: translatedText("language_pt", context),
+                    languageCode: 'pt',
+                    countryCode: 'PT',
+                    isSelected: state.locale.languageCode == 'pt'),
+              ],
+            );
+          },
         ),
         BlocBuilder<SettingsBloc, SettingsState>(
           builder: (context, state) {
