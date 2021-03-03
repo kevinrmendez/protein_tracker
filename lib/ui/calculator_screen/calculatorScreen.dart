@@ -10,6 +10,7 @@ import '../../utils/localization_utils.dart';
 import '../../utils/widgetUtils.dart';
 import 'widgets/error_dialog.dart';
 import 'widgets/goal_change_dialog.dart';
+import 'helpers.dart';
 
 class CalculatorScreen extends StatefulWidget {
   CalculatorScreen({Key key, this.title}) : super(key: key);
@@ -104,72 +105,6 @@ class _MyHomePageState extends State<CalculatorScreen> {
 
   @override
   Widget build(BuildContext context) {
-    String getDropDownActivityText(Activity activity) {
-      switch (activity) {
-        case Activity.none:
-          {
-            return '';
-          }
-        case Activity.sedentary:
-          {
-            return translatedText(
-              "calculator_dropDownValue_activity_sedentary",
-              context,
-            );
-          }
-        case Activity.moderate:
-          {
-            return translatedText(
-              "calculator_dropDownValue_activity_moderate",
-              context,
-            );
-          }
-        case Activity.active:
-          {
-            return translatedText(
-              "calculator_dropDownValue_activity_active",
-              context,
-            );
-          }
-
-          break;
-        default:
-      }
-    }
-
-    String getDropDownProteinGoalText(ProteinGoal goal) {
-      switch (goal) {
-        case ProteinGoal.none:
-          {
-            return '';
-          }
-        case ProteinGoal.maintenance:
-          {
-            return translatedText(
-              "calculator_dropDownValue_activity_maintenance",
-              context,
-            );
-          }
-        case ProteinGoal.muscleGain:
-          {
-            return translatedText(
-              "calculator_dropDownValue_activity_muscle_gain",
-              context,
-            );
-          }
-        case ProteinGoal.fatLoss:
-          {
-            return translatedText(
-              "calculator_dropDownValue_activity_fat_loss",
-              context,
-            );
-          }
-
-          break;
-        default:
-      }
-    }
-
     return Scaffold(
       appBar: WidgetUtils.appBarBackArrow(
           title: translatedText(
@@ -358,8 +293,8 @@ class _MyHomePageState extends State<CalculatorScreen> {
                                           (Activity value) {
                                     return DropdownMenuItem<Activity>(
                                       value: value,
-                                      child:
-                                          Text(getDropDownActivityText(value)),
+                                      child: Text(getDropDownActivityText(
+                                          value, context)),
                                     );
                                   }).toList(),
                                 )
@@ -401,8 +336,8 @@ class _MyHomePageState extends State<CalculatorScreen> {
                                           (ProteinGoal value) {
                                     return DropdownMenuItem<ProteinGoal>(
                                       value: value,
-                                      child: Text(
-                                          getDropDownProteinGoalText(value)),
+                                      child: Text(getDropDownProteinGoalText(
+                                          value, context)),
                                     );
                                   }).toList(),
                                 )

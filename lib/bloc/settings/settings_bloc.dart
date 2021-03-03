@@ -15,10 +15,9 @@ part 'settings_state.dart';
 class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
   final SettingsRepository settingsRepository;
   SettingsBloc(this.settingsRepository)
-      // SettingsBloc()
-      : super(SettingsInitial(settingsRepository.getLanguage(),
-            settingsRepository.getDarkModeValue()));
-  // : super(SettingsInitial(Locale('fr', 'FR')));
+      : super(SettingsState(
+            locale: settingsRepository.getLanguage(),
+            isDarkModeEnabled: settingsRepository.getDarkModeValue()));
 
   @override
   Stream<SettingsState> mapEventToState(
@@ -32,15 +31,15 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
     }
   }
 
-  Stream<SettingsLocaleChangeState> _mapSettingsLocaleChangeState(
+  Stream<SettingsState> _mapSettingsLocaleChangeState(
       SettingsLocaleChanged event) async* {
     settingsRepository.changeLanguage(event.locale);
-    yield SettingsLocaleChangeState(event.locale);
+    yield state.copyWith(locale: event.locale);
   }
 
-  Stream<SettingsDarkModeChangeState> _mapSettingsDarkModeChangeState(
+  Stream<SettingsState> _mapSettingsDarkModeChangeState(
       SettingsDarkModeChanged event) async* {
     settingsRepository.changeDarkModeValue(event.isDarkModeEnabled);
-    yield SettingsDarkModeChangeState(event.isDarkModeEnabled);
+    yield state.copyWith(isDarkModeEnabled: event.isDarkModeEnabled);
   }
 }

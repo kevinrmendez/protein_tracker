@@ -138,7 +138,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 BlocProvider.of<SettingsBloc>(context)
                     .add(SettingsDarkModeChanged(value));
               },
-              value: state.isDarkModeEnabled,
+              value: (BlocProvider.of<SettingsBloc>(context).state)
+                  .isDarkModeEnabled,
             );
           },
         )

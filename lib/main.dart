@@ -126,14 +126,12 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return BlocBuilder<SettingsBloc, SettingsState>(
       builder: (context, state) {
-        print('STATE: ${state.isDarkModeEnabled}');
+        print("STATE: ${state.locale}");
         return MaterialApp(
           themeMode: state.isDarkModeEnabled ? ThemeMode.dark : ThemeMode.light,
           darkTheme:
               state.isDarkModeEnabled ? AppTheme.dark() : AppTheme.light(),
-          // locale: Locale('es', 'MX'),
-          // locale: Locale('es', 'MX'),
-          locale: state.locale ?? Locale('en'),
+          locale: state.locale,
           supportedLocales: [
             const Locale('en', 'US'),
             const Locale('es', 'MX'),
@@ -173,7 +171,7 @@ class _MyAppState extends State<MyApp> {
             '/welcome': (context) => WelcomeScreen(),
           },
           debugShowCheckedModeBanner: false,
-          title: 'Flutter Demo',
+          title: 'My Protein Tracker',
           theme: state.isDarkModeEnabled ? AppTheme.dark() : AppTheme.light(),
         );
       },
