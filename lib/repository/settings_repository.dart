@@ -35,4 +35,16 @@ class SettingsRepository {
     }
     return preferences.getBool('isDarkModeEnabled');
   }
+
+  int getWeightUnit() {
+    if (!preferences.containsKey('settings_weight')) {
+      preferences.setInt("settings_weight", 0);
+    }
+
+    return preferences.getInt("settings_weight");
+  }
+
+  void changeWeightUnit(int weightSettings) {
+    preferences.setInt("settings_weight", weightSettings);
+  }
 }

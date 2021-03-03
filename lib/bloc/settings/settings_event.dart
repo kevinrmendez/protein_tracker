@@ -23,3 +23,11 @@ class SettingsDarkModeChanged extends SettingsEvent {
   @override
   List<Object> get props => [isDarkModeEnabled];
 }
+
+class SettingsWeightUnitChanged extends SettingsEvent {
+  final int weightUnit;
+  const SettingsWeightUnitChanged(this.weightUnit);
+
+  @override
+  List<Object> get props => [weightUnit];
+}

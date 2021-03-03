@@ -80,14 +80,17 @@ class _SettingsScreenState extends State<SettingsScreen> {
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
               Text('lb'),
-              Switch(
-                  value: weightSettingsBool,
-                  onChanged: (value) {
-                    setState(() {
-                      weightSettingsBool = value;
-                    });
-                    settingsService.updateWeightSettings(boolToInt(value));
-                  }),
+              BlocBuilder<SettingsBloc, SettingsState>(
+                builder: (context, state) {
+                  print("StateWeight: ${state.weigthUnit}");
+                  return Switch(
+                      value: state.weigthUnit == 0 ? false : true,
+                      onChanged: (value) {
+                        BlocProvider.of<SettingsBloc>(context)
+                            .add(SettingsWeightUnitChanged(boolToInt(value)));
+                      });
+                },
+              ),
               Text('kg')
             ],
           ),
