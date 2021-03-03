@@ -17,7 +17,7 @@ import 'ui/settingsScreen.dart';
 import 'utils/AdMobUtils.dart';
 import 'utils/appAssets.dart';
 import 'utils/colors.dart';
-import 'components/appDrawer.dart';
+import 'ui/core/widgets/appDrawer.dart';
 
 import 'package:protein_tracker/ui/home_screen/homeScreen.dart';
 
