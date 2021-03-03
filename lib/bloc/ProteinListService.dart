@@ -57,7 +57,7 @@ class ProteinListService {
     _proteinList.value.add(protein);
     _proteinList.add(List<Protein>.from(currentList));
 
-    _proteinRepository.insertProtein(protein);
+    // _proteinRepository.insertProtein(protein);
 //TODO:FIX ADD REMOVE, UPDATE PROTEIN LIST WHEN 2 DIFFERENT DAYS ARE SHOWNED
 
     _getProtein();

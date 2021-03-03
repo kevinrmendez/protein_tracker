@@ -1,8 +1,10 @@
-class Protein {
-  int id;
-  String name;
-  int amount;
-  String date;
+import 'package:equatable/equatable.dart';
+
+class Protein extends Equatable {
+  final int id;
+  final String name;
+  final int amount;
+  final String date;
 
   Protein({this.id, this.name, this.amount, this.date});
 
@@ -18,4 +20,16 @@ class Protein {
         "amount": this.amount,
         "date": this.date,
       };
+
+  Protein copyWith({bool complete, String id, String note, String task}) {
+    return Protein(
+      id: id ?? this.id,
+      name: name ?? this.name,
+      amount: amount ?? this.amount,
+      date: date ?? this.date,
+    );
+  }
+
+  @override
+  List<Object> get props => [id, name, amount, date];
 }

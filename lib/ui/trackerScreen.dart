@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:protein_tracker/ui/home_screen/homeScreen.dart';
-
+import 'package:protein_tracker/bloc/proteins/proteins.dart';
 import '../bloc/FoodService.dart';
 import '../bloc/ProteinListService.dart';
 import '../bloc/ProteinService.dart';
@@ -78,88 +79,156 @@ class _TrackerScreenState extends State<TrackerScreen> {
               },
             )
           ]),
-      body: StreamBuilder<List<Protein>>(
-        stream: proteinListServices.stream,
-        builder: (BuildContext context, AsyncSnapshot snapshot) {
-          switch (snapshot.connectionState) {
-            case ConnectionState.waiting:
-              return Center(child: CircularProgressIndicator());
-              break;
-            default:
-              if (snapshot.data.length == 0) {
-                return Center(
-                    child: WidgetUtils.imageText(context,
-                        text: translatedText(
-                          "tracker_list_empty",
-                          context,
-                        ),
-                        asset: AppAssets.protein_icon_gray));
-              } else {
-                return ListView.builder(
-                    itemCount: proteinListServices.currentList.length,
-                    itemBuilder: (BuildContext ctxt, int index) {
-                      Protein proteinItem = snapshot.data[index];
-                      print("PROTEIN ITEM ID: ${proteinItem.id}");
-                      return Column(
-                        children: <Widget>[
-                          Card(
-                            child: ListTile(
-                                title: Text(proteinItem.name ?? ""),
-                                subtitle: Container(
-                                  child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    mainAxisSize: MainAxisSize.min,
-                                    children: <Widget>[
-                                      Text(
-                                          "${proteinItem.amount.toString()} gr"),
-                                      Text(proteinItem.date)
-                                    ],
-                                  ),
-                                ),
-                                trailing: Row(
-                                  mainAxisSize: MainAxisSize.min,
-                                  children: <Widget>[
-                                    IconButton(
-                                      icon: Icon(Icons.edit),
-                                      onPressed: () {
-                                        showDialog(
-                                            context: context,
-                                            builder: (_) =>
-                                                EditProteinDialog(proteinItem));
-                                      },
-                                    ),
-                                    IconButton(
-                                      icon: Icon(Icons.delete),
-                                      onPressed: () async {
-                                        var proteinId =
-                                            await proteinListServices
-                                                .getProteinId(proteinItem);
-                                        proteinListServices.remove(proteinId);
-                                        proteinService.updateConsumedProtein();
-                                        statisticsService
-                                            .updateStatisticsData();
-                                      },
-                                    ),
-                                  ],
-                                )),
-                          ),
-                          //TODO: FIND ANOTHER WAY TO ADD FOOTER TO THE LIST
-                          index == snapshot.data?.length - 1
-                              ? Container(
-                                  margin: EdgeInsets.only(top: 30),
-                                  width: MediaQuery.of(context).size.width,
-                                  height: 40,
-                                )
-                              : SizedBox()
-                        ],
-                      );
-                    });
-              }
+      body: BlocBuilder<ProteinsBloc, ProteinsState>(
+        builder: (context, state) {
+          if (state is ProteinsLoadInProgress) {
+            return Center(child: CircularProgressIndicator());
           }
+          return ListView.builder(
+              itemCount: (state as ProteinsLoadSuccess).proteins.length,
+              itemBuilder: (BuildContext ctxt, int index) {
+                var proteins = (state as ProteinsLoadSuccess).proteins;
+                Protein proteinItem = proteins[index];
+                print("PROTEIN ITEM ID: ${proteinItem.id}");
+                return Column(
+                  children: <Widget>[
+                    Card(
+                      child: ListTile(
+                          title: Text(proteinItem.name ?? ""),
+                          subtitle: Container(
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisSize: MainAxisSize.min,
+                              children: <Widget>[
+                                Text("${proteinItem.amount.toString()} gr"),
+                                Text(proteinItem.date)
+                              ],
+                            ),
+                          ),
+                          trailing: Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: <Widget>[
+                              IconButton(
+                                icon: Icon(Icons.edit),
+                                onPressed: () {
+                                  showDialog(
+                                      context: context,
+                                      builder: (_) =>
+                                          EditProteinDialog(proteinItem));
+                                },
+                              ),
+                              IconButton(
+                                icon: Icon(Icons.delete),
+                                onPressed: () async {
+                                  var proteinId = await proteinListServices
+                                      .getProteinId(proteinItem);
+                                  proteinListServices.remove(proteinId);
+                                  proteinService.updateConsumedProtein();
+                                  statisticsService.updateStatisticsData();
+                                },
+                              ),
+                            ],
+                          )),
+                    ),
+                    //TODO: FIND ANOTHER WAY TO ADD FOOTER TO THE LIST
+                    index == proteins?.length - 1
+                        ? Container(
+                            margin: EdgeInsets.only(top: 30),
+                            width: MediaQuery.of(context).size.width,
+                            height: 40,
+                          )
+                        : SizedBox()
+                  ],
+                );
+              });
+          ;
         },
-      ),
+      )
+
+      // body: StreamBuilder<List<Protein>>(
+      //   stream: proteinListServices.stream,
+      //   builder: (BuildContext context, AsyncSnapshot snapshot) {
+      //     switch (snapshot.connectionState) {
+      //       case ConnectionState.waiting:
+      //         return Center(child: CircularProgressIndicator());
+      //         break;
+      //       default:
+      //         if (snapshot.data.length == 0) {
+      //           return Center(
+      //               child: WidgetUtils.imageText(context,
+      //                   text: translatedText(
+      //                     "tracker_list_empty",
+      //                     context,
+      //                   ),
+      //                   asset: AppAssets.protein_icon_gray));
+      //         } else {
+      //           return ListView.builder(
+      //               itemCount: proteinListServices.currentList.length,
+      //               itemBuilder: (BuildContext ctxt, int index) {
+      //                 Protein proteinItem = snapshot.data[index];
+      //                 print("PROTEIN ITEM ID: ${proteinItem.id}");
+      //                 return Column(
+      //                   children: <Widget>[
+      //                     Card(
+      //                       child: ListTile(
+      //                           title: Text(proteinItem.name ?? ""),
+      //                           subtitle: Container(
+      //                             child: Column(
+      //                               mainAxisAlignment: MainAxisAlignment.start,
+      //                               crossAxisAlignment:
+      //                                   CrossAxisAlignment.start,
+      //                               mainAxisSize: MainAxisSize.min,
+      //                               children: <Widget>[
+      //                                 Text(
+      //                                     "${proteinItem.amount.toString()} gr"),
+      //                                 Text(proteinItem.date)
+      //                               ],
+      //                             ),
+      //                           ),
+      //                           trailing: Row(
+      //                             mainAxisSize: MainAxisSize.min,
+      //                             children: <Widget>[
+      //                               IconButton(
+      //                                 icon: Icon(Icons.edit),
+      //                                 onPressed: () {
+      //                                   showDialog(
+      //                                       context: context,
+      //                                       builder: (_) =>
+      //                                           EditProteinDialog(proteinItem));
+      //                                 },
+      //                               ),
+      //                               IconButton(
+      //                                 icon: Icon(Icons.delete),
+      //                                 onPressed: () async {
+      //                                   var proteinId =
+      //                                       await proteinListServices
+      //                                           .getProteinId(proteinItem);
+      //                                   proteinListServices.remove(proteinId);
+      //                                   proteinService.updateConsumedProtein();
+      //                                   statisticsService
+      //                                       .updateStatisticsData();
+      //                                 },
+      //                               ),
+      //                             ],
+      //                           )),
+      //                     ),
+      //                     //TODO: FIND ANOTHER WAY TO ADD FOOTER TO THE LIST
+      //                     index == snapshot.data?.length - 1
+      //                         ? Container(
+      //                             margin: EdgeInsets.only(top: 30),
+      //                             width: MediaQuery.of(context).size.width,
+      //                             height: 40,
+      //                           )
+      //                         : SizedBox()
+      //                   ],
+      //                 );
+      //               });
+      //         }
+      //     }
+      //   },
+      // ),
+      ,
       floatingActionButton: FloatingActionButton(
         backgroundColor: SecondaryColor,
         child: Icon(
@@ -320,19 +389,20 @@ class _AddProteinDialogState extends State<AddProteinDialog> {
                       color: Theme.of(context).buttonColor,
                       onPressed: () async {
                     if (_formKey.currentState.validate()) {
-                      print('add food');
-                      print(foodName);
-                      print(proteinAmount);
                       DateTime now = DateTime.now();
                       final DateFormat formatter = DateFormat('dd-MMMM-yyyy');
                       final String formattedDateProteinAdded =
                           formatter.format(now);
-                      Protein protein = Protein(
-                          name: foodName,
-                          amount: proteinAmount,
-                          date: formattedDateProteinAdded);
+                      BlocProvider.of<ProteinsBloc>(context).add(ProteinAdded(
+                          Protein(
+                              name: foodName,
+                              amount: proteinAmount,
+                              date: formattedDateProteinAdded)));
 
-                      proteinListServices.add(protein);
+                      // proteinListServices.add(Protein(
+                      //     name: foodName,
+                      //     amount: proteinAmount,
+                      //     date: formattedDateProteinAdded));
 
                       proteinService.updateConsumedProtein();
                       statisticsService.updateStatisticsData();
@@ -457,9 +527,9 @@ class _EditProteinDialogState extends State<EditProteinDialog> {
                       var proteinId = await proteinListServices
                           .getProteinId(widget.protein);
                       print("PROTEIN ID FROM DB: $proteinId ");
-                      widget.protein.id = proteinId;
-                      widget.protein.name = foodName;
-                      widget.protein.amount = proteinAmount;
+                      // widget.protein.id = proteinId;
+                      // widget.protein.name = foodName;
+                      // widget.protein.amount = proteinAmount;
 
                       proteinListServices.update(widget.protein);
                       statisticsService.updateStatisticsData();

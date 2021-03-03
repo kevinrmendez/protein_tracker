@@ -5,6 +5,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:injectable/injectable.dart';
 import 'package:intl/intl.dart';
 import 'package:protein_tracker/bloc/settings/settings_bloc.dart';
+import 'package:protein_tracker/bloc/proteins/proteins_bloc.dart';
 import 'package:protein_tracker/repository/settings_repository.dart';
 import 'bloc/ProteinListService.dart';
 import 'ui/statistics_screen/statistics_screen.dart';
@@ -24,6 +25,7 @@ import 'package:protein_tracker/ui/home_screen/homeScreen.dart';
 import 'package:flutter/services.dart';
 import 'package:protein_tracker/utils/localization_utils.dart';
 import 'package:protein_tracker/ui/core/theme.dart';
+import 'package:protein_tracker/bloc/proteins/proteins.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'package:flutter_svg/flutter_svg.dart';
@@ -83,9 +85,14 @@ void main() async {
   dateService.updateDateMonth(currentDate);
   proteinListServices.getMonthlyProtein(currentDate);
 
-  runApp(BlocProvider(
+  runApp(MultiBlocProvider(
+    providers: [
+      BlocProvider(create: (context) => getIt<SettingsBloc>()),
+      BlocProvider(
+          create: (context) => getIt<ProteinsBloc>()..add(ProteinsLoaded()))
+    ],
     // create: (context) => SettingsBloc(),
-    create: (context) => getIt<SettingsBloc>(),
+
     child: MyApp(),
   ));
 }
