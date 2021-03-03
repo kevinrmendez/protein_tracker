@@ -124,9 +124,6 @@ class _TrackerScreenState extends State<TrackerScreen> {
                                   BlocProvider.of<ProteinsBloc>(context)
                                       .add(ProteinDeleted(proteins[index]));
 
-                                  // var proteinId = await proteinListServices
-                                  //     .getProteinId(proteinItem);
-                                  // proteinListServices.remove(proteinId);
                                   proteinService.updateConsumedProtein();
                                   statisticsService.updateStatisticsData();
                                 },

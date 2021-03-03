@@ -53,27 +53,27 @@ class ProteinListService {
     return monthlyProteins;
   }
 
-  add(Protein protein) async {
-    _proteinList.value.add(protein);
-    _proteinList.add(List<Protein>.from(currentList));
+//   add(Protein protein) async {
+//     _proteinList.value.add(protein);
+//     _proteinList.add(List<Protein>.from(currentList));
 
-    // _proteinRepository.insertProtein(protein);
-//TODO:FIX ADD REMOVE, UPDATE PROTEIN LIST WHEN 2 DIFFERENT DAYS ARE SHOWNED
+//     // _proteinRepository.insertProtein(protein);
+// //TODO:FIX ADD REMOVE, UPDATE PROTEIN LIST WHEN 2 DIFFERENT DAYS ARE SHOWNED
 
-    _getProtein();
-  }
+//     _getProtein();
+//   }
 
   update(Protein protein) async {
     await _proteinRepository.updateProtein(protein);
     _getProtein();
   }
 
-  remove(int id) async {
-    _proteinList.value.removeWhere((protein) => protein.id == id);
-    _proteinList.add(List<Protein>.from(currentList));
-    await _proteinRepository.deleteProteinById(id);
-    _getProtein();
-  }
+  // remove(int id) async {
+  //   _proteinList.value.removeWhere((protein) => protein.id == id);
+  //   _proteinList.add(List<Protein>.from(currentList));
+  //   await _proteinRepository.deleteProteinById(id);
+  //   _getProtein();
+  // }
 
   getProteinId(Protein protein) async {
     int id = await _proteinRepository.getProteinId(protein);
