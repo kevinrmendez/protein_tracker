@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:protein_tracker/bloc/settings/settings_bloc.dart';
 
 import '../../bloc/ProteinService.dart';
 import '../../main.dart';
@@ -264,14 +266,14 @@ class _SetupCalculatorScreenState extends State<SetupCalculatorScreen> {
   final _goalController = TextEditingController();
   final _weightController = TextEditingController();
 
-  calculateProteinIntake() {
+  calculateProteinIntake(bool isWeigthUnitKg) {
     setState(() {
       goal = ProteinCalculatorService.calculateProtein(
           activityValue: _activityLevel,
           proteinGoalValue: _proteinGoal,
           femaleStatusValue: _femaleStatus,
           weight: _weight.toDouble(),
-          currentWeightSettings: _weightUnit.index);
+          currentWeightSettings: isWeigthUnitKg);
       // _isCalculated = true;
     });
   }
@@ -281,7 +283,7 @@ class _SetupCalculatorScreenState extends State<SetupCalculatorScreen> {
     _index = 0;
     _weight = 0;
     goal = 0;
-    _weightUnit = WeightUnit.lb;
+    // _weightUnit = WeightUnit.lb;
     _femaleStatus = FemaleStatus.none;
     _proteinGoal = ProteinGoal.maintenance;
     _activityLevel = Activity.moderate;
@@ -590,17 +592,21 @@ class _SetupCalculatorScreenState extends State<SetupCalculatorScreen> {
                   _proteinGoal)
             ],
           ),
-          WidgetUtils.button(context,
-              width: MediaQuery.of(context).size.width,
-              text: translatedText(
-                "calculator_button_calculate",
-                context,
-              ), onPressed: () {
-            setState(() {
-              calculateProteinIntake();
-              _index++;
-            });
-          }, color: Colors.white, textColor: PrimaryColor),
+          BlocBuilder<SettingsBloc, SettingsState>(
+            builder: (context, state) {
+              return WidgetUtils.button(context,
+                  width: MediaQuery.of(context).size.width,
+                  text: translatedText(
+                    "calculator_button_calculate",
+                    context,
+                  ), onPressed: () {
+                setState(() {
+                  calculateProteinIntake(state.weigthUnit);
+                  _index++;
+                });
+              }, color: Colors.white, textColor: PrimaryColor);
+            },
+          ),
         ],
       ),
     );

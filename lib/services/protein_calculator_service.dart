@@ -6,7 +6,7 @@ class ProteinCalculatorService {
       ProteinGoal proteinGoalValue,
       FemaleStatus femaleStatusValue,
       double weight,
-      int currentWeightSettings}) {
+      bool currentWeightSettings}) {
     double proteinAmount = 0;
     int result;
 
@@ -103,7 +103,7 @@ class ProteinCalculatorService {
     result = (proteinAmount * weight).round();
 
     //convert lbs to kgs
-    if (currentWeightSettings == 0) {
+    if (currentWeightSettings == false) {
       result = (result * .45359237).round();
     }
     return result;

@@ -84,7 +84,7 @@ class _MyHomePageState extends State<CalculatorScreen> {
     );
   }
 
-  calculateProteinIntake(int weightUnit) {
+  calculateProteinIntake(bool weightUnit) {
     proteinIntake = ProteinCalculatorService.calculateProtein(
         activityValue: dropdownValueActivity,
         proteinGoalValue: dropdownValueGoal,
@@ -169,7 +169,7 @@ class _MyHomePageState extends State<CalculatorScreen> {
                                 ),
                                 validator: (value) {
                                   int weightLimit =
-                                      intToBool(state.weigthUnit) ? 600 : 1300;
+                                      state.weigthUnit ? 600 : 1300;
 
                                   if (value.isEmpty) {
                                     return translatedText(

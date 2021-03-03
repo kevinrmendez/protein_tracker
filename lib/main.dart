@@ -82,7 +82,6 @@ void main() async {
   // dateService.updateDate(currentDate);
   dateService.updateDateMonth(currentDate);
   proteinListServices.getMonthlyProtein(currentDate);
-  SettingsRepository settingsRepository = SettingsRepository();
 
   runApp(BlocProvider(
     // create: (context) => SettingsBloc(),

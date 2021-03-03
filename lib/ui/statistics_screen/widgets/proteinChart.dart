@@ -5,7 +5,7 @@ class ProteinChart extends StatelessWidget {
   final List<charts.Series<TimeSeriesProtein, DateTime>> seriesList;
   final bool animate;
 
-  ProteinChart(this.seriesList, {this.animate}) {}
+  ProteinChart(this.seriesList, {this.animate});
 
   /// Creates a [TimeSeriesChart] with sample data and no transition.
   factory ProteinChart.withSampleData() {

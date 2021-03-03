@@ -25,7 +25,7 @@ class SettingsDarkModeChanged extends SettingsEvent {
 }
 
 class SettingsWeightUnitChanged extends SettingsEvent {
-  final int weightUnit;
+  final bool weightUnit;
   const SettingsWeightUnitChanged(this.weightUnit);
 
   @override

@@ -70,10 +70,12 @@ class SettingsScreen extends StatelessWidget {
                 builder: (context, state) {
                   print("StateWeight: ${state.weigthUnit}");
                   return Switch(
-                      value: state.weigthUnit == 0 ? false : true,
+                      value: state.weigthUnit,
                       onChanged: (value) {
+                        print(value);
+                        print("StateWeight: ${state.weigthUnit}");
                         BlocProvider.of<SettingsBloc>(context)
-                            .add(SettingsWeightUnitChanged(boolToInt(value)));
+                            .add(SettingsWeightUnitChanged(value));
                       });
                 },
               ),
@@ -140,8 +142,7 @@ class SettingsScreen extends StatelessWidget {
                 BlocProvider.of<SettingsBloc>(context)
                     .add(SettingsDarkModeChanged(value));
               },
-              value: (BlocProvider.of<SettingsBloc>(context).state)
-                  .isDarkModeEnabled,
+              value: state.isDarkModeEnabled,
             );
           },
         )
