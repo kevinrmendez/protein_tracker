@@ -117,8 +117,6 @@ class _MyAppState extends State<MyApp> {
     if (preferencesDay != todayDay) {
       proteinService.resetConsumedProtein();
       await preferences.setInt("cache_day", todayDay);
-      // var preferencesDay = preferences.getInt("cache_day");
-      // assert(preferencesDay == todayDay);
     }
   }
 

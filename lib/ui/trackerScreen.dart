@@ -158,7 +158,6 @@ class _TrackerScreenState extends State<TrackerScreen> {
                     });
               }
           }
-          print(snapshot.data);
         },
       ),
       floatingActionButton: FloatingActionButton(

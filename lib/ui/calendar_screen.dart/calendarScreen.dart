@@ -41,21 +41,9 @@ class CalendarScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<SettingsBloc, SettingsState>(builder: (context, state) {
-      var isDarkMode;
-      // if (state is SettingsInitial) {
-      //   isDarkMode = false;
-      // }
-      // if (state is SettingsDarkModeChangeState) {
-      //   isDarkMode = (BlocProvider.of<SettingsBloc>(context).state
-      //           as SettingsDarkModeChangeState)
-      //       .isDarkModeEnabled;
-      // }
-
-      isDarkMode =
-          (BlocProvider.of<SettingsBloc>(context).state).isDarkModeEnabled;
-
-      var _calendarColor = isDarkMode ? PrimaryColor : BackgroundColor;
-      var _iconColor = isDarkMode ? SecondaryColor : PrimaryColor;
+      var _calendarColor =
+          state.isDarkModeEnabled ? PrimaryColor : BackgroundColor;
+      var _iconColor = state.isDarkModeEnabled ? SecondaryColor : PrimaryColor;
       return SingleChildScrollView(
           child: Column(
         mainAxisSize: MainAxisSize.min,
