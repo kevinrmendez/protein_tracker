@@ -8,6 +8,8 @@ import 'package:protein_tracker/bloc/proteins/proteins.dart';
 import 'package:protein_tracker/bloc/proteins/proteins_bloc.dart';
 import 'package:protein_tracker/model/food.dart';
 import 'package:protein_tracker/model/protein.dart';
+import 'package:protein_tracker/ui/FoodListScreen.dart';
+import 'package:protein_tracker/ui/foods/food_list.dart';
 import 'package:protein_tracker/utils/colors.dart';
 import 'package:protein_tracker/utils/localization_utils.dart';
 import 'package:protein_tracker/utils/widgetUtils.dart';
@@ -101,53 +103,66 @@ class _AddProteinDialogState extends State<AddProteinDialog> {
                       return null;
                     },
                   ),
-                  foodListServices.currentListFoodName.length > 0
-                      ? Column(
-                          children: <Widget>[
-                            Container(
-                                child: Text(translatedText(
-                              "tracker_dialog_label_food_list",
-                              context,
-                            ))),
-                            DropdownButton<String>(
-                              value: dropdownValueGoal,
-                              icon: Icon(Icons.arrow_downward),
-                              iconSize: 24,
-                              elevation: 16,
-                              style: TextStyle(color: PrimaryColor),
-                              underline: Container(
-                                height: 2,
-                                color: Colors.grey,
-                              ),
-                              onChanged: (String newValue) {
-                                Food food = foodListServices.currentList
-                                    .firstWhere(
-                                        (food) => food.name == newValue);
-                                setState(() {
-                                  dropdownValueGoal = newValue;
-                                  _foodNameController.text = food.name;
-                                  _proteinAmountController.text =
-                                      food.proteinAmount.toString();
-                                  foodName = _foodNameController.text;
-                                  proteinAmount =
-                                      int.parse(_proteinAmountController.text);
-                                });
-                              },
-                              items: foodListServices.currentListFoodName
-                                  // items: <String>['', 'banana', 'pear', 'nuts']
-                                  .map<DropdownMenuItem<String>>(
-                                      (String value) {
-                                return DropdownMenuItem<String>(
-                                  value: value,
-                                  child: Text(value),
-                                );
-                              }).toList(),
-                            ),
-                          ],
-                        )
-                      : SizedBox(
-                          height: 15,
-                        ),
+                  // foodListServices.currentListFoodName.length > 0
+                  //     ? Column(
+                  //         children: <Widget>[
+                  //           Container(
+                  //               child: Text(translatedText(
+                  //             "tracker_dialog_label_food_list",
+                  //             context,
+                  //           ))),
+                  //           DropdownButton<String>(
+                  //             value: dropdownValueGoal,
+                  //             icon: Icon(Icons.arrow_downward),
+                  //             iconSize: 24,
+                  //             elevation: 16,
+                  //             style: TextStyle(color: PrimaryColor),
+                  //             underline: Container(
+                  //               height: 2,
+                  //               color: Colors.grey,
+                  //             ),
+                  //             onChanged: (String newValue) {
+                  //               Food food = foodListServices.currentList
+                  //                   .firstWhere(
+                  //                       (food) => food.name == newValue);
+                  //               setState(() {
+                  //                 dropdownValueGoal = newValue;
+                  //                 _foodNameController.text = food.name;
+                  //                 _proteinAmountController.text =
+                  //                     food.proteinAmount.toString();
+                  //                 foodName = _foodNameController.text;
+                  //                 proteinAmount =
+                  //                     int.parse(_proteinAmountController.text);
+                  //               });
+                  //             },
+                  //             items: foodListServices.currentListFoodName
+                  //                 // items: <String>['', 'banana', 'pear', 'nuts']
+                  //                 .map<DropdownMenuItem<String>>(
+                  //                     (String value) {
+                  //               return DropdownMenuItem<String>(
+                  //                 value: value,
+                  //                 child: Text(value),
+                  //               );
+                  //             }).toList(),
+                  //           ),
+                  //         ],
+                  //       )
+                  //     : SizedBox(
+                  //         height: 15,
+                  //       ),
+                  WidgetUtils.button(context, text: 'from food list',
+                      onPressed: () async {
+                    Food result = await Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => FoodList(),
+                        ));
+                    setState(() {
+                      _foodNameController.text = result.name;
+                      _proteinAmountController.text =
+                          result.proteinAmount.toString();
+                    });
+                  }),
                   WidgetUtils.button(context,
                       width: MediaQuery.of(context).size.width,
                       text: translatedText(
