@@ -10,7 +10,7 @@ import 'package:url_launcher/url_launcher.dart';
 import 'package:protein_tracker/utils/AdMobUtils.dart';
 import 'package:protein_tracker/utils/appAssets.dart';
 import 'package:protein_tracker/utils/colors.dart';
-import 'package:protein_tracker/utils/fontStyle.dart';
+import 'package:protein_tracker/ui/core/theme/fontStyle.dart';
 import 'package:protein_tracker/utils/localization_utils.dart';
 import 'package:protein_tracker/utils/widgetUtils.dart';
 

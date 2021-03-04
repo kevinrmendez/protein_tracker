@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_calendar_carousel/flutter_calendar_carousel.dart';
 import 'package:intl/intl.dart';
-import 'package:protein_tracker/utils/theme_text.dart';
+import 'package:protein_tracker/ui/core/theme/theme_text.dart';
 import 'package:protein_tracker/utils/widgetUtils.dart';
 
 import '../../../model/dailyProtein.dart';

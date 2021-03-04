@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:protein_tracker/model/dailyProtein.dart';
-import 'package:protein_tracker/ui/trackerScreen.dart';
-import 'package:protein_tracker/utils/theme_text.dart';
+import 'package:protein_tracker/ui/proteins/trackerScreen.dart';
+import 'package:protein_tracker/ui/core/theme/theme_text.dart';
 
 import '../../../utils/localization_utils.dart';
 import '../../../utils/widgetUtils.dart';

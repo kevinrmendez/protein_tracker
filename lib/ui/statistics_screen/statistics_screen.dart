@@ -6,7 +6,7 @@ import '../../bloc/StatisticsService.dart';
 import 'widgets/proteinChart.dart';
 import '../../utils/AdMobUtils.dart';
 import '../../utils/colors.dart';
-import '../../utils/fontStyle.dart';
+import '../core/theme/fontStyle.dart';
 import '../../utils/localization_utils.dart';
 import '../../utils/widgetUtils.dart';
 

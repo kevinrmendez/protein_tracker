@@ -75,10 +75,10 @@ class ProteinListService {
   //   _getProtein();
   // }
 
-  getProteinId(Protein protein) async {
-    int id = await _proteinRepository.getProteinId(protein);
-    return id;
-  }
+  // getProteinId(Protein protein) async {
+  //   int id = await _proteinRepository.getProteinId(protein);
+  //   return id;
+  // }
 
   void orderFoodsAscending() {
     List<Protein> orderList = currentList;

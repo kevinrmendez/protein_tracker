@@ -11,7 +11,7 @@ import 'bloc/ProteinListService.dart';
 import 'ui/statistics_screen/statistics_screen.dart';
 import 'bloc/DateService.dart';
 import 'bloc/ProteinService.dart';
-import 'ui/trackerScreen.dart';
+import 'ui/proteins/trackerScreen.dart';
 import 'ui/welcome_screen/welcomeScreen.dart';
 import 'ui/calendar_screen.dart/calendarScreen.dart';
 import 'ui/settingsScreen.dart';
@@ -24,7 +24,7 @@ import 'package:protein_tracker/ui/home_screen/homeScreen.dart';
 
 import 'package:flutter/services.dart';
 import 'package:protein_tracker/utils/localization_utils.dart';
-import 'package:protein_tracker/ui/core/theme.dart';
+import 'package:protein_tracker/ui/core/theme/theme.dart';
 import 'package:protein_tracker/bloc/proteins/proteins.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 

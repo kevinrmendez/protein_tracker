@@ -3,7 +3,7 @@ import 'package:protein_tracker/utils/AdMobUtils.dart';
 import 'package:protein_tracker/utils/appAssets.dart';
 import 'package:protein_tracker/utils/colors.dart';
 import 'package:protein_tracker/main.dart';
-import 'package:protein_tracker/utils/theme_text.dart';
+import 'package:protein_tracker/ui/core/theme/theme_text.dart';
 
 class WidgetUtils {
   static Widget button(BuildContext context,
