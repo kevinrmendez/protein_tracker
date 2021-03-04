@@ -16,29 +16,29 @@ class ProteinListService {
   List<Protein> get currentList => _proteinList.value;
 
   ProteinListService() {
-    _getProtein();
+    // _getProtein();
   }
-  void _getProtein() async {
-    var dateNow = DateTime.now();
-    final DateFormat formatter = DateFormat('dd-MMMM-yyyy');
-    var formattedDate = formatter.format(dateNow);
-    var date = formattedDate;
-    dbProteins = await _proteinRepository.getAllProteins(
-      query: date,
-    );
-    print("DBPROTEIN $dbProteins");
-    var dbProtein2 = await _proteinRepository.getAllProteins();
-    print("DBPROTEIN2: $dbProtein2");
-    dbProteins.forEach((p) => print(p.name));
-    _proteinList.add(dbProteins ?? []);
+//   void _getProtein() async {
+//     var dateNow = DateTime.now();
+//     final DateFormat formatter = DateFormat('dd-MMMM-yyyy');
+//     var formattedDate = formatter.format(dateNow);
+//     var date = formattedDate;
+//     dbProteins = await _proteinRepository.getAllProteins(
+//       query: date,
+//     );
+//     print("DBPROTEIN $dbProteins");
+//     var dbProtein2 = await _proteinRepository.getAllProteins();
+//     print("DBPROTEIN2: $dbProtein2");
+//     dbProteins.forEach((p) => print(p.name));
+//     _proteinList.add(dbProteins ?? []);
 
-//reset Protein Consumed on date change during app use
-    print("FormattedDayCache: $formattedDayCache");
-    if (formattedDate != formattedDayCache) {
-      resetState();
-      formattedDayCache = formattedDate;
-    }
-  }
+// //reset Protein Consumed on date change during app use
+//     print("FormattedDayCache: $formattedDayCache");
+//     if (formattedDate != formattedDayCache) {
+//       resetState();
+//       formattedDayCache = formattedDate;
+//     }
+//   }
 
   getMonthlyProtein(DateTime date) async {
     // var month = currentDate.month;
@@ -65,7 +65,7 @@ class ProteinListService {
 
   update(Protein protein) async {
     await _proteinRepository.updateProtein(protein);
-    _getProtein();
+    // _getProtein();
   }
 
   // remove(int id) async {

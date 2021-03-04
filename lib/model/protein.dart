@@ -23,7 +23,7 @@ class Protein extends Equatable {
         "date": this.date,
       };
 
-  Protein copyWith({bool complete, String id, String note, String task}) {
+  Protein copyWith({String id, String name, int amount, String date}) {
     return Protein(
       id: id ?? this.id,
       name: name ?? this.name,

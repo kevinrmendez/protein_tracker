@@ -25,6 +25,8 @@ class ProteinsBloc extends Bloc<ProteinsEvent, ProteinsState> {
       yield* _mapProteinAddedToState(event);
     } else if (event is ProteinDeleted) {
       yield* _mapTodoDeletedToState(event);
+    } else if (event is ProteinUpdated) {
+      yield* _mapProteinUpdatedToState(event);
     } else if (event is ProteinOrderedAscending) {
       yield* _mapTodoProteinOrderedAscendingState(event);
     } else if (event is ProteinOrderedDescending) {
@@ -53,16 +55,16 @@ class ProteinsBloc extends Bloc<ProteinsEvent, ProteinsState> {
     }
   }
 
-  // Stream<TodosState> _mapTodoUpdatedToState(TodoUpdated event) async* {
-  //   if (state is TodosLoadSuccess) {
-  //     final List<Todo> updatedTodos =
-  //         (state as TodosLoadSuccess).todos.map((todo) {
-  //       return todo.id == event.todo.id ? event.todo : todo;
-  //     }).toList();
-  //     yield TodosLoadSuccess(updatedTodos);
-  //     _saveTodos(updatedTodos);
-  //   }
-  // }
+  Stream<ProteinsState> _mapProteinUpdatedToState(ProteinUpdated event) async* {
+    if (state is ProteinsLoadSuccess) {
+      final List<Protein> updatedTodos =
+          (state as ProteinsLoadSuccess).proteins.map((protein) {
+        return protein.id == event.protein.id ? event.protein : protein;
+      }).toList();
+      yield ProteinsLoadSuccess(updatedTodos);
+      proteinRepository.updateProtein(event.protein);
+    }
+  }
 
   Stream<ProteinsState> _mapTodoDeletedToState(ProteinDeleted event) async* {
     if (state is ProteinsLoadSuccess) {
