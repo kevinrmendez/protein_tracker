@@ -67,6 +67,7 @@ class ProteinsBloc extends Bloc<ProteinsEvent, ProteinsState> {
   Stream<ProteinsState> _mapTodoDeletedToState(ProteinDeleted event) async* {
     if (state is ProteinsLoadSuccess) {
       proteinRepository.deleteProteinById(event.protein.id);
+      print('PROTEINID: ${event.protein.id}');
       final updatedProteins = (state as ProteinsLoadSuccess)
           .proteins
           .where((protein) => protein.id != event.protein.id)
@@ -79,12 +80,11 @@ class ProteinsBloc extends Bloc<ProteinsEvent, ProteinsState> {
   Stream<ProteinsState> _mapTodoProteinOrderedAscendingState(
       ProteinOrderedAscending event) async* {
     if (state is ProteinsLoadSuccess) {
-      final updatedProteins =
+      final _updatedProteins =
           List<Protein>.from((state as ProteinsLoadSuccess).proteins)
             ..sort((a, b) => a.name.compareTo(b.name));
-      // updatedProteins.sort((a, b) => a.name.compareTo(b.name));
 
-      yield ProteinsLoadSuccess(updatedProteins);
+      yield ProteinsLoadSuccess(_updatedProteins);
       // _saveProtein(updatedProteins);
     }
   }
@@ -92,11 +92,11 @@ class ProteinsBloc extends Bloc<ProteinsEvent, ProteinsState> {
   Stream<ProteinsState> _mapTodoProteinOrderedDescendingState(
       ProteinOrderedDescending event) async* {
     if (state is ProteinsLoadSuccess) {
-      final updatedProteins =
+      final _updatedProteins =
           List<Protein>.from((state as ProteinsLoadSuccess).proteins)
             ..sort((a, b) => a.name.compareTo(b.name))
             ..reversed;
-      yield ProteinsLoadSuccess(updatedProteins);
+      yield ProteinsLoadSuccess(_updatedProteins);
       // _saveProtein(updatedProteins);
     }
   }

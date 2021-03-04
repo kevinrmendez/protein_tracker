@@ -1,12 +1,14 @@
 import 'package:equatable/equatable.dart';
+import 'package:uuid/uuid.dart';
 
 class Protein extends Equatable {
-  final int id;
+  final String id;
   final String name;
   final int amount;
   final String date;
 
-  Protein({this.id, this.name, this.amount, this.date});
+  Protein({String id, this.name, this.amount, this.date})
+      : this.id = id ?? Uuid().v4();
 
   factory Protein.fromJson(Map<String, dynamic> data) => Protein(
       id: data['id'],

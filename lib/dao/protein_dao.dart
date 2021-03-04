@@ -45,7 +45,7 @@ class ProteinDao {
     return result;
   }
 
-  Future<int> getProteinId(Protein protein) async {
+  Future<String> getProteinId(Protein protein) async {
     final db = await dbProvider.database;
 
     List<Map<String, dynamic>> result;
@@ -59,7 +59,7 @@ class ProteinDao {
     return proteinfromDb.id;
   }
 
-  Future<int> deleteProtein(int id) async {
+  Future<int> deleteProtein(String id) async {
     final db = await dbProvider.database;
     var result =
         await db.delete(proteinTable, where: 'id = ?', whereArgs: [id]);

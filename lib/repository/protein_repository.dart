@@ -15,7 +15,7 @@ class ProteinRepository {
 
   Future updateProtein(Protein protein) => proteinDao.updateProtein(protein);
 
-  Future deleteProteinById(int id) => proteinDao.deleteProtein(id);
+  Future deleteProteinById(String id) => proteinDao.deleteProtein(id);
 
   //We are not going to use this in the demo
   Future deleteAllProteins() => proteinDao.deleteAllProteins();
