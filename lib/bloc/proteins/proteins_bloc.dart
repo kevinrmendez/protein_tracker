@@ -96,11 +96,10 @@ class ProteinsBloc extends Bloc<ProteinsEvent, ProteinsState> {
   Stream<ProteinsState> _mapTodoProteinOrderedDescendingState(
       ProteinOrderedDescending event) async* {
     if (state is ProteinsLoadSuccess) {
-      final _updatedProteins =
+      final _updatedProteinsDescending =
           List<Protein>.from((state as ProteinsLoadSuccess).proteins)
-            ..sort((a, b) => a.name.compareTo(b.name))
-            ..reversed;
-      yield ProteinsLoadSuccess(_updatedProteins);
+            ..sort((b, a) => a.name.compareTo(b.name));
+      yield ProteinsLoadSuccess(_updatedProteinsDescending);
       // _saveProtein(updatedProteins);
     }
   }
