@@ -2,8 +2,8 @@ import 'package:hive/hive.dart';
 
 part 'protein_entity.g.dart';
 
-@HiveType()
-class ProteinEntity {
+@HiveType(typeId: 1)
+class ProteinEntity extends HiveObject {
   @HiveField(0)
   final String id;
   @HiveField(1)

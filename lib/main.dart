@@ -54,11 +54,13 @@ void resetState() {
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await configureInjection(Environment.prod);
+  configureInjection(Environment.prod);
   Admob.initialize(apikeys["appId"]);
   // Admob.initialize();
   Directory directory = await pathProvider.getApplicationDocumentsDirectory();
   Hive.init(directory.path);
+  Hive.registerAdapter(ProteinEntityAdapter());
+  await Future.wait([Hive.openBox<ProteinEntity>('proteinEntity')]);
 
   currentDate = DateTime.now();
   print("CURRENT TIME: $currentDate");
@@ -90,15 +92,13 @@ void main() async {
   // dateService.updateDate(currentDate);
   dateService.updateDateMonth(currentDate);
   proteinListServices.getMonthlyProtein(currentDate);
-  Hive.registerAdapter(ProteinEntityAdapter());
+
   runApp(MultiBlocProvider(
     providers: [
       BlocProvider(create: (context) => getIt<SettingsBloc>()),
       BlocProvider(
           create: (context) => getIt<ProteinsBloc>()..add(ProteinsLoaded()))
     ],
-    // create: (context) => SettingsBloc(),
-
     child: MyApp(),
   ));
 }
@@ -121,11 +121,18 @@ class _MyAppState extends State<MyApp> {
     });
   }
 
+  @override
+  void dispose() {
+    Hive.box('proteinEntity').compact();
+    Hive.close();
+    super.dispose();
+  }
+
   _restartApp() async {
     final DateFormat formatterDay = DateFormat('d');
     var todayDay = int.parse(formatterDay.format(currentDate));
 
-    var preferencesDay = await preferences.getInt("cache_day");
+    var preferencesDay = preferences.getInt("cache_day");
     if (preferencesDay != todayDay) {
       proteinService.resetConsumedProtein();
       await preferences.setInt("cache_day", todayDay);

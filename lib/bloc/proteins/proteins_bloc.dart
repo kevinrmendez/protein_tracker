@@ -7,6 +7,7 @@ import 'package:protein_tracker/model/protein.dart';
 import 'package:protein_tracker/repository/protein_repository.dart';
 import './proteins_event.dart';
 import './proteins_state.dart';
+import 'package:protein_tracker/model/protein_entity.dart';
 
 @injectable
 class ProteinsBloc extends Bloc<ProteinsEvent, ProteinsState> {
@@ -36,10 +37,11 @@ class ProteinsBloc extends Bloc<ProteinsEvent, ProteinsState> {
 
   Stream<ProteinsState> _mapProteinsLoadedToState() async* {
     try {
-      List<Protein> proteins = await this.proteinRepository.getAllProteins();
+      List<ProteinEntity> proteins =
+          await this.proteinRepository.getAllProteins();
       print("PROT:${proteins.length}");
       yield ProteinsLoadSuccess(
-        proteins,
+        proteins.map((e) => Protein.fromEntity(e)).toList(),
       );
     } catch (_) {
       yield ProteinsLoadFailure();
@@ -69,10 +71,8 @@ class ProteinsBloc extends Bloc<ProteinsEvent, ProteinsState> {
 
   Stream<ProteinsState> _mapTodoDeletedToState(ProteinDeleted event) async* {
     if (state is ProteinsLoadSuccess) {
-      var deleted =
-          await proteinRepository.deleteProteinById(event.protein.toEntity());
-      print('PROTEINID deleted2: ${event.protein.id}');
-      print("${deleted.toString()}");
+      await proteinRepository.deleteProteinById(event.protein.toEntity());
+      // print('PROTEINID deleted2: ${event.protein.id}');
       final updatedProteins = (state as ProteinsLoadSuccess)
           .proteins
           .where((protein) => protein.id != event.protein.id)

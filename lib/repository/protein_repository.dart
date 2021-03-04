@@ -2,12 +2,14 @@ import 'package:injectable/injectable.dart';
 import 'package:protein_tracker/dao/protein_dao.dart';
 import 'package:protein_tracker/model/protein.dart';
 import 'package:protein_tracker/model/protein_entity.dart';
+import 'package:protein_tracker/model/protein_entity.dart';
 
 @LazySingleton()
 class ProteinRepository {
   final proteinDao = ProteinDao();
 
-  Future getAllProteins({String query}) => proteinDao.getprotein(query: query);
+  Future<List<ProteinEntity>> getAllProteins({String query}) =>
+      proteinDao.getprotein(query: query);
 
   Future getProteinId(Protein protein) => proteinDao.getProteinId(protein);
 
