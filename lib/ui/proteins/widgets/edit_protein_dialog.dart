@@ -118,9 +118,7 @@ class _EditProteinDialogState extends State<EditProteinDialog> {
                           widget.protein.copyWith(
                               name: foodName, amount: proteinAmount)));
 
-                      proteinListServices.update(widget.protein);
                       statisticsService.updateStatisticsData();
-
                       proteinService.updateConsumedProtein();
                       statisticsService.updateStatisticsData();
 

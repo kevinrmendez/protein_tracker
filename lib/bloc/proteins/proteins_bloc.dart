@@ -65,7 +65,7 @@ class ProteinsBloc extends Bloc<ProteinsEvent, ProteinsState> {
         return protein.id == event.protein.id ? event.protein : protein;
       }).toList();
       yield ProteinsLoadSuccess(updatedTodos);
-      proteinRepository.updateProtein(event.protein);
+      proteinRepository.updateProtein(event.protein.toEntity());
     }
   }
 

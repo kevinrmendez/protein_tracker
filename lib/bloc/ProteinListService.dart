@@ -63,10 +63,10 @@ class ProteinListService {
 //     _getProtein();
 //   }
 
-  update(Protein protein) async {
-    await _proteinRepository.updateProtein(protein);
-    // _getProtein();
-  }
+  // update(Protein protein) async {
+  //   await _proteinRepository.updateProtein(protein);
+  //   // _getProtein();
+  // }
 
   // remove(int id) async {
   //   _proteinList.value.removeWhere((protein) => protein.id == id);

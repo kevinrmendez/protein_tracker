@@ -16,7 +16,8 @@ class ProteinRepository {
   Future insertProtein(ProteinEntity protein) =>
       proteinDao.createProtein(protein);
 
-  Future updateProtein(Protein protein) => proteinDao.updateProtein(protein);
+  Future updateProtein(ProteinEntity protein) =>
+      proteinDao.updateProtein(protein);
 
   Future deleteProteinById(ProteinEntity protein) =>
       proteinDao.deleteProtein(protein);

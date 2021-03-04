@@ -50,13 +50,23 @@ class ProteinDao {
     return box.values.toList();
   }
 
-  Future<int> updateProtein(Protein protein) async {
-    final db = await dbProvider.database;
+  // Future<int> updateProtein(Protein protein) async {
+  //   final db = await dbProvider.database;
 
-    var result = await db.update(proteinTable, protein.toJson(),
-        where: "id = ?", whereArgs: [protein.id]);
+  //   var result = await db.update(proteinTable, protein.toJson(),
+  //       where: "id = ?", whereArgs: [protein.id]);
 
-    return result;
+  //   return result;
+  // }
+  Future<void> updateProtein(ProteinEntity protein) async {
+    final Box<ProteinEntity> box = Hive.box<ProteinEntity>('proteinEntity');
+    await box.put(protein.id, protein);
+    // final db = await dbProvider.database;
+
+    // var result = await db.update(proteinTable, protein.toJson(),
+    //     where: "id = ?", whereArgs: [protein.id]);
+
+    // return result;
   }
 
   Future<String> getProteinId(Protein protein) async {
