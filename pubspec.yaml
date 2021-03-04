@@ -14,7 +14,7 @@ description: A new Flutter project.
 version: 1.0.4+4
 
 environment:
-  sdk: ">=2.1.0 <3.0.0"
+  sdk: ">=2.2.4 <3.0.0"
 
 dependencies:
   flutter:
@@ -49,6 +49,7 @@ dependencies:
   csv:
   flutter_email_sender: ^3.0.1
   uuid: 2.2.2
+  hive: ^1.4.1+1
 
 dev_dependencies:
   flutter_test:
@@ -56,6 +57,7 @@ dev_dependencies:
   test:
   build_runner: ^1.10.1
   injectable_generator: ^0.4.0
+  hive_generator: ^0.5.0
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

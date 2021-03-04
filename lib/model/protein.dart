@@ -1,5 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:uuid/uuid.dart';
+import './protein_entity.dart';
 
 class Protein extends Equatable {
   final String id;
@@ -34,4 +35,16 @@ class Protein extends Equatable {
 
   @override
   List<Object> get props => [id, name, amount, date];
+
+  ProteinEntity toEntity() {
+    return ProteinEntity(id: id, name: name, amount: amount, date: date);
+  }
+
+  static Protein fromEntity(ProteinEntity entity) {
+    return Protein(
+        id: entity.id ?? Uuid().v1(),
+        name: entity.name,
+        amount: entity.amount,
+        date: entity.date);
+  }
 }

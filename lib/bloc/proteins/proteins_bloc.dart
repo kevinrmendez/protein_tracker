@@ -36,9 +36,10 @@ class ProteinsBloc extends Bloc<ProteinsEvent, ProteinsState> {
 
   Stream<ProteinsState> _mapProteinsLoadedToState() async* {
     try {
-      final proteins = await this.proteinRepository.getAllProteins();
+      List<Protein> proteins = await this.proteinRepository.getAllProteins();
+      print("PROT:${proteins.length}");
       yield ProteinsLoadSuccess(
-        proteins.toList(),
+        proteins,
       );
     } catch (_) {
       yield ProteinsLoadFailure();
@@ -68,7 +69,8 @@ class ProteinsBloc extends Bloc<ProteinsEvent, ProteinsState> {
 
   Stream<ProteinsState> _mapTodoDeletedToState(ProteinDeleted event) async* {
     if (state is ProteinsLoadSuccess) {
-      var deleted = await proteinRepository.deleteProteinById(event.protein.id);
+      var deleted =
+          await proteinRepository.deleteProteinById(event.protein.toEntity());
       print('PROTEINID deleted2: ${event.protein.id}');
       print("${deleted.toString()}");
       final updatedProteins = (state as ProteinsLoadSuccess)
@@ -127,6 +129,6 @@ class ProteinsBloc extends Bloc<ProteinsEvent, ProteinsState> {
   // }
 
   Future _saveProtein(Protein protein) {
-    return proteinRepository.insertProtein(protein);
+    return proteinRepository.insertProtein(protein.toEntity());
   }
 }

@@ -1,7 +1,10 @@
+import 'dart:io';
+
 import 'package:admob_flutter/admob_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:hive/hive.dart';
 import 'package:injectable/injectable.dart';
 import 'package:intl/intl.dart';
 import 'package:protein_tracker/bloc/settings/settings_bloc.dart';
@@ -27,9 +30,10 @@ import 'package:protein_tracker/utils/localization_utils.dart';
 import 'package:protein_tracker/ui/core/theme/theme.dart';
 import 'package:protein_tracker/bloc/proteins/proteins.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:path_provider/path_provider.dart' as pathProvider;
 
 import 'package:flutter_svg/flutter_svg.dart';
-
+import 'package:protein_tracker/model/protein_entity.dart';
 import 'apikeys.dart';
 import 'app_localizations.dart';
 import 'injection.dart';
@@ -53,6 +57,8 @@ void main() async {
   await configureInjection(Environment.prod);
   Admob.initialize(apikeys["appId"]);
   // Admob.initialize();
+  Directory directory = await pathProvider.getApplicationDocumentsDirectory();
+  Hive.init(directory.path);
 
   currentDate = DateTime.now();
   print("CURRENT TIME: $currentDate");
@@ -84,7 +90,7 @@ void main() async {
   // dateService.updateDate(currentDate);
   dateService.updateDateMonth(currentDate);
   proteinListServices.getMonthlyProtein(currentDate);
-
+  Hive.registerAdapter(ProteinEntityAdapter());
   runApp(MultiBlocProvider(
     providers: [
       BlocProvider(create: (context) => getIt<SettingsBloc>()),
