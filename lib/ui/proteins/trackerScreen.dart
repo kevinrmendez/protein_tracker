@@ -36,6 +36,9 @@ class _TrackerScreenState extends State<TrackerScreen> {
         if (state is ProteinsLoadInProgress) {
           return Scaffold(body: Center(child: CircularProgressIndicator()));
         }
+        if (state is ProteinsLoadFailure) {
+          return Scaffold(body: Center(child: Text('error')));
+        }
         var proteins = (state as ProteinsLoadSuccess).proteins;
         return Scaffold(
           appBar: WidgetUtils.appBarBackArrow(
@@ -99,6 +102,7 @@ class _TrackerScreenState extends State<TrackerScreen> {
                   itemBuilder: (BuildContext ctxt, int index) {
                     Protein proteinItem = proteins[index];
                     print("PROTEIN ITEM ID: ${proteinItem.id}");
+                    print(index);
                     return Column(
                       children: <Widget>[
                         Card(
@@ -129,12 +133,14 @@ class _TrackerScreenState extends State<TrackerScreen> {
                                   ),
                                   IconButton(
                                     icon: Icon(Icons.delete),
-                                    onPressed: () async {
+                                    onPressed: () {
+                                      print(
+                                          'DELETED PROTEIN: ${proteins[index].id}');
                                       BlocProvider.of<ProteinsBloc>(context)
                                           .add(ProteinDeleted(proteins[index]));
 
-                                      proteinService.updateConsumedProtein();
-                                      statisticsService.updateStatisticsData();
+                                      // proteinService.updateConsumedProtein();
+                                      // statisticsService.updateStatisticsData();
                                     },
                                   ),
                                 ],

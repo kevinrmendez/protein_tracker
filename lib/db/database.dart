@@ -39,7 +39,8 @@ class FoodDatabase {
         ")");
 
     await database.execute("CREATE TABLE $proteinTable("
-        "id TEXT PRIMARY KEY, "
+        "_id INTEGER PRIMARY KEY AUTOINCREMENT, "
+        "id TEXT , "
         "name TEXT, "
         "amount INTEGER, "
         "date TEXT"

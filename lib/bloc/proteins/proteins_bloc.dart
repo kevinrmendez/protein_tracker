@@ -68,14 +68,14 @@ class ProteinsBloc extends Bloc<ProteinsEvent, ProteinsState> {
 
   Stream<ProteinsState> _mapTodoDeletedToState(ProteinDeleted event) async* {
     if (state is ProteinsLoadSuccess) {
-      proteinRepository.deleteProteinById(event.protein.id);
-      print('PROTEINID: ${event.protein.id}');
+      var deleted = await proteinRepository.deleteProteinById(event.protein.id);
+      print('PROTEINID deleted2: ${event.protein.id}');
+      print("${deleted.toString()}");
       final updatedProteins = (state as ProteinsLoadSuccess)
           .proteins
           .where((protein) => protein.id != event.protein.id)
           .toList();
       yield ProteinsLoadSuccess(updatedProteins);
-      // _saveProtein(updatedProteins);
     }
   }
 

@@ -22,6 +22,10 @@ class ProgressIndicatorWidget extends StatelessWidget {
         if (state is ProteinsLoadInProgress) {
           return Center(child: CircularProgressIndicator());
         }
+        if (state is ProteinsLoadFailure) {
+          return Center(
+              child: Text('Sorry we are not able to load your information'));
+        }
         return CircularStepProgressIndicator(
           totalSteps: goal,
           currentStep: (state as ProteinsLoadSuccess)

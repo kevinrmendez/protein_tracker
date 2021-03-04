@@ -8,7 +8,7 @@ class Protein extends Equatable {
   final String date;
 
   Protein({String id, this.name, this.amount, this.date})
-      : this.id = id ?? Uuid().v4();
+      : this.id = id ?? Uuid().v1();
 
   factory Protein.fromJson(Map<String, dynamic> data) => Protein(
       id: data['id'],

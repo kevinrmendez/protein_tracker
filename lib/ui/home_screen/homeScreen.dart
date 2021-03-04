@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:protein_tracker/bloc/proteins/proteins.dart';
 import 'package:protein_tracker/ui/home_screen/widgets/daily_status_widget.dart';
 import 'package:protein_tracker/ui/home_screen/widgets/motivational_text_widget.dart';
 import 'package:protein_tracker/ui/home_screen/widgets/progress_indicator_widget.dart';
 
 import 'package:provider/provider.dart';
-import 'package:step_progress_indicator/step_progress_indicator.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import 'package:protein_tracker/utils/AdMobUtils.dart';
 import 'package:protein_tracker/utils/appAssets.dart';
 import 'package:protein_tracker/utils/colors.dart';
-import 'package:protein_tracker/ui/core/theme/fontStyle.dart';
+
 import 'package:protein_tracker/utils/localization_utils.dart';
 import 'package:protein_tracker/utils/widgetUtils.dart';
 
@@ -139,30 +140,41 @@ class ConsumedCalories extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return WidgetUtils.card(
-      title: translatedText(
-        "home_label_calories_consumed",
-        context,
-      ),
-      child: Column(
-        children: <Widget>[
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              StreamBuilder(
-                stream: proteinService.streamConsumedProtein,
-                builder: (BuildContext context, AsyncSnapshot snapshot) {
-                  var consumedproteins = snapshot.data ?? 0;
-                  return Text(
-                    "${consumedproteins * 4} cal",
-                    style: TextStyle(fontSize: 28),
-                  );
-                },
-              )
-            ],
-          ),
-        ],
-      ),
-    );
+        title: translatedText(
+          "home_label_calories_consumed",
+          context,
+        ),
+        child: BlocBuilder<ProteinsBloc, ProteinsState>(
+          // stream: proteinService.streamConsumedProtein,
+          builder: (BuildContext context, state) {
+            if (state is ProteinsLoadInProgress) {
+              return Center(child: CircularProgressIndicator());
+            }
+            if (state is ProteinsLoadFailure) {
+              return Center(
+                  child:
+                      Text('Sorry we are not able to load your information'));
+            }
+
+            var consumedproteins = (state as ProteinsLoadSuccess)
+                .proteins
+                .fold(0, (value, element) => value + element.amount);
+            print(
+                "PROTEINS LENGTH ${(state as ProteinsLoadSuccess).proteins.length}");
+            return Column(
+              children: <Widget>[
+                Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Text(
+                        "${consumedproteins * 4} cal",
+                        style: TextStyle(fontSize: 28),
+                      )
+                    ])
+              ],
+            );
+          },
+        ));
   }
 }
 
