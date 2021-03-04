@@ -23,5 +23,5 @@ class ProteinRepository {
       proteinDao.deleteProtein(protein);
 
   //We are not going to use this in the demo
-  Future deleteAllProteins() => proteinDao.deleteAllProteins();
+  // Future deleteAllProteins() => proteinDao.deleteAllProteins();
 }
