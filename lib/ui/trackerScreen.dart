@@ -84,10 +84,20 @@ class _TrackerScreenState extends State<TrackerScreen> {
           if (state is ProteinsLoadInProgress) {
             return Center(child: CircularProgressIndicator());
           }
+          var proteins = (state as ProteinsLoadSuccess).proteins;
+
+          if (proteins.isEmpty) {
+            return Center(
+                child: WidgetUtils.imageText(context,
+                    text: translatedText(
+                      "tracker_list_empty",
+                      context,
+                    ),
+                    asset: AppAssets.protein_icon_gray));
+          }
           return ListView.builder(
               itemCount: (state as ProteinsLoadSuccess).proteins.length,
               itemBuilder: (BuildContext ctxt, int index) {
-                var proteins = (state as ProteinsLoadSuccess).proteins;
                 Protein proteinItem = proteins[index];
                 print("PROTEIN ITEM ID: ${proteinItem.id}");
                 return Column(
@@ -142,7 +152,6 @@ class _TrackerScreenState extends State<TrackerScreen> {
                   ],
                 );
               });
-          ;
         },
       )
 
