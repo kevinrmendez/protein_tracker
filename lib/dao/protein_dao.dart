@@ -18,9 +18,9 @@ class ProteinDao {
   //   // return result;
   // }
   Future<void> createProtein(ProteinEntity protein) async {
-    final Box<ProteinEntity> box = Hive.box('proteinEntity');
+    final Box<ProteinEntity> box = Hive.box<ProteinEntity>('proteinEntity');
 
-    box.add(protein);
+    box.put(protein.id, protein);
   }
 
   // Future<List<Protein>> getprotein({String query}) async {
@@ -83,15 +83,16 @@ class ProteinDao {
   Future<void> deleteProtein(ProteinEntity proteinEntity) async {
     // var box = await Hive.openBox<ProteinEntity>('proteinEntity');
     final Box<ProteinEntity> box = Hive.box<ProteinEntity>('proteinEntity');
-    await box.delete(proteinEntity);
+    await box.delete(proteinEntity.id);
     // await box.deleteAt(0);
-    await box.compact();
+    // await box.compact();
+    // await box.close();
 
     print('KEY TEST');
     box.values.forEach((element) {
       print(element.id);
     });
-    print(box.containsKey(proteinEntity));
+    // print(box.containsKey(proteinEntity));
 
     // final db = await dbProvider.database;
     // var result =
