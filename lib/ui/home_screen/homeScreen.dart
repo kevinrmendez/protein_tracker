@@ -183,7 +183,8 @@ class ProgressIndicator extends StatelessWidget {
             "home_label_protein_consumed",
             context,
           ),
-          child: Center(child: ProgressIndicatorWidget())),
+          child: Container(
+              height: 200, child: Center(child: ProgressIndicatorWidget()))),
     );
   }
 }

@@ -10,8 +10,7 @@ class ProteinRepository {
 
   Future getProteinId(Protein protein) => proteinDao.getProteinId(protein);
 
-  Future insertProtein(List<Protein> proteins) =>
-      proteinDao.createProtein(proteins);
+  Future insertProtein(Protein protein) => proteinDao.createProtein(protein);
 
   Future updateProtein(Protein protein) => proteinDao.updateProtein(protein);
 

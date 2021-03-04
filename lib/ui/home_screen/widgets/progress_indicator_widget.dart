@@ -14,7 +14,7 @@ class ProgressIndicatorWidget extends StatelessWidget {
     int consumedProtein = Provider.of<int>(context) ?? 0;
     int goal;
     if (proteinGoal == null) {
-      return CircularProgressIndicator();
+      return Center(child: CircularProgressIndicator());
     } else {
       goal = proteinGoal.amount;
       return BlocBuilder<ProteinsBloc, ProteinsState>(

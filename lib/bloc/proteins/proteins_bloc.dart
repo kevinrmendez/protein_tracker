@@ -49,7 +49,7 @@ class ProteinsBloc extends Bloc<ProteinsEvent, ProteinsState> {
           List.from((state as ProteinsLoadSuccess).proteins)
             ..add(event.protein);
       yield ProteinsLoadSuccess(updatedProteins);
-      _saveProtein(updatedProteins);
+      await _saveProtein(event.protein);
     }
   }
 
@@ -124,7 +124,7 @@ class ProteinsBloc extends Bloc<ProteinsEvent, ProteinsState> {
   //   }
   // }
 
-  Future _saveProtein(List<Protein> proteins) {
-    return proteinRepository.insertProtein(proteins);
+  Future _saveProtein(Protein protein) {
+    return proteinRepository.insertProtein(protein);
   }
 }

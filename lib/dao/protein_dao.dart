@@ -7,13 +7,11 @@ import 'package:protein_tracker/model/protein.dart';
 class ProteinDao {
   final dbProvider = FoodDatabase.dbProvider;
 
-  Future<void> createProtein(List<Protein> proteins) async {
+  Future<void> createProtein(Protein protein) async {
     final db = await dbProvider.database;
-    var proteins = await getprotein();
-    proteins.forEach((protein) {
-      if (!proteins.contains(protein))
-        db.insert(proteinTable, protein.toJson());
-    });
+
+    db.insert(proteinTable, protein.toJson());
+
     // var result = db.insert(proteinTable, protein.toJson());
     // return result;
   }
