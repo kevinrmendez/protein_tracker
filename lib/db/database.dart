@@ -4,8 +4,8 @@ import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:sqflite/sqflite.dart';
 
-final foodTable = 'Food';
-final proteinTable = 'Protein';
+// final foodTable = 'Food';
+// final proteinTable = 'Protein';
 final dailyProteinTable = 'DailyProtein';
 
 class FoodDatabase {
@@ -32,11 +32,11 @@ class FoodDatabase {
   }
 
   void initDB(Database database, int version) async {
-    await database.execute("CREATE TABLE $foodTable("
-        "id INTEGER  PRIMARY KEY AUTOINCREMENT, "
-        "name TEXT, "
-        "proteinAmount INTEGER "
-        ")");
+    // await database.execute("CREATE TABLE $foodTable("
+    //     "id INTEGER  PRIMARY KEY AUTOINCREMENT, "
+    //     "name TEXT, "
+    //     "proteinAmount INTEGER "
+    //     ")");
 
     // await database.execute("CREATE TABLE $proteinTable("
     //     "_id INTEGER PRIMARY KEY AUTOINCREMENT, "

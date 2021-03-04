@@ -2,8 +2,6 @@ import 'dart:async';
 
 import 'package:hive/hive.dart';
 import 'package:protein_tracker/db/database.dart';
-import 'package:protein_tracker/model/food.dart';
-import 'package:protein_tracker/model/protein.dart';
 import 'package:protein_tracker/model/protein_entity.dart';
 
 class ProteinDao {
@@ -69,19 +67,19 @@ class ProteinDao {
     // return result;
   }
 
-  Future<String> getProteinId(Protein protein) async {
-    final db = await dbProvider.database;
+  // Future<String> getProteinId(Protein protein) async {
+  //   final db = await dbProvider.database;
 
-    List<Map<String, dynamic>> result;
-    if (protein != null) {
-      result = await db.query(proteinTable,
-          where: 'name = ?', whereArgs: ["${protein.name}"]);
-    } else {
-      result = await db.query(proteinTable);
-    }
-    Protein proteinfromDb = Protein.fromJson(result[0]);
-    return proteinfromDb.id;
-  }
+  //   List<Map<String, dynamic>> result;
+  //   if (protein != null) {
+  //     result = await db.query(proteinTable,
+  //         where: 'name = ?', whereArgs: ["${protein.name}"]);
+  //   } else {
+  //     result = await db.query(proteinTable);
+  //   }
+  //   Protein proteinfromDb = Protein.fromJson(result[0]);
+  //   return proteinfromDb.id;
+  // }
 
   // Future<int> deleteProtein(String id) async {
   //   final db = await dbProvider.database;

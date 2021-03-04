@@ -1,73 +1,42 @@
 import 'dart:async';
 
+import 'package:hive/hive.dart';
 import 'package:protein_tracker/db/database.dart';
-import 'package:protein_tracker/model/food.dart';
+import 'package:protein_tracker/model/food_entity.dart';
 
 class FoodDao {
   final dbProvider = FoodDatabase.dbProvider;
 
-  Future<int> createFood(Food food) async {
-    final db = await dbProvider.database;
-    var result = db.insert(foodTable, food.toJson());
-    return result;
+  Future<void> createFood(FoodEntity food) async {
+    final Box<FoodEntity> box = Hive.box<FoodEntity>('foodEntity');
+    box.put(food.id, food);
   }
 
-  Future<List<Food>> getfoods({List<String> columns, String query}) async {
-    final db = await dbProvider.database;
-
-    List<Map<String, dynamic>> result;
-    if (query != null) {
-      if (query.isNotEmpty)
-        result = await db.query(foodTable,
-            columns: columns,
-            where: 'description LIKE ?',
-            whereArgs: ["%$query%"]);
-    } else {
-      result = await db.query(foodTable, columns: columns);
-    }
-
-    List<Food> foods = result.isNotEmpty
-        ? result.map((item) => Food.fromJson(item)).toList()
-        : [];
-    return foods;
+  Future<List<FoodEntity>> getfoods({String query}) async {
+    final Box<FoodEntity> box = Hive.box<FoodEntity>('foodEntity');
+    print("BOX: VALUES");
+    box.values.forEach((element) {
+      print(element.name);
+    });
+    return box.values.toList();
   }
 
-  Future<int> getFoodId(Food food) async {
-    final db = await dbProvider.database;
-
-    List<Map<String, dynamic>> result;
-    if (food != null) {
-      result = await db
-          .query(foodTable, where: 'name = ?', whereArgs: ["${food.name}"]);
-    } else {
-      result = await db.query(foodTable);
-    }
-    Food foodfromDb = Food.fromJson(result[0]);
-    return foodfromDb.id;
+  Future<void> updateFood(FoodEntity food) async {
+    final Box<FoodEntity> box = Hive.box<FoodEntity>('foodEntity');
+    await box.put(food.id, food);
   }
 
-  Future<int> updateFood(Food food) async {
-    final db = await dbProvider.database;
-
-    var result = await db.update(foodTable, food.toJson(),
-        where: "id = ?", whereArgs: [food.id]);
-
-    return result;
+  Future<void> deleteFood(FoodEntity foodEntity) async {
+    final Box<FoodEntity> box = Hive.box<FoodEntity>('foodEntity');
+    await box.delete(foodEntity.id);
   }
 
-  Future<int> deleteFood(int id) async {
-    final db = await dbProvider.database;
-    var result = await db.delete(foodTable, where: 'id = ?', whereArgs: [id]);
+  // Future deleteAllFoods() async {
+  //   final db = await dbProvider.database;
+  //   var result = await db.delete(
+  //     foodTable,
+  //   );
 
-    return result;
-  }
-
-  Future deleteAllFoods() async {
-    final db = await dbProvider.database;
-    var result = await db.delete(
-      foodTable,
-    );
-
-    return result;
-  }
+  //   return result;
+  // }
 }

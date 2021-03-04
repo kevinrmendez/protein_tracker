@@ -7,6 +7,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:hive/hive.dart';
 import 'package:injectable/injectable.dart';
 import 'package:intl/intl.dart';
+import 'package:protein_tracker/bloc/foods/foods.dart';
 import 'package:protein_tracker/bloc/settings/settings_bloc.dart';
 import 'package:protein_tracker/bloc/proteins/proteins_bloc.dart';
 import 'package:protein_tracker/repository/settings_repository.dart';
@@ -34,6 +35,7 @@ import 'package:path_provider/path_provider.dart' as pathProvider;
 
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:protein_tracker/model/protein_entity.dart';
+import 'package:protein_tracker/model/food_entity.dart';
 import 'apikeys.dart';
 import 'app_localizations.dart';
 import 'injection.dart';
@@ -60,7 +62,9 @@ void main() async {
   Directory directory = await pathProvider.getApplicationDocumentsDirectory();
   Hive.init(directory.path);
   Hive.registerAdapter(ProteinEntityAdapter());
+  Hive.registerAdapter(FoodEntityAdapter());
   await Future.wait([Hive.openBox<ProteinEntity>('proteinEntity')]);
+  await Future.wait([Hive.openBox<FoodEntity>('foodEntity')]);
 
   currentDate = DateTime.now();
   print("CURRENT TIME: $currentDate");
@@ -97,7 +101,8 @@ void main() async {
     providers: [
       BlocProvider(create: (context) => getIt<SettingsBloc>()),
       BlocProvider(
-          create: (context) => getIt<ProteinsBloc>()..add(ProteinsLoaded()))
+          create: (context) => getIt<ProteinsBloc>()..add(ProteinsLoaded())),
+      BlocProvider(create: (context) => getIt<FoodsBloc>()..add(FoodsLoaded()))
     ],
     child: MyApp(),
   ));
@@ -124,6 +129,7 @@ class _MyAppState extends State<MyApp> {
   @override
   void dispose() {
     Hive.box('proteinEntity').compact();
+    Hive.box('foodEntity').compact();
     Hive.close();
     super.dispose();
   }

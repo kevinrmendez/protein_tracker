@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:protein_tracker/ui/foods/widgets/edit_food_dialog.dart';
+import 'package:protein_tracker/ui/foods/widgets/add_food_dialog.dart';
 
 import '../../bloc/foods/foods.dart';
 import '../../main.dart';
@@ -8,16 +10,16 @@ import '../../utils/colors.dart';
 import '../../utils/localization_utils.dart';
 import '../../utils/widgetUtils.dart';
 
-class FoodList extends StatefulWidget {
-  FoodList({Key key, this.title}) : super(key: key);
+class FoodListScreen extends StatefulWidget {
+  FoodListScreen({Key key, this.title}) : super(key: key);
 
   final String title;
 
   @override
-  _FoodListState createState() => _FoodListState();
+  _FoodListScreenState createState() => _FoodListScreenState();
 }
 
-class _FoodListState extends State<FoodList> {
+class _FoodListScreenState extends State<FoodListScreen> {
   @override
   void initState() {
     super.initState();
@@ -102,15 +104,29 @@ class _FoodListState extends State<FoodList> {
                       children: <Widget>[
                         Card(
                           child: ListTile(
-                              onTap: () {
-                                Navigator.pop(context, foodItem);
-                              },
                               title: Text(foodItem.name),
                               subtitle: Text(
                                   "${foodItem.proteinAmount.toString()} gr"),
                               trailing: Row(
                                 mainAxisSize: MainAxisSize.min,
-                                children: <Widget>[],
+                                children: <Widget>[
+                                  IconButton(
+                                    icon: Icon(Icons.edit),
+                                    onPressed: () {
+                                      showDialog(
+                                          context: context,
+                                          builder: (_) =>
+                                              EditFoodDialog(foodItem));
+                                    },
+                                  ),
+                                  IconButton(
+                                    icon: Icon(Icons.delete),
+                                    onPressed: () async {
+                                      BlocProvider.of<FoodsBloc>(context)
+                                          .add(FoodDeleted(foods[index]));
+                                    },
+                                  ),
+                                ],
                               )),
                         ),
                         index == foods.length - 1
@@ -122,7 +138,17 @@ class _FoodListState extends State<FoodList> {
                             : SizedBox()
                       ],
                     );
-                  }));
+                  }),
+          floatingActionButton: FloatingActionButton(
+            backgroundColor: SecondaryColor,
+            child: Icon(
+              Icons.add,
+              color: Colors.white,
+            ),
+            onPressed: () {
+              showDialog(context: context, builder: (_) => AddFoodDialog());
+            },
+          ));
     });
   }
 }

@@ -1,41 +1,38 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'protein_entity.dart';
+part of 'food_entity.dart';
 
 // **************************************************************************
 // TypeAdapterGenerator
 // **************************************************************************
 
-class ProteinEntityAdapter extends TypeAdapter<ProteinEntity> {
+class FoodEntityAdapter extends TypeAdapter<FoodEntity> {
   @override
-  ProteinEntity read(BinaryReader reader) {
+  FoodEntity read(BinaryReader reader) {
     var numOfFields = reader.readByte();
     var fields = <int, dynamic>{
       for (var i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
-    return ProteinEntity(
+    return FoodEntity(
       id: fields[0] as String,
       name: fields[1] as String,
-      amount: fields[2] as int,
-      date: fields[3] as String,
+      proteinAmount: fields[2] as int,
     );
   }
 
   @override
-  void write(BinaryWriter writer, ProteinEntity obj) {
+  void write(BinaryWriter writer, FoodEntity obj) {
     writer
-      ..writeByte(4)
+      ..writeByte(3)
       ..writeByte(0)
       ..write(obj.id)
       ..writeByte(1)
       ..write(obj.name)
       ..writeByte(2)
-      ..write(obj.amount)
-      ..writeByte(3)
-      ..write(obj.date);
+      ..write(obj.proteinAmount);
   }
 
   @override
   // TODO: implement typeId
-  int get typeId => 1;
+  int get typeId => 2;
 }

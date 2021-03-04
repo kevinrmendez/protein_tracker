@@ -8,7 +8,7 @@ import 'package:protein_tracker/bloc/proteins/proteins.dart';
 import 'package:protein_tracker/bloc/proteins/proteins_bloc.dart';
 import 'package:protein_tracker/model/food.dart';
 import 'package:protein_tracker/model/protein.dart';
-import 'package:protein_tracker/ui/FoodListScreen.dart';
+import 'package:protein_tracker/ui/foods/FoodListScreen.dart';
 import 'package:protein_tracker/ui/foods/food_list.dart';
 import 'package:protein_tracker/utils/colors.dart';
 import 'package:protein_tracker/utils/localization_utils.dart';
@@ -157,10 +157,13 @@ class _AddProteinDialogState extends State<AddProteinDialog> {
                         MaterialPageRoute(
                           builder: (context) => FoodList(),
                         ));
+                    print(result.name);
                     setState(() {
                       _foodNameController.text = result.name;
                       _proteinAmountController.text =
                           result.proteinAmount.toString();
+                      foodName = result.name;
+                      proteinAmount = result.proteinAmount;
                     });
                   }),
                   WidgetUtils.button(context,

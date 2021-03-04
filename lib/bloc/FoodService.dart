@@ -20,58 +20,58 @@ class FoodService {
   List<String> get currentListFoodName => _foodNameList.value;
 
   FoodService() {
-    _getFoods();
+    // _getFoods();
   }
 
-  void _getFoods() async {
-    dbFoods = await _foodRepository.getAllFoods();
-    _foodList.add(dbFoods);
+  // void _getFoods() async {
+  //   dbFoods = await _foodRepository.getAllFoods();
+  //   _foodList.add(dbFoods);
 
-    //TODO: FIX SHOW DROPDOWN FOOD LIST VALUE ON DIALOG OPEN FOR FIRST TIME
+  //   //TODO: FIX SHOW DROPDOWN FOOD LIST VALUE ON DIALOG OPEN FOR FIRST TIME
 
-    List<String> foodNamesFromDb = [];
-    dbFoods.forEach((food) {
-      foodNamesFromDb.add(food.name);
-    });
-    _foodNameList.add(foodNamesFromDb);
-    print("foodNames added");
-  }
+  //   List<String> foodNamesFromDb = [];
+  //   dbFoods.forEach((food) {
+  //     foodNamesFromDb.add(food.name);
+  //   });
+  //   _foodNameList.add(foodNamesFromDb);
+  //   print("foodNames added");
+  // }
 
-  add(Food food) async {
-    _foodRepository.insertFood(food);
-    _foodList.value.add(food);
-    _foodList.add(List<Food>.from(currentList));
+  // add(Food food) async {
+  //   _foodRepository.insertFood(food);
+  //   _foodList.value.add(food);
+  //   _foodList.add(List<Food>.from(currentList));
 
-    var allFoods = await _foodRepository.getAllFoods();
-    allFoods.forEach((f) => print(f));
+  //   var allFoods = await _foodRepository.getAllFoods();
+  //   allFoods.forEach((f) => print(f));
 
-    _foodNameList.value.add(food.name);
-    _foodNameList.add(List<String>.from(currentListFoodName));
-    //TODO:FIX ADD REMOVE, UPDATE FOOD LIST WHEN 2 DIFFERENT DAYS ARE SHOWNED
+  //   _foodNameList.value.add(food.name);
+  //   _foodNameList.add(List<String>.from(currentListFoodName));
+  //   //TODO:FIX ADD REMOVE, UPDATE FOOD LIST WHEN 2 DIFFERENT DAYS ARE SHOWNED
 
-    _getFoods();
-  }
+  //   _getFoods();
+  // }
 
-  remove(int id, int index) async {
-    _foodList.value.removeWhere((food) => food.id == id);
-    _foodList.add(List<Food>.from(currentList));
-    _foodRepository.deleteFoodById(id);
+  // remove(int id, int index) async {
+  //   _foodList.value.removeWhere((food) => food.id == id);
+  //   _foodList.add(List<Food>.from(currentList));
+  //   _foodRepository.deleteFoodById(id);
 
-    _foodNameList.value.removeAt(index);
-    _foodNameList.add(List<String>.from(currentListFoodName));
+  //   _foodNameList.value.removeAt(index);
+  //   _foodNameList.add(List<String>.from(currentListFoodName));
 
-    _getFoods();
-  }
+  //   _getFoods();
+  // }
 
-  getFoodId(Food food) async {
-    int id = await _foodRepository.getFoodId(food);
-    return id;
-  }
+  // getFoodId(Food food) async {
+  //   int id = await _foodRepository.getFoodId(food);
+  //   return id;
+  // }
 
-  update(Food food) async {
-    await _foodRepository.updateFood(food);
-    _getFoods();
-  }
+  // update(Food food) async {
+  //   await _foodRepository.updateFood(food);
+  //   _getFoods();
+  // }
 
   void orderFoodsAscending() {
     List<Food> orderList = currentList;
