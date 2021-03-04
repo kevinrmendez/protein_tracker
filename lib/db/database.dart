@@ -38,13 +38,13 @@ class FoodDatabase {
         "proteinAmount INTEGER "
         ")");
 
-    await database.execute("CREATE TABLE $proteinTable("
-        "_id INTEGER PRIMARY KEY AUTOINCREMENT, "
-        "id TEXT , "
-        "name TEXT, "
-        "amount INTEGER, "
-        "date TEXT"
-        ")");
+    // await database.execute("CREATE TABLE $proteinTable("
+    //     "_id INTEGER PRIMARY KEY AUTOINCREMENT, "
+    //     "id TEXT , "
+    //     "name TEXT, "
+    //     "amount INTEGER, "
+    //     "date TEXT"
+    //     ")");
     await database.execute(
       "CREATE TABLE $dailyProteinTable(id TEXT PRIMARY KEY , date TEXT, totalProtein INTEGER, goal INTEGER, isGoalAchieved INTEGER DEFAULT 0)",
     );

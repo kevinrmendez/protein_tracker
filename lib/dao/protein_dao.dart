@@ -111,12 +111,13 @@ class ProteinDao {
     // return result;
   }
 
-  Future deleteAllProteins() async {
-    final db = await dbProvider.database;
-    var result = await db.delete(
-      proteinTable,
-    );
+  // Future deleteAllProteins() async {
+  //   final Box<ProteinEntity> box = Hive.box<ProteinEntity>('proteinEntity');
+  //   final db = await dbProvider.database;
+  //   var result = await db.delete(
+  //     proteinTable,
+  //   );
 
-    return result;
-  }
+  //   return result;
+  // }
 }
