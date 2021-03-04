@@ -88,10 +88,10 @@ class ProteinDao {
     // await box.compact();
     // await box.close();
 
-    print('KEY TEST');
-    box.values.forEach((element) {
-      print(element.id);
-    });
+    // print('KEY TEST');
+    // box.values.forEach((element) {
+    //   print(element.id);
+    // });
     // print(box.containsKey(proteinEntity));
 
     // final db = await dbProvider.database;
