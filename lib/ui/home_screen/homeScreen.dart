@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:protein_tracker/bloc/proteins/proteins.dart';
 import 'package:protein_tracker/bloc/settings/settings_bloc.dart';
-import 'package:protein_tracker/ui/home_screen/widgets/daily_status_widget.dart';
+import 'package:protein_tracker/ui/home_screen/widgets/daily_status.dart';
+// import 'package:protein_tracker/ui/home_screen/widgets/daily_status_widget.dart';
 import 'package:protein_tracker/ui/home_screen/widgets/motivational_text_widget.dart';
 import 'package:protein_tracker/ui/home_screen/widgets/progress_indicator_widget.dart';
 
-import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import 'package:protein_tracker/utils/AdMobUtils.dart';
@@ -15,9 +15,6 @@ import 'package:protein_tracker/utils/colors.dart';
 
 import 'package:protein_tracker/utils/localization_utils.dart';
 import 'package:protein_tracker/utils/widgetUtils.dart';
-
-import 'package:protein_tracker/bloc/ProteinService.dart';
-import 'package:protein_tracker/model/goal.dart';
 
 class HomeScreen extends StatefulWidget {
   HomeScreen({Key key, this.title}) : super(key: key);
@@ -77,70 +74,28 @@ class _MyHomePageState extends State<HomeScreen> {
     return WillPopScope(
       onWillPop: _onWillPop,
       child: Center(
-        child: ListView(
-          children: <Widget>[
-            WidgetUtils.screenTitle(
-                title: translatedText("title_today", context),
-                context: context),
-            MotivationalText(),
-            DailyStatus(),
-            Container(
-                margin: EdgeInsets.symmetric(vertical: 10),
-                child: AdMobUtils.admobBanner()),
-            ProgressIndicator(),
-            ConsumedCalories(),
-            SizedBox(
-              height: 40,
-            )
-          ],
+        child: BlocBuilder<SettingsBloc, SettingsState>(
+          builder: (context, state) {
+            return ListView(
+              children: <Widget>[
+                WidgetUtils.screenTitle(
+                    title: translatedText("title_today", context),
+                    context: context),
+                MotivationalText(goal: state.goal),
+                DailyStatus(goal: state.goal),
+                Container(
+                    margin: EdgeInsets.symmetric(vertical: 10),
+                    child: AdMobUtils.admobBanner()),
+                ProgressIndicator(),
+                ConsumedCalories(),
+                SizedBox(
+                  height: 40,
+                )
+              ],
+            );
+          },
         ),
       ),
-    );
-  }
-}
-
-class MotivationalText extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MultiProvider(
-      providers: [
-        StreamProvider<Goal>.value(
-          value: proteinService.stream,
-        ),
-        StreamProvider<int>.value(
-          value: proteinService.streamConsumedProtein,
-        )
-      ],
-      child: MotivationalTextWidget(),
-    );
-  }
-}
-
-class DailyStatus extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return
-        // MultiProvider(
-        //     providers: [
-        //       StreamProvider<Goal>.value(
-        //         value: proteinService.stream,
-        //       ),
-        //       StreamProvider<int>.value(
-        //         value: proteinService.streamConsumedProtein,
-        //       )
-        //     ],
-        //     child: WidgetUtils.card(
-        //         title: translatedText(
-        //           "home_label_goal",
-        //           context,
-        //         ),
-        //         child:
-        BlocBuilder<SettingsBloc, SettingsState>(
-      builder: (context, state) {
-        return DailyStatusWidget(goal: state.goal);
-      },
-      // )
-      // )
     );
   }
 }
@@ -154,7 +109,6 @@ class ConsumedCalories extends StatelessWidget {
           context,
         ),
         child: BlocBuilder<ProteinsBloc, ProteinsState>(
-          // stream: proteinService.streamConsumedProtein,
           builder: (BuildContext context, state) {
             if (state is ProteinsLoadInProgress) {
               return Center(child: CircularProgressIndicator());
@@ -164,7 +118,6 @@ class ConsumedCalories extends StatelessWidget {
                   child:
                       Text('Sorry we are not able to load your information'));
             }
-
             var consumedproteins = (state as ProteinsLoadSuccess)
                 .proteins
                 .fold(0, (value, element) => value + element.amount);
@@ -190,32 +143,19 @@ class ConsumedCalories extends StatelessWidget {
 class ProgressIndicator extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return
-        //  MultiProvider(
-        //   providers: [
-        //     StreamProvider<Goal>.value(
-        //       value: proteinService.stream,
-        //     ),
-        //     StreamProvider<int>.value(
-        //       value: proteinService.streamConsumedProtein,
-        //     )
-        //   ],
-        // child:
-        WidgetUtils.card(
-            title: translatedText(
-              "home_label_protein_consumed",
-              context,
-            ),
-            child: BlocBuilder<SettingsBloc, SettingsState>(
-              builder: (context, state) {
-                print("STATE GOAL: ${state.goal}");
-                return Container(
-                    height: 200,
-                    child: Center(
-                        child: ProgressIndicatorWidget(goal: state.goal)));
-              },
-            )
-            // ),
-            );
+    return WidgetUtils.card(
+        title: translatedText(
+          "home_label_protein_consumed",
+          context,
+        ),
+        child: BlocBuilder<SettingsBloc, SettingsState>(
+          builder: (context, state) {
+            print("STATE GOAL: ${state.goal}");
+            return Container(
+                height: 200,
+                child:
+                    Center(child: ProgressIndicatorWidget(goal: state.goal)));
+          },
+        ));
   }
 }

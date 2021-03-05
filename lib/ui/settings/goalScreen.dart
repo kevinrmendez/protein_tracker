@@ -1,17 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:protein_tracker/bloc/DailyProteinService.dart';
+import 'package:protein_tracker/bloc/ProteinService.dart';
 import 'package:protein_tracker/bloc/settings/settings_bloc.dart';
-
-import '../bloc/DailyProteinService.dart';
-import '../bloc/ProteinService.dart';
-import '../main.dart';
-import '../model/dailyProtein.dart';
-import '../utils/colors.dart';
-import '../utils/dateUtils.dart';
-import '../utils/localization_utils.dart';
-import '../utils/widgetUtils.dart';
-import 'core/number_grams.dart';
-import 'core/widgets/title_card.dart';
+import 'package:protein_tracker/main.dart';
+import 'package:protein_tracker/model/dailyProtein.dart';
+import 'package:protein_tracker/ui/core/number_grams.dart';
+import 'package:protein_tracker/ui/core/widgets/title_card.dart';
+import 'package:protein_tracker/utils/dateUtils.dart';
+import 'package:protein_tracker/utils/localization_utils.dart';
+import 'package:protein_tracker/utils/widgetUtils.dart';
 
 class GoalScreen extends StatefulWidget {
   GoalScreen({Key key, this.title}) : super(key: key);
@@ -53,20 +51,6 @@ class _GoalScreenState extends State<GoalScreen> {
                 "goal_title",
                 context,
               )),
-              // StreamBuilder(
-              //   stream: proteinService.stream,
-              //   builder: (BuildContext context, AsyncSnapshot snapshot) {
-              //     switch (snapshot.connectionState) {
-              //       case ConnectionState.waiting:
-              //         return CircularProgressIndicator();
-              //         break;
-              //       default:
-              //         return NumberGrams(
-              //           grams: snapshot.data.amount,
-              //         );
-              //     }
-              //   },
-              // ),
               BlocBuilder<SettingsBloc, SettingsState>(
                   builder: (context, state) {
                 var goal = state.goal;
@@ -149,8 +133,6 @@ class _GoalScreenState extends State<GoalScreen> {
 
                       BlocProvider.of<SettingsBloc>(context)
                           .add(SettingsGoalChanged(_proteinGoal));
-                      // proteinService.setGoal(_proteinGoal);
-                      // print('goal set: $_proteinGoal');
 
                       //update DailyProtein goal
                       var currentGoal = proteinService.current?.amount ?? 0;

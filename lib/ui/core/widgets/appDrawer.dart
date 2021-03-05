@@ -4,10 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:protein_tracker/ui/foods/FoodListScreen.dart';
 import 'package:protein_tracker/ui/calculator_screen/calculatorScreen.dart';
 import 'package:protein_tracker/ui/calendar_screen.dart/calendarScreen.dart';
+import 'package:protein_tracker/ui/settings/goalScreen.dart';
 import 'package:protein_tracker/ui/welcome_screen/welcomeScreen.dart';
 import 'package:protein_tracker/utils/appAssets.dart';
 import 'package:protein_tracker/utils/colors.dart';
-import 'package:protein_tracker/ui/goalScreen.dart';
 
 import 'package:protein_tracker/utils/localization_utils.dart';
 import 'package:share/share.dart';

@@ -7,10 +7,10 @@ import 'package:protein_tracker/utils/localization_utils.dart';
 import 'package:protein_tracker/utils/widgetUtils.dart';
 import 'package:provider/provider.dart';
 
-class DailyStatusWidget extends StatelessWidget {
+class DailyStatus extends StatelessWidget {
   final int goal;
 
-  const DailyStatusWidget({Key key, this.goal}) : super(key: key);
+  const DailyStatus({Key key, this.goal}) : super(key: key);
   // FOR TESTING DAILY PROTEIN DATA
   // _buildDailyProtein() {
   //   return Row(
