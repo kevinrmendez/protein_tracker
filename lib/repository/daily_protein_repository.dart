@@ -1,5 +1,5 @@
 import 'package:protein_tracker/dao/daily_protein_dao.dart';
-import 'package:protein_tracker/model/dailyProtein.dart';
+import 'package:protein_tracker/domain/dailyProtein.dart';
 
 class DailyProteinRepository {
   final dailyProteinDao = DailyProteinDao();

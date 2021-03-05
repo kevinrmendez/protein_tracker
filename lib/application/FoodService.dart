@@ -1,5 +1,5 @@
-import 'package:protein_tracker/model/foods/food.dart';
-import 'package:protein_tracker/repository/food_repository.dart';
+import 'package:protein_tracker/domain/foods/food.dart';
+import 'package:protein_tracker/infrastructure/foods/food_repository.dart';
 
 import 'package:rxdart/rxdart.dart';
 

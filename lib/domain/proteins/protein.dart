@@ -1,6 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:uuid/uuid.dart';
-import './protein_entity.dart';
+import '../../infrastructure/proteins/protein_entity.dart';
 
 class Protein extends Equatable {
   final String id;

@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../application/foods/foods.dart';
 import '../../main.dart';
-import '../../model/foods/food.dart';
+import '../../domain/foods/food.dart';
 import '../../utils/colors.dart';
 import '../../utils/localization_utils.dart';
 import '../../utils/widgetUtils.dart';

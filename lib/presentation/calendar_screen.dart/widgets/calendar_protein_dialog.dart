@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:protein_tracker/model/dailyProtein.dart';
+import 'package:protein_tracker/domain/dailyProtein.dart';
 import 'package:protein_tracker/presentation/proteins/trackerScreen.dart';
 import 'package:protein_tracker/presentation/core/theme/theme_text.dart';
 

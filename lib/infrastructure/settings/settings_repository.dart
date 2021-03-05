@@ -1,6 +1,6 @@
 import 'package:injectable/injectable.dart';
 
-import '../main.dart';
+import '../../main.dart';
 import 'dart:ui';
 
 @LazySingleton()

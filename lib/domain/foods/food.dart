@@ -20,7 +20,7 @@
 
 import 'package:equatable/equatable.dart';
 import 'package:uuid/uuid.dart';
-import './food_entity.dart';
+import '../../infrastructure/foods/food_entity.dart';
 
 class Food extends Equatable {
   final String id;

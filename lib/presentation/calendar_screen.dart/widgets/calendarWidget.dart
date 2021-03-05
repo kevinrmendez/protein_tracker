@@ -4,8 +4,8 @@ import 'package:intl/intl.dart';
 import 'package:protein_tracker/presentation/core/theme/theme_text.dart';
 import 'package:protein_tracker/utils/widgetUtils.dart';
 
-import '../../../model/dailyProtein.dart';
-import '../../../model/protein_event.dart';
+import '../../../domain/dailyProtein.dart';
+import '../../../domain/protein_event.dart';
 import '../../../utils/colors.dart';
 import '../../../utils/dateUtils.dart';
 import '../../../utils/localization_utils.dart';

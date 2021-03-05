@@ -1,6 +1,6 @@
-import 'package:protein_tracker/model/calculator/activity.dart';
-import 'package:protein_tracker/model/calculator/female_status.dart';
-import 'package:protein_tracker/model/calculator/protein_goal.dart';
+import 'package:protein_tracker/domain/calculator/activity.dart';
+import 'package:protein_tracker/domain/calculator/female_status.dart';
+import 'package:protein_tracker/domain/calculator/protein_goal.dart';
 
 class ProteinCalculatorService {
   static int calculateProtein(

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../application/DailyProteinService.dart';
-import '../../model/dailyProtein.dart';
+import '../../domain/dailyProtein.dart';
 import '../../utils/AdMobUtils.dart';
 import '../../utils/colors.dart';
 import '../../utils/localization_utils.dart';

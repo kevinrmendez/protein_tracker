@@ -6,7 +6,7 @@ import 'package:equatable/equatable.dart';
 import 'package:injectable/injectable.dart';
 
 import 'package:meta/meta.dart';
-import 'package:protein_tracker/repository/settings_repository.dart';
+import 'package:protein_tracker/infrastructure/settings/settings_repository.dart';
 
 part 'settings_event.dart';
 part 'settings_state.dart';

@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:protein_tracker/application/ProteinService.dart';
 import 'package:protein_tracker/application/StatisticsService.dart';
 import 'package:protein_tracker/application/proteins/proteins.dart';
-import 'package:protein_tracker/model/proteins/protein.dart';
+import 'package:protein_tracker/domain/proteins/protein.dart';
 import 'package:protein_tracker/utils/localization_utils.dart';
 import 'package:protein_tracker/utils/widgetUtils.dart';
 

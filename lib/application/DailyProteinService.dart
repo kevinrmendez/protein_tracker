@@ -1,6 +1,6 @@
 import 'package:intl/intl.dart';
 import 'package:protein_tracker/main.dart';
-import 'package:protein_tracker/model/dailyProtein.dart';
+import 'package:protein_tracker/domain/dailyProtein.dart';
 import 'package:protein_tracker/repository/daily_protein_repository.dart';
 import 'package:rxdart/rxdart.dart';
 

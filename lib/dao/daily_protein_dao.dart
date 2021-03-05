@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:protein_tracker/db/database.dart';
-import 'package:protein_tracker/model/dailyProtein.dart';
+import 'package:protein_tracker/domain/dailyProtein.dart';
 
 class DailyProteinDao {
   final dbProvider = FoodDatabase.dbProvider;

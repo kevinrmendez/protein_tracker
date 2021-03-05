@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:protein_tracker/application/proteins/proteins.dart';
-import 'package:protein_tracker/model/goal.dart';
+import 'package:protein_tracker/domain/goal.dart';
 import 'package:protein_tracker/utils/colors.dart';
 import 'package:provider/provider.dart';
 import 'package:step_progress_indicator/step_progress_indicator.dart';

@@ -1,5 +1,5 @@
-import 'package:protein_tracker/model/calculator/activity.dart';
-import 'package:protein_tracker/model/calculator/protein_goal.dart';
+import 'package:protein_tracker/domain/calculator/activity.dart';
+import 'package:protein_tracker/domain/calculator/protein_goal.dart';
 
 import '../../utils/localization_utils.dart';
 import 'package:flutter/material.dart';
