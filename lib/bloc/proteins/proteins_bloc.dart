@@ -3,11 +3,11 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
-import 'package:protein_tracker/model/protein.dart';
+import 'package:protein_tracker/model/proteins/protein.dart';
 import 'package:protein_tracker/repository/protein_repository.dart';
 import './proteins_event.dart';
 import './proteins_state.dart';
-import 'package:protein_tracker/model/protein_entity.dart';
+import 'package:protein_tracker/model/proteins/protein_entity.dart';
 
 @injectable
 class ProteinsBloc extends Bloc<ProteinsEvent, ProteinsState> {

@@ -2,7 +2,7 @@ import 'package:intl/intl.dart';
 import 'package:protein_tracker/bloc/ProteinListService.dart';
 import 'package:protein_tracker/presentation/statistics_screen/widgets/proteinChart.dart';
 import 'package:protein_tracker/main.dart';
-import 'package:protein_tracker/model/protein.dart';
+import 'package:protein_tracker/model/proteins/protein.dart';
 import 'package:protein_tracker/repository/protein_repository.dart';
 import 'package:protein_tracker/utils/dateUtils.dart';
 import 'package:rxdart/rxdart.dart';

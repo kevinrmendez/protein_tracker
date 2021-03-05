@@ -8,7 +8,7 @@ import 'package:protein_tracker/bloc/proteins/proteins.dart';
 import '../../bloc/ProteinService.dart';
 import '../../bloc/StatisticsService.dart';
 import '../../main.dart';
-import '../../model/protein.dart';
+import '../../model/proteins/protein.dart';
 import '../../utils/appAssets.dart';
 import '../../utils/colors.dart';
 import '../../utils/localization_utils.dart';

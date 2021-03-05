@@ -10,6 +10,8 @@ import 'package:intl/intl.dart';
 import 'package:protein_tracker/bloc/foods/foods.dart';
 import 'package:protein_tracker/bloc/settings/settings_bloc.dart';
 import 'package:protein_tracker/bloc/proteins/proteins_bloc.dart';
+import 'package:protein_tracker/model/foods/food_entity.dart';
+import 'package:protein_tracker/model/proteins/protein_entity.dart';
 import 'package:protein_tracker/presentation/calendar_screen.dart/calendarScreen.dart';
 import 'package:protein_tracker/presentation/core/theme/theme.dart';
 import 'package:protein_tracker/presentation/core/widgets/appDrawer.dart';
@@ -34,8 +36,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:path_provider/path_provider.dart' as pathProvider;
 
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:protein_tracker/model/protein_entity.dart';
-import 'package:protein_tracker/model/food_entity.dart';
+
 import 'apikeys.dart';
 import 'app_localizations.dart';
 import 'injection.dart';

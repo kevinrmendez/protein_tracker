@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:protein_tracker/model/food.dart';
+import 'package:protein_tracker/model/foods/food.dart';
 
 // abstract class FoodsState extends Equatable {
 //   const FoodsState();

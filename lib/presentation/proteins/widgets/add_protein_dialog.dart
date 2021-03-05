@@ -1,18 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
-import 'package:protein_tracker/bloc/FoodService.dart';
-import 'package:protein_tracker/bloc/ProteinService.dart';
-import 'package:protein_tracker/bloc/StatisticsService.dart';
-import 'package:protein_tracker/bloc/proteins/proteins.dart';
-import 'package:protein_tracker/bloc/proteins/proteins_bloc.dart';
-import 'package:protein_tracker/model/food.dart';
-import 'package:protein_tracker/model/protein.dart';
-import 'package:protein_tracker/presentation/foods/FoodListScreen.dart';
-import 'package:protein_tracker/presentation/foods/food_list.dart';
-import 'package:protein_tracker/utils/colors.dart';
-import 'package:protein_tracker/utils/localization_utils.dart';
-import 'package:protein_tracker/utils/widgetUtils.dart';
+
+import '../../../bloc/ProteinService.dart';
+import '../../../bloc/StatisticsService.dart';
+import '../../../bloc/proteins/proteins.dart';
+import '../../../bloc/proteins/proteins_bloc.dart';
+import '../../../model/foods/food.dart';
+import '../../../model/proteins/protein.dart';
+import '../../../utils/localization_utils.dart';
+import '../../../utils/widgetUtils.dart';
+import '../../foods/food_list.dart';
 
 class AddProteinDialog extends StatefulWidget {
   @override

@@ -1,7 +1,7 @@
 import 'package:injectable/injectable.dart';
 import 'package:protein_tracker/dao/food_dao.dart';
-import 'package:protein_tracker/model/food.dart';
-import 'package:protein_tracker/model/food_entity.dart';
+import 'package:protein_tracker/model/foods/food.dart';
+import 'package:protein_tracker/model/foods/food_entity.dart';
 
 @LazySingleton()
 class FoodRepository {

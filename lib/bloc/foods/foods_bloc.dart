@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 // import 'package:food_tracker/model/food.dart';
 // import 'package:food_tracker/repository/food_repository.dart';
-import 'package:protein_tracker/model/food.dart';
+import 'package:protein_tracker/model/foods/food.dart';
 import './foods_event.dart';
 import './foods_state.dart';
 
@@ -26,7 +26,7 @@ import 'package:injectable/injectable.dart';
 import 'package:protein_tracker/repository/food_repository.dart';
 // import './foods_event.dart';
 // import './foods_state.dart';
-import 'package:protein_tracker/model/food_entity.dart';
+import 'package:protein_tracker/model/foods/food_entity.dart';
 
 @injectable
 class FoodsBloc extends Bloc<FoodsEvent, FoodsState> {

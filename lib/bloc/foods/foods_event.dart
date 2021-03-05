@@ -7,7 +7,7 @@ import 'package:equatable/equatable.dart';
 //   List<Object> get props => [];
 // }
 
-import 'package:protein_tracker/model/food.dart';
+import 'package:protein_tracker/model/foods/food.dart';
 
 abstract class FoodsEvent extends Equatable {
   const FoodsEvent();

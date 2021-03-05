@@ -1,4 +1,6 @@
-import 'package:protein_tracker/utils/enums.dart';
+import 'package:protein_tracker/model/calculator/activity.dart';
+import 'package:protein_tracker/model/calculator/female_status.dart';
+import 'package:protein_tracker/model/calculator/protein_goal.dart';
 
 class ProteinCalculatorService {
   static int calculateProtein(

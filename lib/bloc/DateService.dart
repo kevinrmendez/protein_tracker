@@ -1,4 +1,4 @@
-import 'package:protein_tracker/model/food.dart';
+import 'package:protein_tracker/model/foods/food.dart';
 import 'package:protein_tracker/repository/food_repository.dart';
 
 import 'package:rxdart/rxdart.dart';

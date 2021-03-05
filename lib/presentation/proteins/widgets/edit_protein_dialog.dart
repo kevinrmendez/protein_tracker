@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:protein_tracker/bloc/ProteinListService.dart';
 import 'package:protein_tracker/bloc/ProteinService.dart';
 import 'package:protein_tracker/bloc/StatisticsService.dart';
 import 'package:protein_tracker/bloc/proteins/proteins.dart';
-import 'package:protein_tracker/model/protein.dart';
+import 'package:protein_tracker/model/proteins/protein.dart';
 import 'package:protein_tracker/utils/localization_utils.dart';
 import 'package:protein_tracker/utils/widgetUtils.dart';
 

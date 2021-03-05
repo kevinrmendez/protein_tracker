@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:hive/hive.dart';
 import 'package:protein_tracker/db/database.dart';
-import 'package:protein_tracker/model/food_entity.dart';
+import 'package:protein_tracker/model/foods/food_entity.dart';
 
 class FoodDao {
   final dbProvider = FoodDatabase.dbProvider;
