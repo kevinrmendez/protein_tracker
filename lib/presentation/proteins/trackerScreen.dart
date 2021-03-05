@@ -42,7 +42,9 @@ class _TrackerScreenState extends State<TrackerScreen> {
         }
         var proteins = (state as ProteinsLoadSuccess).proteins;
         StatisticsRepitory statisticsRepository = StatisticsRepitory();
-        statisticsRepository.getMonthlyProteinData(proteins);
+        statisticsRepository.getMonthlyProteinData(
+            // proteins
+            );
         return Scaffold(
           appBar: WidgetUtils.appBarBackArrow(
               title: translatedText(

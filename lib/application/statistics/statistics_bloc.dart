@@ -21,14 +21,24 @@ class StatisticsBloc extends Bloc<StatisticsEvent, StatisticsState> {
 
   StatisticsBloc(this.statisticsRepository, this.proteinsBloc)
       : super(proteinsBloc.state is ProteinsLoadSuccess
-            ? StatisticsLoadSuccess(
-                (proteinsBloc as StatisticsLoadSuccess).proteins)
-            : StatisticsLoadInProgress()) {
+                ? StatisticsLoadSuccess((proteinsBloc as ProteinsLoadSuccess)
+                    .proteins
+                    .map((e) => TimeSeriesProtein(DateTime.now(), e.amount))
+                    .toList())
+                : StatisticsLoadInProgress()
+            // StatisticsLoadInProgress()
+            ) {
+    // print('BLOC EXISTS');
+
     proteinsSubscription = proteinsBloc.listen((state) {
       if (state is ProteinsLoadSuccess) {
-        proteins = state.proteins;
-        add(StatisticsLoaded());
-        // add(StatisticsUpdated((proteinsBloc.state as StatisticsLoadSuccess).proteins));
+        // proteins = state.proteins;
+        // add(StatisticsLoaded());
+        print('hoola');
+        add(StatisticsUpdated((proteinsBloc as ProteinsLoadSuccess)
+            .proteins
+            .map((e) => TimeSeriesProtein(DateTime.now(), e.amount))
+            .toList()));
       }
     });
   }
@@ -55,8 +65,8 @@ class StatisticsBloc extends Bloc<StatisticsEvent, StatisticsState> {
       List<TimeSeriesProtein> chartData =
           await this.statisticsRepository.getMonthlyProteinData(
               // (proteinsBloc.state as ProteinsLoadSuccess).proteins
-              proteins);
-      print("PROT length:${chartData.length}");
+              );
+
       yield StatisticsLoadSuccess(
         chartData,
       );
@@ -66,16 +76,16 @@ class StatisticsBloc extends Bloc<StatisticsEvent, StatisticsState> {
   }
 
   Stream<StatisticsState> _mapStatisticsUpdateToState(
-      List<Protein> proteins) async* {
-    // try {
-    //   List<TimeSeriesProtein> chartData =
-    //       await this.proteinRepository.getAllProteins();
-    //   print("PROT:${proteins.length}");
-    //   yield ProteinsLoadSuccess(
-    //     proteins.map((e) => Protein.fromEntity(e)).toList(),
-    //   );
-    // } catch (_) {
-    //   yield ProteinsLoadFailure();
-    // }
+      List<TimeSeriesProtein> proteins) async* {
+    try {
+      List<TimeSeriesProtein> chartData =
+          await this.statisticsRepository.getMonthlyProteinData();
+      print("PROT:${proteins.length}");
+      yield StatisticsLoadSuccess(
+        chartData,
+      );
+    } catch (_) {
+      yield StatisticsLoadFailure();
+    }
   }
 }

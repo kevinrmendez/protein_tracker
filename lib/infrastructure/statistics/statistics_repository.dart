@@ -34,17 +34,19 @@ class StatisticsRepitory {
   // ignore: non_constant_identifier_names
   List<TimeSeriesProtein> _mapProteinToTimeSeriesProtein(
       List<Protein> proteinList) {
-    return proteinList.map((protein) => TimeSeriesProtein(
-        DateFormat('dd-MMMM-yyyy').parse(protein.date), protein.amount));
+    return proteinList
+        .map((protein) => TimeSeriesProtein(
+            DateFormat('dd-MMMM-yyyy').parse(protein.date), protein.amount))
+        .toList();
   }
 
   Future<List<TimeSeriesProtein>> getMonthlyProteinData(
-      List<Protein> proteinList) async {
+      // List<Protein> proteinList
+      ) async {
     var now = DateTime.now();
     var monthlyProtein = await _getMonthlyProtein(now);
     print('DATA CHART ${monthlyProtein.length}');
-
-    return _mapProteinToTimeSeriesProtein(monthlyProtein);
+    return Future.value(_mapProteinToTimeSeriesProtein(monthlyProtein));
   }
 
   // _getTotalProtein() {

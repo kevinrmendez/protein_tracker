@@ -1,5 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:protein_tracker/domain/proteins/protein.dart';
+import 'package:protein_tracker/domain/statistics/time_series_protein.dart';
 
 abstract class StatisticsEvent extends Equatable {
   const StatisticsEvent();
@@ -22,13 +23,16 @@ class StatisticsLoaded extends StatisticsEvent {
 }
 
 class StatisticsUpdated extends StatisticsEvent {
-  final List<Protein> proteins;
+  final List<TimeSeriesProtein> proteins;
 
   const StatisticsUpdated(this.proteins);
+  // const StatisticsUpdated();
 
   @override
   List<Object> get props => [proteins];
+  // List<Object> get props => [];
 
   @override
   String toString() => 'FilterUpdated { filter: $proteins }';
+  // String toString() => 'FilterUpdated { filter:  }';
 }
