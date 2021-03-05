@@ -3,11 +3,11 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-import '../utils/appAssets.dart';
-import '../utils/colors.dart';
-import '../utils/localization_utils.dart';
-import '../utils/widgetUtils.dart';
-import 'core/widgets/title_card.dart';
+import '../../../utils/appAssets.dart';
+import '../../../utils/colors.dart';
+import '../../../utils/localization_utils.dart';
+import '../../../utils/widgetUtils.dart';
+import '../../core/widgets/title_card.dart';
 
 class AboutScreen extends StatelessWidget {
   AboutScreen({Key key}) : super(key: key);

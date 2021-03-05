@@ -4,7 +4,7 @@ import 'package:csv/csv.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_email_sender/flutter_email_sender.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:protein_tracker/bloc/DailyProteinService.dart';
+import 'package:protein_tracker/application/DailyProteinService.dart';
 import 'package:protein_tracker/model/dailyProtein.dart';
 import 'package:protein_tracker/utils/localization_utils.dart';
 

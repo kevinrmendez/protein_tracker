@@ -1,5 +1,5 @@
-import 'package:protein_tracker/bloc/DailyProteinService.dart';
-import 'package:protein_tracker/bloc/ProteinListService.dart';
+import 'package:protein_tracker/application/DailyProteinService.dart';
+import 'package:protein_tracker/application/ProteinListService.dart';
 import 'package:protein_tracker/main.dart';
 import 'package:protein_tracker/model/dailyProtein.dart';
 import 'package:protein_tracker/model/goal.dart';

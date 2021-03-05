@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:protein_tracker/bloc/DailyProteinService.dart';
-import 'package:protein_tracker/bloc/ProteinService.dart';
-import 'package:protein_tracker/bloc/settings/settings_bloc.dart';
+import 'package:protein_tracker/application/DailyProteinService.dart';
+import 'package:protein_tracker/application/ProteinService.dart';
+import 'package:protein_tracker/application/settings/settings_bloc.dart';
 import 'package:protein_tracker/main.dart';
 import 'package:protein_tracker/model/dailyProtein.dart';
 import 'package:protein_tracker/presentation/core/number_grams.dart';

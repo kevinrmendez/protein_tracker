@@ -3,10 +3,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:protein_tracker/presentation/proteins/widgets/add_protein_dialog.dart';
 import 'package:protein_tracker/presentation/proteins/widgets/edit_protein_dialog.dart';
-import 'package:protein_tracker/bloc/proteins/proteins.dart';
+import 'package:protein_tracker/application/proteins/proteins.dart';
 
-import '../../bloc/ProteinService.dart';
-import '../../bloc/StatisticsService.dart';
+import '../../application/ProteinService.dart';
+import '../../application/StatisticsService.dart';
 import '../../main.dart';
 import '../../model/proteins/protein.dart';
 import '../../utils/appAssets.dart';

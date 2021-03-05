@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:protein_tracker/utils/dateUtils.dart';
 
-import '../../bloc/DateService.dart';
-import '../../bloc/StatisticsService.dart';
+import '../../application/DateService.dart';
+import '../../application/StatisticsService.dart';
 import 'widgets/proteinChart.dart';
 import '../../utils/AdMobUtils.dart';
 import '../../utils/colors.dart';

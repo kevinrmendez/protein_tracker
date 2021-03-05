@@ -5,11 +5,11 @@
 // **************************************************************************
 
 import 'package:protein_tracker/repository/food_repository.dart';
-import 'package:protein_tracker/bloc/foods/foods_bloc.dart';
+import 'package:protein_tracker/application/foods/foods_bloc.dart';
 import 'package:protein_tracker/repository/protein_repository.dart';
-import 'package:protein_tracker/bloc/proteins/proteins_bloc.dart';
+import 'package:protein_tracker/application/proteins/proteins_bloc.dart';
 import 'package:protein_tracker/repository/settings_repository.dart';
-import 'package:protein_tracker/bloc/settings/settings_bloc.dart';
+import 'package:protein_tracker/application/settings/settings_bloc.dart';
 import 'package:get_it/get_it.dart';
 
 void $initGetIt(GetIt g, {String environment}) {

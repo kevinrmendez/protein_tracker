@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:protein_tracker/bloc/settings/settings_bloc.dart';
+import 'package:protein_tracker/application/settings/settings_bloc.dart';
 import 'package:protein_tracker/model/calculator/activity.dart';
 import 'package:protein_tracker/model/calculator/female_status.dart';
 import 'package:protein_tracker/model/calculator/gender.dart';
 import 'package:protein_tracker/model/calculator/protein_goal.dart';
 import 'package:protein_tracker/model/settings/weight_unit.dart';
 
-import '../../bloc/ProteinService.dart';
+import '../../application/ProteinService.dart';
 import '../../main.dart';
 import '../../services/protein_calculator_service.dart';
 import '../../utils/appAssets.dart';

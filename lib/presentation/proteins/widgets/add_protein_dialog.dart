@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
-import 'package:protein_tracker/bloc/foods/foods.dart';
+import 'package:protein_tracker/application/foods/foods.dart';
 
-import '../../../bloc/ProteinService.dart';
-import '../../../bloc/StatisticsService.dart';
-import '../../../bloc/proteins/proteins.dart';
-import '../../../bloc/proteins/proteins_bloc.dart';
+import '../../../application/ProteinService.dart';
+import '../../../application/StatisticsService.dart';
+import '../../../application/proteins/proteins.dart';
+import '../../../application/proteins/proteins_bloc.dart';
 import '../../../model/foods/food.dart';
 import '../../../model/proteins/protein.dart';
 import '../../../utils/localization_utils.dart';

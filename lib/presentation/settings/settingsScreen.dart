@@ -2,13 +2,12 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:protein_tracker/bloc/settings/settings_bloc.dart';
+import 'package:protein_tracker/application/settings/settings_bloc.dart';
+import 'package:protein_tracker/presentation/core/screens/aboutScreen.dart';
+
 import 'package:protein_tracker/services/export_data_service.dart';
 import 'package:protein_tracker/utils/localization_utils.dart';
 import 'package:protein_tracker/utils/widgetUtils.dart';
-import 'package:scidart/numdart.dart';
-
-import '../aboutScreen.dart';
 
 class SettingsScreen extends StatelessWidget {
   SettingsScreen({Key key}) : super(key: key);

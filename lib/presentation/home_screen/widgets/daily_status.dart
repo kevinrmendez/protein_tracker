@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:protein_tracker/bloc/proteins/proteins.dart';
+import 'package:protein_tracker/application/proteins/proteins.dart';
 import 'package:protein_tracker/model/goal.dart';
 import 'package:protein_tracker/utils/colors.dart';
 import 'package:protein_tracker/utils/localization_utils.dart';

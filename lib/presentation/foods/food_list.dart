@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../bloc/foods/foods.dart';
+import '../../application/foods/foods.dart';
 import '../../main.dart';
 import '../../model/foods/food.dart';
 import '../../utils/colors.dart';
