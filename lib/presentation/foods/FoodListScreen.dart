@@ -1,29 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:intl/intl.dart';
-import 'package:protein_tracker/ui/proteins/widgets/add_protein_dialog.dart';
-import 'package:protein_tracker/ui/proteins/widgets/edit_protein_dialog.dart';
-import 'package:protein_tracker/bloc/proteins/proteins.dart';
+import 'package:protein_tracker/presentation/foods/widgets/edit_food_dialog.dart';
+import 'package:protein_tracker/presentation/foods/widgets/add_food_dialog.dart';
 
-import '../../bloc/ProteinService.dart';
-import '../../bloc/StatisticsService.dart';
+import '../../bloc/foods/foods.dart';
 import '../../main.dart';
-import '../../model/protein.dart';
-import '../../utils/appAssets.dart';
+import '../../model/food.dart';
 import '../../utils/colors.dart';
 import '../../utils/localization_utils.dart';
 import '../../utils/widgetUtils.dart';
 
-class TrackerScreen extends StatefulWidget {
-  TrackerScreen({Key key, this.title}) : super(key: key);
+class FoodListScreen extends StatefulWidget {
+  FoodListScreen({Key key, this.title}) : super(key: key);
 
   final String title;
 
   @override
-  _TrackerScreenState createState() => _TrackerScreenState();
+  _FoodListScreenState createState() => _FoodListScreenState();
 }
 
-class _TrackerScreenState extends State<TrackerScreen> {
+class _FoodListScreenState extends State<FoodListScreen> {
   @override
   void initState() {
     super.initState();
@@ -31,19 +27,20 @@ class _TrackerScreenState extends State<TrackerScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<ProteinsBloc, ProteinsState>(
-      builder: (context, state) {
-        if (state is ProteinsLoadInProgress) {
-          return Scaffold(body: Center(child: CircularProgressIndicator()));
-        }
-        if (state is ProteinsLoadFailure) {
-          return Scaffold(body: Center(child: Text('error')));
-        }
-        var proteins = (state as ProteinsLoadSuccess).proteins;
-        return Scaffold(
+    return BlocBuilder<FoodsBloc, FoodsState>(
+        builder: (BuildContext context, state) {
+      if (state is FoodsLoadInProgress) {
+        return Scaffold(body: Center(child: CircularProgressIndicator()));
+      }
+      if (state is FoodsLoadFailure) {
+        return Scaffold(body: Center(child: Text('error')));
+      }
+      var foods = (state as FoodsLoadSuccess).foods;
+
+      return Scaffold(
           appBar: WidgetUtils.appBarBackArrow(
               title: translatedText(
-                "appbar_tracker",
+                "appbar_food_list",
                 context,
               ),
               context: context,
@@ -53,14 +50,14 @@ class _TrackerScreenState extends State<TrackerScreen> {
                     switch (order) {
                       case Order.ascending:
                         {
-                          BlocProvider.of<ProteinsBloc>(context)
-                              .add(ProteinOrderedAscending(proteins));
+                          BlocProvider.of<FoodsBloc>(context)
+                              .add(FoodOrderedAscending(foods));
                         }
                         break;
                       case Order.descending:
                         {
-                          BlocProvider.of<ProteinsBloc>(context)
-                              .add(ProteinOrderedDescending(proteins));
+                          BlocProvider.of<FoodsBloc>(context)
+                              .add(FoodOrderedDescending(foods));
                         }
                         break;
                       default:
@@ -89,36 +86,27 @@ class _TrackerScreenState extends State<TrackerScreen> {
                   },
                 )
               ]),
-          body: proteins.isEmpty
+          body: foods.isEmpty
               ? Center(
-                  child: WidgetUtils.imageText(context,
-                      text: translatedText(
-                        "tracker_list_empty",
-                        context,
-                      ),
-                      asset: AppAssets.protein_icon_gray))
+                  child: WidgetUtils.iconText(
+                  context,
+                  icon: Icons.room_service,
+                  text: translatedText(
+                    "food_list_text_empty",
+                    context,
+                  ),
+                ))
               : ListView.builder(
-                  itemCount: (state as ProteinsLoadSuccess).proteins.length,
+                  itemCount: foods.length,
                   itemBuilder: (BuildContext ctxt, int index) {
-                    Protein proteinItem = proteins[index];
-                    print("PROTEIN ITEM ID: ${proteinItem.id}");
-                    print(index);
+                    Food foodItem = foods[index];
                     return Column(
                       children: <Widget>[
                         Card(
                           child: ListTile(
-                              title: Text(proteinItem.name ?? ""),
-                              subtitle: Container(
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  mainAxisSize: MainAxisSize.min,
-                                  children: <Widget>[
-                                    Text("${proteinItem.amount.toString()} gr"),
-                                    Text(proteinItem.date)
-                                  ],
-                                ),
-                              ),
+                              title: Text(foodItem.name),
+                              subtitle: Text(
+                                  "${foodItem.proteinAmount.toString()} gr"),
                               trailing: Row(
                                 mainAxisSize: MainAxisSize.min,
                                 children: <Widget>[
@@ -128,26 +116,20 @@ class _TrackerScreenState extends State<TrackerScreen> {
                                       showDialog(
                                           context: context,
                                           builder: (_) =>
-                                              EditProteinDialog(proteinItem));
+                                              EditFoodDialog(foodItem));
                                     },
                                   ),
                                   IconButton(
                                     icon: Icon(Icons.delete),
-                                    onPressed: () {
-                                      print(
-                                          'DELETED PROTEIN: ${proteins[index].id}');
-                                      BlocProvider.of<ProteinsBloc>(context)
-                                          .add(ProteinDeleted(proteins[index]));
-
-                                      // proteinService.updateConsumedProtein();
-                                      // statisticsService.updateStatisticsData();
+                                    onPressed: () async {
+                                      BlocProvider.of<FoodsBloc>(context)
+                                          .add(FoodDeleted(foods[index]));
                                     },
                                   ),
                                 ],
                               )),
                         ),
-                        //TODO: FIND ANOTHER WAY TO ADD FOOTER TO THE LIST
-                        index == proteins?.length - 1
+                        index == foods.length - 1
                             ? Container(
                                 margin: EdgeInsets.only(top: 30),
                                 width: MediaQuery.of(context).size.width,
@@ -164,12 +146,9 @@ class _TrackerScreenState extends State<TrackerScreen> {
               color: Colors.white,
             ),
             onPressed: () {
-              print('add food');
-              showDialog(context: context, builder: (_) => AddProteinDialog());
+              showDialog(context: context, builder: (_) => AddFoodDialog());
             },
-          ),
-        );
-      },
-    );
+          ));
+    });
   }
 }

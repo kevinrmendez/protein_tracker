@@ -1,25 +1,29 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:protein_tracker/ui/foods/widgets/edit_food_dialog.dart';
-import 'package:protein_tracker/ui/foods/widgets/add_food_dialog.dart';
+import 'package:intl/intl.dart';
+import 'package:protein_tracker/presentation/proteins/widgets/add_protein_dialog.dart';
+import 'package:protein_tracker/presentation/proteins/widgets/edit_protein_dialog.dart';
+import 'package:protein_tracker/bloc/proteins/proteins.dart';
 
-import '../../bloc/foods/foods.dart';
+import '../../bloc/ProteinService.dart';
+import '../../bloc/StatisticsService.dart';
 import '../../main.dart';
-import '../../model/food.dart';
+import '../../model/protein.dart';
+import '../../utils/appAssets.dart';
 import '../../utils/colors.dart';
 import '../../utils/localization_utils.dart';
 import '../../utils/widgetUtils.dart';
 
-class FoodListScreen extends StatefulWidget {
-  FoodListScreen({Key key, this.title}) : super(key: key);
+class TrackerScreen extends StatefulWidget {
+  TrackerScreen({Key key, this.title}) : super(key: key);
 
   final String title;
 
   @override
-  _FoodListScreenState createState() => _FoodListScreenState();
+  _TrackerScreenState createState() => _TrackerScreenState();
 }
 
-class _FoodListScreenState extends State<FoodListScreen> {
+class _TrackerScreenState extends State<TrackerScreen> {
   @override
   void initState() {
     super.initState();
@@ -27,20 +31,19 @@ class _FoodListScreenState extends State<FoodListScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<FoodsBloc, FoodsState>(
-        builder: (BuildContext context, state) {
-      if (state is FoodsLoadInProgress) {
-        return Scaffold(body: Center(child: CircularProgressIndicator()));
-      }
-      if (state is FoodsLoadFailure) {
-        return Scaffold(body: Center(child: Text('error')));
-      }
-      var foods = (state as FoodsLoadSuccess).foods;
-
-      return Scaffold(
+    return BlocBuilder<ProteinsBloc, ProteinsState>(
+      builder: (context, state) {
+        if (state is ProteinsLoadInProgress) {
+          return Scaffold(body: Center(child: CircularProgressIndicator()));
+        }
+        if (state is ProteinsLoadFailure) {
+          return Scaffold(body: Center(child: Text('error')));
+        }
+        var proteins = (state as ProteinsLoadSuccess).proteins;
+        return Scaffold(
           appBar: WidgetUtils.appBarBackArrow(
               title: translatedText(
-                "appbar_food_list",
+                "appbar_tracker",
                 context,
               ),
               context: context,
@@ -50,14 +53,14 @@ class _FoodListScreenState extends State<FoodListScreen> {
                     switch (order) {
                       case Order.ascending:
                         {
-                          BlocProvider.of<FoodsBloc>(context)
-                              .add(FoodOrderedAscending(foods));
+                          BlocProvider.of<ProteinsBloc>(context)
+                              .add(ProteinOrderedAscending(proteins));
                         }
                         break;
                       case Order.descending:
                         {
-                          BlocProvider.of<FoodsBloc>(context)
-                              .add(FoodOrderedDescending(foods));
+                          BlocProvider.of<ProteinsBloc>(context)
+                              .add(ProteinOrderedDescending(proteins));
                         }
                         break;
                       default:
@@ -86,27 +89,36 @@ class _FoodListScreenState extends State<FoodListScreen> {
                   },
                 )
               ]),
-          body: foods.isEmpty
+          body: proteins.isEmpty
               ? Center(
-                  child: WidgetUtils.iconText(
-                  context,
-                  icon: Icons.room_service,
-                  text: translatedText(
-                    "food_list_text_empty",
-                    context,
-                  ),
-                ))
+                  child: WidgetUtils.imageText(context,
+                      text: translatedText(
+                        "tracker_list_empty",
+                        context,
+                      ),
+                      asset: AppAssets.protein_icon_gray))
               : ListView.builder(
-                  itemCount: foods.length,
+                  itemCount: (state as ProteinsLoadSuccess).proteins.length,
                   itemBuilder: (BuildContext ctxt, int index) {
-                    Food foodItem = foods[index];
+                    Protein proteinItem = proteins[index];
+                    print("PROTEIN ITEM ID: ${proteinItem.id}");
+                    print(index);
                     return Column(
                       children: <Widget>[
                         Card(
                           child: ListTile(
-                              title: Text(foodItem.name),
-                              subtitle: Text(
-                                  "${foodItem.proteinAmount.toString()} gr"),
+                              title: Text(proteinItem.name ?? ""),
+                              subtitle: Container(
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: <Widget>[
+                                    Text("${proteinItem.amount.toString()} gr"),
+                                    Text(proteinItem.date)
+                                  ],
+                                ),
+                              ),
                               trailing: Row(
                                 mainAxisSize: MainAxisSize.min,
                                 children: <Widget>[
@@ -116,20 +128,26 @@ class _FoodListScreenState extends State<FoodListScreen> {
                                       showDialog(
                                           context: context,
                                           builder: (_) =>
-                                              EditFoodDialog(foodItem));
+                                              EditProteinDialog(proteinItem));
                                     },
                                   ),
                                   IconButton(
                                     icon: Icon(Icons.delete),
-                                    onPressed: () async {
-                                      BlocProvider.of<FoodsBloc>(context)
-                                          .add(FoodDeleted(foods[index]));
+                                    onPressed: () {
+                                      print(
+                                          'DELETED PROTEIN: ${proteins[index].id}');
+                                      BlocProvider.of<ProteinsBloc>(context)
+                                          .add(ProteinDeleted(proteins[index]));
+
+                                      // proteinService.updateConsumedProtein();
+                                      // statisticsService.updateStatisticsData();
                                     },
                                   ),
                                 ],
                               )),
                         ),
-                        index == foods.length - 1
+                        //TODO: FIND ANOTHER WAY TO ADD FOOTER TO THE LIST
+                        index == proteins?.length - 1
                             ? Container(
                                 margin: EdgeInsets.only(top: 30),
                                 width: MediaQuery.of(context).size.width,
@@ -146,9 +164,12 @@ class _FoodListScreenState extends State<FoodListScreen> {
               color: Colors.white,
             ),
             onPressed: () {
-              showDialog(context: context, builder: (_) => AddFoodDialog());
+              print('add food');
+              showDialog(context: context, builder: (_) => AddProteinDialog());
             },
-          ));
-    });
+          ),
+        );
+      },
+    );
   }
 }

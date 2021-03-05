@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:protein_tracker/bloc/proteins/proteins.dart';
 import 'package:protein_tracker/bloc/settings/settings_bloc.dart';
-import 'package:protein_tracker/ui/home_screen/widgets/daily_status.dart';
+import 'package:protein_tracker/presentation/home_screen/widgets/daily_status.dart';
 // import 'package:protein_tracker/ui/home_screen/widgets/daily_status_widget.dart';
-import 'package:protein_tracker/ui/home_screen/widgets/motivational_text_widget.dart';
-import 'package:protein_tracker/ui/home_screen/widgets/progress_indicator_widget.dart';
+import 'package:protein_tracker/presentation/home_screen/widgets/motivational_text_widget.dart';
+import 'package:protein_tracker/presentation/home_screen/widgets/progress_indicator_widget.dart';
 
 import 'package:url_launcher/url_launcher.dart';
 

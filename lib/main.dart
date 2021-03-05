@@ -10,26 +10,25 @@ import 'package:intl/intl.dart';
 import 'package:protein_tracker/bloc/foods/foods.dart';
 import 'package:protein_tracker/bloc/settings/settings_bloc.dart';
 import 'package:protein_tracker/bloc/proteins/proteins_bloc.dart';
+import 'package:protein_tracker/presentation/calendar_screen.dart/calendarScreen.dart';
+import 'package:protein_tracker/presentation/core/theme/theme.dart';
+import 'package:protein_tracker/presentation/core/widgets/appDrawer.dart';
+import 'package:protein_tracker/presentation/home_screen/homeScreen.dart';
+import 'package:protein_tracker/presentation/proteins/trackerScreen.dart';
+import 'package:protein_tracker/presentation/settings/settingsScreen.dart';
+import 'package:protein_tracker/presentation/statistics_screen/statistics_screen.dart';
+import 'package:protein_tracker/presentation/welcome_screen/welcomeScreen.dart';
 import 'package:protein_tracker/repository/settings_repository.dart';
-import 'package:protein_tracker/ui/settings/settingsScreen.dart';
 import 'bloc/ProteinListService.dart';
-import 'ui/statistics_screen/statistics_screen.dart';
 import 'bloc/DateService.dart';
 import 'bloc/ProteinService.dart';
-import 'ui/proteins/trackerScreen.dart';
-import 'ui/welcome_screen/welcomeScreen.dart';
-import 'ui/calendar_screen.dart/calendarScreen.dart';
 
 import 'utils/AdMobUtils.dart';
 import 'utils/appAssets.dart';
 import 'utils/colors.dart';
-import 'ui/core/widgets/appDrawer.dart';
-
-import 'package:protein_tracker/ui/home_screen/homeScreen.dart';
 
 import 'package:flutter/services.dart';
 import 'package:protein_tracker/utils/localization_utils.dart';
-import 'package:protein_tracker/ui/core/theme/theme.dart';
 import 'package:protein_tracker/bloc/proteins/proteins.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:path_provider/path_provider.dart' as pathProvider;

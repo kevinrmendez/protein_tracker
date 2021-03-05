@@ -5,8 +5,9 @@ import 'package:protein_tracker/bloc/ProteinService.dart';
 import 'package:protein_tracker/bloc/settings/settings_bloc.dart';
 import 'package:protein_tracker/main.dart';
 import 'package:protein_tracker/model/dailyProtein.dart';
-import 'package:protein_tracker/ui/core/number_grams.dart';
-import 'package:protein_tracker/ui/core/widgets/title_card.dart';
+import 'package:protein_tracker/presentation/core/number_grams.dart';
+import 'package:protein_tracker/presentation/core/widgets/title_card.dart';
+
 import 'package:protein_tracker/utils/dateUtils.dart';
 import 'package:protein_tracker/utils/localization_utils.dart';
 import 'package:protein_tracker/utils/widgetUtils.dart';
