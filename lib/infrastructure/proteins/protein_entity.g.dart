@@ -36,6 +36,5 @@ class ProteinEntityAdapter extends TypeAdapter<ProteinEntity> {
   }
 
   @override
-  // TODO: implement typeId
   int get typeId => 1;
 }

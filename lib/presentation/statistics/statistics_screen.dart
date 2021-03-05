@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:protein_tracker/application/statistics/statistics.dart';
+import 'package:protein_tracker/domain/statistics/time_series_protein.dart';
 import 'package:protein_tracker/utils/dateUtils.dart';
 
 import '../../application/DateService.dart';
@@ -82,95 +85,102 @@ class StatisticsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListView(children: [
-      WidgetUtils.screenTitle(
-          title: translatedText("statistics_title", context), context: context),
-      Center(
-        child: Container(
-          margin: EdgeInsets.symmetric(horizontal: 10),
-          child: Column(
-            children: <Widget>[
-              SizedBox(
-                height: 10,
-              ),
-              Text(
-                DateUtils.getMonthName(dateService.currentMonthDate, context),
-                style: AppFontStyle.subtitle,
-              ),
-              Container(
-                height: MediaQuery.of(context).size.height * .4,
-                child: StreamBuilder<List<TimeSeriesProtein>>(
-                    stream: statisticsService.chartDataStream,
-                    builder: (context, snapshot) {
-                      if (snapshot.data == null) {
-                        return Center(
-                            child:
-                                SizedBox(child: CircularProgressIndicator()));
-                      } else {
-                        return Expanded(
-                            child: ProteinChart.withData(snapshot.data));
-                      }
-                    }),
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              AdMobUtils.admobBanner(),
-              Container(
-                padding: EdgeInsets.symmetric(horizontal: 10),
-                child: Column(
-                  children: <Widget>[
-                    Container(
-                      margin: EdgeInsets.fromLTRB(0, 20, 10, 0),
-                      child: Text(
-                        translatedText(
-                          "statistics_subtitle_statistics",
-                          context,
-                        ),
-                        style: AppFontStyle.subtitle,
-                      ),
-                    ),
-                    _statsDataRow(children: [
-                      _statsData(
-                          label: translatedText(
-                            "statistics_label_protein_consumed",
-                            context,
-                          ),
-                          data: statisticsService.totalProteinStream,
-                          measurement: "gr"),
-                      _statsData(
-                          label: translatedText(
-                            "statistics_label_protein_avg_consumed",
-                            context,
-                          ),
-                          data: statisticsService.avgProteinStream,
-                          measurement: "gr"),
-                    ]),
-                    _statsDataRow(color: Colors.transparent, children: [
-                      _statsData(
-                          label: translatedText(
-                            "statistics_label_calories_consumed",
-                            context,
-                          ),
-                          data: statisticsService.totalProteinStream,
-                          measurement: "cal",
-                          isCalory: true),
-                      _statsData(
-                          label: translatedText(
-                            "statistics_label_calories_avg_consumed",
-                            context,
-                          ),
-                          data: statisticsService.avgProteinStream,
-                          measurement: "cal",
-                          isCalory: true),
-                    ])
-                  ],
+    return BlocBuilder<StatisticsBloc, StatisticsState>(
+        builder: (context, state) {
+      if (state is StatisticsLoadInProgress) {
+        return CircularProgressIndicator();
+      }
+      if (state is StatisticsLoadFailure) {
+        return Text('error');
+      }
+      var data = (state as StatisticsLoadSuccess).proteins;
+      return ListView(children: [
+        WidgetUtils.screenTitle(
+            title: translatedText("statistics_title", context),
+            context: context),
+        Center(
+          child: Container(
+            margin: EdgeInsets.symmetric(horizontal: 10),
+            child: Column(
+              children: <Widget>[
+                SizedBox(
+                  height: 10,
                 ),
-              ),
-            ],
+                Text(
+                  DateUtils.getMonthName(dateService.currentMonthDate, context),
+                  style: AppFontStyle.subtitle,
+                ),
+                Container(
+                    height: MediaQuery.of(context).size.height * .4,
+                    child:
+                        //  StreamBuilder<List<TimeSeriesProtein>>(
+                        //     stream: statisticsService.chartDataStream,
+                        //     builder: (context, snapshot) {
+                        data == null
+                            ? Center(
+                                child: SizedBox(
+                                    child: CircularProgressIndicator()))
+                            : Expanded(child: ProteinChart.withData(data))),
+                SizedBox(
+                  height: 10,
+                ),
+                AdMobUtils.admobBanner(),
+                Container(
+                  padding: EdgeInsets.symmetric(horizontal: 10),
+                  child: Column(
+                    children: <Widget>[
+                      Container(
+                        margin: EdgeInsets.fromLTRB(0, 20, 10, 0),
+                        child: Text(
+                          translatedText(
+                            "statistics_subtitle_statistics",
+                            context,
+                          ),
+                          style: AppFontStyle.subtitle,
+                        ),
+                      ),
+                      _statsDataRow(children: [
+                        _statsData(
+                            label: translatedText(
+                              "statistics_label_protein_consumed",
+                              context,
+                            ),
+                            data: statisticsService.totalProteinStream,
+                            measurement: "gr"),
+                        _statsData(
+                            label: translatedText(
+                              "statistics_label_protein_avg_consumed",
+                              context,
+                            ),
+                            data: statisticsService.avgProteinStream,
+                            measurement: "gr"),
+                      ]),
+                      _statsDataRow(color: Colors.transparent, children: [
+                        _statsData(
+                            label: translatedText(
+                              "statistics_label_calories_consumed",
+                              context,
+                            ),
+                            data: statisticsService.totalProteinStream,
+                            measurement: "cal",
+                            isCalory: true),
+                        _statsData(
+                            label: translatedText(
+                              "statistics_label_calories_avg_consumed",
+                              context,
+                            ),
+                            data: statisticsService.avgProteinStream,
+                            measurement: "cal",
+                            isCalory: true),
+                      ])
+                    ],
+                  ),
+                ),
+              ],
+            ),
           ),
-        ),
-      )
-    ]);
+        )
+      ]);
+    });
   }
 }

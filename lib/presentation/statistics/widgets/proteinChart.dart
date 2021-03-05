@@ -1,5 +1,6 @@
 import 'package:charts_flutter/flutter.dart' as charts;
 import 'package:flutter/material.dart';
+import 'package:protein_tracker/domain/statistics/time_series_protein.dart';
 
 class ProteinChart extends StatelessWidget {
   final List<charts.Series<TimeSeriesProtein, DateTime>> seriesList;
@@ -103,9 +104,9 @@ class ProteinChart extends StatelessWidget {
 }
 
 /// Sample time series data type.
-class TimeSeriesProtein {
-  final DateTime time;
-  final int proteinAmount;
+// class TimeSeriesProtein {
+//   final DateTime time;
+//   final int proteinAmount;
 
-  TimeSeriesProtein(this.time, this.proteinAmount);
-}
+//   TimeSeriesProtein(this.time, this.proteinAmount);
+// }

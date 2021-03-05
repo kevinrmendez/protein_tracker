@@ -33,6 +33,5 @@ class FoodEntityAdapter extends TypeAdapter<FoodEntity> {
   }
 
   @override
-  // TODO: implement typeId
   int get typeId => 2;
 }

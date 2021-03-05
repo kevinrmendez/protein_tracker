@@ -9,14 +9,16 @@ abstract class StatisticsEvent extends Equatable {
 }
 
 class StatisticsLoaded extends StatisticsEvent {
-  final List<Protein> proteins;
-  const StatisticsLoaded(this.proteins);
+  // final List<Protein> proteins;
+  // const StatisticsLoaded(this.proteins);
+  const StatisticsLoaded();
 
   @override
-  List<Object> get props => [proteins];
+  // List<Object> get props => [proteins];
+  List<Object> get props => [];
 
   @override
-  String toString() => 'FilterUpdated { filter: $proteins }';
+  String toString() => 'FilterUpdated { filter:  }';
 }
 
 class StatisticsUpdated extends StatisticsEvent {
