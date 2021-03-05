@@ -15,12 +15,13 @@ import './statistics_state.dart';
 class StatisticsBloc extends Bloc<StatisticsEvent, StatisticsState> {
   final StatisticsRepitory statisticsRepository;
   final ProteinsBloc proteinsBloc;
-  var proteins;
 
   StreamSubscription proteinsSubscription;
 
   StatisticsBloc(this.statisticsRepository, this.proteinsBloc)
-      : super(proteinsBloc.state is ProteinsLoadSuccess
+      : assert(proteinsBloc != null),
+        assert(statisticsRepository != null),
+        super(proteinsBloc.state is ProteinsLoadSuccess
                 ? StatisticsLoadSuccess((proteinsBloc as ProteinsLoadSuccess)
                     .proteins
                     .map((e) => TimeSeriesProtein(DateTime.now(), e.amount))
@@ -28,13 +29,9 @@ class StatisticsBloc extends Bloc<StatisticsEvent, StatisticsState> {
                 : StatisticsLoadInProgress()
             // StatisticsLoadInProgress()
             ) {
-    // print('BLOC EXISTS');
-
     proteinsSubscription = proteinsBloc.listen((state) {
       if (state is ProteinsLoadSuccess) {
-        // proteins = state.proteins;
-        // add(StatisticsLoaded());
-        print('hoola');
+        print('proteins updated');
         add(StatisticsUpdated((proteinsBloc as ProteinsLoadSuccess)
             .proteins
             .map((e) => TimeSeriesProtein(DateTime.now(), e.amount))
@@ -80,7 +77,7 @@ class StatisticsBloc extends Bloc<StatisticsEvent, StatisticsState> {
     try {
       List<TimeSeriesProtein> chartData =
           await this.statisticsRepository.getMonthlyProteinData();
-      print("PROT:${proteins.length}");
+      print("PROT2222:${proteins.length}");
       yield StatisticsLoadSuccess(
         chartData,
       );

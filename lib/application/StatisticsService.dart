@@ -24,7 +24,7 @@ class StatisticsService {
   List<TimeSeriesProtein> get currentChartData => _chartData.value;
 
   StatisticsService() {
-    initStatistics();
+    // initStatistics();
   }
 
   initStatistics() async {
