@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
+import 'package:protein_tracker/bloc/foods/foods.dart';
 
 import '../../../bloc/ProteinService.dart';
 import '../../../bloc/StatisticsService.dart';
@@ -101,69 +102,31 @@ class _AddProteinDialogState extends State<AddProteinDialog> {
                       return null;
                     },
                   ),
-                  // foodListServices.currentListFoodName.length > 0
-                  //     ? Column(
-                  //         children: <Widget>[
-                  //           Container(
-                  //               child: Text(translatedText(
-                  //             "tracker_dialog_label_food_list",
-                  //             context,
-                  //           ))),
-                  //           DropdownButton<String>(
-                  //             value: dropdownValueGoal,
-                  //             icon: Icon(Icons.arrow_downward),
-                  //             iconSize: 24,
-                  //             elevation: 16,
-                  //             style: TextStyle(color: PrimaryColor),
-                  //             underline: Container(
-                  //               height: 2,
-                  //               color: Colors.grey,
-                  //             ),
-                  //             onChanged: (String newValue) {
-                  //               Food food = foodListServices.currentList
-                  //                   .firstWhere(
-                  //                       (food) => food.name == newValue);
-                  //               setState(() {
-                  //                 dropdownValueGoal = newValue;
-                  //                 _foodNameController.text = food.name;
-                  //                 _proteinAmountController.text =
-                  //                     food.proteinAmount.toString();
-                  //                 foodName = _foodNameController.text;
-                  //                 proteinAmount =
-                  //                     int.parse(_proteinAmountController.text);
-                  //               });
-                  //             },
-                  //             items: foodListServices.currentListFoodName
-                  //                 // items: <String>['', 'banana', 'pear', 'nuts']
-                  //                 .map<DropdownMenuItem<String>>(
-                  //                     (String value) {
-                  //               return DropdownMenuItem<String>(
-                  //                 value: value,
-                  //                 child: Text(value),
-                  //               );
-                  //             }).toList(),
-                  //           ),
-                  //         ],
-                  //       )
-                  //     : SizedBox(
-                  //         height: 15,
-                  //       ),
-                  WidgetUtils.button(context, text: 'from food list',
-                      onPressed: () async {
-                    Food result = await Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => FoodList(),
-                        ));
-                    print(result.name);
-                    setState(() {
-                      _foodNameController.text = result.name;
-                      _proteinAmountController.text =
-                          result.proteinAmount.toString();
-                      foodName = result.name;
-                      proteinAmount = result.proteinAmount;
-                    });
-                  }),
+                  BlocBuilder<FoodsBloc, FoodsState>(
+                    builder: (context, state) {
+                      if (state is FoodsLoadInProgress) {
+                        return SizedBox();
+                      }
+                      return (state as FoodsLoadSuccess).foods.isNotEmpty
+                          ? WidgetUtils.button(context, text: 'from food list',
+                              onPressed: () async {
+                              Food result = await Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => FoodList(),
+                                  ));
+                              print(result.name);
+                              setState(() {
+                                _foodNameController.text = result.name;
+                                _proteinAmountController.text =
+                                    result.proteinAmount.toString();
+                                foodName = result.name;
+                                proteinAmount = result.proteinAmount;
+                              });
+                            })
+                          : SizedBox();
+                    },
+                  ),
                   WidgetUtils.button(context,
                       width: MediaQuery.of(context).size.width,
                       text: translatedText(
