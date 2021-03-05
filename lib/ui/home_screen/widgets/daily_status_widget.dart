@@ -4,6 +4,7 @@ import 'package:protein_tracker/bloc/proteins/proteins.dart';
 import 'package:protein_tracker/model/goal.dart';
 import 'package:protein_tracker/utils/colors.dart';
 import 'package:protein_tracker/utils/localization_utils.dart';
+import 'package:protein_tracker/utils/widgetUtils.dart';
 import 'package:provider/provider.dart';
 
 class DailyStatusWidget extends StatelessWidget {
@@ -50,50 +51,52 @@ class DailyStatusWidget extends StatelessWidget {
         var remainingProtein = goal - consumedProtein;
         remainingProtein = remainingProtein > 0 ? remainingProtein : 0;
 
-        return Column(children: <Widget>[
-          // _buildDailyProtein(),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: <Widget>[
+        return WidgetUtils.card(
+          child: Column(children: <Widget>[
+            // _buildDailyProtein(),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: <Widget>[
+                SizedBox(
+                  width: 10,
+                ),
+                Icon(
+                  Icons.star,
+                  color: DarkGreyColor,
+                ),
+                SizedBox(
+                  width: 10,
+                ),
+                Text(
+                  '${translatedText(
+                    "text_goal",
+                    context,
+                  )}: $goal  gr',
+                  style: TextStyle(fontSize: 16),
+                ),
+              ],
+            ),
+            Row(mainAxisAlignment: MainAxisAlignment.start, children: <Widget>[
               SizedBox(
                 width: 10,
               ),
               Icon(
-                Icons.star,
+                Icons.timelapse,
                 color: DarkGreyColor,
               ),
               SizedBox(
                 width: 10,
               ),
               Text(
-                '${translatedText(
-                  "text_goal",
+                ' ${translatedText(
+                  "text_remaining",
                   context,
-                )}: $goal  gr',
+                )} : ${remainingProtein ?? 0} gr',
                 style: TextStyle(fontSize: 16),
-              ),
-            ],
-          ),
-          Row(mainAxisAlignment: MainAxisAlignment.start, children: <Widget>[
-            SizedBox(
-              width: 10,
-            ),
-            Icon(
-              Icons.timelapse,
-              color: DarkGreyColor,
-            ),
-            SizedBox(
-              width: 10,
-            ),
-            Text(
-              ' ${translatedText(
-                "text_remaining",
-                context,
-              )} : ${remainingProtein ?? 0} gr',
-              style: TextStyle(fontSize: 16),
-            )
-          ])
-        ]);
+              )
+            ])
+          ]),
+        );
       });
     }
   }

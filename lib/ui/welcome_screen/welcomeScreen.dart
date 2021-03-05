@@ -206,9 +206,13 @@ class _SetupGoalScreenState extends State<SetupGoalScreen> {
                       if (_formKey.currentState.validate()) {
                         if (regExp.hasMatch(goal.toString())) {
                           if (goal == 0) {
-                            proteinService.setGoal(1);
+                            BlocProvider.of<SettingsBloc>(context)
+                                .add(SettingsGoalChanged(1));
+                            // proteinService.setGoal(1);
                           } else {
-                            proteinService.setGoal(goal);
+                            BlocProvider.of<SettingsBloc>(context)
+                                .add(SettingsGoalChanged(goal));
+                            // proteinService.setGoal(goal);
                           }
                         } else {
                           proteinService.setGoal(1);

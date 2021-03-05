@@ -8,7 +8,7 @@ import 'package:protein_tracker/ui/welcome_screen/welcomeScreen.dart';
 import 'package:protein_tracker/utils/appAssets.dart';
 import 'package:protein_tracker/utils/colors.dart';
 import 'package:protein_tracker/ui/goalScreen.dart';
-import 'package:protein_tracker/ui/settingsScreen.dart';
+
 import 'package:protein_tracker/utils/localization_utils.dart';
 import 'package:share/share.dart';
 import 'package:url_launcher/url_launcher.dart';

@@ -11,6 +11,7 @@ import 'package:protein_tracker/bloc/foods/foods.dart';
 import 'package:protein_tracker/bloc/settings/settings_bloc.dart';
 import 'package:protein_tracker/bloc/proteins/proteins_bloc.dart';
 import 'package:protein_tracker/repository/settings_repository.dart';
+import 'package:protein_tracker/ui/settings/settingsScreen.dart';
 import 'bloc/ProteinListService.dart';
 import 'ui/statistics_screen/statistics_screen.dart';
 import 'bloc/DateService.dart';
@@ -18,7 +19,7 @@ import 'bloc/ProteinService.dart';
 import 'ui/proteins/trackerScreen.dart';
 import 'ui/welcome_screen/welcomeScreen.dart';
 import 'ui/calendar_screen.dart/calendarScreen.dart';
-import 'ui/settingsScreen.dart';
+
 import 'utils/AdMobUtils.dart';
 import 'utils/appAssets.dart';
 import 'utils/colors.dart';
