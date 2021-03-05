@@ -11,7 +11,7 @@ class ProgressIndicatorWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     Goal initGoal = Goal(1);
     Goal proteinGoal = Provider.of<Goal>(context) ?? initGoal;
-    int consumedProtein = Provider.of<int>(context) ?? 0;
+    // int consumedProtein = Provider.of<int>(context) ?? 0;
     int goal;
     if (proteinGoal == null) {
       return Center(child: CircularProgressIndicator());
@@ -26,11 +26,12 @@ class ProgressIndicatorWidget extends StatelessWidget {
           return Center(
               child: Text('Sorry we are not able to load your information'));
         }
+        var consumedProtein = (state as ProteinsLoadSuccess)
+            .proteins
+            .fold(0, (value, element) => value + element.amount);
         return CircularStepProgressIndicator(
           totalSteps: goal,
-          currentStep: (state as ProteinsLoadSuccess)
-              .proteins
-              .fold(0, (value, element) => value + element.amount),
+          currentStep: consumedProtein,
           // stepSize: 0,
           selectedColor: PrimaryColor,
           unselectedColor: Colors.grey[200],
