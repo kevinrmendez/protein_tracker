@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
+import 'package:protein_tracker/infrastructure/statistics/statistics_repository.dart';
 import 'package:protein_tracker/presentation/proteins/widgets/add_protein_dialog.dart';
 import 'package:protein_tracker/presentation/proteins/widgets/edit_protein_dialog.dart';
 import 'package:protein_tracker/application/proteins/proteins.dart';
@@ -40,6 +41,8 @@ class _TrackerScreenState extends State<TrackerScreen> {
           return Scaffold(body: Center(child: Text('error')));
         }
         var proteins = (state as ProteinsLoadSuccess).proteins;
+        StatisticsRepitory statisticsRepository = StatisticsRepitory();
+        statisticsRepository.getMonthlyProteinData(proteins);
         return Scaffold(
           appBar: WidgetUtils.appBarBackArrow(
               title: translatedText(

@@ -1,11 +1,13 @@
 import 'package:hive/hive.dart';
+import 'package:injectable/injectable.dart';
 import 'package:intl/intl.dart';
 import 'package:protein_tracker/domain/proteins/protein.dart';
 import 'package:protein_tracker/infrastructure/proteins/protein_entity.dart';
 import 'package:protein_tracker/domain/statistics/time_series_protein.dart';
 
+@LazySingleton()
 class StatisticsRepitory {
-  Future<List<Protein>> getMonthlyProtein(DateTime date) async {
+  Future<List<Protein>> _getMonthlyProtein(DateTime date) async {
     // var now = DateTime.now();
     final DateFormat formatter = DateFormat('MMMM');
     // var monthName = formatter.format(now);
@@ -28,8 +30,22 @@ class StatisticsRepitory {
     //       await
     //   return monthlyProteins;
   }
+
   // ignore: non_constant_identifier_names
-  // List<TimeSeriesProtein>
+  List<TimeSeriesProtein> _mapProteinToTimeSeriesProtein(
+      List<Protein> proteinList) {
+    return proteinList.map((protein) => TimeSeriesProtein(
+        DateFormat('dd-MMMM-yyyy').parse(protein.date), protein.amount));
+  }
+
+  Future<List<TimeSeriesProtein>> getMonthlyProteinData(
+      List<Protein> proteinList) async {
+    var now = DateTime.now();
+    var monthlyProtein = await _getMonthlyProtein(now);
+    print('DATA CHART ${monthlyProtein.length}');
+
+    return _mapProteinToTimeSeriesProtein(monthlyProtein);
+  }
 
   // _getTotalProtein() {
   //   int totalProtein = 0;

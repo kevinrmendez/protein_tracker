@@ -27,25 +27,25 @@ class StatisticsService {
   }
 
   initStatistics() async {
-    await getMonthProteinFromDb();
+    // await getMonthProteinFromDb();
     await _getTotalProtein();
     getAvgProtein();
   }
 
-  getMonthProteinFromDb() async {
-    List<Protein> monthlyProteins = await _getMonthlyProtein(currentDate);
-    getDailyTotalProtein(monthlyProteins);
-  }
+  // getMonthProteinFromDb() async {
+  //   List<Protein> monthlyProteins = await _getMonthlyProtein(currentDate);
+  //   getDailyTotalProtein(monthlyProteins);
+  // }
 
-  Future<List<Protein>> _getMonthlyProtein(DateTime date) async {
-    var now = DateTime.now();
-    final DateFormat formatter = DateFormat('MMMM');
-    var monthName = formatter.format(now);
+  // Future<List<Protein>> _getMonthlyProtein(DateTime date) async {
+  //   var now = DateTime.now();
+  //   final DateFormat formatter = DateFormat('MMMM');
+  //   var monthName = formatter.format(now);
 
-    List monthlyProteins =
-        await _proteinRepository.getAllProteins(query: monthName);
-    return monthlyProteins;
-  }
+  //   List monthlyProteins =
+  //       await _proteinRepository.getAllProteins(query: monthName);
+  //   return monthlyProteins;
+  // }
 
   _getTotalProtein() {
     int totalProtein = 0;
@@ -116,7 +116,7 @@ class StatisticsService {
   }
 
   updateStatisticsData() async {
-    await getMonthProteinFromDb();
+    // await getMonthProteinFromDb();
     await _getTotalProtein();
     getAvgProtein();
   }

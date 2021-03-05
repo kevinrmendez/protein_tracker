@@ -10,6 +10,7 @@ import 'package:intl/intl.dart';
 import 'package:protein_tracker/application/foods/foods.dart';
 import 'package:protein_tracker/application/settings/settings_bloc.dart';
 import 'package:protein_tracker/application/proteins/proteins_bloc.dart';
+import 'package:protein_tracker/application/statistics/statistics.dart';
 import 'package:protein_tracker/infrastructure/foods/food_entity.dart';
 import 'package:protein_tracker/infrastructure/proteins/protein_entity.dart';
 import 'package:protein_tracker/presentation/calendar_screen.dart/calendarScreen.dart';
@@ -99,15 +100,14 @@ void main() async {
   dateService.updateDateMonth(currentDate);
   proteinListServices.getMonthlyProtein(currentDate);
 
-  StatisticsRepitory statisticsRepository = StatisticsRepitory();
-  statisticsRepository.getMonthlyProtein(currentDate);
-
   runApp(MultiBlocProvider(
     providers: [
       BlocProvider(create: (context) => getIt<SettingsBloc>()),
       BlocProvider(
           create: (context) => getIt<ProteinsBloc>()..add(ProteinsLoaded())),
-      BlocProvider(create: (context) => getIt<FoodsBloc>()..add(FoodsLoaded()))
+      BlocProvider(create: (context) => getIt<FoodsBloc>()..add(FoodsLoaded())),
+      BlocProvider(
+          create: (context) => getIt<StatisticsBloc>()..add(StatisticsLoaded()))
     ],
     child: MyApp(),
   ));

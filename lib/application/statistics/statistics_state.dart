@@ -1,5 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:protein_tracker/domain/proteins/protein.dart';
+import 'package:protein_tracker/domain/statistics/time_series_protein.dart';
 
 abstract class StatisticsState extends Equatable {
   const StatisticsState();
@@ -11,7 +12,7 @@ abstract class StatisticsState extends Equatable {
 class StatisticsLoadInProgress extends StatisticsState {}
 
 class StatisticsLoadSuccess extends StatisticsState {
-  final List<Protein> proteins;
+  final List<TimeSeriesProtein> proteins;
 
   const StatisticsLoadSuccess([this.proteins = const []]);
 
