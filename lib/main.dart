@@ -18,7 +18,7 @@ import 'package:protein_tracker/presentation/core/widgets/appDrawer.dart';
 import 'package:protein_tracker/presentation/home_screen/homeScreen.dart';
 import 'package:protein_tracker/presentation/proteins/trackerScreen.dart';
 import 'package:protein_tracker/presentation/settings/settingsScreen.dart';
-import 'package:protein_tracker/presentation/statistics_screen/statistics_screen.dart';
+import 'package:protein_tracker/presentation/statistics/statistics_screen.dart';
 import 'package:protein_tracker/presentation/welcome_screen/welcomeScreen.dart';
 import 'package:protein_tracker/infrastructure/settings/settings_repository.dart';
 import 'application/ProteinListService.dart';
@@ -31,6 +31,7 @@ import 'utils/colors.dart';
 
 import 'package:flutter/services.dart';
 import 'package:protein_tracker/utils/localization_utils.dart';
+import 'package:protein_tracker/infrastructure/statistics/statistics_repository.dart';
 import 'package:protein_tracker/application/proteins/proteins.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:path_provider/path_provider.dart' as pathProvider;
@@ -97,6 +98,9 @@ void main() async {
   // dateService.updateDate(currentDate);
   dateService.updateDateMonth(currentDate);
   proteinListServices.getMonthlyProtein(currentDate);
+
+  StatisticsRepitory statisticsRepository = StatisticsRepitory();
+  statisticsRepository.getMonthlyProtein(currentDate);
 
   runApp(MultiBlocProvider(
     providers: [
