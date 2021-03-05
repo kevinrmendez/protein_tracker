@@ -7,16 +7,19 @@ import 'package:provider/provider.dart';
 import 'package:step_progress_indicator/step_progress_indicator.dart';
 
 class ProgressIndicatorWidget extends StatelessWidget {
+  final int goal;
+
+  const ProgressIndicatorWidget({Key key, this.goal}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    Goal initGoal = Goal(1);
-    Goal proteinGoal = Provider.of<Goal>(context) ?? initGoal;
+    // Goal initGoal = Goal(1);
+    // Goal proteinGoal = Provider.of<Goal>(context) ?? initGoal;
     // int consumedProtein = Provider.of<int>(context) ?? 0;
-    int goal;
-    if (proteinGoal == null) {
+    // int goal;
+    if (goal == null) {
       return Center(child: CircularProgressIndicator());
     } else {
-      goal = proteinGoal.amount;
+      // goal = proteinGoal.amount;
       return BlocBuilder<ProteinsBloc, ProteinsState>(
           builder: (context, state) {
         if (state is ProteinsLoadInProgress) {

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:protein_tracker/bloc/proteins/proteins.dart';
+import 'package:protein_tracker/bloc/settings/settings_bloc.dart';
 import 'package:protein_tracker/ui/home_screen/widgets/daily_status_widget.dart';
 import 'package:protein_tracker/ui/home_screen/widgets/motivational_text_widget.dart';
 import 'package:protein_tracker/ui/home_screen/widgets/progress_indicator_widget.dart';
@@ -118,21 +119,29 @@ class MotivationalText extends StatelessWidget {
 class DailyStatus extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MultiProvider(
-        providers: [
-          StreamProvider<Goal>.value(
-            value: proteinService.stream,
-          ),
-          StreamProvider<int>.value(
-            value: proteinService.streamConsumedProtein,
-          )
-        ],
-        child: WidgetUtils.card(
-            title: translatedText(
-              "home_label_goal",
-              context,
-            ),
-            child: DailyStatusWidget()));
+    return
+        // MultiProvider(
+        //     providers: [
+        //       StreamProvider<Goal>.value(
+        //         value: proteinService.stream,
+        //       ),
+        //       StreamProvider<int>.value(
+        //         value: proteinService.streamConsumedProtein,
+        //       )
+        //     ],
+        //     child: WidgetUtils.card(
+        //         title: translatedText(
+        //           "home_label_goal",
+        //           context,
+        //         ),
+        //         child:
+        BlocBuilder<SettingsBloc, SettingsState>(
+      builder: (context, state) {
+        return DailyStatusWidget(goal: state.goal);
+      },
+      // )
+      // )
+    );
   }
 }
 
@@ -181,22 +190,32 @@ class ConsumedCalories extends StatelessWidget {
 class ProgressIndicator extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MultiProvider(
-      providers: [
-        StreamProvider<Goal>.value(
-          value: proteinService.stream,
-        ),
-        StreamProvider<int>.value(
-          value: proteinService.streamConsumedProtein,
-        )
-      ],
-      child: WidgetUtils.card(
-          title: translatedText(
-            "home_label_protein_consumed",
-            context,
-          ),
-          child: Container(
-              height: 200, child: Center(child: ProgressIndicatorWidget()))),
-    );
+    return
+        //  MultiProvider(
+        //   providers: [
+        //     StreamProvider<Goal>.value(
+        //       value: proteinService.stream,
+        //     ),
+        //     StreamProvider<int>.value(
+        //       value: proteinService.streamConsumedProtein,
+        //     )
+        //   ],
+        // child:
+        WidgetUtils.card(
+            title: translatedText(
+              "home_label_protein_consumed",
+              context,
+            ),
+            child: BlocBuilder<SettingsBloc, SettingsState>(
+              builder: (context, state) {
+                print("STATE GOAL: ${state.goal}");
+                return Container(
+                    height: 200,
+                    child: Center(
+                        child: ProgressIndicatorWidget(goal: state.goal)));
+              },
+            )
+            // ),
+            );
   }
 }

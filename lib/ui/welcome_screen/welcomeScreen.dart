@@ -404,12 +404,18 @@ class _SetupCalculatorScreenState extends State<SetupCalculatorScreen> {
                 if (_weightformKey.currentState.validate()) {
                   if (regExp.hasMatch(goal.toString())) {
                     if (goal == 0) {
-                      proteinService.setGoal(1);
+                      BlocProvider.of<SettingsBloc>(context)
+                          .add(SettingsGoalChanged(1));
+                      // proteinService.setGoal(1);
                     } else {
-                      proteinService.setGoal(goal);
+                      BlocProvider.of<SettingsBloc>(context)
+                          .add(SettingsGoalChanged(goal));
+                      // proteinService.setGoal(goal);
                     }
                   } else {
-                    proteinService.setGoal(1);
+                    BlocProvider.of<SettingsBloc>(context)
+                        .add(SettingsGoalChanged(1));
+                    // proteinService.setGoal(1);
                   }
                   setState(() {
                     _index++;
@@ -629,7 +635,9 @@ class _SetupCalculatorScreenState extends State<SetupCalculatorScreen> {
                 "welcome_protein_goal_set_button",
                 context,
               ), onPressed: () {
-            proteinService.setGoal(goal);
+            BlocProvider.of<SettingsBloc>(context)
+                .add(SettingsGoalChanged(goal));
+            // proteinService.setGoal(goal);
             showDialog(
                 context: context,
                 builder: (_) => ConfirmationDialog(

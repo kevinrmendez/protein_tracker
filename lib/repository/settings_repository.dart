@@ -46,4 +46,15 @@ class SettingsRepository {
   void changeWeightUnit(bool weightSettings) {
     preferences.setBool('settings_weight', weightSettings);
   }
+
+  int getGoal() {
+    if (!preferences.containsKey('goal')) {
+      preferences.setInt('goal', 50);
+    }
+    return preferences.getInt('goal');
+  }
+
+  void changeGoal(int goal) {
+    preferences.setInt('goal', goal);
+  }
 }

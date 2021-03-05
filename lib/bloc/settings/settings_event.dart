@@ -31,3 +31,11 @@ class SettingsWeightUnitChanged extends SettingsEvent {
   @override
   List<Object> get props => [weightUnit];
 }
+
+class SettingsGoalChanged extends SettingsEvent {
+  final int goal;
+  const SettingsGoalChanged(this.goal);
+
+  @override
+  List<Object> get props => [goal];
+}

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:protein_tracker/bloc/settings/settings_bloc.dart';
 
 import '../bloc/DailyProteinService.dart';
 import '../bloc/ProteinService.dart';
@@ -51,20 +53,29 @@ class _GoalScreenState extends State<GoalScreen> {
                 "goal_title",
                 context,
               )),
-              StreamBuilder(
-                stream: proteinService.stream,
-                builder: (BuildContext context, AsyncSnapshot snapshot) {
-                  switch (snapshot.connectionState) {
-                    case ConnectionState.waiting:
-                      return CircularProgressIndicator();
-                      break;
-                    default:
-                      return NumberGrams(
-                        grams: snapshot.data.amount,
+              // StreamBuilder(
+              //   stream: proteinService.stream,
+              //   builder: (BuildContext context, AsyncSnapshot snapshot) {
+              //     switch (snapshot.connectionState) {
+              //       case ConnectionState.waiting:
+              //         return CircularProgressIndicator();
+              //         break;
+              //       default:
+              //         return NumberGrams(
+              //           grams: snapshot.data.amount,
+              //         );
+              //     }
+              //   },
+              // ),
+              BlocBuilder<SettingsBloc, SettingsState>(
+                  builder: (context, state) {
+                var goal = state.goal;
+                return goal == null
+                    ? CircularProgressIndicator()
+                    : NumberGrams(
+                        grams: goal,
                       );
-                  }
-                },
-              ),
+              }),
               Text(
                 translatedText(
                   "goal_text_per_day",
@@ -135,8 +146,11 @@ class _GoalScreenState extends State<GoalScreen> {
                   onPressed: () async {
                     if (_formKey.currentState.validate()) {
                       _proteinGoal = int.parse(proteinGoalController.text);
-                      proteinService.setGoal(_proteinGoal);
-                      print('goal set: $_proteinGoal');
+
+                      BlocProvider.of<SettingsBloc>(context)
+                          .add(SettingsGoalChanged(_proteinGoal));
+                      // proteinService.setGoal(_proteinGoal);
+                      // print('goal set: $_proteinGoal');
 
                       //update DailyProtein goal
                       var currentGoal = proteinService.current?.amount ?? 0;

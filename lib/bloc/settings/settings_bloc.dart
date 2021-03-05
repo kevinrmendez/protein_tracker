@@ -18,6 +18,7 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
       : super(SettingsState(
             locale: settingsRepository.getLanguage(),
             isDarkModeEnabled: settingsRepository.getDarkModeValue(),
+            goal: settingsRepository.getGoal(),
             weigthUnit: settingsRepository.getWeightUnit()));
 
   @override
@@ -32,6 +33,9 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
     }
     if (event is SettingsWeightUnitChanged) {
       yield* _mapSettingsWeightUnitChangeState(event);
+    }
+    if (event is SettingsGoalChanged) {
+      yield* _mapSettingsGoalChangeState(event);
     }
   }
 
@@ -51,5 +55,11 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
       SettingsWeightUnitChanged event) async* {
     settingsRepository.changeWeightUnit(event.weightUnit);
     yield state.copyWith(weightUnit: event.weightUnit);
+  }
+
+  Stream<SettingsState> _mapSettingsGoalChangeState(
+      SettingsGoalChanged event) async* {
+    settingsRepository.changeGoal(event.goal);
+    yield state.copyWith(goal: event.goal);
   }
 }
