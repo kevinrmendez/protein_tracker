@@ -88,10 +88,10 @@ class StatisticsScreen extends StatelessWidget {
     return BlocBuilder<StatisticsBloc, StatisticsState>(
         builder: (context, state) {
       if (state is StatisticsLoadInProgress) {
-        return CircularProgressIndicator();
+        return Center(child: CircularProgressIndicator());
       }
       if (state is StatisticsLoadFailure) {
-        return Text('error');
+        return Center(child: Text('error'));
       }
       var data = (state as StatisticsLoadSuccess).proteins;
       return ListView(children: [
@@ -124,58 +124,58 @@ class StatisticsScreen extends StatelessWidget {
                 SizedBox(
                   height: 10,
                 ),
-                AdMobUtils.admobBanner(),
-                Container(
-                  padding: EdgeInsets.symmetric(horizontal: 10),
-                  child: Column(
-                    children: <Widget>[
-                      Container(
-                        margin: EdgeInsets.fromLTRB(0, 20, 10, 0),
-                        child: Text(
-                          translatedText(
-                            "statistics_subtitle_statistics",
-                            context,
-                          ),
-                          style: AppFontStyle.subtitle,
-                        ),
-                      ),
-                      _statsDataRow(children: [
-                        _statsData(
-                            label: translatedText(
-                              "statistics_label_protein_consumed",
-                              context,
-                            ),
-                            data: statisticsService.totalProteinStream,
-                            measurement: "gr"),
-                        _statsData(
-                            label: translatedText(
-                              "statistics_label_protein_avg_consumed",
-                              context,
-                            ),
-                            data: statisticsService.avgProteinStream,
-                            measurement: "gr"),
-                      ]),
-                      _statsDataRow(color: Colors.transparent, children: [
-                        _statsData(
-                            label: translatedText(
-                              "statistics_label_calories_consumed",
-                              context,
-                            ),
-                            data: statisticsService.totalProteinStream,
-                            measurement: "cal",
-                            isCalory: true),
-                        _statsData(
-                            label: translatedText(
-                              "statistics_label_calories_avg_consumed",
-                              context,
-                            ),
-                            data: statisticsService.avgProteinStream,
-                            measurement: "cal",
-                            isCalory: true),
-                      ])
-                    ],
-                  ),
-                ),
+                // AdMobUtils.admobBanner(),
+                // Container(
+                //   padding: EdgeInsets.symmetric(horizontal: 10),
+                //   child: Column(
+                //     children: <Widget>[
+                //       Container(
+                //         margin: EdgeInsets.fromLTRB(0, 20, 10, 0),
+                //         child: Text(
+                //           translatedText(
+                //             "statistics_subtitle_statistics",
+                //             context,
+                //           ),
+                //           style: AppFontStyle.subtitle,
+                //         ),
+                //       ),
+                //       _statsDataRow(children: [
+                //         _statsData(
+                //             label: translatedText(
+                //               "statistics_label_protein_consumed",
+                //               context,
+                //             ),
+                //             data: statisticsService.totalProteinStream,
+                //             measurement: "gr"),
+                //         _statsData(
+                //             label: translatedText(
+                //               "statistics_label_protein_avg_consumed",
+                //               context,
+                //             ),
+                //             data: statisticsService.avgProteinStream,
+                //             measurement: "gr"),
+                //       ]),
+                //       _statsDataRow(color: Colors.transparent, children: [
+                //         _statsData(
+                //             label: translatedText(
+                //               "statistics_label_calories_consumed",
+                //               context,
+                //             ),
+                //             data: statisticsService.totalProteinStream,
+                //             measurement: "cal",
+                //             isCalory: true),
+                //         _statsData(
+                //             label: translatedText(
+                //               "statistics_label_calories_avg_consumed",
+                //               context,
+                //             ),
+                //             data: statisticsService.avgProteinStream,
+                //             measurement: "cal",
+                //             isCalory: true),
+                //       ])
+                //     ],
+                //   ),
+                // ),
               ],
             ),
           ),

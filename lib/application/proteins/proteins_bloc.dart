@@ -39,7 +39,7 @@ class ProteinsBloc extends Bloc<ProteinsEvent, ProteinsState> {
     try {
       List<ProteinEntity> proteins =
           await this.proteinRepository.getAllProteins();
-      print("PROT:${proteins.length}");
+      // print("PROT:${proteins.length}");
       yield ProteinsLoadSuccess(
         proteins.map((e) => Protein.fromEntity(e)).toList(),
       );

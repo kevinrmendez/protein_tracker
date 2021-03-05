@@ -15,6 +15,7 @@ import './statistics_state.dart';
 class StatisticsBloc extends Bloc<StatisticsEvent, StatisticsState> {
   final StatisticsRepitory statisticsRepository;
   final ProteinsBloc proteinsBloc;
+  var proteins;
 
   StreamSubscription proteinsSubscription;
 
@@ -25,6 +26,8 @@ class StatisticsBloc extends Bloc<StatisticsEvent, StatisticsState> {
             : StatisticsLoadInProgress()) {
     proteinsSubscription = proteinsBloc.listen((state) {
       if (state is ProteinsLoadSuccess) {
+        proteins = state.proteins;
+        add(StatisticsLoaded());
         // add(StatisticsUpdated((proteinsBloc.state as StatisticsLoadSuccess).proteins));
       }
     });
@@ -49,11 +52,11 @@ class StatisticsBloc extends Bloc<StatisticsEvent, StatisticsState> {
 
   Stream<StatisticsState> _mapStatisticsLoadedToState() async* {
     try {
-      List<TimeSeriesProtein> chartData = await this
-          .statisticsRepository
-          .getMonthlyProteinData(
-              (proteinsBloc.state as ProteinsLoadSuccess).proteins);
-      // print("PROT:${proteins.length}");
+      List<TimeSeriesProtein> chartData =
+          await this.statisticsRepository.getMonthlyProteinData(
+              // (proteinsBloc.state as ProteinsLoadSuccess).proteins
+              proteins);
+      print("PROT length:${chartData.length}");
       yield StatisticsLoadSuccess(
         chartData,
       );
