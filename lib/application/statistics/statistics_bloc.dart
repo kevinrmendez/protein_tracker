@@ -29,6 +29,8 @@ class StatisticsBloc extends Bloc<StatisticsEvent, StatisticsState> {
                 : StatisticsLoadInProgress()
             // StatisticsLoadInProgress()
             ) {
+    print('hello');
+    print(proteinsBloc.isEmpty);
     proteinsSubscription = proteinsBloc.listen((state) {
       if (state is ProteinsLoadSuccess) {
         print('proteins updated');

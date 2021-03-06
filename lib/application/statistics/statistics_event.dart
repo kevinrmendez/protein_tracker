@@ -19,7 +19,7 @@ class StatisticsLoaded extends StatisticsEvent {
   List<Object> get props => [];
 
   @override
-  String toString() => 'FilterUpdated { filter:  }';
+  String toString() => 's{StatisticsLoaded}';
 }
 
 class StatisticsUpdated extends StatisticsEvent {
@@ -33,6 +33,6 @@ class StatisticsUpdated extends StatisticsEvent {
   // List<Object> get props => [];
 
   @override
-  String toString() => 'FilterUpdated { filter: $proteins }';
+  String toString() => 'StatisticsUpdated { statistics: $proteins }';
   // String toString() => 'FilterUpdated { filter:  }';
 }
