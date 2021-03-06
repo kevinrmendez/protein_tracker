@@ -1,19 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:intl/intl.dart';
-import 'package:protein_tracker/infrastructure/statistics/statistics_repository.dart';
-import 'package:protein_tracker/presentation/proteins/widgets/add_protein_dialog.dart';
-import 'package:protein_tracker/presentation/proteins/widgets/edit_protein_dialog.dart';
-import 'package:protein_tracker/application/proteins/proteins.dart';
 
-import '../../application/ProteinService.dart';
-import '../../application/StatisticsService.dart';
-import '../../main.dart';
+import '../../application/proteins/proteins.dart';
 import '../../domain/proteins/protein.dart';
+import '../../infrastructure/statistics/statistics_repository.dart';
+import '../../main.dart';
 import '../../utils/appAssets.dart';
 import '../../utils/colors.dart';
 import '../../utils/localization_utils.dart';
 import '../../utils/widgetUtils.dart';
+import 'widgets/add_protein_dialog.dart';
+import 'widgets/edit_protein_dialog.dart';
 
 class TrackerScreen extends StatefulWidget {
   TrackerScreen({Key key, this.title}) : super(key: key);

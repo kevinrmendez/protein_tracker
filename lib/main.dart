@@ -58,6 +58,8 @@ void resetState() {
 }
 
 void main() async {
+  Bloc.observer = MyBlocObserver();
+
   WidgetsFlutterBinding.ensureInitialized();
   configureInjection(Environment.prod);
   Admob.initialize(apikeys["appId"]);
@@ -315,5 +317,31 @@ class MenuIcon extends StatelessWidget {
       icon,
       size: 27,
     );
+  }
+}
+
+class MyBlocObserver extends BlocObserver {
+  @override
+  void onEvent(Bloc bloc, Object event) {
+    super.onEvent(bloc, event);
+    print('onEvent -- bloc: ${bloc.runtimeType}, event: $event');
+  }
+
+  @override
+  void onChange(Cubit cubit, Change change) {
+    super.onChange(cubit, change);
+    print('onChange -- cubit: ${cubit.runtimeType}, change: $change');
+  }
+
+  @override
+  void onTransition(Bloc bloc, Transition transition) {
+    super.onTransition(bloc, transition);
+    print('onTransition -- bloc: ${bloc.runtimeType}, transition: $transition');
+  }
+
+  @override
+  void onError(Cubit cubit, Object error, StackTrace stackTrace) {
+    print('onError -- cubit: ${cubit.runtimeType}, error: $error');
+    super.onError(cubit, error, stackTrace);
   }
 }
